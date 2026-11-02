@@ -7,6 +7,8 @@ import '../report_text.dart';
 import '../widgets/app_tile.dart';
 import '../widgets/risk.dart';
 import '../widgets/score_ring.dart';
+import '../widgets/security_card.dart';
+import '../widgets/trend_card.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key, required this.onSeeAll});
@@ -147,6 +149,8 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ],
               ),
+              const SizedBox(height: 12),
+              const SecurityCard(),
               const SizedBox(height: 8),
               Row(
                 children: [
@@ -177,6 +181,10 @@ class HomeScreen extends StatelessWidget {
                     padding: const EdgeInsets.only(bottom: 4),
                     child: AppTile(report: report),
                   ),
+              if (controller.trend.length >= 2) ...[
+                const SizedBox(height: 8),
+                TrendCard(points: controller.trend),
+              ],
             ],
           ],
         );

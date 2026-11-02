@@ -1,7 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:peekless/checks.dart';
 import 'package:peekless/history.dart';
+import 'package:peekless/install_source.dart';
 import 'package:peekless/models.dart';
 import 'package:peekless/report_text.dart';
+import 'package:peekless/score_history.dart';
 import 'package:peekless/scoring.dart';
 import 'package:peekless/updater.dart';
 
@@ -12,6 +15,10 @@ AppInfo _app(
   String packageName = 'com.example.app',
   int category = -1,
   bool isSystem = false,
+  String? installer = 'com.android.vending',
+  List<String> special = const [],
+  bool debuggable = false,
+  int targetSdk = 34,
 }) {
   return AppInfo(
     packageName: packageName,
@@ -21,6 +28,10 @@ AppInfo _app(
     permissions: permissions,
     trackers: trackers,
     category: category,
+    installer: installer,
+    special: special,
+    debuggable: debuggable,
+    targetSdk: targetSdk,
   );
 }
 
@@ -209,6 +220,180 @@ void main() {
     test('system apps are not tracked', () {
       final system = buildReport(_app(const [], isSystem: true));
       expect(snapshotOf([system]), isEmpty);
+    });
+  });
+
+  group('security checks', () {
+    test('accessibility access removes 20 points', () {
+      final report = buildReport(_app(const [], special: const [accessibilityAccess]));
+      expect(report.score, 80);
+      expect(report.summary, contains('accessibility access'));
+    });
+
+    test('device admin and notification access add up', () {
+      final report = buildReport(
+        _app(const [], special: const [deviceAdminAccess, notificationAccess]),
+      );
+      // 15 + 10
+      expect(report.score, 75);
+    });
+
+    test('a debuggable build for very old Android loses 12 points', () {
+      final report = buildReport(_app(const [], debuggable: true, targetSdk: 23));
+      expect(report.score, 88);
+    });
+
+    test('a target of API 26 or newer has no old-target penalty', () {
+      expect(buildReport(_app(const [], targetSdk: 26)).score, 100);
+      expect(buildReport(_app(const [], targetSdk: -1)).score, 100);
+      expect(buildReport(_app(const [], targetSdk: 25)).score, 96);
+    });
+
+    test('the breakdown still adds up to the score', () {
+      final report = buildReport(
+        _app(
+          const [_micAllowed],
+          special: const [accessibilityAccess],
+          debuggable: true,
+          targetSdk: 21,
+        ),
+      );
+      final removed = report.breakdown.fold<int>(0, (sum, line) => sum + line.points);
+      expect(100 - removed, report.score);
+    });
+  });
+
+  group('install source', () {
+    test('stores are named and not flagged', () {
+      expect(sourceLabel('com.android.vending', isSystem: false), 'Google Play');
+      expect(installedOutsideStore('com.android.vending', isSystem: false), isFalse);
+      expect(installedOutsideStore('org.fdroid.fdroid', isSystem: false), isFalse);
+    });
+
+    test('files, computers and unknown sources are flagged', () {
+      expect(installedOutsideStore(null, isSystem: false), isTrue);
+      expect(installedOutsideStore('', isSystem: false), isTrue);
+      expect(installedOutsideStore('com.google.android.packageinstaller', isSystem: false), isTrue);
+      expect(installedOutsideStore('com.android.shell', isSystem: false), isTrue);
+      expect(sourceLabel('com.android.shell', isSystem: false), 'A computer (adb)');
+    });
+
+    test('system apps are never flagged', () {
+      expect(installedOutsideStore(null, isSystem: true), isFalse);
+      expect(sourceLabel(null, isSystem: true), 'Built into your phone');
+    });
+
+    test('an unknown installer is shown by its package name', () {
+      expect(sourceLabel('com.some.store', isSystem: false), 'Installed by com.some.store');
+      expect(installedOutsideStore('com.some.store', isSystem: false), isFalse);
+    });
+  });
+
+  group('checks list', () {
+    final reports = [
+      buildReport(
+        _app(const [], name: 'Sideloaded', packageName: 'com.a', installer: null, special: const [accessibilityAccess]),
+      ),
+      buildReport(
+        _app(
+          const [PermissionEntry('android.permission.INTERNET', true)],
+          name: 'Store app',
+          packageName: 'com.b',
+        ),
+      ),
+      buildReport(_app(const [], name: 'System', packageName: 'com.c', installer: null, isSystem: true)),
+    ];
+
+    int count(String id) =>
+        appsFor(securityChecks.firstWhere((c) => c.id == id), reports).length;
+
+    test('counts apps per check', () {
+      expect(count(accessibilityAccess), 1);
+      expect(count(deviceAdminAccess), 0);
+      expect(count('sideloaded'), 1);
+      expect(count('debuggable'), 0);
+    });
+
+    test('offline means no internet permission', () {
+      // "Sideloaded" and "System" have no INTERNET permission, "Store app" has it.
+      expect(count('offline'), 2);
+    });
+
+    test('canUseInternet follows the permission', () {
+      expect(_app(const []).canUseInternet, isFalse);
+      expect(
+        _app(const [PermissionEntry('android.permission.INTERNET', true)]).canUseInternet,
+        isTrue,
+      );
+    });
+  });
+
+  group('special access changes', () {
+    test('turning on accessibility creates an event and an alert', () {
+      final before = buildReport(_app(const []));
+      final after = buildReport(_app(const [], special: const [accessibilityAccess]));
+      final result = diffSnapshots(
+        previous: snapshotOf([before]),
+        current: [after],
+        trusted: const <String>{},
+        now: 1000,
+      );
+      expect(result.events.single.type, 'allowed');
+      expect(result.events.single.text, 'Accessibility access turned on.');
+      expect(result.alerts.single.text, contains('Now has: Accessibility access.'));
+    });
+
+    test('turning it off creates an event but no alert', () {
+      final before = buildReport(_app(const [], special: const [accessibilityAccess]));
+      final after = buildReport(_app(const []));
+      final result = diffSnapshots(
+        previous: snapshotOf([before]),
+        current: [after],
+        trusted: const <String>{},
+        now: 1000,
+      );
+      expect(result.events.single.type, 'revoked');
+      expect(result.alerts, isEmpty);
+    });
+
+    test('a snapshot from an older version reports no false changes', () {
+      final after = buildReport(_app(const [], special: const [accessibilityAccess]));
+      final result = diffSnapshots(
+        previous: const {
+          'com.example.app': SnapApp(name: 'Example', permissions: [], trackers: []),
+        },
+        current: [after],
+        trusted: const <String>{},
+        now: 1000,
+      );
+      expect(result.events, isEmpty);
+      expect(result.alerts, isEmpty);
+    });
+  });
+
+  group('score history', () {
+    const day = 86400000;
+
+    test('a second scan on the same day replaces the first', () {
+      final first = mergeScore(const [], 80, 5 * day);
+      final second = mergeScore(first, 70, 5 * day + 1000);
+      expect(second, hasLength(1));
+      expect(second.single.score, 70);
+    });
+
+    test('a new day adds a point', () {
+      final first = mergeScore(const [], 80, 5 * day);
+      final second = mergeScore(first, 75, 6 * day);
+      expect(second.map((p) => p.score), [80, 75]);
+      expect(second.last.day, 6);
+    });
+
+    test('only the last points are kept', () {
+      var list = <ScorePoint>[];
+      for (var i = 0; i < 5; i++) {
+        list = mergeScore(list, 50 + i, i * day, max: 3);
+      }
+      expect(list.map((p) => p.score), [52, 53, 54]);
     });
   });
 

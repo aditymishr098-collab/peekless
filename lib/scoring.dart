@@ -73,6 +73,49 @@ const int unusualMaxGroups = 2;
 const int trackerPoints = 6;
 const int trackerMaxPoints = 30;
 
+/// Points removed for special access that an app has turned on.
+const int accessibilityPoints = 20;
+const int deviceAdminPoints = 15;
+const int notificationPoints = 10;
+
+const Map<String, int> specialPoints = {
+  accessibilityAccess: accessibilityPoints,
+  deviceAdminAccess: deviceAdminPoints,
+  notificationAccess: notificationPoints,
+};
+
+/// Points for a debuggable build, and for an app built for a very old Android
+/// (below this API level, which is Android 8).
+const int debuggablePoints = 8;
+const int oldTargetPoints = 4;
+const int oldTargetBelow = 26;
+
+String specialLabel(String id) => switch (id) {
+      accessibilityAccess => 'Accessibility access',
+      deviceAdminAccess => 'Device admin',
+      notificationAccess => 'Notification access',
+      _ => id,
+    };
+
+/// A short sentence for the app summary.
+String specialSentence(String id) => switch (id) {
+      accessibilityAccess => 'Has accessibility access, so it can read your screen.',
+      deviceAdminAccess => 'Is a device admin, so it can lock or wipe the phone.',
+      notificationAccess => 'Can read all your notifications.',
+      _ => '',
+    };
+
+/// A longer explanation for the app detail screen.
+String specialWhy(String id) => switch (id) {
+      accessibilityAccess =>
+        'Turned on. It can read what is on your screen and act for you.',
+      deviceAdminAccess =>
+        'Turned on. It can lock the phone, wipe it and block uninstalling.',
+      notificationAccess =>
+        'Turned on. It can read all your notifications, including codes.',
+      _ => '',
+    };
+
 class Finding {
   const Finding(this.rule, this.status);
 
@@ -233,6 +276,29 @@ AppReport buildReport(AppInfo app) {
     );
   }
 
+  final specials = app.special.where(specialPoints.containsKey).toList();
+  for (final id in specials) {
+    final points = specialPoints[id]!;
+    total += points;
+    lines.add(ScoreLine(specialLabel(id), points, 'turned on'));
+  }
+  if (app.debuggable) {
+    total += debuggablePoints;
+    lines.add(
+      const ScoreLine('Debuggable build', debuggablePoints, 'can be inspected from a computer'),
+    );
+  }
+  if (app.targetSdk > 0 && app.targetSdk < oldTargetBelow) {
+    total += oldTargetPoints;
+    lines.add(
+      ScoreLine(
+        'Built for very old Android',
+        oldTargetPoints,
+        'API level ${app.targetSdk}',
+      ),
+    );
+  }
+
   final kind = kindFor(app);
   final unusual = <String>[];
   final unexpected = unexpectedGroups[kind];
@@ -261,6 +327,9 @@ AppReport buildReport(AppInfo app) {
   final sentences = <String>[];
   if (active.isNotEmpty) {
     sentences.add('Can ${active.take(2).map((f) => f.rule.why).join(' and ')}.');
+  }
+  for (final id in specials) {
+    sentences.add(specialSentence(id));
   }
   if (app.trackers.isNotEmpty) {
     sentences.add(

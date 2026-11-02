@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'history.dart';
 import 'models.dart';
 import 'native_bridge.dart';
+import 'score_history.dart';
 import 'scoring.dart';
 
 class AppController extends ChangeNotifier {
@@ -13,6 +14,9 @@ class AppController extends ChangeNotifier {
   bool alertsEnabled = false;
   Set<String> trusted = <String>{};
   List<ChangeEvent> history = const <ChangeEvent>[];
+
+  /// The phone score, one point per day, for the trend chart.
+  List<ScorePoint> trend = const <ScorePoint>[];
   bool loading = true;
   String? error;
   List<AppReport> _all = const [];
@@ -49,9 +53,30 @@ class AppController extends ChangeNotifier {
           (map[finding.rule.group] ??= <AppReport>[]).add(report);
         }
       }
+      for (final id in report.app.special) {
+        if (!specialPoints.containsKey(id)) continue;
+        (map[specialLabel(id)] ??= <AppReport>[]).add(report);
+      }
     }
     final entries = map.entries.toList()
       ..sort((a, b) => b.value.length.compareTo(a.value.length));
+    return Map<String, List<AppReport>>.fromEntries(entries);
+  }
+
+  /// Tracker name -> apps that contain it, most common tracker first.
+  Map<String, List<AppReport>> appsByTracker() {
+    final map = <String, List<AppReport>>{};
+    for (final report in reports) {
+      for (final tracker in report.app.trackers) {
+        (map[tracker] ??= <AppReport>[]).add(report);
+      }
+    }
+    final entries = map.entries.toList()
+      ..sort((a, b) {
+        final byCount = b.value.length.compareTo(a.value.length);
+        if (byCount != 0) return byCount;
+        return a.key.toLowerCase().compareTo(b.key.toLowerCase());
+      });
     return Map<String, List<AppReport>>.fromEntries(entries);
   }
 
@@ -66,6 +91,7 @@ class AppController extends ChangeNotifier {
     alertsEnabled = prefs.getBool('alerts_enabled') ?? false;
     trusted = (prefs.getStringList('trusted_apps') ?? const <String>[]).toSet();
     history = await HistoryStore.loadEvents();
+    trend = await ScoreHistory.load();
   }
 
   Future<void> setThemeMode(ThemeMode mode) async {
@@ -147,6 +173,9 @@ class AppController extends ChangeNotifier {
       _all = reports;
       await HistoryStore.record(reports, trusted: trusted);
       history = await HistoryStore.loadEvents();
+      if (reports.isNotEmpty) {
+        trend = await ScoreHistory.record(overallScore);
+      }
     } on PlatformException catch (e) {
       error = e.message ?? 'Scan failed';
     } catch (_) {

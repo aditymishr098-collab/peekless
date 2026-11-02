@@ -70,6 +70,15 @@ class ScoreExplainScreen extends StatelessWidget {
             'Each known tracker removes $trackerPoints points, up to $trackerMaxPoints.',
           ),
           const _Rule(
+            'Special access that is turned on removes points: accessibility '
+            '$accessibilityPoints, device admin $deviceAdminPoints, notification '
+            'access $notificationPoints.',
+          ),
+          const _Rule(
+            'A debuggable build removes $debuggablePoints points. An app built for '
+            'Android 7 or older removes $oldTargetPoints points.',
+          ),
+          const _Rule(
             'If a permission is unusual for the kind of app (for example a microphone '
             'in a flashlight), $unusualPenalty extra points are removed, for up to '
             '$unusualMaxGroups permission groups.',

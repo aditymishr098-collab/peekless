@@ -57,6 +57,7 @@ class SnapApp {
     required this.name,
     required this.permissions,
     required this.trackers,
+    this.special,
   });
 
   final String name;
@@ -64,6 +65,10 @@ class SnapApp {
   /// Ids of the permissions that were active (allowed, or special and requested).
   final List<String> permissions;
   final List<String> trackers;
+
+  /// Special access that was on. It is null in snapshots saved by older
+  /// versions, so that no false changes are reported after an update.
+  final List<String>? special;
 }
 
 class DiffResult {
@@ -86,10 +91,12 @@ Map<String, SnapApp> snapshotOf(List<AppReport> reports) {
         .toList()
       ..sort();
     final trackers = List<String>.of(report.app.trackers)..sort();
+    final special = List<String>.of(report.app.special)..sort();
     map[report.app.packageName] = SnapApp(
       name: report.app.name,
       permissions: perms,
       trackers: trackers,
+      special: special,
     );
   }
   return map;
@@ -181,9 +188,43 @@ DiffResult diffSnapshots({
       );
     }
 
+    final prevSpecial = prev.special;
+    final newSpecial = <String>[];
+    if (prevSpecial != null) {
+      for (final id in app.special) {
+        if (prevSpecial.contains(id)) continue;
+        newSpecial.add(id);
+        events.add(
+          ChangeEvent(
+            time: now,
+            type: 'allowed',
+            packageName: app.packageName,
+            appName: app.name,
+            text: '${specialLabel(id)} turned on.',
+          ),
+        );
+      }
+      for (final id in prevSpecial) {
+        if (app.special.contains(id)) continue;
+        events.add(
+          ChangeEvent(
+            time: now,
+            type: 'revoked',
+            packageName: app.packageName,
+            appName: app.name,
+            text: '${specialLabel(id)} turned off.',
+          ),
+        );
+      }
+    }
+
     final sensitiveNew = newlyAllowed.where((f) => f.sensitive).toList();
-    if (!isTrusted && (sensitiveNew.isNotEmpty || newTrackers.isNotEmpty)) {
+    if (!isTrusted &&
+        (sensitiveNew.isNotEmpty || newTrackers.isNotEmpty || newSpecial.isNotEmpty)) {
       final parts = <String>[];
+      if (newSpecial.isNotEmpty) {
+        parts.add('Now has: ${newSpecial.map(specialLabel).join(', ')}.');
+      }
       if (sensitiveNew.isNotEmpty) {
         parts.add('Now allowed: ${sensitiveNew.map((f) => f.rule.label).join(', ')}.');
       }
@@ -273,6 +314,7 @@ class HistoryStore {
           'n': entry.value.name,
           'p': entry.value.permissions,
           't': entry.value.trackers,
+          if (entry.value.special != null) 's': entry.value.special,
         },
     });
   }
@@ -288,6 +330,7 @@ class HistoryStore {
             name: m['n'] as String,
             permissions: (m['p'] as List<dynamic>).cast<String>(),
             trackers: (m['t'] as List<dynamic>).cast<String>(),
+            special: (m['s'] as List<dynamic>?)?.cast<String>(),
           ),
         );
       });

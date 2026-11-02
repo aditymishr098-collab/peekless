@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 import '../controller.dart';
+import '../install_source.dart';
+import '../models.dart';
 import '../scoring.dart';
+import '../widgets/info_row.dart';
 import '../widgets/risk.dart';
 import 'score_explain.dart';
 
@@ -135,6 +138,13 @@ class AppDetailScreen extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               Text(
+                'Security',
+                style: text.titleMedium?.copyWith(fontWeight: FontWeight.w500),
+              ),
+              const SizedBox(height: 8),
+              ..._securityRows(app),
+              const SizedBox(height: 12),
+              Text(
                 'Permissions',
                 style: text.titleMedium?.copyWith(fontWeight: FontWeight.w500),
               ),
@@ -192,6 +202,58 @@ class AppDetailScreen extends StatelessWidget {
       },
     );
   }
+}
+
+/// The "Security" section: where the app came from, whether it can go online,
+/// special access and build flags.
+List<Widget> _securityRows(AppInfo app) {
+  final outside = installedOutsideStore(app.installer, isSystem: app.isSystem);
+  final rows = <Widget>[
+    InfoRow(
+      icon: Icons.storefront_outlined,
+      title: 'Source',
+      subtitle: sourceLabel(app.installer, isSystem: app.isSystem),
+      warn: outside,
+    ),
+    app.canUseInternet
+        ? const InfoRow(
+            icon: Icons.public,
+            title: 'Internet',
+            subtitle: 'Can use the internet',
+          )
+        : const InfoRow(
+            icon: Icons.cloud_off_outlined,
+            title: 'Offline',
+            subtitle: 'No internet permission, so it cannot send data online',
+            good: true,
+          ),
+    for (final id in app.special)
+      if (specialPoints.containsKey(id))
+        InfoRow(
+          icon: Icons.admin_panel_settings_outlined,
+          title: specialLabel(id),
+          subtitle: specialWhy(id),
+          warn: true,
+        ),
+    if (app.debuggable)
+      const InfoRow(
+        icon: Icons.bug_report_outlined,
+        title: 'Debuggable build',
+        subtitle: 'A test version that can be inspected from a computer',
+        warn: true,
+      ),
+    if (app.targetSdk > 0 && app.targetSdk < oldTargetBelow)
+      InfoRow(
+        icon: Icons.history,
+        title: 'Built for very old Android',
+        subtitle: 'API level ${app.targetSdk}, so newer privacy protections are skipped',
+        warn: true,
+      ),
+  ];
+  return [
+    for (final row in rows)
+      Padding(padding: const EdgeInsets.only(bottom: 8), child: row),
+  ];
 }
 
 class _PermissionRow extends StatelessWidget {

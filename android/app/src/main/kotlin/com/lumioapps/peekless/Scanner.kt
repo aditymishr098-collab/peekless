@@ -1,12 +1,21 @@
 package com.lumioapps.peekless
 
+import android.accessibilityservice.AccessibilityServiceInfo
+import android.app.admin.DevicePolicyManager
+import android.content.ComponentName
 import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.os.Build
+import android.provider.Settings
+import android.view.accessibility.AccessibilityManager
 
-/** Reads every installed app: permissions, category and known trackers. */
+/**
+ * Reads every installed app: permissions, category, known trackers, install
+ * source, special access (accessibility, device admin, notification access)
+ * and build flags.
+ */
 object Scanner {
     fun collect(context: Context, signatures: Map<String, List<String>>): List<Map<String, Any?>> {
         val pm = context.packageManager
@@ -16,6 +25,10 @@ object Scanner {
             PackageManager.GET_RECEIVERS or
             PackageManager.GET_PROVIDERS
         val out = ArrayList<Map<String, Any?>>()
+
+        val accessibilityApps = accessibilityPackages(context)
+        val adminApps = deviceAdminPackages(context)
+        val listenerApps = notificationListenerPackages(context)
 
         // Package details are read one app at a time. Reading everything in a
         // single call can fail with TransactionTooLargeException.
@@ -55,6 +68,11 @@ object Scanner {
 
             val category = if (Build.VERSION.SDK_INT >= 26) appInfo.category else -1
 
+            val special = ArrayList<String>()
+            if (name in accessibilityApps) special.add("accessibility")
+            if (name in adminApps) special.add("deviceAdmin")
+            if (name in listenerApps) special.add("notificationAccess")
+
             out.add(
                 mapOf(
                     "package" to name,
@@ -64,10 +82,64 @@ object Scanner {
                     "permissions" to perms,
                     "trackers" to trackers,
                     "category" to category,
+                    "installer" to installerOf(pm, name),
+                    "special" to special,
+                    "debuggable" to ((appInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE) != 0),
+                    "targetSdk" to appInfo.targetSdkVersion,
                 ),
             )
         }
         return out
+    }
+
+    /** The package that installed [name], or null when Android does not know. */
+    @Suppress("DEPRECATION")
+    private fun installerOf(pm: PackageManager, name: String): String? {
+        return try {
+            if (Build.VERSION.SDK_INT >= 30) {
+                pm.getInstallSourceInfo(name).installingPackageName
+            } else {
+                pm.getInstallerPackageName(name)
+            }
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    /** Apps with an accessibility service that is switched on. */
+    private fun accessibilityPackages(context: Context): Set<String> {
+        return try {
+            val manager = context.getSystemService(Context.ACCESSIBILITY_SERVICE) as? AccessibilityManager
+            val list = manager?.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_ALL_MASK)
+            list?.mapNotNull { it.resolveInfo?.serviceInfo?.packageName }?.toSet() ?: emptySet()
+        } catch (e: Exception) {
+            emptySet()
+        }
+    }
+
+    /** Apps that are an active device administrator. */
+    private fun deviceAdminPackages(context: Context): Set<String> {
+        return try {
+            val manager = context.getSystemService(Context.DEVICE_POLICY_SERVICE) as? DevicePolicyManager
+            manager?.activeAdmins?.map { it.packageName }?.toSet() ?: emptySet()
+        } catch (e: Exception) {
+            emptySet()
+        }
+    }
+
+    /** Apps that are allowed to read notifications. */
+    private fun notificationListenerPackages(context: Context): Set<String> {
+        return try {
+            val raw = Settings.Secure.getString(
+                context.contentResolver,
+                "enabled_notification_listeners",
+            ) ?: return emptySet()
+            raw.split(":")
+                .mapNotNull { ComponentName.unflattenFromString(it)?.packageName }
+                .toSet()
+        } catch (e: Exception) {
+            emptySet()
+        }
     }
 
     @Suppress("DEPRECATION")

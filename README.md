@@ -31,6 +31,11 @@ No account. No ads. No analytics. Nothing leaves your phone.
 - **Plain-language explanations**, for example "Can record audio and track your location all the time."
 - **Unusual permissions.** A flashlight or calculator that wants your microphone loses extra points.
 - **Score explained.** Every score comes with a full breakdown, so you can see exactly why.
+- **Security checks.** Finds apps with accessibility access, device admin or notification access, apps installed from outside a store, debuggable builds and apps built for very old Android.
+- **Install source.** Every app shows where it came from: Google Play, another store, an APK file or a computer.
+- **Offline apps.** Apps without the internet permission are marked Offline, because they cannot send data online.
+- **Trackers view.** Switch the Permissions tab to Trackers to see which tracker sits in which apps.
+- **Score over time.** A small chart on Home shows how your phone score changes day by day.
 - **Changes.** A list of new apps, removed apps, newly allowed permissions and new trackers.
 - **App alerts (optional).** A notification when a new app is installed or an app gets a sensitive permission. The check runs on your phone about every 6 hours.
 - **Trusted apps.** Mark an app you trust and it leaves the Risky count and the alerts.
@@ -48,6 +53,9 @@ Every app starts at 100. Points are removed for what the app is able to do:
 | A sensitive permission that is allowed | Its weight (for example microphone 12, camera 8, read SMS 14, location all the time 22) |
 | A special permission that is only requested (all files, draw over apps, install apps) | Half of its weight |
 | Each known tracker | 6, up to 30 in total |
+| Special access that is turned on | Accessibility 20, device admin 15, notification access 10 |
+| A debuggable build | 8 |
+| An app built for Android 7 or older (API level below 26) | 4 |
 | A permission that is unusual for the kind of app (tool, game, media app) | 20 each, for up to 2 permission groups |
 
 Only the heaviest permission in each group counts, so precise and approximate location are not counted twice.
@@ -119,12 +127,12 @@ Without a signing key, the release build is signed with the debug key. That is f
 Releases are built by GitHub Actions (`.github/workflows/release.yml`).
 
 - Every push to `main` builds a signed APK and keeps it as a build artifact.
-- Pushing a tag that starts with `v` (for example `v1.1.0`) also publishes the APK as a GitHub Release.
+- Pushing a tag that starts with `v` (for example `v1.2.0`) also publishes the APK as a GitHub Release.
 - The APK is signed with a key stored in the repository secrets: `KEYSTORE_BASE64`, `KEYSTORE_PASSWORD`, `KEY_ALIAS` and `KEY_PASSWORD`.
 
 ```bash
-git tag v1.1.0
-git push origin v1.1.0
+git tag v1.2.0
+git push origin v1.2.0
 ```
 
 Because every release is signed with the same key, an update installs over the old version and keeps your data.
@@ -138,16 +146,19 @@ lib/
   scoring.dart         Permission rules, tracker points and the score
   tracker_db.dart      Known tracker SDKs
   history.dart         Snapshot and change detection
+  checks.dart          The security checks
+  install_source.dart  Store names and sideload detection
+  score_history.dart   Daily score for the trend chart
   background.dart      The background check for App alerts
   native_bridge.dart   Calls to the Android side
   updater.dart         In-app update from GitHub Releases
   screens/             Home, Apps, Permissions, Changes, Settings, details
-  widgets/             Score ring, app tile, risk chip, update dialog
+  widgets/             Score ring, app tile, risk chip, security card, trend chart, update dialog
 android/app/src/main/kotlin/com/lumioapps/peekless/
-  Scanner.kt           Reads installed apps, permissions and trackers
+  Scanner.kt           Reads installed apps, permissions, trackers, install source and special access
   AlertJobService.kt   Runs the background check
   Notifier.kt          Shows notifications
-test/                  Tests for scoring, changes, report and updater
+test/                  Tests for scoring, checks, changes, report and updater
 ```
 
 ## Contributing
