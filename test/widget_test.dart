@@ -1,13 +1,18 @@
+import 'dart:ui' show Locale;
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:peekless/app_filter.dart';
-import 'package:peekless/checks.dart';
-import 'package:peekless/fix_wizard.dart';
+import 'package:peekless/security_checks.dart';
+import 'package:peekless/fix_queue.dart';
 import 'package:peekless/history.dart';
 import 'package:peekless/install_source.dart';
+import 'package:peekless/l10n/app_localizations.dart';
+import 'package:peekless/l10n_resolve.dart';
 import 'package:peekless/models.dart';
 import 'package:peekless/report_text.dart';
 import 'package:peekless/score_history.dart';
 import 'package:peekless/scoring.dart';
+import 'package:peekless/texts.dart';
 import 'package:peekless/updater.dart';
 import 'package:peekless/weekly.dart';
 
@@ -46,6 +51,8 @@ const PermissionEntry _micAllowed = PermissionEntry('android.permission.RECORD_A
 const PermissionEntry _micDenied = PermissionEntry('android.permission.RECORD_AUDIO', false);
 
 void main() {
+  final l = lookupAppLocalizations(const Locale('en'));
+
   group('scoring', () {
     test('an app without sensitive permissions scores 100', () {
       final report = buildReport(_app(const []));
@@ -104,7 +111,8 @@ void main() {
       // 12 (microphone) + 20 (unusual for a simple tool)
       expect(report.score, 68);
       expect(report.level, RiskLevel.medium);
-      expect(report.summary, contains("doesn't normally need microphone"));
+      expect(report.unusualGroups, ['Microphone']);
+      expect(summaryFor(l, report), contains('Unusual for this type of app: Microphone'));
     });
 
     test('the same permission in a normal app has no extra penalty', () {
@@ -138,6 +146,7 @@ void main() {
     test('a new app creates an installed event and an alert', () {
       final report = buildReport(_app(const [_micAllowed]));
       final result = diffSnapshots(
+        l: l,
         previous: const <String, SnapApp>{},
         current: [report],
         trusted: const <String>{},
@@ -145,12 +154,14 @@ void main() {
       );
       expect(result.events.single.type, 'installed');
       expect(result.alerts.single.title, 'New app: Example');
+      expect(eventText(l, result.events.single), startsWith('Installed. Score'));
     });
 
     test('a newly allowed sensitive permission creates an event and an alert', () {
       final before = buildReport(_app(const [_micDenied]));
       final after = buildReport(_app(const [_micAllowed]));
       final result = diffSnapshots(
+        l: l,
         previous: snapshotOf([before]),
         current: [after],
         trusted: const <String>{},
@@ -164,6 +175,7 @@ void main() {
       final before = buildReport(_app(const [_micAllowed]));
       final after = buildReport(_app(const [_micDenied]));
       final result = diffSnapshots(
+        l: l,
         previous: snapshotOf([before]),
         current: [after],
         trusted: const <String>{},
@@ -177,6 +189,7 @@ void main() {
       final before = buildReport(_app(const []));
       final after = buildReport(_app(const [], trackers: const ['Google Ads']));
       final result = diffSnapshots(
+        l: l,
         previous: snapshotOf([before]),
         current: [after],
         trusted: const <String>{},
@@ -190,6 +203,7 @@ void main() {
       final before = buildReport(_app(const [_micDenied]));
       final after = buildReport(_app(const [_micAllowed]));
       final result = diffSnapshots(
+        l: l,
         previous: snapshotOf([before]),
         current: [after],
         trusted: const {'com.example.app'},
@@ -203,6 +217,7 @@ void main() {
       final report = buildReport(_app(const []));
       final other = buildReport(_app(const [], name: 'Other', packageName: 'com.example.other'));
       final result = diffSnapshots(
+        l: l,
         previous: snapshotOf([report, other]),
         current: [report],
         trusted: const <String>{},
@@ -215,6 +230,7 @@ void main() {
     test('an unchanged app creates nothing', () {
       final report = buildReport(_app(const [_micAllowed]));
       final result = diffSnapshots(
+        l: l,
         previous: snapshotOf([report]),
         current: [report],
         trusted: const <String>{},
@@ -234,7 +250,7 @@ void main() {
     test('accessibility access removes 20 points', () {
       final report = buildReport(_app(const [], special: const [accessibilityAccess]));
       expect(report.score, 80);
-      expect(report.summary, contains('accessibility access'));
+      expect(summaryFor(l, report), contains('screen'));
     });
 
     test('device admin and notification access add up', () {
@@ -272,7 +288,7 @@ void main() {
 
   group('install source', () {
     test('stores are named and not flagged', () {
-      expect(sourceLabel('com.android.vending', isSystem: false), 'Google Play');
+      expect(sourceLabel(l, 'com.android.vending', isSystem: false), 'Google Play');
       expect(installedOutsideStore('com.android.vending', isSystem: false), isFalse);
       expect(installedOutsideStore('org.fdroid.fdroid', isSystem: false), isFalse);
     });
@@ -282,16 +298,16 @@ void main() {
       expect(installedOutsideStore('', isSystem: false), isTrue);
       expect(installedOutsideStore('com.google.android.packageinstaller', isSystem: false), isTrue);
       expect(installedOutsideStore('com.android.shell', isSystem: false), isTrue);
-      expect(sourceLabel('com.android.shell', isSystem: false), 'A computer (adb)');
+      expect(sourceLabel(l, 'com.android.shell', isSystem: false), 'A computer (adb)');
     });
 
     test('system apps are never flagged', () {
       expect(installedOutsideStore(null, isSystem: true), isFalse);
-      expect(sourceLabel(null, isSystem: true), 'Built into your phone');
+      expect(sourceLabel(l, null, isSystem: true), 'Built into your phone');
     });
 
     test('an unknown installer is shown by its package name', () {
-      expect(sourceLabel('com.some.store', isSystem: false), 'Installed by com.some.store');
+      expect(sourceLabel(l, 'com.some.store', isSystem: false), 'Installed by com.some.store');
       expect(installedOutsideStore('com.some.store', isSystem: false), isFalse);
     });
   });
@@ -340,13 +356,14 @@ void main() {
       final before = buildReport(_app(const []));
       final after = buildReport(_app(const [], special: const [accessibilityAccess]));
       final result = diffSnapshots(
+        l: l,
         previous: snapshotOf([before]),
         current: [after],
         trusted: const <String>{},
         now: 1000,
       );
       expect(result.events.single.type, 'allowed');
-      expect(result.events.single.text, 'Accessibility access turned on.');
+      expect(eventText(l, result.events.single), 'Accessibility access turned on.');
       expect(result.alerts.single.text, contains('Now has: Accessibility access.'));
     });
 
@@ -354,6 +371,7 @@ void main() {
       final before = buildReport(_app(const [], special: const [accessibilityAccess]));
       final after = buildReport(_app(const []));
       final result = diffSnapshots(
+        l: l,
         previous: snapshotOf([before]),
         current: [after],
         trusted: const <String>{},
@@ -366,6 +384,7 @@ void main() {
     test('a snapshot from an older version reports no false changes', () {
       final after = buildReport(_app(const [], special: const [accessibilityAccess]));
       final result = diffSnapshots(
+        l: l,
         previous: const {
           'com.example.app': SnapApp(name: 'Example', permissions: [], trackers: []),
         },
@@ -471,7 +490,7 @@ void main() {
       final report = buildReport(
         _app(const [_micAllowed], special: const [notificationAccess]),
       );
-      final issues = issuesFor(report, now: 1000);
+      final issues = issuesFor(l, report, now: 1000);
       expect(issues.any((l) => l.startsWith('Notification access')), isTrue);
       expect(issues.any((l) => l.contains('record audio')), isTrue);
     });
@@ -523,7 +542,6 @@ void main() {
           type: type,
           packageName: 'com.x',
           appName: 'X',
-          text: '',
         );
 
     test('is due after seven days', () {
@@ -533,6 +551,7 @@ void main() {
 
     test('shows the score change and the changes of the week', () {
       final summary = buildWeeklySummary(
+        l,
         score: 82,
         trend: const [ScorePoint(92, 79), ScorePoint(100, 82)],
         events: [event('installed', 1), event('installed', 2), event('tracker', 3), event('allowed', 30)],
@@ -540,12 +559,13 @@ void main() {
         risky: 2,
       );
       expect(summary.text, contains('Score 82/100, up 3 since last week.'));
-      expect(summary.text, contains('2 new apps, 1 new tracker.'));
-      expect(summary.text, contains('2 apps are Risky.'));
+      expect(summary.text, contains('This week: New apps: 2, New trackers: 1.'));
+      expect(summary.text, contains('Risky apps: 2.'));
     });
 
     test('says so when nothing changed', () {
       final summary = buildWeeklySummary(
+        l,
         score: 90,
         trend: const [],
         events: const [],
@@ -563,6 +583,60 @@ void main() {
     });
   });
 
+  group('languages', () {
+    test('every language loads and fills in numbers', () {
+      for (final locale in AppLocalizations.supportedLocales) {
+        final t = lookupAppLocalizations(locale);
+        expect(t.navHome, isNotEmpty, reason: '$locale');
+        expect(t.homeAppsChecked(7), contains('7'), reason: '$locale');
+        expect(t.weeklyUp(80, 3), allOf(contains('80'), contains('3')), reason: '$locale');
+      }
+    });
+
+    test('there are at least 25 languages', () {
+      expect(AppLocalizations.supportedLocales.length, greaterThanOrEqualTo(25));
+    });
+
+    test('a language code becomes a locale and back', () {
+      expect(localeFromCode('de'), const Locale('de'));
+      expect(localeFromCode('system'), isNull);
+      final hant = localeFromCode('zh_Hant')!;
+      expect(hant.languageCode, 'zh');
+      expect(hant.scriptCode, 'Hant');
+      expect(codeFromLocale(hant), 'zh_Hant');
+    });
+
+    test('an unknown language falls back to English', () {
+      final picked = resolveLocales(
+        const [Locale('sv')],
+        AppLocalizations.supportedLocales,
+      );
+      expect(picked.languageCode, 'en');
+    });
+
+    test('events saved by older versions still show their English text', () {
+      const old = ChangeEvent(
+        time: 1,
+        type: 'allowed',
+        packageName: 'com.x',
+        appName: 'X',
+        legacyText: 'Now allowed: Microphone.',
+      );
+      expect(eventText(l, old), 'Now allowed: Microphone.');
+      final round = ChangeEvent.fromJson(old.toJson());
+      expect(round.legacyText, 'Now allowed: Microphone.');
+    });
+
+    test('permission names come from the translations', () {
+      final report = buildReport(_app(const [_micAllowed]));
+      expect(metaFor(l, report), 'Microphone');
+      expect(
+        lineLabel(l, report.breakdown.first),
+        'Microphone',
+      );
+    });
+  });
+
   group('report text', () {
     test('lists the score and the apps that need attention', () {
       final risky = buildReport(
@@ -575,7 +649,7 @@ void main() {
           name: 'Flashlight Pro',
         ),
       );
-      final text = buildReportText([risky], 62, RiskLevel.medium);
+      final text = buildReportText(l, [risky], 62, RiskLevel.medium);
       expect(text, contains('Score: 62/100 (Medium risk)'));
       expect(text, contains('Flashlight Pro'));
     });

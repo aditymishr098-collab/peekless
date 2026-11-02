@@ -1,4 +1,5 @@
 import 'install_source.dart';
+import 'l10n/app_localizations.dart';
 import 'models.dart';
 import 'scoring.dart';
 
@@ -15,16 +16,16 @@ enum AppFilter {
   trusted,
 }
 
-String filterLabel(AppFilter filter) => switch (filter) {
-      AppFilter.all => 'All',
-      AppFilter.risky => 'Risky',
-      AppFilter.medium => 'Medium',
-      AppFilter.safe => 'Safe',
-      AppFilter.trackers => 'Has trackers',
-      AppFilter.special => 'Special access',
-      AppFilter.sideloaded => 'Not from a store',
-      AppFilter.offline => 'Offline',
-      AppFilter.trusted => 'Trusted',
+String filterLabel(AppLocalizations l, AppFilter filter) => switch (filter) {
+      AppFilter.all => l.filterAll,
+      AppFilter.risky => l.levelRisky,
+      AppFilter.medium => l.levelMedium,
+      AppFilter.safe => l.levelSafe,
+      AppFilter.trackers => l.filterTrackers,
+      AppFilter.special => l.filterSpecial,
+      AppFilter.sideloaded => l.filterNotStore,
+      AppFilter.offline => l.filterOffline,
+      AppFilter.trusted => l.filterTrusted,
     };
 
 bool filterMatches(AppFilter filter, AppReport report, Set<String> trusted) {

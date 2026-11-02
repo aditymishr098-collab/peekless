@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../l10n/app_localizations.dart';
 import '../score_history.dart';
 
 /// A small line chart of the phone score over the last days.
@@ -14,15 +15,17 @@ class TrendCard extends StatelessWidget {
     if (points.length < 2) return const SizedBox.shrink();
     final scheme = Theme.of(context).colorScheme;
     final text = Theme.of(context).textTheme;
+    final l = AppLocalizations.of(context);
 
     final first = points.first.score;
     final last = points.last.score;
     final diff = last - first;
+    final days = points.length;
     final caption = diff == 0
-        ? 'No change over ${points.length} days'
+        ? l.trendSame(days)
         : diff > 0
-            ? 'Up $diff points over ${points.length} days'
-            : 'Down ${-diff} points over ${points.length} days';
+            ? l.trendUp(diff, days)
+            : l.trendDown(-diff, days);
 
     return Container(
       padding: const EdgeInsets.fromLTRB(16, 14, 16, 14),
@@ -34,7 +37,7 @@ class TrendCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Score over time',
+            l.trendTitle,
             style: text.titleMedium?.copyWith(fontWeight: FontWeight.w500),
           ),
           Text(

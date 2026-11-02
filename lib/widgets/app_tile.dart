@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
 import '../controller.dart';
+import '../l10n/app_localizations.dart';
 import '../scoring.dart';
 import '../screens/app_detail.dart';
+import '../texts.dart';
 import 'risk.dart';
 
 class AppTile extends StatelessWidget {
@@ -14,6 +16,7 @@ class AppTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final text = Theme.of(context).textTheme;
+    final l = AppLocalizations.of(context);
     final trusted = controller.isTrusted(report.app.packageName);
     return Material(
       color: scheme.surfaceContainer,
@@ -54,7 +57,7 @@ class AppTile extends StatelessWidget {
                         style: text.bodyLarge,
                       ),
                       Text(
-                        report.meta,
+                        metaFor(l, report),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: text.bodyMedium?.copyWith(color: scheme.onSurfaceVariant),
@@ -70,7 +73,7 @@ class AppTile extends StatelessWidget {
                       Icons.verified_outlined,
                       size: 20,
                       color: scheme.primary,
-                      semanticLabel: 'Trusted',
+                      semanticLabel: l.filterTrusted,
                     ),
                   ),
                 RiskChip(level: report.level, score: report.score),

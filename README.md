@@ -45,6 +45,7 @@ No account. No ads. No analytics. Nothing leaves your phone.
 - **Trusted apps.** Mark an app you trust and it leaves the Risky count and the alerts.
 - **One tap to fix.** "Open app settings" takes you straight to the app's Android settings to remove a permission.
 - **Share a report** as plain text.
+- **25 languages.** English, Hindi, Armenian, Russian, Spanish, French, German, Italian, Portuguese, Turkish, Arabic, Persian, Hebrew, Urdu, Chinese (Simplified and Traditional), Japanese, Korean, Indonesian, Vietnamese, Thai, Polish, Ukrainian, Dutch and Bengali. Peekless follows your phone language, or you can pick one in Settings.
 - **Light and dark theme**, Material 3.
 - **Updates from inside the app.** Download and install a new version without leaving Peekless.
 
@@ -151,10 +152,13 @@ lib/
   scoring.dart         Permission rules, tracker points and the score
   tracker_db.dart      Known tracker SDKs
   history.dart         Snapshot and change detection
-  checks.dart          The security checks
-  fix_wizard.dart      Which apps the Fix wizard shows and why
+  security_checks.dart The security checks
+  fix_queue.dart       Which apps the Fix wizard shows and why
   app_filter.dart      Filters on the Apps tab
   weekly.dart          Text of the Weekly summary
+  texts.dart           Turns data into translated text
+  l10n/                Translations (.arb files)
+  language_names.dart  Language names for the picker
   install_source.dart  Store names and sideload detection
   score_history.dart   Daily score for the trend chart
   background.dart      The background check for App alerts
@@ -170,9 +174,17 @@ android/app/src/main/kotlin/com/lumioapps/peekless/
 test/                  Tests for scoring, checks, filters, wizard, weekly summary, changes, report and updater
 ```
 
+## Languages
+
+All texts are in `lib/l10n/app_<code>.arb` files. `app_en.arb` is the template. To fix a translation, edit the line in the language file and open a pull request. To add a language, copy `app_en.arb` to `app_<code>.arb`, translate the values (keep the `{placeholders}` as they are), and add the language to `lib/language_names.dart`. Then run `flutter gen-l10n`.
+
 ## Contributing
 
 Ideas, bug reports and pull requests are welcome. To add a tracker, add its name and class prefix to `lib/tracker_db.dart`. To change how a permission is scored, edit its rule in `lib/scoring.dart`. Please run `flutter analyze` and `flutter test` before you open a pull request.
+
+## License
+
+Peekless is free software under the **GNU General Public License v3.0** (GPL-3.0). See [LICENSE](LICENSE). Copyright (C) 2026 Lumio Apps. The name "Peekless" and its logo are not covered by the license.
 
 ## About
 

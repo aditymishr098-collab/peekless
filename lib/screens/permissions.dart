@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../controller.dart';
+import '../l10n/app_localizations.dart';
 import '../scoring.dart';
+import '../texts.dart';
 import '../widgets/app_tile.dart';
 
 enum _View { permissions, trackers }
@@ -23,6 +25,7 @@ class _PermissionsScreenState extends State<PermissionsScreen> {
       builder: (context, _) {
         final scheme = Theme.of(context).colorScheme;
         final text = Theme.of(context).textTheme;
+        final l = AppLocalizations.of(context);
         final showTrackers = _view == _View.trackers;
         final groups = showTrackers
             ? controller.appsByTracker()
@@ -36,11 +39,11 @@ class _PermissionsScreenState extends State<PermissionsScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Permissions', style: text.headlineMedium),
+                  Text(l.navPermissions, style: text.headlineMedium),
                   Text(
                     showTrackers
-                        ? 'Which trackers sit in which apps'
-                        : 'Who can use what on this phone',
+                        ? l.trackersSubtitle
+                        : l.permSubtitle,
                     style: text.bodyMedium?.copyWith(color: scheme.onSurfaceVariant),
                   ),
                 ],
@@ -51,16 +54,16 @@ class _PermissionsScreenState extends State<PermissionsScreen> {
               width: double.infinity,
               child: SegmentedButton<_View>(
                 showSelectedIcon: false,
-                segments: const [
+                segments: [
                   ButtonSegment(
                     value: _View.permissions,
-                    label: Text('Permissions'),
-                    icon: Icon(Icons.lock_outline),
+                    label: Text(l.navPermissions),
+                    icon: const Icon(Icons.lock_outline),
                   ),
                   ButtonSegment(
                     value: _View.trackers,
-                    label: Text('Trackers'),
-                    icon: Icon(Icons.track_changes),
+                    label: Text(l.segTrackers),
+                    icon: const Icon(Icons.track_changes),
                   ),
                 ],
                 selected: {_view},
@@ -71,16 +74,19 @@ class _PermissionsScreenState extends State<PermissionsScreen> {
             if (groups.isEmpty)
               Text(
                 controller.loading
-                    ? 'Scanning...'
+                    ? l.scanning
                     : showTrackers
-                        ? 'No known trackers found.'
-                        : 'No sensitive permissions found.',
+                        ? l.noTrackers
+                        : l.noPerms,
                 style: text.bodyLarge?.copyWith(color: scheme.onSurfaceVariant),
               ),
             for (final entry in groups.entries)
               Padding(
                 padding: const EdgeInsets.only(bottom: 8),
-                child: _GroupTile(title: entry.key, apps: entry.value),
+                child: _GroupTile(
+                  title: showTrackers ? entry.key : groupName(l, entry.key),
+                  apps: entry.value,
+                ),
               ),
           ],
         );
@@ -106,7 +112,7 @@ class _GroupTile extends StatelessWidget {
         data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
         child: ExpansionTile(
           title: Text(title),
-          subtitle: Text('${apps.length} ${apps.length == 1 ? 'app' : 'apps'}'),
+          subtitle: Text(AppLocalizations.of(context).appsCount(apps.length)),
           childrenPadding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
           children: [
             for (final report in apps)

@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 
 import 'background.dart';
 import 'controller.dart';
+import 'l10n/app_localizations.dart';
+import 'l10n_resolve.dart';
 import 'screens/shell.dart';
 import 'theme.dart';
 
@@ -38,6 +40,10 @@ class PeeklessApp extends StatelessWidget {
           theme: buildTheme(Brightness.light),
           darkTheme: buildTheme(Brightness.dark),
           themeMode: controller.themeMode,
+          locale: controller.locale,
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          localeListResolutionCallback: resolveLocales,
           home: const AppShell(),
         );
       },

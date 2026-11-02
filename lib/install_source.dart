@@ -1,5 +1,5 @@
 /// Known app stores, by the package name Android reports as the installer.
-const Map<String, String> _stores = {
+const Map<String, String> storeNames = {
   'com.android.vending': 'Google Play',
   'com.sec.android.app.samsungapps': 'Galaxy Store',
   'com.huawei.appmarket': 'Huawei AppGallery',
@@ -15,32 +15,19 @@ const Map<String, String> _stores = {
 };
 
 /// The system screens that install an APK file you opened.
-const Set<String> _fileInstallers = {
+const Set<String> fileInstallers = {
   'com.google.android.packageinstaller',
   'com.android.packageinstaller',
   'com.miui.packageinstaller',
   'com.samsung.android.packageinstaller',
 };
 
-const String _adbInstaller = 'com.android.shell';
+const String adbInstaller = 'com.android.shell';
 
 /// True when the app came from a file or from a computer, not from a store.
 /// Nobody checked such an app for you. Apps built into the phone are not counted.
 bool installedOutsideStore(String? installer, {required bool isSystem}) {
   if (isSystem) return false;
   if (installer == null || installer.isEmpty) return true;
-  return _fileInstallers.contains(installer) || installer == _adbInstaller;
-}
-
-/// A readable name for where the app came from.
-String sourceLabel(String? installer, {required bool isSystem}) {
-  if (isSystem) return 'Built into your phone';
-  if (installer == null || installer.isEmpty) {
-    return 'Unknown (installed from a file or a computer)';
-  }
-  final store = _stores[installer];
-  if (store != null) return store;
-  if (_fileInstallers.contains(installer)) return 'An APK file you opened';
-  if (installer == _adbInstaller) return 'A computer (adb)';
-  return 'Installed by $installer';
+  return fileInstallers.contains(installer) || installer == adbInstaller;
 }

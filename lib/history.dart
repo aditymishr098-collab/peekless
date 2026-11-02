@@ -2,16 +2,23 @@ import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'l10n/app_localizations.dart';
+import 'models.dart';
 import 'scoring.dart';
+import 'texts.dart';
 
-/// One entry in the Changes list.
+/// One entry in the Changes list. It holds data only; [eventText] turns it
+/// into text in the user's language when it is shown.
 class ChangeEvent {
   const ChangeEvent({
     required this.time,
     required this.type,
     required this.packageName,
     required this.appName,
-    required this.text,
+    this.ref = '',
+    this.score = 0,
+    this.level = 0,
+    this.legacyText = '',
   });
 
   factory ChangeEvent.fromJson(Map<String, dynamic> json) {
@@ -20,7 +27,10 @@ class ChangeEvent {
       type: json['y'] as String,
       packageName: json['p'] as String,
       appName: json['n'] as String,
-      text: json['x'] as String,
+      ref: (json['r'] as String?) ?? '',
+      score: (json['s'] as int?) ?? 0,
+      level: (json['l'] as int?) ?? 0,
+      legacyText: (json['x'] as String?) ?? '',
     );
   }
 
@@ -31,15 +41,54 @@ class ChangeEvent {
   final String type;
   final String packageName;
   final String appName;
-  final String text;
+
+  /// A permission id, a special access id or a tracker name.
+  final String ref;
+
+  /// For "installed": the score and the RiskLevel index at that time.
+  final int score;
+  final int level;
+
+  /// English text saved by Peekless 1.3 and older. New events leave it empty.
+  final String legacyText;
 
   Map<String, Object?> toJson() => {
         't': time,
         'y': type,
         'p': packageName,
         'n': appName,
-        'x': text,
+        if (ref.isNotEmpty) 'r': ref,
+        if (type == 'installed') 's': score,
+        if (type == 'installed') 'l': level,
+        if (legacyText.isNotEmpty) 'x': legacyText,
       };
+}
+
+/// The text of a change, in the language of [l].
+String eventText(AppLocalizations l, ChangeEvent event) {
+  if (event.legacyText.isNotEmpty) return event.legacyText;
+  final isSpecial = specialPoints.containsKey(event.ref);
+  switch (event.type) {
+    case 'installed':
+      final index = event.level < 0 || event.level >= RiskLevel.values.length
+          ? 0
+          : event.level;
+      return l.evInstalled(event.score, levelName(l, RiskLevel.values[index]));
+    case 'removed':
+      return l.evRemoved;
+    case 'allowed':
+      return isSpecial
+          ? l.evSpecialOn(specialLabel(l, event.ref))
+          : l.evAllowed(permissionLabelById(l, event.ref));
+    case 'revoked':
+      return isSpecial
+          ? l.evSpecialOff(specialLabel(l, event.ref))
+          : l.evRevoked(permissionLabelById(l, event.ref));
+    case 'tracker':
+      return l.evTracker(event.ref);
+    default:
+      return '';
+  }
 }
 
 /// A notification that the background check wants to show.
@@ -104,6 +153,7 @@ Map<String, SnapApp> snapshotOf(List<AppReport> reports) {
 
 /// Compares the last saved snapshot with a fresh scan.
 DiffResult diffSnapshots({
+  required AppLocalizations l,
   required Map<String, SnapApp> previous,
   required List<AppReport> current,
   required Set<String> trusted,
@@ -128,15 +178,16 @@ DiffResult diffSnapshots({
           type: 'installed',
           packageName: app.packageName,
           appName: app.name,
-          text: 'Installed. Score ${report.score} (${levelName(report.level)}).',
+          score: report.score,
+          level: report.level.index,
         ),
       );
       if (!isTrusted) {
         alerts.add(
           AlertItem(
             id,
-            'New app: ${app.name}',
-            'Score ${report.score} (${levelName(report.level)}). ${report.summary}',
+            l.alertNewTitle(app.name),
+            l.alertNewBody(report.score, levelName(l, report.level), summaryFor(l, report)),
           ),
         );
       }
@@ -155,21 +206,20 @@ DiffResult diffSnapshots({
           type: 'allowed',
           packageName: app.packageName,
           appName: app.name,
-          text: 'Now allowed: ${f.rule.label}.',
+          ref: f.rule.id,
         ),
       );
     }
 
     final revoked = before.difference(nowIds).toList()..sort();
     for (final permissionId in revoked) {
-      final label = ruleById[permissionId]?.label ?? permissionId;
       events.add(
         ChangeEvent(
           time: now,
           type: 'revoked',
           packageName: app.packageName,
           appName: app.name,
-          text: 'No longer allowed: $label.',
+          ref: permissionId,
         ),
       );
     }
@@ -183,7 +233,7 @@ DiffResult diffSnapshots({
           type: 'tracker',
           packageName: app.packageName,
           appName: app.name,
-          text: 'New tracker found: $tracker.',
+          ref: tracker,
         ),
       );
     }
@@ -200,7 +250,7 @@ DiffResult diffSnapshots({
             type: 'allowed',
             packageName: app.packageName,
             appName: app.name,
-            text: '${specialLabel(id)} turned on.',
+            ref: id,
           ),
         );
       }
@@ -212,7 +262,7 @@ DiffResult diffSnapshots({
             type: 'revoked',
             packageName: app.packageName,
             appName: app.name,
-            text: '${specialLabel(id)} turned off.',
+            ref: id,
           ),
         );
       }
@@ -223,16 +273,18 @@ DiffResult diffSnapshots({
         (sensitiveNew.isNotEmpty || newTrackers.isNotEmpty || newSpecial.isNotEmpty)) {
       final parts = <String>[];
       if (newSpecial.isNotEmpty) {
-        parts.add('Now has: ${newSpecial.map(specialLabel).join(', ')}.');
+        parts.add(l.alertNowHas(newSpecial.map((id) => specialLabel(l, id)).join(', ')));
       }
       if (sensitiveNew.isNotEmpty) {
-        parts.add('Now allowed: ${sensitiveNew.map((f) => f.rule.label).join(', ')}.');
+        parts.add(
+          l.alertNowAllowed(sensitiveNew.map((f) => ruleLabel(l, f.rule)).join(', ')),
+        );
       }
       if (newTrackers.isNotEmpty) {
-        parts.add('New tracker: ${newTrackers.join(', ')}.');
+        parts.add(l.alertNewTracker(newTrackers.join(', ')));
       }
-      parts.add('Score ${report.score} (${levelName(report.level)}).');
-      alerts.add(AlertItem(id, '${app.name} changed', parts.join(' ')));
+      parts.add(l.alertScore(report.score, levelName(l, report.level)));
+      alerts.add(AlertItem(id, l.alertChangedTitle(app.name), parts.join(' ')));
     }
   }
 
@@ -244,7 +296,6 @@ DiffResult diffSnapshots({
         type: 'removed',
         packageName: entry.key,
         appName: entry.value.name,
-        text: 'Uninstalled.',
       ),
     );
   }
@@ -264,6 +315,7 @@ class HistoryStore {
   static Future<DiffResult> record(
     List<AppReport> reports, {
     required Set<String> trusted,
+    required AppLocalizations l,
   }) async {
     final current = snapshotOf(reports);
     // An empty scan usually means the scan failed. Do not treat it as
@@ -278,6 +330,7 @@ class HistoryStore {
     final previous = raw == null ? null : _decodeSnapshot(raw);
     if (previous != null) {
       result = diffSnapshots(
+        l: l,
         previous: previous,
         current: reports,
         trusted: trusted,

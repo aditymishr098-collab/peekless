@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../checks.dart';
+import '../security_checks.dart';
 import '../controller.dart';
+import '../l10n/app_localizations.dart';
 import '../screens/checks.dart';
+import '../texts.dart';
 
 /// The "Security checks" card on Home. It shows the checks that found
 /// something, and how many apps are offline.
@@ -13,6 +15,7 @@ class SecurityCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final text = Theme.of(context).textTheme;
+    final l = AppLocalizations.of(context);
     final reports = controller.reports;
 
     final flagged = <MapEntry<SecurityCheck, int>>[];
@@ -48,7 +51,7 @@ class SecurityCard extends StatelessWidget {
                   const SizedBox(width: 10),
                   Expanded(
                     child: Text(
-                      'Security checks',
+                      l.checksTitle,
                       style: text.titleMedium?.copyWith(fontWeight: FontWeight.w500),
                     ),
                   ),
@@ -58,7 +61,7 @@ class SecurityCard extends StatelessWidget {
               const SizedBox(height: 8),
               if (shown.isEmpty)
                 Text(
-                  'No security flags found on this phone.',
+                  l.securityNone,
                   style: text.bodyMedium?.copyWith(color: scheme.onSurfaceVariant),
                 )
               else
@@ -69,7 +72,7 @@ class SecurityCard extends StatelessWidget {
                       children: [
                         Icon(Icons.warning_amber_rounded, size: 18, color: scheme.error),
                         const SizedBox(width: 8),
-                        Expanded(child: Text(entry.key.title, style: text.bodyMedium)),
+                        Expanded(child: Text(checkTitle(l, entry.key.id), style: text.bodyMedium)),
                         Text(
                           '${entry.value}',
                           style: text.bodyMedium?.copyWith(
@@ -89,9 +92,7 @@ class SecurityCard extends StatelessWidget {
                       const SizedBox(width: 8),
                       Expanded(
                         child: Text(
-                          offline == 1
-                              ? '1 app works fully offline'
-                              : '$offline apps work fully offline',
+                          l.securityOffline(offline),
                           style: text.bodyMedium,
                         ),
                       ),

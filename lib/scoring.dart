@@ -6,24 +6,19 @@ class PermissionRule {
   const PermissionRule(
     this.id,
     this.group,
-    this.label,
-    this.weight,
-    this.why, {
+    this.weight, {
     this.special = false,
   });
 
   /// Full Android permission name.
   final String id;
 
-  /// Group shown on the Permissions tab, for example "Location".
+  /// Group id shown on the Permissions tab, for example "Location".
+  /// It is an id, not display text. See texts.dart for the translated names.
   final String group;
-  final String label;
 
   /// Points removed from the app score when the permission is allowed.
   final int weight;
-
-  /// Verb phrase used in sentences: "Can <why>."
-  final String why;
 
   /// Special permissions are granted through a settings screen, so the
   /// "granted" flag from Android is not reliable. They count half when requested.
@@ -31,30 +26,30 @@ class PermissionRule {
 }
 
 const List<PermissionRule> permissionRules = [
-  PermissionRule('android.permission.RECORD_AUDIO', 'Microphone', 'Microphone', 12, 'record audio'),
-  PermissionRule('android.permission.CAMERA', 'Camera', 'Camera', 8, 'use the camera'),
-  PermissionRule('android.permission.ACCESS_COARSE_LOCATION', 'Location', 'Approximate location', 4, 'see your approximate location'),
-  PermissionRule('android.permission.ACCESS_FINE_LOCATION', 'Location', 'Precise location', 8, 'see your precise location'),
-  PermissionRule('android.permission.ACCESS_BACKGROUND_LOCATION', 'Location', 'Location all the time', 22, 'track your location all the time'),
-  PermissionRule('android.permission.READ_CONTACTS', 'Contacts', 'Contacts', 10, 'read your contacts'),
-  PermissionRule('android.permission.GET_ACCOUNTS', 'Contacts', 'Accounts', 3, 'see the accounts on your phone'),
-  PermissionRule('android.permission.READ_SMS', 'SMS', 'Read SMS', 14, 'read your text messages'),
-  PermissionRule('android.permission.RECEIVE_SMS', 'SMS', 'Receive SMS', 10, 'receive your text messages'),
-  PermissionRule('android.permission.SEND_SMS', 'SMS', 'Send SMS', 8, 'send text messages'),
-  PermissionRule('android.permission.READ_CALL_LOG', 'Call log', 'Call log', 12, 'read your call history'),
-  PermissionRule('android.permission.READ_PHONE_STATE', 'Phone', 'Phone status', 4, 'see your phone status'),
-  PermissionRule('android.permission.CALL_PHONE', 'Phone', 'Make calls', 4, 'make phone calls'),
-  PermissionRule('android.permission.READ_CALENDAR', 'Calendar', 'Calendar', 6, 'read your calendar'),
-  PermissionRule('android.permission.BODY_SENSORS', 'Body sensors', 'Body sensors', 6, 'read body sensors'),
-  PermissionRule('android.permission.ACTIVITY_RECOGNITION', 'Activity', 'Physical activity', 3, 'see your physical activity'),
-  PermissionRule('android.permission.MANAGE_EXTERNAL_STORAGE', 'Files', 'All files', 12, 'access all files on your phone', special: true),
-  PermissionRule('android.permission.READ_EXTERNAL_STORAGE', 'Files', 'Files and media', 3, 'read files and media'),
-  PermissionRule('android.permission.READ_MEDIA_IMAGES', 'Files', 'Photos', 3, 'read your photos'),
-  PermissionRule('android.permission.READ_MEDIA_VIDEO', 'Files', 'Videos', 3, 'read your videos'),
-  PermissionRule('android.permission.READ_MEDIA_AUDIO', 'Files', 'Audio files', 2, 'read your audio files'),
-  PermissionRule('android.permission.SYSTEM_ALERT_WINDOW', 'Overlay', 'Draw over other apps', 8, 'draw over other apps', special: true),
-  PermissionRule('android.permission.REQUEST_INSTALL_PACKAGES', 'Installs', 'Install other apps', 4, 'install other apps', special: true),
-  PermissionRule('android.permission.QUERY_ALL_PACKAGES', 'App list', 'See all apps', 3, 'see all apps on your phone'),
+  PermissionRule('android.permission.RECORD_AUDIO', 'Microphone', 12),
+  PermissionRule('android.permission.CAMERA', 'Camera', 8),
+  PermissionRule('android.permission.ACCESS_COARSE_LOCATION', 'Location', 4),
+  PermissionRule('android.permission.ACCESS_FINE_LOCATION', 'Location', 8),
+  PermissionRule('android.permission.ACCESS_BACKGROUND_LOCATION', 'Location', 22),
+  PermissionRule('android.permission.READ_CONTACTS', 'Contacts', 10),
+  PermissionRule('android.permission.GET_ACCOUNTS', 'Contacts', 3),
+  PermissionRule('android.permission.READ_SMS', 'SMS', 14),
+  PermissionRule('android.permission.RECEIVE_SMS', 'SMS', 10),
+  PermissionRule('android.permission.SEND_SMS', 'SMS', 8),
+  PermissionRule('android.permission.READ_CALL_LOG', 'Call log', 12),
+  PermissionRule('android.permission.READ_PHONE_STATE', 'Phone', 4),
+  PermissionRule('android.permission.CALL_PHONE', 'Phone', 4),
+  PermissionRule('android.permission.READ_CALENDAR', 'Calendar', 6),
+  PermissionRule('android.permission.BODY_SENSORS', 'Body sensors', 6),
+  PermissionRule('android.permission.ACTIVITY_RECOGNITION', 'Activity', 3),
+  PermissionRule('android.permission.MANAGE_EXTERNAL_STORAGE', 'Files', 12, special: true),
+  PermissionRule('android.permission.READ_EXTERNAL_STORAGE', 'Files', 3),
+  PermissionRule('android.permission.READ_MEDIA_IMAGES', 'Files', 3),
+  PermissionRule('android.permission.READ_MEDIA_VIDEO', 'Files', 3),
+  PermissionRule('android.permission.READ_MEDIA_AUDIO', 'Files', 2),
+  PermissionRule('android.permission.SYSTEM_ALERT_WINDOW', 'Overlay', 8, special: true),
+  PermissionRule('android.permission.REQUEST_INSTALL_PACKAGES', 'Installs', 4, special: true),
+  PermissionRule('android.permission.QUERY_ALL_PACKAGES', 'App list', 3),
 ];
 
 final Map<String, PermissionRule> ruleById = {
@@ -89,32 +84,6 @@ const Map<String, int> specialPoints = {
 const int debuggablePoints = 8;
 const int oldTargetPoints = 4;
 const int oldTargetBelow = 26;
-
-String specialLabel(String id) => switch (id) {
-      accessibilityAccess => 'Accessibility access',
-      deviceAdminAccess => 'Device admin',
-      notificationAccess => 'Notification access',
-      _ => id,
-    };
-
-/// A short sentence for the app summary.
-String specialSentence(String id) => switch (id) {
-      accessibilityAccess => 'Has accessibility access, so it can read your screen.',
-      deviceAdminAccess => 'Is a device admin, so it can lock or wipe the phone.',
-      notificationAccess => 'Can read all your notifications.',
-      _ => '',
-    };
-
-/// A longer explanation for the app detail screen.
-String specialWhy(String id) => switch (id) {
-      accessibilityAccess =>
-        'Turned on. It can read what is on your screen and act for you.',
-      deviceAdminAccess =>
-        'Turned on. It can lock the phone, wipe it and block uninstalling.',
-      notificationAccess =>
-        'Turned on. It can read all your notifications, including codes.',
-      _ => '',
-    };
 
 class Finding {
   const Finding(this.rule, this.status);
@@ -162,20 +131,31 @@ AppKind kindFor(AppInfo app) {
   return AppKind.other;
 }
 
-String kindLabel(AppKind kind) => switch (kind) {
-      AppKind.tool => 'simple tool',
-      AppKind.game => 'game',
-      AppKind.media => 'media app',
-      AppKind.other => 'app',
-    };
+/// What a line of the score breakdown is about.
+enum LineKind { permission, trackers, special, debuggable, oldTarget, unusual }
 
 /// One line of the score breakdown, for example "Microphone: -12".
+/// It holds data only. texts.dart turns it into translated text.
 class ScoreLine {
-  const ScoreLine(this.label, this.points, [this.note = '']);
+  const ScoreLine(
+    this.kind,
+    this.points, {
+    this.ref = '',
+    this.number = 0,
+    this.requested = false,
+  });
 
-  final String label;
+  final LineKind kind;
   final int points;
-  final String note;
+
+  /// Permission id, special access id or permission group id.
+  final String ref;
+
+  /// Tracker count or API level.
+  final int number;
+
+  /// For a permission line: it is only requested, so it counts half.
+  final bool requested;
 }
 
 class AppReport {
@@ -184,7 +164,7 @@ class AppReport {
     required this.score,
     required this.level,
     required this.findings,
-    required this.summary,
+    required this.unusualGroups,
     required this.kind,
     required this.breakdown,
   });
@@ -193,26 +173,12 @@ class AppReport {
   final int score;
   final RiskLevel level;
   final List<Finding> findings;
-  final String summary;
+
+  /// Permission groups that are unusual for this kind of app.
+  final List<String> unusualGroups;
   final AppKind kind;
   final List<ScoreLine> breakdown;
-
-  /// Short line for list rows, for example "Microphone · Location · 4 trackers".
-  String get meta {
-    final bits = findings.where((f) => f.active).take(2).map((f) => f.rule.label).toList();
-    final count = app.trackers.length;
-    if (count > 0) {
-      bits.add(count == 1 ? '1 tracker' : '$count trackers');
-    }
-    return bits.isEmpty ? 'No sensitive permissions' : bits.join(' · ');
-  }
 }
-
-String levelName(RiskLevel level) => switch (level) {
-      RiskLevel.risky => 'Risky',
-      RiskLevel.medium => 'Medium',
-      RiskLevel.safe => 'Safe',
-    };
 
 /// The score of the whole phone: the average of the given apps, or 100 when
 /// there are none. Pass only the apps that should count (not trusted ones).
@@ -227,6 +193,7 @@ RiskLevel levelForScore(int score) {
   if (score >= 40) return RiskLevel.medium;
   return RiskLevel.risky;
 }
+
 
 AppReport buildReport(AppInfo app) {
   final findings = <Finding>[];
@@ -264,9 +231,10 @@ AppReport buildReport(AppInfo app) {
     final f = groupFinding[group]!;
     lines.add(
       ScoreLine(
-        f.rule.label,
+        LineKind.permission,
         penalty.round(),
-        f.status == PermStatus.requested ? 'requested, counts half' : 'allowed',
+        ref: f.rule.id,
+        requested: f.status == PermStatus.requested,
       ),
     );
   });
@@ -276,11 +244,7 @@ AppReport buildReport(AppInfo app) {
   if (trackerPenalty > 0) {
     total += trackerPenalty;
     lines.add(
-      ScoreLine(
-        'Known trackers (${app.trackers.length})',
-        trackerPenalty,
-        '$trackerPoints points each, up to $trackerMaxPoints',
-      ),
+      ScoreLine(LineKind.trackers, trackerPenalty, number: app.trackers.length),
     );
   }
 
@@ -288,23 +252,15 @@ AppReport buildReport(AppInfo app) {
   for (final id in specials) {
     final points = specialPoints[id]!;
     total += points;
-    lines.add(ScoreLine(specialLabel(id), points, 'turned on'));
+    lines.add(ScoreLine(LineKind.special, points, ref: id));
   }
   if (app.debuggable) {
     total += debuggablePoints;
-    lines.add(
-      const ScoreLine('Debuggable build', debuggablePoints, 'can be inspected from a computer'),
-    );
+    lines.add(const ScoreLine(LineKind.debuggable, debuggablePoints));
   }
   if (app.targetSdk > 0 && app.targetSdk < oldTargetBelow) {
     total += oldTargetPoints;
-    lines.add(
-      ScoreLine(
-        'Built for very old Android',
-        oldTargetPoints,
-        'API level ${app.targetSdk}',
-      ),
-    );
+    lines.add(ScoreLine(LineKind.oldTarget, oldTargetPoints, number: app.targetSdk));
   }
 
   final kind = kindFor(app);
@@ -319,47 +275,18 @@ AppReport buildReport(AppInfo app) {
   }
   for (final group in unusual) {
     total += unusualPenalty;
-    lines.add(
-      ScoreLine(
-        'Unusual for a ${kindLabel(kind)}: $group',
-        unusualPenalty,
-        'extra penalty',
-      ),
-    );
+    lines.add(ScoreLine(LineKind.unusual, unusualPenalty, ref: group));
   }
   lines.sort((a, b) => b.points.compareTo(a.points));
 
   final score = (100 - total).round().clamp(0, 100).toInt();
-
-  final active = findings.where((f) => f.active).toList();
-  final sentences = <String>[];
-  if (active.isNotEmpty) {
-    sentences.add('Can ${active.take(2).map((f) => f.rule.why).join(' and ')}.');
-  }
-  for (final id in specials) {
-    sentences.add(specialSentence(id));
-  }
-  if (app.trackers.isNotEmpty) {
-    sentences.add(
-      app.trackers.length == 1
-          ? 'Contains 1 known tracker.'
-          : 'Contains ${app.trackers.length} known trackers.',
-    );
-  }
-  if (unusual.isNotEmpty) {
-    final names = unusual.map((g) => g.toLowerCase()).join(' or ');
-    sentences.add("A ${kindLabel(kind)} doesn't normally need $names access.");
-  }
-  if (sentences.isEmpty) {
-    sentences.add('No sensitive permissions and no known trackers.');
-  }
 
   return AppReport(
     app: app,
     score: score,
     level: levelForScore(score),
     findings: findings,
-    summary: sentences.join(' '),
+    unusualGroups: unusual,
     kind: kind,
     breakdown: lines,
   );

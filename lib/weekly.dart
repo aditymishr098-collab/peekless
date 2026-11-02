@@ -1,4 +1,5 @@
 import 'history.dart';
+import 'l10n/app_localizations.dart';
 import 'score_history.dart';
 
 const int _msPerDay = 86400000;
@@ -14,11 +15,10 @@ class WeeklySummary {
   final String text;
 }
 
-String _count(int n, String one, String many) => '$n ${n == 1 ? one : many}';
-
 /// The text of the weekly notification: the score, how it moved, what changed
 /// in the last 7 days and how many apps are Risky.
-WeeklySummary buildWeeklySummary({
+WeeklySummary buildWeeklySummary(
+  AppLocalizations l, {
   required int score,
   required List<ScorePoint> trend,
   required List<ChangeEvent> events,
@@ -36,32 +36,29 @@ WeeklySummary buildWeeklySummary({
   if (base == null && trend.length >= 2 && trend.first.day < nowMillis ~/ _msPerDay) {
     base = trend.first;
   }
-  var scoreText = 'Score $score/100';
+  var scoreText = l.weeklyScore(score);
   if (base != null) {
     final diff = score - base.score;
     if (diff > 0) {
-      scoreText += ', up $diff since last week';
+      scoreText = l.weeklyUp(score, diff);
     } else if (diff < 0) {
-      scoreText += ', down ${-diff} since last week';
+      scoreText = l.weeklyDown(score, -diff);
     } else {
-      scoreText += ', no change since last week';
+      scoreText = l.weeklySame(score);
     }
   }
-  parts.add('$scoreText.');
+  parts.add(scoreText);
 
   final recent = events.where((e) => e.time >= nowMillis - weekMillis).toList();
   int countOf(String type) => recent.where((e) => e.type == type).length;
   final bits = <String>[
-    if (countOf('installed') > 0) _count(countOf('installed'), 'new app', 'new apps'),
-    if (countOf('removed') > 0) _count(countOf('removed'), 'app removed', 'apps removed'),
-    if (countOf('allowed') > 0)
-      _count(countOf('allowed'), 'permission turned on', 'permissions turned on'),
-    if (countOf('tracker') > 0) _count(countOf('tracker'), 'new tracker', 'new trackers'),
+    if (countOf('installed') > 0) l.weeklyNewApps(countOf('installed')),
+    if (countOf('removed') > 0) l.weeklyRemoved(countOf('removed')),
+    if (countOf('allowed') > 0) l.weeklyAllowed(countOf('allowed')),
+    if (countOf('tracker') > 0) l.weeklyTrackers(countOf('tracker')),
   ];
-  parts.add(bits.isEmpty ? 'No changes this week.' : '${bits.join(', ')}.');
+  parts.add(bits.isEmpty ? l.weeklyNone : l.weeklyChanges(bits.join(', ')));
 
-  if (risky > 0) {
-    parts.add(risky == 1 ? '1 app is Risky.' : '$risky apps are Risky.');
-  }
-  return WeeklySummary('Your weekly Peekless summary', parts.join(' '));
+  if (risky > 0) parts.add(l.weeklyRisky(risky));
+  return WeeklySummary(l.weeklyTitle, parts.join(' '));
 }

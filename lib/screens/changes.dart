@@ -2,36 +2,32 @@ import 'package:flutter/material.dart';
 
 import '../controller.dart';
 import '../history.dart';
+import '../l10n/app_localizations.dart';
 
-const List<String> _months = [
-  'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-  'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
-];
-
-String _formatTime(int millis) {
+String _formatTime(BuildContext context, int millis) {
   final t = DateTime.fromMillisecondsSinceEpoch(millis);
-  final hh = t.hour.toString().padLeft(2, '0');
-  final mm = t.minute.toString().padLeft(2, '0');
-  return '${t.day} ${_months[t.month - 1]}, $hh:$mm';
+  final material = MaterialLocalizations.of(context);
+  return '${material.formatShortDate(t)}, ${material.formatTimeOfDay(TimeOfDay.fromDateTime(t))}';
 }
 
 class ChangesScreen extends StatelessWidget {
   const ChangesScreen({super.key});
 
   Future<void> _confirmClear(BuildContext context) async {
+    final l = AppLocalizations.of(context);
     final ok = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Clear changes?'),
-        content: const Text('The list of changes will be removed from this phone.'),
+        title: Text(l.clearTitle),
+        content: Text(l.clearBody),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
-            child: const Text('Cancel'),
+            child: Text(l.cancel),
           ),
           FilledButton(
             onPressed: () => Navigator.of(context).pop(true),
-            child: const Text('Clear'),
+            child: Text(l.clear),
           ),
         ],
       ),
@@ -46,6 +42,7 @@ class ChangesScreen extends StatelessWidget {
       builder: (context, _) {
         final scheme = Theme.of(context).colorScheme;
         final text = Theme.of(context).textTheme;
+        final l = AppLocalizations.of(context);
         final events = controller.history;
 
         return ListView(
@@ -59,9 +56,9 @@ class ChangesScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Changes', style: text.headlineMedium),
+                        Text(l.navChanges, style: text.headlineMedium),
                         Text(
-                          'New apps and permission changes',
+                          l.changesSubtitle,
                           style: text.bodyMedium?.copyWith(color: scheme.onSurfaceVariant),
                         ),
                       ],
@@ -70,7 +67,7 @@ class ChangesScreen extends StatelessWidget {
                   if (events.isNotEmpty)
                     TextButton(
                       onPressed: () => _confirmClear(context),
-                      child: const Text('Clear'),
+                      child: Text(l.clear),
                     ),
                 ],
               ),
@@ -84,8 +81,7 @@ class ChangesScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: Text(
-                  'No changes yet. Peekless will list new apps, removed apps, new '
-                  'permissions and new trackers here.',
+                  l.changesEmpty,
                   style: text.bodyMedium,
                 ),
               )
@@ -111,6 +107,7 @@ class _EventTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final text = Theme.of(context).textTheme;
+    final l = AppLocalizations.of(context);
 
     final IconData icon;
     final Color color;
@@ -156,7 +153,7 @@ class _EventTile extends StatelessWidget {
               children: [
                 Text(event.appName, style: text.bodyLarge),
                 Text(
-                  event.text,
+                  eventText(l, event),
                   style: text.bodyMedium?.copyWith(color: scheme.onSurfaceVariant),
                 ),
               ],
@@ -164,7 +161,7 @@ class _EventTile extends StatelessWidget {
           ),
           const SizedBox(width: 8),
           Text(
-            _formatTime(event.time),
+            _formatTime(context, event.time),
             style: text.bodySmall?.copyWith(color: scheme.onSurfaceVariant),
           ),
         ],

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../l10n/app_localizations.dart';
 import '../scoring.dart';
+import '../texts.dart';
 
 class ScoreExplainScreen extends StatelessWidget {
   const ScoreExplainScreen({super.key, required this.report});
@@ -11,17 +13,18 @@ class ScoreExplainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final text = Theme.of(context).textTheme;
+    final l = AppLocalizations.of(context);
     final removed = report.breakdown.fold<int>(0, (sum, line) => sum + line.points);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('How the score works')),
+      appBar: AppBar(title: Text(l.explainTitle)),
       body: ListView(
         padding: const EdgeInsets.fromLTRB(20, 8, 20, 24),
         children: [
           Text(report.app.name, style: text.titleLarge),
           const SizedBox(height: 4),
           Text(
-            'Every app starts at 100. Points are removed for what the app can do.',
+            l.explainIntro,
             style: text.bodyMedium?.copyWith(color: scheme.onSurfaceVariant),
           ),
           const SizedBox(height: 16),
@@ -33,17 +36,17 @@ class ScoreExplainScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: Column(
               children: [
-                const _Row(label: 'Start', value: '100', bold: true),
+                _Row(label: l.explainStart, value: '100', bold: true),
                 if (report.breakdown.isEmpty)
-                  const _Row(
-                    label: 'Nothing removed',
-                    note: 'No sensitive permissions and no known trackers',
+                  _Row(
+                    label: l.explainNothing,
+                    note: l.explainNothingNote,
                     value: '0',
                   ),
                 for (final line in report.breakdown)
                   _Row(
-                    label: line.label,
-                    note: line.note,
+                    label: lineLabel(l, line),
+                    note: lineNote(l, line),
                     value: '-${line.points}',
                     valueColor: scheme.error,
                   ),
@@ -51,42 +54,23 @@ class ScoreExplainScreen extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Divider(color: scheme.outlineVariant),
                 ),
-                _Row(label: 'Score', note: '100 - $removed', value: '${report.score}', bold: true),
+                _Row(label: l.explainScore, note: '100 - $removed', value: '${report.score}', bold: true),
               ],
             ),
           ),
           const SizedBox(height: 20),
-          Text('The rules', style: text.titleMedium?.copyWith(fontWeight: FontWeight.w500)),
+          Text(l.explainRules, style: text.titleMedium?.copyWith(fontWeight: FontWeight.w500)),
           const SizedBox(height: 8),
-          const _Rule(
-            'Only the heaviest permission in each group counts. '
-            'For example, precise location and approximate location are counted once.',
-          ),
-          const _Rule(
-            'Special permissions (all files, draw over apps, install apps) '
-            'count half when an app only requests them.',
-          ),
-          const _Rule(
-            'Each known tracker removes $trackerPoints points, up to $trackerMaxPoints.',
-          ),
-          const _Rule(
-            'Special access that is turned on removes points: accessibility '
-            '$accessibilityPoints, device admin $deviceAdminPoints, notification '
-            'access $notificationPoints.',
-          ),
-          const _Rule(
-            'A debuggable build removes $debuggablePoints points. An app built for '
-            'Android 7 or older removes $oldTargetPoints points.',
-          ),
-          const _Rule(
-            'If a permission is unusual for the kind of app (for example a microphone '
-            'in a flashlight), $unusualPenalty extra points are removed, for up to '
-            '$unusualMaxGroups permission groups.',
-          ),
-          const _Rule('70 or more is Safe. 40 to 69 is Medium. Below 40 is Risky.'),
+          _Rule(l.rule1),
+          _Rule(l.rule2),
+          _Rule(l.rule3(trackerPoints, trackerMaxPoints)),
+          _Rule(l.rule4(accessibilityPoints, deviceAdminPoints, notificationPoints)),
+          _Rule(l.rule5(debuggablePoints, oldTargetPoints)),
+          _Rule(l.rule6(unusualPenalty, unusualMaxGroups)),
+          _Rule(l.rule7),
           const SizedBox(height: 8),
           Text(
-            'The score shows what an app is able to do, not what it is doing right now.',
+            l.explainFooter,
             style: text.bodySmall?.copyWith(color: scheme.onSurfaceVariant),
           ),
         ],

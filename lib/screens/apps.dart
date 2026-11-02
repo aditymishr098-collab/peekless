@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../app_filter.dart';
 import '../controller.dart';
+import '../l10n/app_localizations.dart';
 import '../widgets/app_tile.dart';
 
 enum _Filter { all, mine, system }
@@ -25,6 +26,7 @@ class _AppsScreenState extends State<AppsScreen> {
       builder: (context, _) {
         final scheme = Theme.of(context).colorScheme;
         final text = Theme.of(context).textTheme;
+        final l = AppLocalizations.of(context);
         final filter = controller.includeSystem ? _filter : _Filter.all;
 
         var items = controller.reports;
@@ -57,11 +59,11 @@ class _AppsScreenState extends State<AppsScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Apps', style: text.headlineMedium),
+                  Text(l.navApps, style: text.headlineMedium),
                   Text(
                     _appFilter == AppFilter.all
-                        ? '${controller.reports.length} apps, riskiest first'
-                        : '${items.length} of ${controller.reports.length} apps',
+                        ? l.appsSubtitleAll(controller.reports.length)
+                        : l.appsSubtitleFiltered(items.length, controller.reports.length),
                     style: text.bodyMedium?.copyWith(color: scheme.onSurfaceVariant),
                   ),
                 ],
@@ -70,7 +72,7 @@ class _AppsScreenState extends State<AppsScreen> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: SearchBar(
-                hintText: 'Search apps',
+                hintText: l.appsSearch,
                 leading: const Icon(Icons.search),
                 elevation: const WidgetStatePropertyAll<double>(0),
                 backgroundColor: WidgetStatePropertyAll<Color>(scheme.surfaceContainer),
@@ -87,7 +89,7 @@ class _AppsScreenState extends State<AppsScreen> {
                     Padding(
                       padding: const EdgeInsets.only(right: 8),
                       child: ChoiceChip(
-                        label: Text(filterLabel(f)),
+                        label: Text(filterLabel(l, f)),
                         selected: _appFilter == f,
                         onSelected: (_) => setState(() => _appFilter = f),
                       ),
@@ -102,17 +104,17 @@ class _AppsScreenState extends State<AppsScreen> {
                   spacing: 8,
                   children: [
                     ChoiceChip(
-                      label: const Text('All'),
+                      label: Text(l.filterAll),
                       selected: filter == _Filter.all,
                       onSelected: (_) => setState(() => _filter = _Filter.all),
                     ),
                     ChoiceChip(
-                      label: const Text('My apps'),
+                      label: Text(l.chipMine),
                       selected: filter == _Filter.mine,
                       onSelected: (_) => setState(() => _filter = _Filter.mine),
                     ),
                     ChoiceChip(
-                      label: const Text('System'),
+                      label: Text(l.chipSystem),
                       selected: filter == _Filter.system,
                       onSelected: (_) => setState(() => _filter = _Filter.system),
                     ),
@@ -126,7 +128,7 @@ class _AppsScreenState extends State<AppsScreen> {
                   : items.isEmpty
                       ? Center(
                           child: Text(
-                            'No apps found',
+                            l.appsNone,
                             style: text.bodyLarge?.copyWith(color: scheme.onSurfaceVariant),
                           ),
                         )

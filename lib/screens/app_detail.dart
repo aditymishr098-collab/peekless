@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
-import '../checks.dart';
+import '../security_checks.dart';
 import '../controller.dart';
 import '../install_source.dart';
+import '../l10n/app_localizations.dart';
 import '../models.dart';
 import '../scoring.dart';
+import '../texts.dart';
 import '../widgets/info_row.dart';
 import '../widgets/risk.dart';
 import 'score_explain.dart';
@@ -16,11 +18,12 @@ class AppDetailScreen extends StatelessWidget {
 
   Future<void> _openSettings(BuildContext context) async {
     final messenger = ScaffoldMessenger.of(context);
+    final l = AppLocalizations.of(context);
     try {
       await controller.openAppSettings(report.app.packageName);
     } catch (_) {
       messenger.showSnackBar(
-        const SnackBar(content: Text('Could not open app settings.')),
+        SnackBar(content: Text(l.couldNotOpenSettings)),
       );
     }
   }
@@ -29,6 +32,7 @@ class AppDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final text = Theme.of(context).textTheme;
+    final l = AppLocalizations.of(context);
     final app = report.app;
 
     return ListenableBuilder(
@@ -98,7 +102,7 @@ class AppDetailScreen extends StatelessWidget {
                         const SizedBox(width: 16),
                         Expanded(
                           child: Text(
-                            report.summary,
+                            summaryFor(l, report),
                             style: text.bodyMedium?.copyWith(color: scheme.onSurfaceVariant),
                           ),
                         ),
@@ -106,7 +110,7 @@ class AppDetailScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 4),
                     Align(
-                      alignment: Alignment.centerLeft,
+                      alignment: AlignmentDirectional.centerStart,
                       child: TextButton.icon(
                         onPressed: () {
                           Navigator.of(context).push(
@@ -116,7 +120,7 @@ class AppDetailScreen extends StatelessWidget {
                           );
                         },
                         icon: const Icon(Icons.help_outline),
-                        label: const Text('How is this score calculated?'),
+                        label: Text(l.howScore),
                       ),
                     ),
                   ],
@@ -131,28 +135,28 @@ class AppDetailScreen extends StatelessWidget {
                 clipBehavior: Clip.antiAlias,
                 child: SwitchListTile(
                   secondary: Icon(Icons.verified_outlined, color: scheme.onSurfaceVariant),
-                  title: const Text('I trust this app'),
-                  subtitle: const Text('Leave it out of the Risky count and alerts'),
+                  title: Text(l.trustApp),
+                  subtitle: Text(l.detailTrustBody),
                   value: trusted,
                   onChanged: (value) => controller.setTrusted(app.packageName, value),
                 ),
               ),
               const SizedBox(height: 20),
               Text(
-                'Security',
+                l.detailSecurity,
                 style: text.titleMedium?.copyWith(fontWeight: FontWeight.w500),
               ),
               const SizedBox(height: 8),
-              ..._securityRows(app),
+              ..._securityRows(l, app),
               const SizedBox(height: 12),
               Text(
-                'Permissions',
+                l.navPermissions,
                 style: text.titleMedium?.copyWith(fontWeight: FontWeight.w500),
               ),
               const SizedBox(height: 8),
               if (report.findings.isEmpty)
                 Text(
-                  'This app does not ask for any sensitive permissions.',
+                  l.detailNoPerms,
                   style: text.bodyMedium?.copyWith(color: scheme.onSurfaceVariant),
                 )
               else
@@ -163,13 +167,13 @@ class AppDetailScreen extends StatelessWidget {
                   ),
               const SizedBox(height: 12),
               Text(
-                'Trackers found (${app.trackers.length})',
+                l.detailTrackers(app.trackers.length),
                 style: text.titleMedium?.copyWith(fontWeight: FontWeight.w500),
               ),
               const SizedBox(height: 8),
               if (app.trackers.isEmpty)
                 Text(
-                  'No known trackers found.',
+                  l.noTrackers,
                   style: text.bodyMedium?.copyWith(color: scheme.onSurfaceVariant),
                 )
               else
@@ -182,8 +186,7 @@ class AppDetailScreen extends StatelessWidget {
                 ),
               const SizedBox(height: 12),
               Text(
-                'Peekless shows what an app is able to do, not what it is doing right now. '
-                'Trackers are found from the app manifest, so some may be missed.',
+                l.detailDisclaimer,
                 style: text.bodySmall?.copyWith(color: scheme.onSurfaceVariant),
               ),
             ],
@@ -194,7 +197,7 @@ class AppDetailScreen extends StatelessWidget {
               child: FilledButton.icon(
                 onPressed: () => _openSettings(context),
                 icon: const Icon(Icons.open_in_new),
-                label: const Text('Open app settings'),
+                label: Text(l.openAppSettings),
                 style: FilledButton.styleFrom(minimumSize: const Size.fromHeight(52)),
               ),
             ),
@@ -207,60 +210,59 @@ class AppDetailScreen extends StatelessWidget {
 
 /// The "Security" section: where the app came from, whether it can go online,
 /// special access and build flags.
-List<Widget> _securityRows(AppInfo app) {
+List<Widget> _securityRows(AppLocalizations l, AppInfo app) {
   final outside = installedOutsideStore(app.installer, isSystem: app.isSystem);
+  final days = app.daysUnused(DateTime.now().millisecondsSinceEpoch);
   final rows = <Widget>[
     InfoRow(
       icon: Icons.storefront_outlined,
-      title: 'Source',
-      subtitle: sourceLabel(app.installer, isSystem: app.isSystem),
+      title: l.detailSource,
+      subtitle: sourceLabel(l, app.installer, isSystem: app.isSystem),
       warn: outside,
     ),
     app.canUseInternet
-        ? const InfoRow(
+        ? InfoRow(
             icon: Icons.public,
-            title: 'Internet',
-            subtitle: 'Can use the internet',
+            title: l.detailInternet,
+            subtitle: l.detailInternetYes,
           )
-        : const InfoRow(
+        : InfoRow(
             icon: Icons.cloud_off_outlined,
-            title: 'Offline',
-            subtitle: 'No internet permission, so it cannot send data online',
+            title: l.detailOffline,
+            subtitle: l.detailOfflineBody,
             good: true,
           ),
     for (final id in app.special)
       if (specialPoints.containsKey(id))
         InfoRow(
           icon: Icons.admin_panel_settings_outlined,
-          title: specialLabel(id),
-          subtitle: specialWhy(id),
+          title: specialLabel(l, id),
+          subtitle: specialWhy(l, id),
           warn: true,
         ),
-    if (app.daysUnused(DateTime.now().millisecondsSinceEpoch) case final days?)
+    if (days != null)
       InfoRow(
         icon: Icons.timer_outlined,
-        title: 'Last opened',
+        title: l.detailLastOpened,
         subtitle: days == 0
-            ? 'Today'
+            ? l.today
             : days == 1
-                ? 'Yesterday'
-                : days >= unusedDays
-                    ? 'Not opened for $days days'
-                    : '$days days ago',
+                ? l.yesterday
+                : l.daysSince(days),
         warn: days >= unusedDays && !app.isSystem,
       ),
     if (app.debuggable)
-      const InfoRow(
+      InfoRow(
         icon: Icons.bug_report_outlined,
-        title: 'Debuggable build',
-        subtitle: 'A test version that can be inspected from a computer',
+        title: l.scoreDebuggable,
+        subtitle: l.detailDebuggableBody,
         warn: true,
       ),
     if (app.targetSdk > 0 && app.targetSdk < oldTargetBelow)
       InfoRow(
         icon: Icons.history,
-        title: 'Built for very old Android',
-        subtitle: 'API level ${app.targetSdk}, so newer privacy protections are skipped',
+        title: l.scoreOldTarget,
+        subtitle: l.detailOldBody(app.targetSdk),
         warn: true,
       ),
   ];
@@ -279,17 +281,18 @@ class _PermissionRow extends StatelessWidget {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final text = Theme.of(context).textTheme;
+    final l = AppLocalizations.of(context);
 
     final String note;
     final Color noteColor;
     if (finding.sensitive) {
-      note = 'Sensitive: can ${finding.rule.why}';
+      note = l.sensitiveNote(ruleWhy(l, finding.rule));
       noteColor = scheme.error;
     } else if (finding.active) {
-      note = 'Can ${finding.rule.why}';
+      note = ruleWhy(l, finding.rule);
       noteColor = scheme.onSurfaceVariant;
     } else {
-      note = 'Not allowed';
+      note = l.chipNotAllowed;
       noteColor = scheme.onSurfaceVariant;
     }
 
@@ -298,15 +301,15 @@ class _PermissionRow extends StatelessWidget {
     final Color chipForeground;
     switch (finding.status) {
       case PermStatus.allowed:
-        chipText = 'Allowed';
+        chipText = l.chipAllowed;
         chipBackground = finding.sensitive ? scheme.errorContainer : scheme.secondaryContainer;
         chipForeground = finding.sensitive ? scheme.onErrorContainer : scheme.onSecondaryContainer;
       case PermStatus.requested:
-        chipText = 'Requested';
+        chipText = l.chipRequested;
         chipBackground = scheme.tertiaryContainer;
         chipForeground = scheme.onTertiaryContainer;
       case PermStatus.notAllowed:
-        chipText = 'Not allowed';
+        chipText = l.chipNotAllowed;
         chipBackground = scheme.primaryContainer;
         chipForeground = scheme.onPrimaryContainer;
     }
@@ -324,7 +327,7 @@ class _PermissionRow extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(finding.rule.label, style: text.bodyLarge),
+                Text(ruleLabel(l, finding.rule), style: text.bodyLarge),
                 Text(note, style: text.bodySmall?.copyWith(color: noteColor)),
               ],
             ),

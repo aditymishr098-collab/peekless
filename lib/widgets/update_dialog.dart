@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../l10n/app_localizations.dart';
 import '../updater.dart';
 
 class UpdateDialog extends StatefulWidget {
@@ -31,7 +32,7 @@ class _UpdateDialogState extends State<UpdateDialog> {
       if (mounted) {
         setState(() {
           _busy = false;
-          _error = 'Download failed. Check your connection and try again.';
+          _error = AppLocalizations.of(context).updDownloadFailed;
         });
       }
     }
@@ -40,14 +41,15 @@ class _UpdateDialogState extends State<UpdateDialog> {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
+    final l = AppLocalizations.of(context);
     final notes = widget.info.notes;
     return AlertDialog(
-      title: const Text('Update available'),
+      title: Text(l.updTitle),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Version ${widget.info.version} is ready to install.'),
+          Text(l.updReady(widget.info.version)),
           if (notes.isNotEmpty) ...[
             const SizedBox(height: 12),
             Text(notes, maxLines: 6, overflow: TextOverflow.ellipsis),
@@ -65,11 +67,11 @@ class _UpdateDialogState extends State<UpdateDialog> {
       actions: [
         TextButton(
           onPressed: _busy ? null : () => Navigator.of(context).pop(),
-          child: const Text('Later'),
+          child: Text(l.later),
         ),
         FilledButton(
           onPressed: _busy ? null : _start,
-          child: const Text('Download and install'),
+          child: Text(l.updInstall),
         ),
       ],
     );

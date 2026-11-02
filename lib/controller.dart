@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'history.dart';
+import 'l10n/app_localizations.dart';
+import 'l10n_resolve.dart';
 import 'models.dart';
 import 'native_bridge.dart';
 import 'score_history.dart';
@@ -10,6 +12,9 @@ import 'scoring.dart';
 
 class AppController extends ChangeNotifier {
   ThemeMode themeMode = ThemeMode.system;
+
+  /// The language chosen in Settings, or null to follow the phone.
+  Locale? locale;
   bool includeSystem = false;
   bool alertsEnabled = false;
   bool weeklyEnabled = false;
@@ -54,7 +59,7 @@ class AppController extends ChangeNotifier {
       }
       for (final id in report.app.special) {
         if (!specialPoints.containsKey(id)) continue;
-        (map[specialLabel(id)] ??= <AppReport>[]).add(report);
+        (map[id] ??= <AppReport>[]).add(report);
       }
     }
     final entries = map.entries.toList()
@@ -87,6 +92,7 @@ class AppController extends ChangeNotifier {
       _ => ThemeMode.system,
     };
     includeSystem = prefs.getBool('include_system') ?? false;
+    locale = localeFromCode(prefs.getString('language'));
     alertsEnabled = prefs.getBool('alerts_enabled') ?? false;
     weeklyEnabled = prefs.getBool('weekly_summary') ?? false;
     trusted = (prefs.getStringList('trusted_apps') ?? const <String>[]).toSet();
@@ -100,6 +106,17 @@ class AppController extends ChangeNotifier {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('theme_mode', mode.name);
   }
+
+  /// Saves the language. Pass null to follow the phone.
+  Future<void> setLocale(Locale? value) async {
+    locale = value;
+    notifyListeners();
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('language', value == null ? 'system' : codeFromLocale(value));
+  }
+
+  /// The translations for the current language. Works without a BuildContext.
+  AppLocalizations get l10n => l10nFor(locale);
 
   Future<void> setIncludeSystem(bool value) async {
     includeSystem = value;
@@ -135,12 +152,12 @@ class AppController extends ChangeNotifier {
       if (alerts == true || weekly == true) {
         final allowed = await NativeBridge.requestNotifications();
         if (!allowed) {
-          return 'Allow notifications for Peekless to turn this on.';
+          return l10n.notifyDenied;
         }
       }
       await NativeBridge.setAlerts(nextAlerts || nextWeekly);
     } on PlatformException catch (e) {
-      return e.message ?? 'Could not change this setting.';
+      return e.message ?? l10n.settingChangeFailed;
     }
     alertsEnabled = nextAlerts;
     weeklyEnabled = nextWeekly;
@@ -204,15 +221,15 @@ class AppController extends ChangeNotifier {
         return a.app.name.toLowerCase().compareTo(b.app.name.toLowerCase());
       });
       _all = reports;
-      await HistoryStore.record(reports, trusted: trusted);
+      await HistoryStore.record(reports, trusted: trusted, l: l10n);
       history = await HistoryStore.loadEvents();
       if (reports.isNotEmpty) {
         trend = await ScoreHistory.record(overallScore);
       }
-    } on PlatformException catch (e) {
-      error = e.message ?? 'Scan failed';
+    } on PlatformException {
+      error = l10n.scanFailed;
     } catch (_) {
-      error = 'Scan failed';
+      error = l10n.scanFailed;
     }
     loading = false;
     notifyListeners();

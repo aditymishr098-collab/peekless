@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../checks.dart';
+import '../security_checks.dart';
 import '../controller.dart';
+import '../l10n/app_localizations.dart';
 import '../scoring.dart';
+import '../texts.dart';
 import '../widgets/app_tile.dart';
 
 /// Every security check with the apps that match it.
@@ -16,17 +18,18 @@ class ChecksScreen extends StatelessWidget {
       builder: (context, _) {
         final scheme = Theme.of(context).colorScheme;
         final text = Theme.of(context).textTheme;
+        final l = AppLocalizations.of(context);
         final reports = controller.reports;
 
         return Scaffold(
-          appBar: AppBar(title: const Text('Security checks')),
+          appBar: AppBar(title: Text(l.checksTitle)),
           body: ListView(
             padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
             children: [
               Padding(
                 padding: const EdgeInsets.fromLTRB(4, 0, 4, 12),
                 child: Text(
-                  'Things that are worth a second look. Tap a check to see the apps.',
+                  l.checksIntro,
                   style: text.bodyMedium?.copyWith(color: scheme.onSurfaceVariant),
                 ),
               ),
@@ -53,6 +56,7 @@ class _CheckTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final text = Theme.of(context).textTheme;
+    final l = AppLocalizations.of(context);
     final count = apps.length;
     final flagged = count > 0 && !check.good;
 
@@ -73,20 +77,18 @@ class _CheckTile extends StatelessWidget {
                       : Icons.check_circle_outline,
               color: flagged ? scheme.error : scheme.primary,
             ),
-            title: Text(check.title),
+            title: Text(checkTitle(l, check.id)),
             subtitle: Text(
-              count == 0
-                  ? 'None found'
-                  : '$count ${count == 1 ? 'app' : 'apps'}',
+              count == 0 ? l.noneFound : l.appsCount(count),
             ),
             childrenPadding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
             children: [
               Padding(
                 padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
                 child: Align(
-                  alignment: Alignment.centerLeft,
+                  alignment: AlignmentDirectional.centerStart,
                   child: Text(
-                    check.description,
+                    checkDescription(l, check.id),
                     style: text.bodySmall?.copyWith(color: scheme.onSurfaceVariant),
                   ),
                 ),
@@ -95,8 +97,8 @@ class _CheckTile extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
                   child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text('None found.', style: text.bodyMedium),
+                    alignment: AlignmentDirectional.centerStart,
+                    child: Text(l.noneFound, style: text.bodyMedium),
                   ),
                 )
               else
@@ -121,6 +123,7 @@ class _UsagePrompt extends StatelessWidget {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final text = Theme.of(context).textTheme;
+    final l = AppLocalizations.of(context);
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: Container(
@@ -137,23 +140,21 @@ class _UsagePrompt extends StatelessWidget {
                 Icon(Icons.timer_outlined, color: scheme.onSurfaceVariant),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: Text('Unused apps with sensitive access', style: text.bodyLarge),
+                  child: Text(l.checkUnusedTitle, style: text.bodyLarge),
                 ),
               ],
             ),
             const SizedBox(height: 8),
             Text(
-              'Optional. Turn on Usage access to find apps you have not opened for a '
-              'long time but that can still use your microphone, location or contacts. '
-              'The data never leaves your phone.',
+              l.usagePromptBody,
               style: text.bodySmall?.copyWith(color: scheme.onSurfaceVariant),
             ),
             const SizedBox(height: 8),
             Align(
-              alignment: Alignment.centerLeft,
+              alignment: AlignmentDirectional.centerStart,
               child: FilledButton.tonal(
                 onPressed: controller.openUsageAccess,
-                child: const Text('Turn on Usage access'),
+                child: Text(l.usagePromptButton),
               ),
             ),
           ],

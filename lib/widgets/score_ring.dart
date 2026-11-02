@@ -2,6 +2,8 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
+import '../l10n/app_localizations.dart';
+
 class ScoreRing extends StatelessWidget {
   const ScoreRing({
     super.key,
@@ -18,7 +20,7 @@ class ScoreRing extends StatelessWidget {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     return Semantics(
-      label: 'Privacy score $score out of 100',
+      label: AppLocalizations.of(context).scoreSemantics(score),
       child: SizedBox(
         width: size,
         height: size,
@@ -54,7 +56,7 @@ class ScoreRing extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  'of 100',
+                  AppLocalizations.of(context).scoreOf100,
                   style: TextStyle(fontSize: 14, color: scheme.onSurfaceVariant),
                 ),
               ],

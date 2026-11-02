@@ -1,0 +1,736 @@
+{
+  "@@locale": "en",
+  "navHome": "Home",
+  "navApps": "Apps",
+  "navPermissions": "Permissions",
+  "navChanges": "Changes",
+  "navSettings": "Settings",
+  "levelRisky": "Risky",
+  "levelMedium": "Medium",
+  "levelSafe": "Safe",
+  "overallHigh": "High risk",
+  "overallMedium": "Medium risk",
+  "overallLow": "Low risk",
+  "cancel": "Cancel",
+  "clear": "Clear",
+  "back": "Back",
+  "later": "Later",
+  "noneFound": "None found",
+  "scanning": "Scanning...",
+  "scanFailed": "Scan failed",
+  "tryAgain": "Try again",
+  "couldNotOpenSettings": "Could not open app settings.",
+  "homeShare": "Share report",
+  "homeRescan": "Rescan apps",
+  "homeAppsChecked": "Apps checked on this phone: {count}",
+  "@homeAppsChecked": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "homeAppsCounted": "Apps counted: {counted}, trusted: {trusted}",
+  "@homeAppsCounted": {
+    "placeholders": {
+      "counted": {
+        "type": "int"
+      },
+      "trusted": {
+        "type": "int"
+      }
+    }
+  },
+  "homeNeedsAttention": "Needs attention",
+  "homeSeeAll": "See all",
+  "homeAllSafe": "Nothing needs attention. All your apps look safe.",
+  "homeShareFailed": "Could not share the report.",
+  "scoreOf100": "of 100",
+  "scoreSemantics": "Privacy score {score} out of 100",
+  "@scoreSemantics": {
+    "placeholders": {
+      "score": {
+        "type": "int"
+      }
+    }
+  },
+  "wizardCard": "Review apps with sensitive access: {count}",
+  "@wizardCard": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "appsSubtitleAll": "Apps: {count}, riskiest first",
+  "@appsSubtitleAll": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "appsSubtitleFiltered": "Showing {shown} of {total}",
+  "@appsSubtitleFiltered": {
+    "placeholders": {
+      "shown": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "appsSearch": "Search apps",
+  "appsNone": "No apps found",
+  "chipMine": "My apps",
+  "chipSystem": "System",
+  "filterAll": "All",
+  "filterTrackers": "Has trackers",
+  "filterSpecial": "Special access",
+  "filterNotStore": "Not from a store",
+  "filterOffline": "Offline",
+  "filterTrusted": "Trusted",
+  "permSubtitle": "Who can use what on this phone",
+  "trackersSubtitle": "Which trackers sit in which apps",
+  "segTrackers": "Trackers",
+  "noTrackers": "No known trackers found.",
+  "noPerms": "No sensitive permissions found.",
+  "appsCount": "Apps: {count}",
+  "@appsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "changesSubtitle": "New apps and permission changes",
+  "clearTitle": "Clear changes?",
+  "clearBody": "The list of changes will be removed from this phone.",
+  "changesEmpty": "No changes yet. Peekless will list new apps, removed apps, new permissions and new trackers here.",
+  "evInstalled": "Installed. Score {score} ({level}).",
+  "@evInstalled": {
+    "placeholders": {
+      "score": {
+        "type": "int"
+      },
+      "level": {
+        "type": "String"
+      }
+    }
+  },
+  "evRemoved": "Uninstalled.",
+  "evAllowed": "Now allowed: {label}.",
+  "@evAllowed": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "evRevoked": "No longer allowed: {label}.",
+  "@evRevoked": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "evTracker": "New tracker found: {name}.",
+  "@evTracker": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "evSpecialOn": "{label} turned on.",
+  "@evSpecialOn": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "evSpecialOff": "{label} turned off.",
+  "@evSpecialOff": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "checksTitle": "Security checks",
+  "checksIntro": "Things that are worth a second look. Tap a check to see the apps.",
+  "checkUnusedTitle": "Unused apps with sensitive access",
+  "checkDebuggableTitle": "Debuggable builds",
+  "checkOfflineTitle": "Offline apps",
+  "checkAccessibilityDesc": "These apps can read your screen and tap for you.",
+  "checkAdminDesc": "These apps can lock or wipe the phone and block uninstalling.",
+  "checkNotificationDesc": "These apps can read all your notifications, including codes.",
+  "checkUnusedDesc": "Not opened for {days} days, but they can still use sensitive permissions. Consider removing them.",
+  "@checkUnusedDesc": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "checkNotStoreDesc": "Installed from a file or a computer. Nobody checked these for you.",
+  "checkDebuggableDesc": "Test versions that can be inspected from a computer.",
+  "checkOldDesc": "These apps skip newer Android privacy protections.",
+  "checkOfflineDesc": "No internet permission, so they cannot send data online.",
+  "usagePromptBody": "Optional. Turn on Usage access to find apps you have not opened for a long time but that can still use your microphone, location or contacts. The data never leaves your phone.",
+  "usagePromptButton": "Turn on Usage access",
+  "securityNone": "No security flags found on this phone.",
+  "securityOffline": "Apps that work fully offline: {count}",
+  "@securityOffline": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "fixWizardTitle": "Fix wizard",
+  "wizardStep": "App {index} of {total}",
+  "@wizardStep": {
+    "placeholders": {
+      "index": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "wizardQuestion": "Does this app really need these?",
+  "wizardHint": "Tap “Open app settings”, then Permissions, and switch off what the app does not need.",
+  "openAppSettings": "Open app settings",
+  "trustApp": "I trust this app",
+  "nextApp": "Next app",
+  "finish": "Finish",
+  "wizardDone": "All reviewed",
+  "wizardNothing": "Nothing to review",
+  "wizardNothingBody": "No app has sensitive access right now.",
+  "wizardRescanBody": "Rescan to see your new score.",
+  "rescanFinish": "Rescan and finish",
+  "wizardRequested": "asked for, not allowed yet",
+  "scoreTrackers": "Known trackers: {count}",
+  "@scoreTrackers": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "scoreDebuggable": "Debuggable build",
+  "scoreOldTarget": "Built for very old Android",
+  "unusualFor": "Unusual for this type of app: {groups}",
+  "@unusualFor": {
+    "placeholders": {
+      "groups": {
+        "type": "String"
+      }
+    }
+  },
+  "noteRequested": "requested, counts half",
+  "noteAllowed": "allowed",
+  "noteTrackers": "{points} points each, up to {max}",
+  "@noteTrackers": {
+    "placeholders": {
+      "points": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "noteTurnedOn": "turned on",
+  "noteDebuggable": "can be inspected from a computer",
+  "noteApi": "API level {apiLevel}",
+  "@noteApi": {
+    "placeholders": {
+      "apiLevel": {
+        "type": "int"
+      }
+    }
+  },
+  "noteExtra": "extra penalty",
+  "explainTitle": "How the score works",
+  "explainIntro": "Every app starts at 100. Points are removed for what the app can do.",
+  "explainStart": "Start",
+  "explainNothing": "Nothing removed",
+  "explainNothingNote": "No sensitive permissions and no known trackers",
+  "explainScore": "Score",
+  "explainRules": "The rules",
+  "rule1": "Only the heaviest permission in each group counts. For example, precise location and approximate location are counted once.",
+  "rule2": "Special permissions (all files, draw over apps, install apps) count half when an app only requests them.",
+  "rule3": "Each known tracker removes {points} points, up to {max}.",
+  "@rule3": {
+    "placeholders": {
+      "points": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "rule4": "Special access that is turned on removes points: accessibility {a}, device admin {b}, notification access {c}.",
+  "@rule4": {
+    "placeholders": {
+      "a": {
+        "type": "int"
+      },
+      "b": {
+        "type": "int"
+      },
+      "c": {
+        "type": "int"
+      }
+    }
+  },
+  "rule5": "A debuggable build removes {a} points. An app built for Android 7 or older removes {b} points.",
+  "@rule5": {
+    "placeholders": {
+      "a": {
+        "type": "int"
+      },
+      "b": {
+        "type": "int"
+      }
+    }
+  },
+  "rule6": "If a permission is unusual for the kind of app (for example a microphone in a flashlight), {points} extra points are removed, for up to {maxGroups} permission groups.",
+  "@rule6": {
+    "placeholders": {
+      "points": {
+        "type": "int"
+      },
+      "maxGroups": {
+        "type": "int"
+      }
+    }
+  },
+  "rule7": "70 or more is Safe. 40 to 69 is Medium. Below 40 is Risky.",
+  "explainFooter": "The score shows what an app is able to do, not what it is doing right now.",
+  "howScore": "How is this score calculated?",
+  "summaryTrackers": "Known trackers: {count}.",
+  "@summaryTrackers": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "summaryNone": "No sensitive permissions and no known trackers.",
+  "metaTrackers": "Trackers: {count}",
+  "@metaTrackers": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "metaNone": "No sensitive permissions",
+  "detailSecurity": "Security",
+  "detailSource": "Source",
+  "detailInternet": "Internet",
+  "detailInternetYes": "Can use the internet",
+  "detailOffline": "Offline",
+  "detailOfflineBody": "No internet permission, so it cannot send data online",
+  "detailLastOpened": "Last opened",
+  "today": "Today",
+  "yesterday": "Yesterday",
+  "daysSince": "Days since last use: {days}",
+  "@daysSince": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "detailDebuggableBody": "A test version that can be inspected from a computer",
+  "detailOldBody": "API level {apiLevel}, so newer privacy protections are skipped",
+  "@detailOldBody": {
+    "placeholders": {
+      "apiLevel": {
+        "type": "int"
+      }
+    }
+  },
+  "detailTrustBody": "Leave it out of the Risky count and alerts",
+  "detailNoPerms": "This app does not ask for any sensitive permissions.",
+  "chipAllowed": "Allowed",
+  "chipRequested": "Requested",
+  "chipNotAllowed": "Not allowed",
+  "sensitiveNote": "Sensitive: {why}",
+  "@sensitiveNote": {
+    "placeholders": {
+      "why": {
+        "type": "String"
+      }
+    }
+  },
+  "detailTrackers": "Trackers found: {count}",
+  "@detailTrackers": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "detailDisclaimer": "Peekless shows what an app is able to do, not what it is doing right now. Trackers are found from the app manifest, so some may be missed.",
+  "srcBuiltIn": "Built into your phone",
+  "srcUnknown": "Unknown (installed from a file or a computer)",
+  "srcApk": "An APK file you opened",
+  "srcAdb": "A computer (adb)",
+  "srcInstalledBy": "Installed by {name}",
+  "@srcInstalledBy": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "accessibilityLabel": "Accessibility access",
+  "adminLabel": "Device admin",
+  "notificationLabel": "Notification access",
+  "accessibilityWhy": "Turned on. It can read what is on your screen and act for you.",
+  "adminWhy": "Turned on. It can lock the phone, wipe it and block uninstalling.",
+  "notificationWhy": "Turned on. It can read all your notifications, including codes.",
+  "grpMicrophone": "Microphone",
+  "grpCamera": "Camera",
+  "grpLocation": "Location",
+  "grpContacts": "Contacts",
+  "grpSms": "SMS",
+  "grpCallLog": "Call log",
+  "grpPhone": "Phone",
+  "grpCalendar": "Calendar",
+  "grpBodySensors": "Body sensors",
+  "grpActivity": "Activity",
+  "grpFiles": "Files",
+  "grpOverlay": "Overlay",
+  "grpInstalls": "Installs",
+  "grpAppList": "App list",
+  "lblCoarseLocation": "Approximate location",
+  "lblFineLocation": "Precise location",
+  "lblBackgroundLocation": "Location all the time",
+  "lblAccounts": "Accounts",
+  "lblReadSms": "Read SMS",
+  "lblReceiveSms": "Receive SMS",
+  "lblSendSms": "Send SMS",
+  "lblPhoneState": "Phone status",
+  "lblCallPhone": "Make calls",
+  "lblActivity": "Physical activity",
+  "lblAllFiles": "All files",
+  "lblFilesMedia": "Files and media",
+  "lblPhotos": "Photos",
+  "lblVideos": "Videos",
+  "lblAudioFiles": "Audio files",
+  "lblOverlay": "Draw over other apps",
+  "lblInstall": "Install other apps",
+  "lblAppList": "See all apps",
+  "whyMic": "Can record audio.",
+  "whyCamera": "Can use the camera.",
+  "whyCoarse": "Can see your approximate location.",
+  "whyFine": "Can see your precise location.",
+  "whyBackground": "Can track your location all the time.",
+  "whyContacts": "Can read your contacts.",
+  "whyAccounts": "Can see the accounts on your phone.",
+  "whyReadSms": "Can read your text messages.",
+  "whyReceiveSms": "Can receive your text messages.",
+  "whySendSms": "Can send text messages.",
+  "whyCallLog": "Can read your call history.",
+  "whyPhoneState": "Can see your phone status.",
+  "whyCallPhone": "Can make phone calls.",
+  "whyCalendar": "Can read your calendar.",
+  "whyBody": "Can read body sensors.",
+  "whyActivity": "Can see your physical activity.",
+  "whyAllFiles": "Can access all files on your phone.",
+  "whyFilesMedia": "Can read files and media.",
+  "whyPhotos": "Can read your photos.",
+  "whyVideos": "Can read your videos.",
+  "whyAudio": "Can read your audio files.",
+  "whyOverlay": "Can draw over other apps.",
+  "whyInstall": "Can install other apps.",
+  "whyAppList": "Can see all apps on your phone.",
+  "settingsAppearance": "Appearance",
+  "settingsTheme": "Theme",
+  "settingsThemeBody": "Follows your phone by default",
+  "themeSystem": "System",
+  "themeLight": "Light",
+  "themeDark": "Dark",
+  "settingsScanning": "Scanning",
+  "settingsAlerts": "App alerts",
+  "settingsAlertsBody": "Notify about new apps and new permissions. Checks about every 6 hours.",
+  "settingsWeekly": "Weekly summary",
+  "settingsWeeklyBody": "One notification a week: your score and what changed",
+  "settingsUsage": "Usage access",
+  "settingsUsageOn": "On. Peekless can see when apps were last opened.",
+  "settingsUsageOff": "Off. Optional. Lets Peekless find apps you no longer use. It stays on your phone.",
+  "settingsSystemApps": "Include system apps",
+  "settingsSystemAppsBody": "Also scan apps built into your phone",
+  "settingsRescan": "Rescan now",
+  "settingsRescanBody": "Check all apps again",
+  "settingsUpdates": "Updates",
+  "settingsCheckUpdates": "Check for updates",
+  "settingsVersion": "Version {version} · only when you tap",
+  "@settingsVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsAbout": "About",
+  "settingsPrivacy": "Privacy",
+  "settingsPrivacyBody": "Everything stays on your phone",
+  "settingsOpenSource": "Open source",
+  "settingsOpenSourceBody": "GPL-3.0 license. View the code on GitHub",
+  "settingsDeveloped": "Developed by Lumio Apps",
+  "settingsLanguage": "Language",
+  "languageSystem": "Follow phone language",
+  "updChecking": "Checking for updates...",
+  "updLatest": "You have the latest version.",
+  "updFailed": "Could not check for updates. Try again later.",
+  "updTitle": "Update available",
+  "updReady": "Version {version} is ready to install.",
+  "@updReady": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "updDownloadFailed": "Download failed. Check your connection and try again.",
+  "updInstall": "Download and install",
+  "notifyDenied": "Allow notifications for Peekless to turn this on.",
+  "settingChangeFailed": "Could not change this setting.",
+  "usageOpenFailed": "Could not open Usage access settings.",
+  "alertNewTitle": "New app: {name}",
+  "@alertNewTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "alertNewBody": "Score {score} ({level}). {summary}",
+  "@alertNewBody": {
+    "placeholders": {
+      "score": {
+        "type": "int"
+      },
+      "level": {
+        "type": "String"
+      },
+      "summary": {
+        "type": "String"
+      }
+    }
+  },
+  "alertChangedTitle": "{name} changed",
+  "@alertChangedTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "alertNowHas": "Now has: {list}.",
+  "@alertNowHas": {
+    "placeholders": {
+      "list": {
+        "type": "String"
+      }
+    }
+  },
+  "alertNowAllowed": "Now allowed: {list}.",
+  "@alertNowAllowed": {
+    "placeholders": {
+      "list": {
+        "type": "String"
+      }
+    }
+  },
+  "alertNewTracker": "New tracker: {list}.",
+  "@alertNewTracker": {
+    "placeholders": {
+      "list": {
+        "type": "String"
+      }
+    }
+  },
+  "alertScore": "Score {score} ({level}).",
+  "@alertScore": {
+    "placeholders": {
+      "score": {
+        "type": "int"
+      },
+      "level": {
+        "type": "String"
+      }
+    }
+  },
+  "alertMoreTitle": "More changes",
+  "alertMoreBody": "More changes: {count}. Open Peekless to see them.",
+  "@alertMoreBody": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "weeklyTitle": "Your weekly Peekless summary",
+  "weeklyUp": "Score {score}/100, up {diff} since last week.",
+  "@weeklyUp": {
+    "placeholders": {
+      "score": {
+        "type": "int"
+      },
+      "diff": {
+        "type": "int"
+      }
+    }
+  },
+  "weeklyDown": "Score {score}/100, down {diff} since last week.",
+  "@weeklyDown": {
+    "placeholders": {
+      "score": {
+        "type": "int"
+      },
+      "diff": {
+        "type": "int"
+      }
+    }
+  },
+  "weeklySame": "Score {score}/100, no change since last week.",
+  "@weeklySame": {
+    "placeholders": {
+      "score": {
+        "type": "int"
+      }
+    }
+  },
+  "weeklyScore": "Score {score}/100.",
+  "@weeklyScore": {
+    "placeholders": {
+      "score": {
+        "type": "int"
+      }
+    }
+  },
+  "weeklyNewApps": "New apps: {count}",
+  "@weeklyNewApps": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "weeklyRemoved": "Apps removed: {count}",
+  "@weeklyRemoved": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "weeklyAllowed": "Permissions turned on: {count}",
+  "@weeklyAllowed": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "weeklyTrackers": "New trackers: {count}",
+  "@weeklyTrackers": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "weeklyChanges": "This week: {list}.",
+  "@weeklyChanges": {
+    "placeholders": {
+      "list": {
+        "type": "String"
+      }
+    }
+  },
+  "weeklyNone": "No changes this week.",
+  "weeklyRisky": "Risky apps: {count}.",
+  "@weeklyRisky": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "reportTitle": "Peekless privacy report",
+  "reportScore": "Score: {score}/100 ({level})",
+  "@reportScore": {
+    "placeholders": {
+      "score": {
+        "type": "int"
+      },
+      "level": {
+        "type": "String"
+      }
+    }
+  },
+  "reportCounts": "Apps checked: {total}. Risky: {risky}, Medium: {medium}, Safe: {safe}",
+  "@reportCounts": {
+    "placeholders": {
+      "total": {
+        "type": "int"
+      },
+      "risky": {
+        "type": "int"
+      },
+      "medium": {
+        "type": "int"
+      },
+      "safe": {
+        "type": "int"
+      }
+    }
+  },
+  "reportAttention": "Needs attention:",
+  "reportFooter": "Checked on my phone with Peekless. Nothing was sent anywhere.",
+  "trendTitle": "Score over time",
+  "trendUp": "Up {diff} points (days tracked: {days})",
+  "@trendUp": {
+    "placeholders": {
+      "diff": {
+        "type": "int"
+      },
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "trendDown": "Down {diff} points (days tracked: {days})",
+  "@trendDown": {
+    "placeholders": {
+      "diff": {
+        "type": "int"
+      },
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "trendSame": "No change (days tracked: {days})",
+  "@trendSame": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  }
+}

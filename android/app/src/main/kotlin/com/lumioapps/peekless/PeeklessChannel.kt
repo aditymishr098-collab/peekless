@@ -128,7 +128,7 @@ class PeeklessChannel(
             val send = Intent(Intent.ACTION_SEND)
             send.type = "text/plain"
             send.putExtra(Intent.EXTRA_TEXT, text)
-            val chooser = Intent.createChooser(send, "Share report")
+            val chooser = Intent.createChooser(send, call.argument<String>("title") ?: "Share report")
             if (activity == null) chooser.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             (activity ?: context).startActivity(chooser)
             result.success(null)

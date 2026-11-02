@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../controller.dart';
+import '../l10n/app_localizations.dart';
+import '../l10n_resolve.dart';
+import '../language_names.dart';
 import '../updater.dart';
 import '../widgets/update_dialog.dart';
 
@@ -10,15 +13,16 @@ class SettingsScreen extends StatelessWidget {
 
   Future<void> _checkForUpdates(BuildContext context) async {
     final messenger = ScaffoldMessenger.of(context);
+    final l = AppLocalizations.of(context);
     messenger
       ..hideCurrentSnackBar()
-      ..showSnackBar(const SnackBar(content: Text('Checking for updates...')));
+      ..showSnackBar(SnackBar(content: Text(l.updChecking)));
     try {
       final info = await Updater.check();
       messenger.hideCurrentSnackBar();
       if (info == null) {
         messenger.showSnackBar(
-          const SnackBar(content: Text('You have the latest version.')),
+          SnackBar(content: Text(l.updLatest)),
         );
         return;
       }
@@ -31,7 +35,7 @@ class SettingsScreen extends StatelessWidget {
       messenger
         ..hideCurrentSnackBar()
         ..showSnackBar(
-          const SnackBar(content: Text('Could not check for updates. Try again later.')),
+          SnackBar(content: Text(l.updFailed)),
         );
     }
   }
@@ -58,13 +62,38 @@ class SettingsScreen extends StatelessWidget {
 
   Future<void> _openUsage(BuildContext context) async {
     final messenger = ScaffoldMessenger.of(context);
+    final l = AppLocalizations.of(context);
     try {
       await controller.openUsageAccess();
     } catch (_) {
       messenger.showSnackBar(
-        const SnackBar(content: Text('Could not open Usage access settings.')),
+        SnackBar(content: Text(l.usageOpenFailed)),
       );
     }
+  }
+
+  Future<void> _pickLanguage(BuildContext context) async {
+    final l = AppLocalizations.of(context);
+    final current = controller.locale == null ? 'system' : codeFromLocale(controller.locale!);
+    final choice = await showDialog<String>(
+      context: context,
+      builder: (context) => SimpleDialog(
+        title: Text(l.settingsLanguage),
+        children: [
+          SimpleDialogOption(
+            onPressed: () => Navigator.of(context).pop('system'),
+            child: _LanguageRow(label: l.languageSystem, selected: current == 'system'),
+          ),
+          for (final entry in languageNames.entries)
+            SimpleDialogOption(
+              onPressed: () => Navigator.of(context).pop(entry.key),
+              child: _LanguageRow(label: entry.value, selected: current == entry.key),
+            ),
+        ],
+      ),
+    );
+    if (choice == null) return;
+    await controller.setLocale(localeFromCode(choice));
   }
 
   Future<void> _openGithub() async {
@@ -81,6 +110,7 @@ class SettingsScreen extends StatelessWidget {
       builder: (context, _) {
         final scheme = Theme.of(context).colorScheme;
         final text = Theme.of(context).textTheme;
+        final l = AppLocalizations.of(context);
         final iconColor = scheme.onSurfaceVariant;
 
         return ListView(
@@ -88,24 +118,24 @@ class SettingsScreen extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 4),
-              child: Text('Settings', style: text.headlineMedium),
+              child: Text(l.navSettings, style: text.headlineMedium),
             ),
             const SizedBox(height: 8),
-            const _SectionLabel('Appearance'),
+            _SectionLabel(l.settingsAppearance),
             _Group(
               children: [
                 ListTile(
                   leading: Icon(Icons.contrast, color: iconColor),
-                  title: const Text('Theme'),
-                  subtitle: const Text('Follows your phone by default'),
+                  title: Text(l.settingsTheme),
+                  subtitle: Text(l.settingsThemeBody),
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
                   child: SegmentedButton<ThemeMode>(
-                    segments: const [
-                      ButtonSegment<ThemeMode>(value: ThemeMode.system, label: Text('System')),
-                      ButtonSegment<ThemeMode>(value: ThemeMode.light, label: Text('Light')),
-                      ButtonSegment<ThemeMode>(value: ThemeMode.dark, label: Text('Dark')),
+                    segments: [
+                      ButtonSegment<ThemeMode>(value: ThemeMode.system, label: Text(l.themeSystem)),
+                      ButtonSegment<ThemeMode>(value: ThemeMode.light, label: Text(l.themeLight)),
+                      ButtonSegment<ThemeMode>(value: ThemeMode.dark, label: Text(l.themeDark)),
                     ],
                     selected: {controller.themeMode},
                     onSelectionChanged: (selection) =>
@@ -114,65 +144,58 @@ class SettingsScreen extends StatelessWidget {
                 ),
               ],
             ),
-            const _SectionLabel('Scanning'),
+            _SectionLabel(l.settingsScanning),
             _Group(
               children: [
                 SwitchListTile(
                   secondary: Icon(Icons.notifications_outlined, color: iconColor),
-                  title: const Text('App alerts'),
-                  subtitle: const Text(
-                    'Notify about new apps and new permissions. Checks about every 6 hours.',
-                  ),
+                  title: Text(l.settingsAlerts),
+                  subtitle: Text(l.settingsAlertsBody),
                   value: controller.alertsEnabled,
                   onChanged: (value) => _toggleAlerts(context, value),
                 ),
                 SwitchListTile(
                   secondary: Icon(Icons.event_note_outlined, color: iconColor),
-                  title: const Text('Weekly summary'),
-                  subtitle: const Text(
-                    'One notification a week: your score and what changed',
-                  ),
+                  title: Text(l.settingsWeekly),
+                  subtitle: Text(l.settingsWeeklyBody),
                   value: controller.weeklyEnabled,
                   onChanged: (value) => _toggleWeekly(context, value),
                 ),
                 ListTile(
                   leading: Icon(Icons.timer_outlined, color: iconColor),
-                  title: const Text('Usage access'),
+                  title: Text(l.settingsUsage),
                   subtitle: Text(
-                    controller.usageAccess
-                        ? 'On. Peekless can see when apps were last opened.'
-                        : 'Off. Optional. Lets Peekless find apps you no longer use. '
-                            'It stays on your phone.',
+                    controller.usageAccess ? l.settingsUsageOn : l.settingsUsageOff,
                   ),
                   trailing: Icon(Icons.chevron_right, color: iconColor),
                   onTap: () => _openUsage(context),
                 ),
                 SwitchListTile(
                   secondary: Icon(Icons.phone_android, color: iconColor),
-                  title: const Text('Include system apps'),
-                  subtitle: const Text('Also scan apps built into your phone'),
+                  title: Text(l.settingsSystemApps),
+                  subtitle: Text(l.settingsSystemAppsBody),
                   value: controller.includeSystem,
                   onChanged: controller.setIncludeSystem,
                 ),
                 ListTile(
                   leading: Icon(Icons.refresh, color: iconColor),
-                  title: const Text('Rescan now'),
-                  subtitle: const Text('Check all apps again'),
+                  title: Text(l.settingsRescan),
+                  subtitle: Text(l.settingsRescanBody),
                   onTap: controller.scan,
                 ),
               ],
             ),
-            const _SectionLabel('Updates'),
+            _SectionLabel(l.settingsUpdates),
             _Group(
               children: [
                 ListTile(
                   leading: Icon(Icons.download, color: iconColor),
-                  title: const Text('Check for updates'),
+                  title: Text(l.settingsCheckUpdates),
                   subtitle: FutureBuilder<String>(
                     future: Updater.currentVersion(),
                     builder: (context, snapshot) {
                       final version = snapshot.data ?? '';
-                      return Text('Version $version · only when you tap');
+                      return Text(l.settingsVersion(version));
                     },
                   ),
                   trailing: Icon(Icons.chevron_right, color: iconColor),
@@ -180,20 +203,35 @@ class SettingsScreen extends StatelessWidget {
                 ),
               ],
             ),
-            const _SectionLabel('About'),
+            _SectionLabel(l.settingsAbout),
             _Group(
               children: [
                 ListTile(
+                  leading: Icon(Icons.language, color: iconColor),
+                  title: Text(l.settingsLanguage),
+                  subtitle: Text(
+                    controller.locale == null
+                        ? l.languageSystem
+                        : (languageNames[codeFromLocale(controller.locale!)] ?? l.languageSystem),
+                  ),
+                  trailing: Icon(Icons.chevron_right, color: iconColor),
+                  onTap: () => _pickLanguage(context),
+                ),
+                ListTile(
                   leading: Icon(Icons.lock_outline, color: iconColor),
-                  title: const Text('Privacy'),
-                  subtitle: const Text('Everything stays on your phone'),
+                  title: Text(l.settingsPrivacy),
+                  subtitle: Text(l.settingsPrivacyBody),
                 ),
                 ListTile(
                   leading: Icon(Icons.code, color: iconColor),
-                  title: const Text('Open source'),
-                  subtitle: const Text('View the code on GitHub'),
+                  title: Text(l.settingsOpenSource),
+                  subtitle: Text(l.settingsOpenSourceBody),
                   trailing: Icon(Icons.chevron_right, color: iconColor),
                   onTap: _openGithub,
+                ),
+                ListTile(
+                  leading: Icon(Icons.groups_outlined, color: iconColor),
+                  title: Text(l.settingsDeveloped),
                 ),
               ],
             ),
@@ -235,6 +273,24 @@ class _Group extends StatelessWidget {
       borderRadius: BorderRadius.circular(24),
       clipBehavior: Clip.antiAlias,
       child: Column(children: children),
+    );
+  }
+}
+
+class _LanguageRow extends StatelessWidget {
+  const _LanguageRow({required this.label, required this.selected});
+
+  final String label;
+  final bool selected;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    return Row(
+      children: [
+        Expanded(child: Text(label)),
+        if (selected) Icon(Icons.check, color: scheme.primary),
+      ],
     );
   }
 }

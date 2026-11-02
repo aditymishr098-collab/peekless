@@ -1,20 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../l10n/app_localizations.dart';
 import '../models.dart';
+import '../texts.dart';
 
 extension RiskStyle on RiskLevel {
-  String get label => switch (this) {
-        RiskLevel.risky => 'Risky',
-        RiskLevel.medium => 'Medium',
-        RiskLevel.safe => 'Safe',
-      };
-
-  String get overallLabel => switch (this) {
-        RiskLevel.risky => 'High risk',
-        RiskLevel.medium => 'Medium risk',
-        RiskLevel.safe => 'Low risk',
-      };
-
   Color container(ColorScheme scheme) => switch (this) {
         RiskLevel.risky => scheme.errorContainer,
         RiskLevel.medium => scheme.tertiaryContainer,
@@ -43,6 +33,7 @@ class RiskChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
+    final name = levelName(AppLocalizations.of(context), level);
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
       decoration: BoxDecoration(
@@ -50,7 +41,7 @@ class RiskChip extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
       ),
       child: Text(
-        score == null ? level.label : '$score · ${level.label}',
+        score == null ? name : '$score · $name',
         style: TextStyle(
           fontSize: 12,
           fontWeight: FontWeight.w500,

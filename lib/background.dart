@@ -1,6 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'history.dart';
+import 'l10n_resolve.dart';
 import 'native_bridge.dart';
 import 'score_history.dart';
 import 'scoring.dart';
@@ -19,7 +20,8 @@ Future<void> runBackgroundCheck() async {
 
     final reports = await NativeBridge.scan();
     final trusted = (prefs.getStringList('trusted_apps') ?? const <String>[]).toSet();
-    final result = await HistoryStore.record(reports, trusted: trusted);
+    final l = l10nFor(localeFromCode(prefs.getString('language')));
+    final result = await HistoryStore.record(reports, trusted: trusted, l: l);
 
     // Keep the score trend up to date, even when the app is not opened.
     final includeSystem = prefs.getBool('include_system') ?? false;
@@ -40,8 +42,8 @@ Future<void> runBackgroundCheck() async {
       if (alerts.length > 3) {
         await NativeBridge.notify(
           1,
-          'More changes',
-          '${alerts.length - 3} more changes. Open Peekless to see them.',
+          l.alertMoreTitle,
+          l.alertMoreBody(alerts.length - 3),
         );
       }
     }
@@ -55,6 +57,7 @@ Future<void> runBackgroundCheck() async {
       } else if (weeklyDue(last, now)) {
         final events = await HistoryStore.loadEvents();
         final summary = buildWeeklySummary(
+          l,
           score: score,
           trend: trend,
           events: events,

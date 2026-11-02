@@ -62,7 +62,10 @@ class NativeBridge {
     await _channel.invokeMethod<bool>('openUsageAccess');
   }
 
-  static Future<void> shareText(String text) async {
-    await _channel.invokeMethod<void>('shareText', <String, Object?>{'text': text});
+  static Future<void> shareText(String text, String title) async {
+    await _channel.invokeMethod<void>(
+      'shareText',
+      <String, Object?>{'text': text, 'title': title},
+    );
   }
 }

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
 import '../controller.dart';
-import '../fix_wizard.dart';
+import '../fix_queue.dart';
+import '../l10n/app_localizations.dart';
 import '../models.dart';
 import '../native_bridge.dart';
 import '../report_text.dart';
+import '../texts.dart';
 import 'fix_wizard.dart';
 import '../widgets/app_tile.dart';
 import '../widgets/risk.dart';
@@ -19,17 +21,20 @@ class HomeScreen extends StatelessWidget {
 
   Future<void> _share(BuildContext context) async {
     final messenger = ScaffoldMessenger.of(context);
+    final l = AppLocalizations.of(context);
     try {
       await NativeBridge.shareText(
         buildReportText(
+          l,
           controller.scored,
           controller.overallScore,
           controller.overallLevel,
         ),
+        l.homeShare,
       );
     } catch (_) {
       messenger.showSnackBar(
-        const SnackBar(content: Text('Could not share the report.')),
+        SnackBar(content: Text(l.homeShareFailed)),
       );
     }
   }
@@ -41,6 +46,7 @@ class HomeScreen extends StatelessWidget {
       builder: (context, _) {
         final scheme = Theme.of(context).colorScheme;
         final text = Theme.of(context).textTheme;
+        final l = AppLocalizations.of(context);
         final level = controller.overallLevel;
         final scored = controller.scored;
         final attention = scored.where((r) => r.level != RiskLevel.safe).take(3).toList();
@@ -69,12 +75,12 @@ class HomeScreen extends StatelessWidget {
                   const Spacer(),
                   if (hasData)
                     IconButton(
-                      tooltip: 'Share report',
+                      tooltip: l.homeShare,
                       onPressed: () => _share(context),
                       icon: const Icon(Icons.ios_share),
                     ),
                   IconButton(
-                    tooltip: 'Rescan apps',
+                    tooltip: l.homeRescan,
                     onPressed: controller.scan,
                     icon: const Icon(Icons.refresh),
                   ),
@@ -106,15 +112,18 @@ class HomeScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Text(
-                        level.overallLabel,
+                        overallLabel(l, level),
                         style: text.labelLarge?.copyWith(color: level.onContainer(scheme)),
                       ),
                     ),
                     const SizedBox(height: 8),
                     Text(
                       controller.trusted.isEmpty
-                          ? '${controller.reports.length} apps checked on this phone'
-                          : '${scored.length} apps counted, ${controller.reports.length - scored.length} trusted',
+                          ? l.homeAppsChecked(controller.reports.length)
+                          : l.homeAppsCounted(
+                              scored.length,
+                              controller.reports.length - scored.length,
+                            ),
                       style: text.bodyMedium?.copyWith(color: scheme.onSurfaceVariant),
                     ),
                   ],
@@ -126,7 +135,7 @@ class HomeScreen extends StatelessWidget {
                   Expanded(
                     child: _CountCard(
                       count: controller.countOf(RiskLevel.risky),
-                      label: 'Risky',
+                      label: l.levelRisky,
                       background: scheme.errorContainer,
                       foreground: scheme.onErrorContainer,
                     ),
@@ -135,7 +144,7 @@ class HomeScreen extends StatelessWidget {
                   Expanded(
                     child: _CountCard(
                       count: controller.countOf(RiskLevel.medium),
-                      label: 'Medium',
+                      label: l.levelMedium,
                       background: scheme.tertiaryContainer,
                       foreground: scheme.onTertiaryContainer,
                     ),
@@ -144,7 +153,7 @@ class HomeScreen extends StatelessWidget {
                   Expanded(
                     child: _CountCard(
                       count: controller.countOf(RiskLevel.safe),
-                      label: 'Safe',
+                      label: l.levelSafe,
                       background: scheme.primaryContainer,
                       foreground: scheme.onPrimaryContainer,
                     ),
@@ -162,11 +171,11 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   const SizedBox(width: 4),
                   Text(
-                    'Needs attention',
+                    l.homeNeedsAttention,
                     style: text.titleMedium?.copyWith(fontWeight: FontWeight.w500),
                   ),
                   const Spacer(),
-                  TextButton(onPressed: onSeeAll, child: const Text('See all')),
+                  TextButton(onPressed: onSeeAll, child: Text(l.homeSeeAll)),
                 ],
               ),
               if (attention.isEmpty)
@@ -177,7 +186,7 @@ class HomeScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(16),
                   ),
                   child: Text(
-                    'Nothing needs attention. All your apps look safe.',
+                    l.homeAllSafe,
                     style: text.bodyMedium,
                   ),
                 )
@@ -208,6 +217,7 @@ class _WizardCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final text = Theme.of(context).textTheme;
+    final l = AppLocalizations.of(context);
     return Material(
       color: scheme.secondaryContainer,
       borderRadius: BorderRadius.circular(24),
@@ -229,16 +239,14 @@ class _WizardCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Fix wizard',
+                      l.fixWizardTitle,
                       style: text.titleMedium?.copyWith(
                         fontWeight: FontWeight.w500,
                         color: scheme.onSecondaryContainer,
                       ),
                     ),
                     Text(
-                      count == 1
-                          ? 'Review 1 app with sensitive access'
-                          : 'Review $count apps with sensitive access, one by one',
+                      l.wizardCard(count),
                       style: text.bodyMedium?.copyWith(color: scheme.onSecondaryContainer),
                     ),
                   ],
@@ -303,7 +311,7 @@ class _ErrorBox extends StatelessWidget {
           const SizedBox(height: 16),
           FilledButton.tonal(
             onPressed: controller.scan,
-            child: const Text('Try again'),
+            child: Text(AppLocalizations.of(context).tryAgain),
           ),
         ],
       ),
