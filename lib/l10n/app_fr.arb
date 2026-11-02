@@ -277,5 +277,20 @@
   "trendTitle": "Score dans le temps",
   "trendUp": "En hausse de {diff} (jours suivis : {days})",
   "trendDown": "En baisse de {diff} (jours suivis : {days})",
-  "trendSame": "Aucun changement (jours suivis : {days})"
+  "trendSame": "Aucun changement (jours suivis : {days})",
+  "settingsQuick": "Accès rapide",
+  "quickWidget": "Widget d’écran d’accueil",
+  "quickWidgetBody": "Affichez votre score de confidentialité sur l’écran d’accueil",
+  "quickTile": "Tuile des réglages rapides",
+  "quickTileBody": "Voyez votre score dans le panneau des réglages rapides",
+  "quickManual": "Votre téléphone n’a pas pu l’ajouter automatiquement. Ajoutez-le à la main : appui long sur l’écran d’accueil (widget) ou modifiez le panneau des réglages rapides (tuile).",
+  "settingsExport": "Exporter le rapport",
+  "settingsExportBody": "Enregistrez le rapport en PDF ou JSON et partagez-le",
+  "exportFailed": "Impossible de créer le rapport.",
+  "settingsTrackerList": "Liste des traqueurs",
+  "settingsTrackerListBody": "Touchez pour mettre à jour. {count} traqueurs connus. Uniquement quand vous touchez.",
+  "trackerListUpdating": "Mise à jour de la liste des traqueurs…",
+  "trackerListUpdated": "Liste des traqueurs mise à jour. {count} traqueurs connus.",
+  "trackerListCurrent": "La liste des traqueurs est déjà à jour.",
+  "trackerListFailed": "Impossible de mettre à jour la liste des traqueurs. Vérifiez votre connexion."
 }

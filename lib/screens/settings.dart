@@ -1,10 +1,15 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../controller.dart';
+import '../export.dart';
 import '../l10n/app_localizations.dart';
 import '../l10n_resolve.dart';
 import '../language_names.dart';
+import '../native_bridge.dart';
+import '../tracker_store.dart';
 import '../updater.dart';
 import '../widgets/update_dialog.dart';
 
@@ -96,6 +101,125 @@ class SettingsScreen extends StatelessWidget {
     await controller.setLocale(localeFromCode(choice));
   }
 
+  Future<void> _updateTrackers(BuildContext context) async {
+    final messenger = ScaffoldMessenger.of(context);
+    final l = AppLocalizations.of(context);
+    messenger
+      ..hideCurrentSnackBar()
+      ..showSnackBar(SnackBar(content: Text(l.trackerListUpdating)));
+    try {
+      final result = await controller.updateTrackerList();
+      messenger
+        ..hideCurrentSnackBar()
+        ..showSnackBar(
+          SnackBar(
+            content: Text(
+              result == TrackerUpdate.updated
+                  ? l.trackerListUpdated(TrackerStore.current.length)
+                  : l.trackerListCurrent,
+            ),
+          ),
+        );
+    } catch (_) {
+      messenger
+        ..hideCurrentSnackBar()
+        ..showSnackBar(SnackBar(content: Text(l.trackerListFailed)));
+    }
+  }
+
+  Future<void> _export(BuildContext context) async {
+    final messenger = ScaffoldMessenger.of(context);
+    final l = AppLocalizations.of(context);
+    final kind = await showDialog<String>(
+      context: context,
+      builder: (context) => SimpleDialog(
+        title: Text(l.settingsExport),
+        children: [
+          SimpleDialogOption(
+            onPressed: () => Navigator.of(context).pop('pdf'),
+            child: const Text('PDF'),
+          ),
+          SimpleDialogOption(
+            onPressed: () => Navigator.of(context).pop('json'),
+            child: const Text('JSON'),
+          ),
+        ],
+      ),
+    );
+    if (kind == null) return;
+    try {
+      final now = DateTime.now();
+      final dir = await NativeBridge.exportsDir();
+      final String path;
+      final String mime;
+      if (kind == 'pdf') {
+        path = await NativeBridge.buildPdf(
+          buildPdfDoc(
+            l: l,
+            reports: controller.reports,
+            trusted: controller.trusted,
+            score: controller.overallScore,
+            level: controller.overallLevel,
+            now: now,
+          ),
+        );
+        mime = 'application/pdf';
+      } else {
+        final version = await Updater.currentVersion();
+        final day = now.toIso8601String().substring(0, 10);
+        path = '$dir/peekless-report-$day.json';
+        await File(path).writeAsString(
+          buildReportJson(
+            reports: controller.reports,
+            score: controller.overallScore,
+            level: controller.overallLevel,
+            version: version,
+            now: now,
+            trusted: controller.trusted,
+          ),
+        );
+        mime = 'application/json';
+      }
+      await NativeBridge.shareFile(path, mime, l.settingsExport);
+    } catch (_) {
+      messenger
+        ..hideCurrentSnackBar()
+        ..showSnackBar(SnackBar(content: Text(l.exportFailed)));
+    }
+  }
+
+  Future<void> _addTile(BuildContext context) async {
+    final messenger = ScaffoldMessenger.of(context);
+    final l = AppLocalizations.of(context);
+    var added = false;
+    try {
+      added = await NativeBridge.requestAddTile();
+    } catch (_) {
+      added = false;
+    }
+    if (!added) {
+      messenger
+        ..hideCurrentSnackBar()
+        ..showSnackBar(SnackBar(content: Text(l.quickManual)));
+    }
+  }
+
+  Future<void> _addWidget(BuildContext context) async {
+    final messenger = ScaffoldMessenger.of(context);
+    final l = AppLocalizations.of(context);
+    var added = false;
+    try {
+      added = await NativeBridge.requestAddWidget();
+    } catch (_) {
+      added = false;
+    }
+    if (!added) {
+      messenger
+        ..hideCurrentSnackBar()
+        ..showSnackBar(SnackBar(content: Text(l.quickManual)));
+    }
+  }
+
   Future<void> _openGithub() async {
     await launchUrl(
       Uri.parse('https://github.com/lumio-apps/peekless'),
@@ -185,9 +309,43 @@ class SettingsScreen extends StatelessWidget {
                 ),
               ],
             ),
+            _SectionLabel(l.settingsQuick),
+            _Group(
+              children: [
+                ListTile(
+                  leading: Icon(Icons.widgets_outlined, color: iconColor),
+                  title: Text(l.quickWidget),
+                  subtitle: Text(l.quickWidgetBody),
+                  trailing: Icon(Icons.chevron_right, color: iconColor),
+                  onTap: () => _addWidget(context),
+                ),
+                ListTile(
+                  leading: Icon(Icons.dashboard_customize_outlined, color: iconColor),
+                  title: Text(l.quickTile),
+                  subtitle: Text(l.quickTileBody),
+                  trailing: Icon(Icons.chevron_right, color: iconColor),
+                  onTap: () => _addTile(context),
+                ),
+                ListTile(
+                  leading: Icon(Icons.ios_share, color: iconColor),
+                  title: Text(l.settingsExport),
+                  subtitle: Text(l.settingsExportBody),
+                  trailing: Icon(Icons.chevron_right, color: iconColor),
+                  enabled: controller.reports.isNotEmpty,
+                  onTap: () => _export(context),
+                ),
+              ],
+            ),
             _SectionLabel(l.settingsUpdates),
             _Group(
               children: [
+                ListTile(
+                  leading: Icon(Icons.track_changes, color: iconColor),
+                  title: Text(l.settingsTrackerList),
+                  subtitle: Text(l.settingsTrackerListBody(TrackerStore.current.length)),
+                  trailing: Icon(Icons.chevron_right, color: iconColor),
+                  onTap: () => _updateTrackers(context),
+                ),
                 ListTile(
                   leading: Icon(Icons.download, color: iconColor),
                   title: Text(l.settingsCheckUpdates),

@@ -732,5 +732,34 @@
         "type": "int"
       }
     }
-  }
+  },
+  "settingsQuick": "Quick access",
+  "quickWidget": "Home screen widget",
+  "quickWidgetBody": "Show your privacy score on the home screen",
+  "quickTile": "Quick Settings tile",
+  "quickTileBody": "See your score in the quick settings panel",
+  "quickManual": "Your phone could not add this automatically. Add it by hand: long-press the home screen (widget) or edit the quick settings panel (tile).",
+  "settingsExport": "Export report",
+  "settingsExportBody": "Save the report as a PDF or JSON file and share it",
+  "exportFailed": "Could not create the report.",
+  "settingsTrackerList": "Tracker list",
+  "settingsTrackerListBody": "Tap to update. {count} trackers known. Only when you tap.",
+  "@settingsTrackerListBody": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "trackerListUpdating": "Updating tracker list…",
+  "trackerListUpdated": "Tracker list updated. {count} trackers known.",
+  "@trackerListUpdated": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "trackerListCurrent": "Tracker list is already up to date.",
+  "trackerListFailed": "Could not update the tracker list. Check your connection."
 }

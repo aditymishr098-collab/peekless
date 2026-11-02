@@ -277,5 +277,20 @@
   "trendTitle": "Skor dari waktu ke waktu",
   "trendUp": "Naik {diff} (hari terpantau: {days})",
   "trendDown": "Turun {diff} (hari terpantau: {days})",
-  "trendSame": "Tidak berubah (hari terpantau: {days})"
+  "trendSame": "Tidak berubah (hari terpantau: {days})",
+  "settingsQuick": "Akses cepat",
+  "quickWidget": "Widget layar utama",
+  "quickWidgetBody": "Tampilkan skor privasi Anda di layar utama",
+  "quickTile": "Ubin Pengaturan Cepat",
+  "quickTileBody": "Lihat skor Anda di panel pengaturan cepat",
+  "quickManual": "Ponsel Anda tidak bisa menambahkannya otomatis. Tambahkan manual: tekan lama layar utama (widget) atau ubah panel pengaturan cepat (ubin).",
+  "settingsExport": "Ekspor laporan",
+  "settingsExportBody": "Simpan laporan sebagai file PDF atau JSON dan bagikan",
+  "exportFailed": "Tidak dapat membuat laporan.",
+  "settingsTrackerList": "Daftar pelacak",
+  "settingsTrackerListBody": "Ketuk untuk memperbarui. {count} pelacak dikenal. Hanya saat Anda mengetuk.",
+  "trackerListUpdating": "Memperbarui daftar pelacak…",
+  "trackerListUpdated": "Daftar pelacak diperbarui. {count} pelacak dikenal.",
+  "trackerListCurrent": "Daftar pelacak sudah yang terbaru.",
+  "trackerListFailed": "Tidak dapat memperbarui daftar pelacak. Periksa koneksi Anda."
 }

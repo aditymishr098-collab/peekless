@@ -1810,6 +1810,96 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No change (days tracked: {days})'**
   String trendSame(int days);
+
+  /// No description provided for @settingsQuick.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick access'**
+  String get settingsQuick;
+
+  /// No description provided for @quickWidget.
+  ///
+  /// In en, this message translates to:
+  /// **'Home screen widget'**
+  String get quickWidget;
+
+  /// No description provided for @quickWidgetBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Show your privacy score on the home screen'**
+  String get quickWidgetBody;
+
+  /// No description provided for @quickTile.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick Settings tile'**
+  String get quickTile;
+
+  /// No description provided for @quickTileBody.
+  ///
+  /// In en, this message translates to:
+  /// **'See your score in the quick settings panel'**
+  String get quickTileBody;
+
+  /// No description provided for @quickManual.
+  ///
+  /// In en, this message translates to:
+  /// **'Your phone could not add this automatically. Add it by hand: long-press the home screen (widget) or edit the quick settings panel (tile).'**
+  String get quickManual;
+
+  /// No description provided for @settingsExport.
+  ///
+  /// In en, this message translates to:
+  /// **'Export report'**
+  String get settingsExport;
+
+  /// No description provided for @settingsExportBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Save the report as a PDF or JSON file and share it'**
+  String get settingsExportBody;
+
+  /// No description provided for @exportFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not create the report.'**
+  String get exportFailed;
+
+  /// No description provided for @settingsTrackerList.
+  ///
+  /// In en, this message translates to:
+  /// **'Tracker list'**
+  String get settingsTrackerList;
+
+  /// No description provided for @settingsTrackerListBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to update. {count} trackers known. Only when you tap.'**
+  String settingsTrackerListBody(int count);
+
+  /// No description provided for @trackerListUpdating.
+  ///
+  /// In en, this message translates to:
+  /// **'Updating tracker list…'**
+  String get trackerListUpdating;
+
+  /// No description provided for @trackerListUpdated.
+  ///
+  /// In en, this message translates to:
+  /// **'Tracker list updated. {count} trackers known.'**
+  String trackerListUpdated(int count);
+
+  /// No description provided for @trackerListCurrent.
+  ///
+  /// In en, this message translates to:
+  /// **'Tracker list is already up to date.'**
+  String get trackerListCurrent;
+
+  /// No description provided for @trackerListFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not update the tracker list. Check your connection.'**
+  String get trackerListFailed;
 }
 
 class _AppLocalizationsDelegate

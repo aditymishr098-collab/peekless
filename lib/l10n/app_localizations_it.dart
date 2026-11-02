@@ -996,4 +996,58 @@ class AppLocalizationsIt extends AppLocalizations {
   String trendSame(int days) {
     return 'Nessuna variazione (giorni monitorati: $days)';
   }
+
+  @override
+  String get settingsQuick => 'Accesso rapido';
+
+  @override
+  String get quickWidget => 'Widget della schermata Home';
+
+  @override
+  String get quickWidgetBody =>
+      'Mostra il tuo punteggio privacy nella schermata Home';
+
+  @override
+  String get quickTile => 'Riquadro Impostazioni rapide';
+
+  @override
+  String get quickTileBody =>
+      'Vedi il tuo punteggio nel pannello delle impostazioni rapide';
+
+  @override
+  String get quickManual =>
+      'Il telefono non ha potuto aggiungerlo automaticamente. Aggiungilo a mano: tieni premuta la schermata Home (widget) o modifica il pannello delle impostazioni rapide (riquadro).';
+
+  @override
+  String get settingsExport => 'Esporta rapporto';
+
+  @override
+  String get settingsExportBody =>
+      'Salva il rapporto come file PDF o JSON e condividilo';
+
+  @override
+  String get exportFailed => 'Impossibile creare il rapporto.';
+
+  @override
+  String get settingsTrackerList => 'Elenco dei tracker';
+
+  @override
+  String settingsTrackerListBody(int count) {
+    return 'Tocca per aggiornare. $count tracker noti. Solo quando tocchi.';
+  }
+
+  @override
+  String get trackerListUpdating => 'Aggiornamento dell’elenco dei tracker…';
+
+  @override
+  String trackerListUpdated(int count) {
+    return 'Elenco dei tracker aggiornato. $count tracker noti.';
+  }
+
+  @override
+  String get trackerListCurrent => 'L’elenco dei tracker è già aggiornato.';
+
+  @override
+  String get trackerListFailed =>
+      'Impossibile aggiornare l’elenco dei tracker. Controlla la connessione.';
 }

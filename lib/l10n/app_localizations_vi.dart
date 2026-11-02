@@ -990,4 +990,57 @@ class AppLocalizationsVi extends AppLocalizations {
   String trendSame(int days) {
     return 'Không thay đổi (số ngày theo dõi: $days)';
   }
+
+  @override
+  String get settingsQuick => 'Truy cập nhanh';
+
+  @override
+  String get quickWidget => 'Widget màn hình chính';
+
+  @override
+  String get quickWidgetBody =>
+      'Hiện điểm quyền riêng tư của bạn trên màn hình chính';
+
+  @override
+  String get quickTile => 'Ô Cài đặt nhanh';
+
+  @override
+  String get quickTileBody => 'Xem điểm của bạn trong bảng cài đặt nhanh';
+
+  @override
+  String get quickManual =>
+      'Điện thoại không thể tự thêm. Hãy thêm thủ công: nhấn giữ màn hình chính (widget) hoặc chỉnh sửa bảng cài đặt nhanh (ô).';
+
+  @override
+  String get settingsExport => 'Xuất báo cáo';
+
+  @override
+  String get settingsExportBody =>
+      'Lưu báo cáo dạng tệp PDF hoặc JSON và chia sẻ';
+
+  @override
+  String get exportFailed => 'Không thể tạo báo cáo.';
+
+  @override
+  String get settingsTrackerList => 'Danh sách trình theo dõi';
+
+  @override
+  String settingsTrackerListBody(int count) {
+    return 'Nhấn để cập nhật. Đã biết $count trình theo dõi. Chỉ khi bạn nhấn.';
+  }
+
+  @override
+  String get trackerListUpdating => 'Đang cập nhật danh sách trình theo dõi…';
+
+  @override
+  String trackerListUpdated(int count) {
+    return 'Đã cập nhật danh sách trình theo dõi. Đã biết $count trình theo dõi.';
+  }
+
+  @override
+  String get trackerListCurrent => 'Danh sách trình theo dõi đã mới nhất.';
+
+  @override
+  String get trackerListFailed =>
+      'Không thể cập nhật danh sách trình theo dõi. Hãy kiểm tra kết nối.';
 }

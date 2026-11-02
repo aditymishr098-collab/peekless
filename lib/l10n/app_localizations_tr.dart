@@ -985,4 +985,56 @@ class AppLocalizationsTr extends AppLocalizations {
   String trendSame(int days) {
     return 'Değişiklik yok (izlenen gün: $days)';
   }
+
+  @override
+  String get settingsQuick => 'Hızlı erişim';
+
+  @override
+  String get quickWidget => 'Ana ekran widget’ı';
+
+  @override
+  String get quickWidgetBody => 'Gizlilik puanınızı ana ekranda gösterir';
+
+  @override
+  String get quickTile => 'Hızlı Ayarlar kutucuğu';
+
+  @override
+  String get quickTileBody => 'Puanınızı hızlı ayarlar panelinde görün';
+
+  @override
+  String get quickManual =>
+      'Telefonunuz bunu otomatik ekleyemedi. Elle ekleyin: ana ekrana uzun basın (widget) ya da hızlı ayarlar panelini düzenleyin (kutucuk).';
+
+  @override
+  String get settingsExport => 'Raporu dışa aktar';
+
+  @override
+  String get settingsExportBody =>
+      'Raporu PDF veya JSON dosyası olarak kaydedin ve paylaşın';
+
+  @override
+  String get exportFailed => 'Rapor oluşturulamadı.';
+
+  @override
+  String get settingsTrackerList => 'İzleyici listesi';
+
+  @override
+  String settingsTrackerListBody(int count) {
+    return 'Güncellemek için dokunun. $count izleyici biliniyor. Yalnızca dokunduğunuzda.';
+  }
+
+  @override
+  String get trackerListUpdating => 'İzleyici listesi güncelleniyor…';
+
+  @override
+  String trackerListUpdated(int count) {
+    return 'İzleyici listesi güncellendi. $count izleyici biliniyor.';
+  }
+
+  @override
+  String get trackerListCurrent => 'İzleyici listesi zaten güncel.';
+
+  @override
+  String get trackerListFailed =>
+      'İzleyici listesi güncellenemedi. Bağlantınızı kontrol edin.';
 }

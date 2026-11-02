@@ -6,6 +6,7 @@ import 'native_bridge.dart';
 import 'score_history.dart';
 import 'scoring.dart';
 import 'models.dart';
+import 'texts.dart';
 import 'weekly.dart';
 
 /// The background check. Android starts it about every 6 hours when App
@@ -29,6 +30,15 @@ Future<void> runBackgroundCheck() async {
         .where((r) => (includeSystem || !r.app.isSystem) && !trusted.contains(r.app.packageName))
         .toList();
     final score = phoneScore(scored);
+    if (reports.isNotEmpty) {
+      // Keep the widget and the Quick Settings tile up to date as well.
+      final level = levelForScore(score);
+      try {
+        await NativeBridge.updateGlance(score, level.name, overallLabel(l, level));
+      } catch (_) {
+        // The widget is only a convenience. It must never stop the check.
+      }
+    }
     var trend = const <ScorePoint>[];
     if (reports.isNotEmpty) {
       trend = await ScoreHistory.record(score);

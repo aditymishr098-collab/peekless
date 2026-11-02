@@ -983,4 +983,57 @@ class AppLocalizationsFa extends AppLocalizations {
   String trendSame(int days) {
     return 'بدون تغییر (روزهای ثبت‌شده: $days)';
   }
+
+  @override
+  String get settingsQuick => 'دسترسی سریع';
+
+  @override
+  String get quickWidget => 'ویجت صفحه اصلی';
+
+  @override
+  String get quickWidgetBody =>
+      'امتیاز حریم خصوصی شما را در صفحه اصلی نشان می‌دهد';
+
+  @override
+  String get quickTile => 'کاشی تنظیمات سریع';
+
+  @override
+  String get quickTileBody => 'امتیاز خود را در پنل تنظیمات سریع ببینید';
+
+  @override
+  String get quickManual =>
+      'گوشی شما نتوانست این را خودکار اضافه کند. دستی اضافه کنید: صفحه اصلی را نگه دارید (ویجت) یا پنل تنظیمات سریع را ویرایش کنید (کاشی).';
+
+  @override
+  String get settingsExport => 'خروجی گرفتن از گزارش';
+
+  @override
+  String get settingsExportBody =>
+      'گزارش را به‌صورت PDF یا JSON ذخیره و به اشتراک بگذارید';
+
+  @override
+  String get exportFailed => 'ساخت گزارش ممکن نشد.';
+
+  @override
+  String get settingsTrackerList => 'فهرست ردیاب‌ها';
+
+  @override
+  String settingsTrackerListBody(int count) {
+    return 'برای به‌روزرسانی بزنید. $count ردیاب شناخته‌شده. فقط وقتی بزنید.';
+  }
+
+  @override
+  String get trackerListUpdating => 'در حال به‌روزرسانی فهرست ردیاب‌ها…';
+
+  @override
+  String trackerListUpdated(int count) {
+    return 'فهرست ردیاب‌ها به‌روز شد. $count ردیاب شناخته‌شده.';
+  }
+
+  @override
+  String get trackerListCurrent => 'فهرست ردیاب‌ها از قبل به‌روز است.';
+
+  @override
+  String get trackerListFailed =>
+      'به‌روزرسانی فهرست ردیاب‌ها ممکن نشد. اتصال خود را بررسی کنید.';
 }

@@ -986,4 +986,56 @@ class AppLocalizationsEn extends AppLocalizations {
   String trendSame(int days) {
     return 'No change (days tracked: $days)';
   }
+
+  @override
+  String get settingsQuick => 'Quick access';
+
+  @override
+  String get quickWidget => 'Home screen widget';
+
+  @override
+  String get quickWidgetBody => 'Show your privacy score on the home screen';
+
+  @override
+  String get quickTile => 'Quick Settings tile';
+
+  @override
+  String get quickTileBody => 'See your score in the quick settings panel';
+
+  @override
+  String get quickManual =>
+      'Your phone could not add this automatically. Add it by hand: long-press the home screen (widget) or edit the quick settings panel (tile).';
+
+  @override
+  String get settingsExport => 'Export report';
+
+  @override
+  String get settingsExportBody =>
+      'Save the report as a PDF or JSON file and share it';
+
+  @override
+  String get exportFailed => 'Could not create the report.';
+
+  @override
+  String get settingsTrackerList => 'Tracker list';
+
+  @override
+  String settingsTrackerListBody(int count) {
+    return 'Tap to update. $count trackers known. Only when you tap.';
+  }
+
+  @override
+  String get trackerListUpdating => 'Updating tracker list…';
+
+  @override
+  String trackerListUpdated(int count) {
+    return 'Tracker list updated. $count trackers known.';
+  }
+
+  @override
+  String get trackerListCurrent => 'Tracker list is already up to date.';
+
+  @override
+  String get trackerListFailed =>
+      'Could not update the tracker list. Check your connection.';
 }

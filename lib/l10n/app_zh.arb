@@ -277,5 +277,20 @@
   "trendTitle": "评分变化趋势",
   "trendUp": "上升 {diff} 分（已追踪天数：{days}）",
   "trendDown": "下降 {diff} 分（已追踪天数：{days}）",
-  "trendSame": "没有变化（已追踪天数：{days}）"
+  "trendSame": "没有变化（已追踪天数：{days}）",
+  "settingsQuick": "快捷访问",
+  "quickWidget": "主屏幕小组件",
+  "quickWidgetBody": "在主屏幕上显示你的隐私评分",
+  "quickTile": "快速设置图块",
+  "quickTileBody": "在快速设置面板中查看你的评分",
+  "quickManual": "你的手机无法自动添加。请手动添加：长按主屏幕（小组件）或编辑快速设置面板（图块）。",
+  "settingsExport": "导出报告",
+  "settingsExportBody": "将报告保存为 PDF 或 JSON 文件并分享",
+  "exportFailed": "无法创建报告。",
+  "settingsTrackerList": "追踪器列表",
+  "settingsTrackerListBody": "点按以更新。已知 {count} 个追踪器。仅在你点按时更新。",
+  "trackerListUpdating": "正在更新追踪器列表…",
+  "trackerListUpdated": "追踪器列表已更新。已知 {count} 个追踪器。",
+  "trackerListCurrent": "追踪器列表已是最新。",
+  "trackerListFailed": "无法更新追踪器列表。请检查网络连接。"
 }

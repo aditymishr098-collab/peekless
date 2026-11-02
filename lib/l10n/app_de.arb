@@ -277,5 +277,20 @@
   "trendTitle": "Wert im Zeitverlauf",
   "trendUp": "Um {diff} gestiegen (verfolgte Tage: {days})",
   "trendDown": "Um {diff} gesunken (verfolgte Tage: {days})",
-  "trendSame": "Keine Änderung (verfolgte Tage: {days})"
+  "trendSame": "Keine Änderung (verfolgte Tage: {days})",
+  "settingsQuick": "Schnellzugriff",
+  "quickWidget": "Startbildschirm-Widget",
+  "quickWidgetBody": "Zeigt deinen Datenschutz-Wert auf dem Startbildschirm",
+  "quickTile": "Schnelleinstellungs-Kachel",
+  "quickTileBody": "Sieh deinen Wert im Schnelleinstellungs-Bereich",
+  "quickManual": "Dein Handy konnte das nicht automatisch hinzufügen. Füge es von Hand hinzu: Startbildschirm lange drücken (Widget) oder Schnelleinstellungen bearbeiten (Kachel).",
+  "settingsExport": "Bericht exportieren",
+  "settingsExportBody": "Speichere den Bericht als PDF oder JSON und teile ihn",
+  "exportFailed": "Der Bericht konnte nicht erstellt werden.",
+  "settingsTrackerList": "Tracker-Liste",
+  "settingsTrackerListBody": "Zum Aktualisieren tippen. {count} Tracker bekannt. Nur wenn du tippst.",
+  "trackerListUpdating": "Tracker-Liste wird aktualisiert…",
+  "trackerListUpdated": "Tracker-Liste aktualisiert. {count} Tracker bekannt.",
+  "trackerListCurrent": "Die Tracker-Liste ist bereits aktuell.",
+  "trackerListFailed": "Die Tracker-Liste konnte nicht aktualisiert werden. Prüfe deine Verbindung."
 }

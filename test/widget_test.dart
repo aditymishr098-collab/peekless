@@ -1,8 +1,14 @@
+import 'dart:convert';
+import 'dart:io';
 import 'dart:ui' show Locale;
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:http/http.dart' as http;
+import 'package:http/testing.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:peekless/app_filter.dart';
 import 'package:peekless/security_checks.dart';
+import 'package:peekless/export.dart';
 import 'package:peekless/fix_queue.dart';
 import 'package:peekless/history.dart';
 import 'package:peekless/install_source.dart';
@@ -13,6 +19,8 @@ import 'package:peekless/report_text.dart';
 import 'package:peekless/score_history.dart';
 import 'package:peekless/scoring.dart';
 import 'package:peekless/texts.dart';
+import 'package:peekless/tracker_db.dart';
+import 'package:peekless/tracker_store.dart';
 import 'package:peekless/updater.dart';
 import 'package:peekless/weekly.dart';
 
@@ -652,6 +660,174 @@ void main() {
       final text = buildReportText(l, [risky], 62, RiskLevel.medium);
       expect(text, contains('Score: 62/100 (Medium risk)'));
       expect(text, contains('Flashlight Pro'));
+    });
+  });
+
+  group('tracker list', () {
+    String body({int version = 2, Object? trackers}) => jsonEncode({
+          'version': version,
+          'trackers': trackers ??
+              {
+                'Example SDK': ['com.example.tracker.'],
+              },
+        });
+
+    test('reads a valid list', () {
+      final list = parseTrackerList(body());
+      expect(list.version, 2);
+      expect(list.trackers['Example SDK'], ['com.example.tracker.']);
+    });
+
+    test('rejects a prefix that would match half of the phone', () {
+      for (final bad in ['com.google.', 'android.app.', 'x', 'com.exa mple.sdk']) {
+        expect(
+          () => parseTrackerList(body(trackers: {'Bad': [bad]})),
+          throwsFormatException,
+          reason: bad,
+        );
+      }
+    });
+
+    test('rejects wrong versions, empty lists and broken files', () {
+      expect(() => parseTrackerList(body(version: 0)), throwsFormatException);
+      expect(() => parseTrackerList(body(trackers: <String, Object>{})), throwsFormatException);
+      expect(() => parseTrackerList('[1, 2]'), throwsFormatException);
+      expect(() => parseTrackerList('not json'), throwsFormatException);
+    });
+
+    test('rejects a file that is too large', () {
+      expect(() => parseTrackerList(' ' * (300 * 1024)), throwsFormatException);
+    });
+
+    test('merging adds trackers and never removes built-in ones', () {
+      final merged = mergeTrackers(
+        {
+          'A': ['com.a.sdk.'],
+        },
+        {
+          'A': ['com.a.other.', 'com.a.sdk.'],
+          'B': ['com.b.sdk.'],
+        },
+      );
+      expect(merged['A'], ['com.a.sdk.', 'com.a.other.']);
+      expect(merged['B'], ['com.b.sdk.']);
+    });
+
+    test('data/trackers.json is valid and extends the built-in list', () {
+      final list = parseTrackerList(File('data/trackers.json').readAsStringSync());
+      expect(list.version, greaterThan(builtInTrackerVersion));
+      for (final name in builtInTrackers.keys) {
+        expect(list.trackers.containsKey(name), isTrue, reason: name);
+      }
+    });
+
+    group('update', () {
+      setUp(() {
+        SharedPreferences.setMockInitialValues(<String, Object>{});
+        TrackerStore.current = builtInTrackers;
+        TrackerStore.version = builtInTrackerVersion;
+      });
+
+      test('downloads, applies and saves a newer list', () async {
+        final client = MockClient((request) async {
+          expect(request.url.toString(), trackerListUrl);
+          return http.Response(
+            body(version: 5, trackers: {'Brand New SDK': ['com.brandnew.sdk.']}),
+            200,
+          );
+        });
+        expect(await TrackerStore.update(client: client), TrackerUpdate.updated);
+        expect(TrackerStore.version, 5);
+        expect(TrackerStore.current.containsKey('Brand New SDK'), isTrue);
+        expect(TrackerStore.current.length, builtInTrackers.length + 1);
+        final prefs = await SharedPreferences.getInstance();
+        expect(prefs.getString('tracker_list_v1'), isNotNull);
+      });
+
+      test('reports up to date when the list is not newer', () async {
+        final client = MockClient((request) async => http.Response(body(version: 1), 200));
+        expect(await TrackerStore.update(client: client), TrackerUpdate.upToDate);
+        expect(TrackerStore.current.length, builtInTrackers.length);
+      });
+
+      test('fails on a server error and on a bad file, and keeps the old list', () async {
+        final down = MockClient((request) async => http.Response('nope', 503));
+        await expectLater(TrackerStore.update(client: down), throwsA(isA<HttpException>()));
+        final broken = MockClient((request) async => http.Response('{"version": 9}', 200));
+        await expectLater(TrackerStore.update(client: broken), throwsFormatException);
+        expect(TrackerStore.current.length, builtInTrackers.length);
+        final prefs = await SharedPreferences.getInstance();
+        expect(prefs.getString('tracker_list_v1'), isNull);
+      });
+
+      test('a saved list is used after a restart', () async {
+        SharedPreferences.setMockInitialValues(<String, Object>{
+          'tracker_list_v1': body(version: 7, trackers: {'Saved SDK': ['com.saved.sdk.']}),
+        });
+        await TrackerStore.load();
+        expect(TrackerStore.version, 7);
+        expect(TrackerStore.current.containsKey('Saved SDK'), isTrue);
+      });
+    });
+  });
+
+  group('export', () {
+    final risky = buildReport(
+      _app(
+        const [_micAllowed, PermissionEntry('android.permission.CAMERA', false)],
+        trackers: const ['Google Ads', 'AppsFlyer'],
+        name: 'Flashlight Pro',
+        packageName: 'com.flash.pro',
+      ),
+    );
+    final quiet = buildReport(_app(const [], name: 'Calculator', packageName: 'com.calc'));
+    final now = DateTime(2026, 11, 2, 12);
+
+    test('JSON has English keys and every app', () {
+      final text = buildReportJson(
+        reports: [risky, quiet],
+        score: 71,
+        level: RiskLevel.safe,
+        version: '1.5.0',
+        now: now,
+        trusted: {'com.calc'},
+      );
+      final data = jsonDecode(text) as Map<String, dynamic>;
+      expect(data['generatedBy'], 'Peekless');
+      expect(data['version'], '1.5.0');
+      expect(data['score'], 71);
+      expect(data['level'], 'safe');
+      final apps = data['apps'] as List<dynamic>;
+      expect(apps, hasLength(2));
+      final first = apps.first as Map<String, dynamic>;
+      expect(first['name'], 'Flashlight Pro');
+      expect(first['package'], 'com.flash.pro');
+      expect(first['trackers'], ['Google Ads', 'AppsFlyer']);
+      expect((first['permissionsAllowed'] as List<dynamic>), isNotEmpty);
+      expect((apps.last as Map<String, dynamic>)['trusted'], isTrue);
+      final counts = data['counts'] as Map<String, dynamic>;
+      expect(counts['total'], 2);
+    });
+
+    test('PDF document has a file name, texts and one entry per app', () {
+      final doc = buildPdfDoc(
+        l: l,
+        reports: [risky, quiet],
+        trusted: const <String>{},
+        score: 71,
+        level: RiskLevel.safe,
+        now: now,
+      );
+      expect(doc['fileName'], 'peekless-report-2026-11-02.pdf');
+      expect(doc['title'], isA<String>());
+      expect(doc['scoreLine'], contains('71'));
+      expect(doc['scoreColor'], levelColor(RiskLevel.safe));
+      final apps = doc['apps']! as List<Object?>;
+      expect(apps, hasLength(2));
+      final first = apps.first! as Map<String, Object?>;
+      expect(first['name'], 'Flashlight Pro');
+      expect((first['lines']! as List<Object?>).join(' '), contains('Google Ads'));
+      expect((apps.last! as Map<String, Object?>)['lines'], isNotEmpty);
     });
   });
 

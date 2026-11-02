@@ -277,5 +277,20 @@
   "trendTitle": "Punteggio nel tempo",
   "trendUp": "In aumento di {diff} (giorni monitorati: {days})",
   "trendDown": "In calo di {diff} (giorni monitorati: {days})",
-  "trendSame": "Nessuna variazione (giorni monitorati: {days})"
+  "trendSame": "Nessuna variazione (giorni monitorati: {days})",
+  "settingsQuick": "Accesso rapido",
+  "quickWidget": "Widget della schermata Home",
+  "quickWidgetBody": "Mostra il tuo punteggio privacy nella schermata Home",
+  "quickTile": "Riquadro Impostazioni rapide",
+  "quickTileBody": "Vedi il tuo punteggio nel pannello delle impostazioni rapide",
+  "quickManual": "Il telefono non ha potuto aggiungerlo automaticamente. Aggiungilo a mano: tieni premuta la schermata Home (widget) o modifica il pannello delle impostazioni rapide (riquadro).",
+  "settingsExport": "Esporta rapporto",
+  "settingsExportBody": "Salva il rapporto come file PDF o JSON e condividilo",
+  "exportFailed": "Impossibile creare il rapporto.",
+  "settingsTrackerList": "Elenco dei tracker",
+  "settingsTrackerListBody": "Tocca per aggiornare. {count} tracker noti. Solo quando tocchi.",
+  "trackerListUpdating": "Aggiornamento dell’elenco dei tracker…",
+  "trackerListUpdated": "Elenco dei tracker aggiornato. {count} tracker noti.",
+  "trackerListCurrent": "L’elenco dei tracker è già aggiornato.",
+  "trackerListFailed": "Impossibile aggiornare l’elenco dei tracker. Controlla la connessione."
 }

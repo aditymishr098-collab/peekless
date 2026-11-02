@@ -277,5 +277,20 @@
   "trendTitle": "評分變化趨勢",
   "trendUp": "上升 {diff} 分（已追蹤天數：{days}）",
   "trendDown": "下降 {diff} 分（已追蹤天數：{days}）",
-  "trendSame": "沒有變化（已追蹤天數：{days}）"
+  "trendSame": "沒有變化（已追蹤天數：{days}）",
+  "settingsQuick": "快速存取",
+  "quickWidget": "主畫面小工具",
+  "quickWidgetBody": "在主畫面顯示你的隱私評分",
+  "quickTile": "快速設定圖塊",
+  "quickTileBody": "在快速設定面板中查看你的評分",
+  "quickManual": "你的手機無法自動新增。請手動新增：長按主畫面（小工具）或編輯快速設定面板（圖塊）。",
+  "settingsExport": "匯出報告",
+  "settingsExportBody": "將報告儲存為 PDF 或 JSON 檔案並分享",
+  "exportFailed": "無法建立報告。",
+  "settingsTrackerList": "追蹤器清單",
+  "settingsTrackerListBody": "點按即可更新。已知 {count} 個追蹤器。僅在你點按時更新。",
+  "trackerListUpdating": "正在更新追蹤器清單…",
+  "trackerListUpdated": "追蹤器清單已更新。已知 {count} 個追蹤器。",
+  "trackerListCurrent": "追蹤器清單已是最新。",
+  "trackerListFailed": "無法更新追蹤器清單。請檢查網路連線。"
 }

@@ -995,4 +995,59 @@ class AppLocalizationsPt extends AppLocalizations {
   String trendSame(int days) {
     return 'Sem mudança (dias acompanhados: $days)';
   }
+
+  @override
+  String get settingsQuick => 'Acesso rápido';
+
+  @override
+  String get quickWidget => 'Widget da tela inicial';
+
+  @override
+  String get quickWidgetBody =>
+      'Mostra sua pontuação de privacidade na tela inicial';
+
+  @override
+  String get quickTile => 'Bloco de Configurações rápidas';
+
+  @override
+  String get quickTileBody =>
+      'Veja sua pontuação no painel de configurações rápidas';
+
+  @override
+  String get quickManual =>
+      'Seu telefone não conseguiu adicionar isso automaticamente. Adicione manualmente: toque e segure a tela inicial (widget) ou edite o painel de configurações rápidas (bloco).';
+
+  @override
+  String get settingsExport => 'Exportar relatório';
+
+  @override
+  String get settingsExportBody =>
+      'Salve o relatório como PDF ou JSON e compartilhe';
+
+  @override
+  String get exportFailed => 'Não foi possível criar o relatório.';
+
+  @override
+  String get settingsTrackerList => 'Lista de rastreadores';
+
+  @override
+  String settingsTrackerListBody(int count) {
+    return 'Toque para atualizar. $count rastreadores conhecidos. Somente quando você tocar.';
+  }
+
+  @override
+  String get trackerListUpdating => 'Atualizando a lista de rastreadores…';
+
+  @override
+  String trackerListUpdated(int count) {
+    return 'Lista de rastreadores atualizada. $count rastreadores conhecidos.';
+  }
+
+  @override
+  String get trackerListCurrent =>
+      'A lista de rastreadores já está atualizada.';
+
+  @override
+  String get trackerListFailed =>
+      'Não foi possível atualizar a lista de rastreadores. Verifique sua conexão.';
 }

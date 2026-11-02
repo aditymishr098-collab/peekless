@@ -40,6 +40,39 @@
             android:name=".AlertJobService"
             android:permission="android.permission.BIND_JOB_SERVICE"
             android:exported="false"/>
+        <!-- Home screen widget with the privacy score. -->
+        <receiver
+            android:name=".ScoreWidget"
+            android:exported="false"
+            android:label="Peekless">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/score_widget_info"/>
+        </receiver>
+        <!-- Quick Settings tile with the privacy score. -->
+        <service
+            android:name=".ScoreTileService"
+            android:exported="true"
+            android:label="Peekless"
+            android:icon="@drawable/ic_notification"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE"/>
+            </intent-filter>
+        </service>
+        <!-- Shares exported reports (PDF/JSON) without opening the whole cache. -->
+        <provider
+            android:name=".ExportFileProvider"
+            android:authorities="${applicationId}.exports"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/export_paths"/>
+        </provider>
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />

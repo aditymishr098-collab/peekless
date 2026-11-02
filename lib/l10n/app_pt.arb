@@ -277,5 +277,20 @@
   "trendTitle": "Pontuação ao longo do tempo",
   "trendUp": "Subiu {diff} (dias acompanhados: {days})",
   "trendDown": "Caiu {diff} (dias acompanhados: {days})",
-  "trendSame": "Sem mudança (dias acompanhados: {days})"
+  "trendSame": "Sem mudança (dias acompanhados: {days})",
+  "settingsQuick": "Acesso rápido",
+  "quickWidget": "Widget da tela inicial",
+  "quickWidgetBody": "Mostra sua pontuação de privacidade na tela inicial",
+  "quickTile": "Bloco de Configurações rápidas",
+  "quickTileBody": "Veja sua pontuação no painel de configurações rápidas",
+  "quickManual": "Seu telefone não conseguiu adicionar isso automaticamente. Adicione manualmente: toque e segure a tela inicial (widget) ou edite o painel de configurações rápidas (bloco).",
+  "settingsExport": "Exportar relatório",
+  "settingsExportBody": "Salve o relatório como PDF ou JSON e compartilhe",
+  "exportFailed": "Não foi possível criar o relatório.",
+  "settingsTrackerList": "Lista de rastreadores",
+  "settingsTrackerListBody": "Toque para atualizar. {count} rastreadores conhecidos. Somente quando você tocar.",
+  "trackerListUpdating": "Atualizando a lista de rastreadores…",
+  "trackerListUpdated": "Lista de rastreadores atualizada. {count} rastreadores conhecidos.",
+  "trackerListCurrent": "A lista de rastreadores já está atualizada.",
+  "trackerListFailed": "Não foi possível atualizar a lista de rastreadores. Verifique sua conexão."
 }

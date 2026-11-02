@@ -277,5 +277,20 @@
   "trendTitle": "スコアの推移",
   "trendUp": "{diff}点上昇（追跡日数：{days}）",
   "trendDown": "{diff}点低下（追跡日数：{days}）",
-  "trendSame": "変化なし（追跡日数：{days}）"
+  "trendSame": "変化なし（追跡日数：{days}）",
+  "settingsQuick": "クイックアクセス",
+  "quickWidget": "ホーム画面ウィジェット",
+  "quickWidgetBody": "プライバシースコアをホーム画面に表示します",
+  "quickTile": "クイック設定タイル",
+  "quickTileBody": "クイック設定パネルでスコアを確認できます",
+  "quickManual": "自動で追加できませんでした。手動で追加してください：ホーム画面を長押し（ウィジェット）、またはクイック設定パネルを編集（タイル）。",
+  "settingsExport": "レポートをエクスポート",
+  "settingsExportBody": "レポートをPDFまたはJSONファイルとして保存して共有します",
+  "exportFailed": "レポートを作成できませんでした。",
+  "settingsTrackerList": "トラッカーリスト",
+  "settingsTrackerListBody": "タップして更新します。既知のトラッカー：{count}件。タップしたときだけ更新します。",
+  "trackerListUpdating": "トラッカーリストを更新中…",
+  "trackerListUpdated": "トラッカーリストを更新しました。既知のトラッカー：{count}件。",
+  "trackerListCurrent": "トラッカーリストはすでに最新です。",
+  "trackerListFailed": "トラッカーリストを更新できませんでした。接続を確認してください。"
 }

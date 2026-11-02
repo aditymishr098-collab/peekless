@@ -277,5 +277,20 @@
   "trendTitle": "시간에 따른 점수",
   "trendUp": "{diff}점 상승 (추적 일수: {days}일)",
   "trendDown": "{diff}점 하락 (추적 일수: {days}일)",
-  "trendSame": "변화 없음 (추적 일수: {days}일)"
+  "trendSame": "변화 없음 (추적 일수: {days}일)",
+  "settingsQuick": "빠른 접근",
+  "quickWidget": "홈 화면 위젯",
+  "quickWidgetBody": "개인정보 점수를 홈 화면에 표시합니다",
+  "quickTile": "빠른 설정 타일",
+  "quickTileBody": "빠른 설정 패널에서 점수를 확인하세요",
+  "quickManual": "휴대폰에서 자동으로 추가하지 못했습니다. 직접 추가하세요: 홈 화면을 길게 누르거나(위젯) 빠른 설정 패널을 편집하세요(타일).",
+  "settingsExport": "보고서 내보내기",
+  "settingsExportBody": "보고서를 PDF 또는 JSON 파일로 저장하고 공유합니다",
+  "exportFailed": "보고서를 만들 수 없습니다.",
+  "settingsTrackerList": "추적기 목록",
+  "settingsTrackerListBody": "탭하여 업데이트합니다. 알려진 추적기 {count}개. 탭할 때만 업데이트합니다.",
+  "trackerListUpdating": "추적기 목록 업데이트 중…",
+  "trackerListUpdated": "추적기 목록을 업데이트했습니다. 알려진 추적기 {count}개.",
+  "trackerListCurrent": "추적기 목록이 이미 최신입니다.",
+  "trackerListFailed": "추적기 목록을 업데이트할 수 없습니다. 연결을 확인하세요."
 }

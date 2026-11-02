@@ -989,4 +989,56 @@ class AppLocalizationsId extends AppLocalizations {
   String trendSame(int days) {
     return 'Tidak berubah (hari terpantau: $days)';
   }
+
+  @override
+  String get settingsQuick => 'Akses cepat';
+
+  @override
+  String get quickWidget => 'Widget layar utama';
+
+  @override
+  String get quickWidgetBody => 'Tampilkan skor privasi Anda di layar utama';
+
+  @override
+  String get quickTile => 'Ubin Pengaturan Cepat';
+
+  @override
+  String get quickTileBody => 'Lihat skor Anda di panel pengaturan cepat';
+
+  @override
+  String get quickManual =>
+      'Ponsel Anda tidak bisa menambahkannya otomatis. Tambahkan manual: tekan lama layar utama (widget) atau ubah panel pengaturan cepat (ubin).';
+
+  @override
+  String get settingsExport => 'Ekspor laporan';
+
+  @override
+  String get settingsExportBody =>
+      'Simpan laporan sebagai file PDF atau JSON dan bagikan';
+
+  @override
+  String get exportFailed => 'Tidak dapat membuat laporan.';
+
+  @override
+  String get settingsTrackerList => 'Daftar pelacak';
+
+  @override
+  String settingsTrackerListBody(int count) {
+    return 'Ketuk untuk memperbarui. $count pelacak dikenal. Hanya saat Anda mengetuk.';
+  }
+
+  @override
+  String get trackerListUpdating => 'Memperbarui daftar pelacak…';
+
+  @override
+  String trackerListUpdated(int count) {
+    return 'Daftar pelacak diperbarui. $count pelacak dikenal.';
+  }
+
+  @override
+  String get trackerListCurrent => 'Daftar pelacak sudah yang terbaru.';
+
+  @override
+  String get trackerListFailed =>
+      'Tidak dapat memperbarui daftar pelacak. Periksa koneksi Anda.';
 }

@@ -986,4 +986,56 @@ class AppLocalizationsBn extends AppLocalizations {
   String trendSame(int days) {
     return 'কোনো পরিবর্তন নেই (ট্র্যাক করা দিন: $days)';
   }
+
+  @override
+  String get settingsQuick => 'দ্রুত অ্যাক্সেস';
+
+  @override
+  String get quickWidget => 'হোম স্ক্রিন উইজেট';
+
+  @override
+  String get quickWidgetBody => 'হোম স্ক্রিনে আপনার প্রাইভেসি স্কোর দেখান';
+
+  @override
+  String get quickTile => 'কুইক সেটিংস টাইল';
+
+  @override
+  String get quickTileBody => 'কুইক সেটিংস প্যানেলে আপনার স্কোর দেখুন';
+
+  @override
+  String get quickManual =>
+      'আপনার ফোন এটি নিজে থেকে যোগ করতে পারেনি। হাতে যোগ করুন: হোম স্ক্রিন চেপে ধরুন (উইজেট) অথবা কুইক সেটিংস প্যানেল এডিট করুন (টাইল)।';
+
+  @override
+  String get settingsExport => 'রিপোর্ট এক্সপোর্ট করুন';
+
+  @override
+  String get settingsExportBody =>
+      'রিপোর্ট PDF বা JSON ফাইল হিসেবে সংরক্ষণ করে শেয়ার করুন';
+
+  @override
+  String get exportFailed => 'রিপোর্ট তৈরি করা যায়নি।';
+
+  @override
+  String get settingsTrackerList => 'ট্র্যাকার তালিকা';
+
+  @override
+  String settingsTrackerListBody(int count) {
+    return 'আপডেট করতে ট্যাপ করুন। $countটি ট্র্যাকার জানা আছে। শুধু আপনি ট্যাপ করলেই।';
+  }
+
+  @override
+  String get trackerListUpdating => 'ট্র্যাকার তালিকা আপডেট হচ্ছে…';
+
+  @override
+  String trackerListUpdated(int count) {
+    return 'ট্র্যাকার তালিকা আপডেট হয়েছে। $countটি ট্র্যাকার জানা আছে।';
+  }
+
+  @override
+  String get trackerListCurrent => 'ট্র্যাকার তালিকা ইতিমধ্যে আপ টু ডেট।';
+
+  @override
+  String get trackerListFailed =>
+      'ট্র্যাকার তালিকা আপডেট করা যায়নি। আপনার সংযোগ পরীক্ষা করুন।';
 }

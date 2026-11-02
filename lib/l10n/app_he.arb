@@ -277,5 +277,20 @@
   "trendTitle": "ציון לאורך זמן",
   "trendUp": "עלייה של {diff} (ימים במעקב: {days})",
   "trendDown": "ירידה של {diff} (ימים במעקב: {days})",
-  "trendSame": "ללא שינוי (ימים במעקב: {days})"
+  "trendSame": "ללא שינוי (ימים במעקב: {days})",
+  "settingsQuick": "גישה מהירה",
+  "quickWidget": "ווידג׳ט למסך הבית",
+  "quickWidgetBody": "הצגת ציון הפרטיות שלך במסך הבית",
+  "quickTile": "אריח הגדרות מהירות",
+  "quickTileBody": "הציון שלך בלוח ההגדרות המהירות",
+  "quickManual": "הטלפון לא הצליח להוסיף זאת אוטומטית. הוסיפו ידנית: לחיצה ארוכה על מסך הבית (ווידג׳ט) או עריכת לוח ההגדרות המהירות (אריח).",
+  "settingsExport": "ייצוא הדוח",
+  "settingsExportBody": "שמרו את הדוח כקובץ PDF או JSON ושתפו אותו",
+  "exportFailed": "לא ניתן היה ליצור את הדוח.",
+  "settingsTrackerList": "רשימת עוקבים",
+  "settingsTrackerListBody": "הקישו לעדכון. {count} עוקבים ידועים. רק כשמקישים.",
+  "trackerListUpdating": "מעדכן את רשימת העוקבים…",
+  "trackerListUpdated": "רשימת העוקבים עודכנה. {count} עוקבים ידועים.",
+  "trackerListCurrent": "רשימת העוקבים כבר מעודכנת.",
+  "trackerListFailed": "לא ניתן היה לעדכן את רשימת העוקבים. בדקו את החיבור."
 }

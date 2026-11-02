@@ -277,5 +277,20 @@
   "trendTitle": "Score in de tijd",
   "trendUp": "Gestegen met {diff} (gevolgde dagen: {days})",
   "trendDown": "Gedaald met {diff} (gevolgde dagen: {days})",
-  "trendSame": "Geen verandering (gevolgde dagen: {days})"
+  "trendSame": "Geen verandering (gevolgde dagen: {days})",
+  "settingsQuick": "Snelle toegang",
+  "quickWidget": "Widget voor het startscherm",
+  "quickWidgetBody": "Toon je privacyscore op het startscherm",
+  "quickTile": "Tegel voor Snelle instellingen",
+  "quickTileBody": "Zie je score in het paneel Snelle instellingen",
+  "quickManual": "Je telefoon kon dit niet automatisch toevoegen. Voeg het zelf toe: houd het startscherm ingedrukt (widget) of bewerk het paneel Snelle instellingen (tegel).",
+  "settingsExport": "Rapport exporteren",
+  "settingsExportBody": "Sla het rapport op als PDF- of JSON-bestand en deel het",
+  "exportFailed": "Het rapport kon niet worden gemaakt.",
+  "settingsTrackerList": "Trackerlijst",
+  "settingsTrackerListBody": "Tik om bij te werken. {count} trackers bekend. Alleen als je tikt.",
+  "trackerListUpdating": "Trackerlijst wordt bijgewerkt…",
+  "trackerListUpdated": "Trackerlijst bijgewerkt. {count} trackers bekend.",
+  "trackerListCurrent": "De trackerlijst is al up-to-date.",
+  "trackerListFailed": "De trackerlijst kon niet worden bijgewerkt. Controleer je verbinding."
 }

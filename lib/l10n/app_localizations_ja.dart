@@ -958,4 +958,54 @@ class AppLocalizationsJa extends AppLocalizations {
   String trendSame(int days) {
     return '変化なし（追跡日数：$days）';
   }
+
+  @override
+  String get settingsQuick => 'クイックアクセス';
+
+  @override
+  String get quickWidget => 'ホーム画面ウィジェット';
+
+  @override
+  String get quickWidgetBody => 'プライバシースコアをホーム画面に表示します';
+
+  @override
+  String get quickTile => 'クイック設定タイル';
+
+  @override
+  String get quickTileBody => 'クイック設定パネルでスコアを確認できます';
+
+  @override
+  String get quickManual =>
+      '自動で追加できませんでした。手動で追加してください：ホーム画面を長押し（ウィジェット）、またはクイック設定パネルを編集（タイル）。';
+
+  @override
+  String get settingsExport => 'レポートをエクスポート';
+
+  @override
+  String get settingsExportBody => 'レポートをPDFまたはJSONファイルとして保存して共有します';
+
+  @override
+  String get exportFailed => 'レポートを作成できませんでした。';
+
+  @override
+  String get settingsTrackerList => 'トラッカーリスト';
+
+  @override
+  String settingsTrackerListBody(int count) {
+    return 'タップして更新します。既知のトラッカー：$count件。タップしたときだけ更新します。';
+  }
+
+  @override
+  String get trackerListUpdating => 'トラッカーリストを更新中…';
+
+  @override
+  String trackerListUpdated(int count) {
+    return 'トラッカーリストを更新しました。既知のトラッカー：$count件。';
+  }
+
+  @override
+  String get trackerListCurrent => 'トラッカーリストはすでに最新です。';
+
+  @override
+  String get trackerListFailed => 'トラッカーリストを更新できませんでした。接続を確認してください。';
 }

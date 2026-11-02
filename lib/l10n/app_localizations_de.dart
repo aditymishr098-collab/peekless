@@ -997,4 +997,57 @@ class AppLocalizationsDe extends AppLocalizations {
   String trendSame(int days) {
     return 'Keine Änderung (verfolgte Tage: $days)';
   }
+
+  @override
+  String get settingsQuick => 'Schnellzugriff';
+
+  @override
+  String get quickWidget => 'Startbildschirm-Widget';
+
+  @override
+  String get quickWidgetBody =>
+      'Zeigt deinen Datenschutz-Wert auf dem Startbildschirm';
+
+  @override
+  String get quickTile => 'Schnelleinstellungs-Kachel';
+
+  @override
+  String get quickTileBody => 'Sieh deinen Wert im Schnelleinstellungs-Bereich';
+
+  @override
+  String get quickManual =>
+      'Dein Handy konnte das nicht automatisch hinzufügen. Füge es von Hand hinzu: Startbildschirm lange drücken (Widget) oder Schnelleinstellungen bearbeiten (Kachel).';
+
+  @override
+  String get settingsExport => 'Bericht exportieren';
+
+  @override
+  String get settingsExportBody =>
+      'Speichere den Bericht als PDF oder JSON und teile ihn';
+
+  @override
+  String get exportFailed => 'Der Bericht konnte nicht erstellt werden.';
+
+  @override
+  String get settingsTrackerList => 'Tracker-Liste';
+
+  @override
+  String settingsTrackerListBody(int count) {
+    return 'Zum Aktualisieren tippen. $count Tracker bekannt. Nur wenn du tippst.';
+  }
+
+  @override
+  String get trackerListUpdating => 'Tracker-Liste wird aktualisiert…';
+
+  @override
+  String trackerListUpdated(int count) {
+    return 'Tracker-Liste aktualisiert. $count Tracker bekannt.';
+  }
+
+  @override
+  String get trackerListCurrent => 'Die Tracker-Liste ist bereits aktuell.';
+
+  @override
+  String get trackerListFailed =>
+      'Die Tracker-Liste konnte nicht aktualisiert werden. Prüfe deine Verbindung.';
 }

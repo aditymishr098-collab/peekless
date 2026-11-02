@@ -976,4 +976,55 @@ class AppLocalizationsAr extends AppLocalizations {
   String trendSame(int days) {
     return 'لا تغيير (الأيام المتتبَّعة: $days)';
   }
+
+  @override
+  String get settingsQuick => 'وصول سريع';
+
+  @override
+  String get quickWidget => 'أداة الشاشة الرئيسية';
+
+  @override
+  String get quickWidgetBody => 'اعرض درجة خصوصيتك على الشاشة الرئيسية';
+
+  @override
+  String get quickTile => 'بلاطة الإعدادات السريعة';
+
+  @override
+  String get quickTileBody => 'شاهد درجتك في لوحة الإعدادات السريعة';
+
+  @override
+  String get quickManual =>
+      'لم يتمكن هاتفك من إضافتها تلقائيًا. أضفها يدويًا: اضغط مطولًا على الشاشة الرئيسية (الأداة) أو عدّل لوحة الإعدادات السريعة (البلاطة).';
+
+  @override
+  String get settingsExport => 'تصدير التقرير';
+
+  @override
+  String get settingsExportBody => 'احفظ التقرير كملف PDF أو JSON وشاركه';
+
+  @override
+  String get exportFailed => 'تعذّر إنشاء التقرير.';
+
+  @override
+  String get settingsTrackerList => 'قائمة المتتبعات';
+
+  @override
+  String settingsTrackerListBody(int count) {
+    return 'اضغط للتحديث. عدد المتتبعات المعروفة: $count. فقط عند الضغط.';
+  }
+
+  @override
+  String get trackerListUpdating => 'جارٍ تحديث قائمة المتتبعات…';
+
+  @override
+  String trackerListUpdated(int count) {
+    return 'تم تحديث قائمة المتتبعات. عدد المتتبعات المعروفة: $count.';
+  }
+
+  @override
+  String get trackerListCurrent => 'قائمة المتتبعات محدّثة بالفعل.';
+
+  @override
+  String get trackerListFailed =>
+      'تعذّر تحديث قائمة المتتبعات. تحقق من اتصالك.';
 }

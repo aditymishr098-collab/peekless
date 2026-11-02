@@ -62,6 +62,26 @@ class PeeklessChannel(
             "shareText" -> shareText(call, result)
             "usageAccessGranted" -> result.success(UsageAccess.granted(context))
             "openUsageAccess" -> openUsageAccess(result)
+            "updateGlance" -> {
+                Glance.save(
+                    context,
+                    call.argument<Int>("score") ?: -1,
+                    call.argument<String>("level") ?: "",
+                    call.argument<String>("label") ?: "",
+                )
+                result.success(null)
+            }
+            "exportsDir" -> {
+                try {
+                    result.success(PdfExport.exportsDir(context).absolutePath)
+                } catch (e: Exception) {
+                    result.error("export_failed", e.message ?: "Could not prepare exports", null)
+                }
+            }
+            "buildPdf" -> buildPdf(call, result)
+            "shareFile" -> shareFile(call, result)
+            "requestAddTile" -> requestAddTile(result)
+            "requestAddWidget" -> result.success(Glance.requestPinWidget(context))
             else -> result.notImplemented()
         }
     }
@@ -134,6 +154,80 @@ class PeeklessChannel(
             result.success(null)
         } catch (e: Exception) {
             result.error("share_failed", e.message ?: "Could not share", null)
+        }
+    }
+
+    private fun buildPdf(call: MethodCall, result: MethodChannel.Result) {
+        @Suppress("UNCHECKED_CAST")
+        val doc = call.arguments as? Map<String, Any?>
+        if (doc == null) {
+            result.error("bad_args", "Missing report", null)
+            return
+        }
+        Thread {
+            try {
+                val file = PdfExport.write(context, doc)
+                main.post { result.success(file.absolutePath) }
+            } catch (e: Exception) {
+                main.post { result.error("export_failed", e.message ?: "Could not make the PDF", null) }
+            }
+        }.start()
+    }
+
+    private fun shareFile(call: MethodCall, result: MethodChannel.Result) {
+        val path = call.argument<String>("path")
+        if (path == null) {
+            result.error("bad_args", "Missing file", null)
+            return
+        }
+        try {
+            val file = java.io.File(path)
+            // Only files inside our own exports folder may be shared.
+            val allowed = java.io.File(context.cacheDir, "exports").canonicalPath
+            if (!file.canonicalPath.startsWith(allowed + java.io.File.separator) || !file.exists()) {
+                result.error("bad_args", "Not an export file", null)
+                return
+            }
+            val uri = androidx.core.content.FileProvider.getUriForFile(
+                context,
+                context.packageName + ".exports",
+                file,
+            )
+            val send = Intent(Intent.ACTION_SEND)
+            send.type = call.argument<String>("mime") ?: "application/octet-stream"
+            send.putExtra(Intent.EXTRA_STREAM, uri)
+            send.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            val chooser = Intent.createChooser(send, call.argument<String>("title") ?: "Share report")
+            if (activity == null) chooser.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            (activity ?: context).startActivity(chooser)
+            result.success(null)
+        } catch (e: Exception) {
+            result.error("share_failed", e.message ?: "Could not share", null)
+        }
+    }
+
+    /** Android 13+ can ask the user to add the tile. False means: do it by hand. */
+    private fun requestAddTile(result: MethodChannel.Result) {
+        if (android.os.Build.VERSION.SDK_INT < 33) {
+            result.success(false)
+            return
+        }
+        try {
+            val manager = context.getSystemService(android.app.StatusBarManager::class.java)
+            val icon = android.graphics.drawable.Icon.createWithResource(
+                context,
+                Glance.res(context, "drawable", "ic_notification"),
+            )
+            manager.requestAddTileService(
+                android.content.ComponentName(context, ScoreTileService::class.java),
+                "Peekless",
+                icon,
+                { runnable -> runnable.run() },
+                { },
+            )
+            result.success(true)
+        } catch (e: Exception) {
+            result.success(false)
         }
     }
 }

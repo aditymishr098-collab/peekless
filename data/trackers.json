@@ -1,0 +1,196 @@
+{
+  "version": 2,
+  "trackers": {
+    "Google Ads": [
+      "com.google.android.gms.ads"
+    ],
+    "Google Tag Manager": [
+      "com.google.android.gms.tagmanager"
+    ],
+    "Firebase Analytics": [
+      "com.google.firebase.analytics",
+      "com.google.android.gms.measurement"
+    ],
+    "Firebase Crashlytics": [
+      "com.google.firebase.crashlytics"
+    ],
+    "Facebook SDK": [
+      "com.facebook."
+    ],
+    "AppsFlyer": [
+      "com.appsflyer"
+    ],
+    "Adjust": [
+      "com.adjust.sdk"
+    ],
+    "Kochava": [
+      "com.kochava"
+    ],
+    "Singular": [
+      "com.singular.sdk"
+    ],
+    "Branch": [
+      "io.branch"
+    ],
+    "Unity Ads": [
+      "com.unity3d.ads",
+      "com.unity3d.services"
+    ],
+    "AppLovin": [
+      "com.applovin"
+    ],
+    "ironSource": [
+      "com.ironsource"
+    ],
+    "Chartboost": [
+      "com.chartboost"
+    ],
+    "Mintegral": [
+      "com.mbridge"
+    ],
+    "Vungle": [
+      "com.vungle"
+    ],
+    "InMobi": [
+      "com.inmobi"
+    ],
+    "Tapjoy": [
+      "com.tapjoy"
+    ],
+    "Smaato": [
+      "com.smaato"
+    ],
+    "StartApp": [
+      "com.startapp"
+    ],
+    "Moloco": [
+      "com.moloco"
+    ],
+    "Fyber": [
+      "com.fyber"
+    ],
+    "Pangle (TikTok Ads)": [
+      "com.bytedance.sdk.openadsdk",
+      "com.pangle"
+    ],
+    "Yandex Ads": [
+      "com.yandex.mobile.ads"
+    ],
+    "myTarget": [
+      "com.my.target"
+    ],
+    "Tencent Ads": [
+      "com.qq.e.ads"
+    ],
+    "Mixpanel": [
+      "com.mixpanel"
+    ],
+    "Amplitude": [
+      "com.amplitude"
+    ],
+    "Flurry": [
+      "com.flurry"
+    ],
+    "Segment": [
+      "com.segment.analytics"
+    ],
+    "Yandex Metrica": [
+      "com.yandex.metrica",
+      "io.appmetrica"
+    ],
+    "Umeng": [
+      "com.umeng"
+    ],
+    "Baidu Mobstat": [
+      "com.baidu.mobstat"
+    ],
+    "OneSignal": [
+      "com.onesignal"
+    ],
+    "CleverTap": [
+      "com.clevertap"
+    ],
+    "Braze": [
+      "com.braze",
+      "com.appboy"
+    ],
+    "Airship": [
+      "com.urbanairship"
+    ],
+    "MoEngage": [
+      "com.moengage"
+    ],
+    "WebEngage": [
+      "com.webengage"
+    ],
+    "Sentry": [
+      "io.sentry"
+    ],
+    "Bugsnag": [
+      "com.bugsnag"
+    ],
+    "New Relic": [
+      "com.newrelic"
+    ],
+    "Datadog": [
+      "com.datadog"
+    ],
+    "Microsoft App Center": [
+      "com.microsoft.appcenter"
+    ],
+    "Leanplum": [
+      "com.leanplum"
+    ],
+    "Matomo": [
+      "org.matomo.sdk"
+    ],
+    "PostHog": [
+      "com.posthog"
+    ],
+    "Heap": [
+      "com.heapanalytics"
+    ],
+    "FullStory": [
+      "com.fullstory"
+    ],
+    "Smartlook": [
+      "com.smartlook"
+    ],
+    "Instabug": [
+      "com.instabug"
+    ],
+    "Optimizely": [
+      "com.optimizely"
+    ],
+    "Taboola": [
+      "com.taboola"
+    ],
+    "Outbrain": [
+      "com.outbrain"
+    ],
+    "Criteo": [
+      "com.criteo"
+    ],
+    "Verizon Ads": [
+      "com.verizon.ads"
+    ],
+    "Ogury": [
+      "com.ogury"
+    ],
+    "BidMachine": [
+      "io.bidmachine"
+    ],
+    "AdColony": [
+      "com.adcolony"
+    ],
+    "Pushwoosh": [
+      "com.pushwoosh"
+    ],
+    "Batch": [
+      "com.batch.android"
+    ],
+    "Countly": [
+      "ly.count.android"
+    ]
+  }
+}

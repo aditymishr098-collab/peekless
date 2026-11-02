@@ -976,4 +976,55 @@ class AppLocalizationsHe extends AppLocalizations {
   String trendSame(int days) {
     return 'ללא שינוי (ימים במעקב: $days)';
   }
+
+  @override
+  String get settingsQuick => 'גישה מהירה';
+
+  @override
+  String get quickWidget => 'ווידג׳ט למסך הבית';
+
+  @override
+  String get quickWidgetBody => 'הצגת ציון הפרטיות שלך במסך הבית';
+
+  @override
+  String get quickTile => 'אריח הגדרות מהירות';
+
+  @override
+  String get quickTileBody => 'הציון שלך בלוח ההגדרות המהירות';
+
+  @override
+  String get quickManual =>
+      'הטלפון לא הצליח להוסיף זאת אוטומטית. הוסיפו ידנית: לחיצה ארוכה על מסך הבית (ווידג׳ט) או עריכת לוח ההגדרות המהירות (אריח).';
+
+  @override
+  String get settingsExport => 'ייצוא הדוח';
+
+  @override
+  String get settingsExportBody => 'שמרו את הדוח כקובץ PDF או JSON ושתפו אותו';
+
+  @override
+  String get exportFailed => 'לא ניתן היה ליצור את הדוח.';
+
+  @override
+  String get settingsTrackerList => 'רשימת עוקבים';
+
+  @override
+  String settingsTrackerListBody(int count) {
+    return 'הקישו לעדכון. $count עוקבים ידועים. רק כשמקישים.';
+  }
+
+  @override
+  String get trackerListUpdating => 'מעדכן את רשימת העוקבים…';
+
+  @override
+  String trackerListUpdated(int count) {
+    return 'רשימת העוקבים עודכנה. $count עוקבים ידועים.';
+  }
+
+  @override
+  String get trackerListCurrent => 'רשימת העוקבים כבר מעודכנת.';
+
+  @override
+  String get trackerListFailed =>
+      'לא ניתן היה לעדכן את רשימת העוקבים. בדקו את החיבור.';
 }

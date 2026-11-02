@@ -277,5 +277,20 @@
   "trendTitle": "Zaman içinde puan",
   "trendUp": "{diff} arttı (izlenen gün: {days})",
   "trendDown": "{diff} azaldı (izlenen gün: {days})",
-  "trendSame": "Değişiklik yok (izlenen gün: {days})"
+  "trendSame": "Değişiklik yok (izlenen gün: {days})",
+  "settingsQuick": "Hızlı erişim",
+  "quickWidget": "Ana ekran widget’ı",
+  "quickWidgetBody": "Gizlilik puanınızı ana ekranda gösterir",
+  "quickTile": "Hızlı Ayarlar kutucuğu",
+  "quickTileBody": "Puanınızı hızlı ayarlar panelinde görün",
+  "quickManual": "Telefonunuz bunu otomatik ekleyemedi. Elle ekleyin: ana ekrana uzun basın (widget) ya da hızlı ayarlar panelini düzenleyin (kutucuk).",
+  "settingsExport": "Raporu dışa aktar",
+  "settingsExportBody": "Raporu PDF veya JSON dosyası olarak kaydedin ve paylaşın",
+  "exportFailed": "Rapor oluşturulamadı.",
+  "settingsTrackerList": "İzleyici listesi",
+  "settingsTrackerListBody": "Güncellemek için dokunun. {count} izleyici biliniyor. Yalnızca dokunduğunuzda.",
+  "trackerListUpdating": "İzleyici listesi güncelleniyor…",
+  "trackerListUpdated": "İzleyici listesi güncellendi. {count} izleyici biliniyor.",
+  "trackerListCurrent": "İzleyici listesi zaten güncel.",
+  "trackerListFailed": "İzleyici listesi güncellenemedi. Bağlantınızı kontrol edin."
 }

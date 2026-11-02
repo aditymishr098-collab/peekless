@@ -2,7 +2,7 @@ import 'package:flutter/services.dart';
 
 import 'models.dart';
 import 'scoring.dart';
-import 'tracker_db.dart';
+import 'tracker_store.dart';
 
 /// All calls to the Android side. It is used by the app and also by the
 /// background check, which runs in a second Flutter engine.
@@ -10,9 +10,10 @@ class NativeBridge {
   static const MethodChannel _channel = MethodChannel('app.peekless/scan');
 
   static Future<List<AppReport>> scan() async {
+    await TrackerStore.ensureLoaded();
     final raw = await _channel.invokeListMethod<Map<Object?, Object?>>(
       'scanApps',
-      <String, Object?>{'trackers': trackerSignatures},
+      <String, Object?>{'trackers': TrackerStore.current},
     );
     return (raw ?? const <Map<Object?, Object?>>[])
         .map(AppInfo.fromMap)
@@ -67,5 +68,41 @@ class NativeBridge {
       'shareText',
       <String, Object?>{'text': text, 'title': title},
     );
+  }
+
+  /// Gives the widget and the Quick Settings tile the newest score.
+  static Future<void> updateGlance(int score, String level, String label) async {
+    await _channel.invokeMethod<void>(
+      'updateGlance',
+      <String, Object?>{'score': score, 'level': level, 'label': label},
+    );
+  }
+
+  /// The folder for exported reports. Old exports in it are deleted first.
+  static Future<String> exportsDir() async {
+    return (await _channel.invokeMethod<String>('exportsDir'))!;
+  }
+
+  /// Draws the report as a PDF on the Android side, so every language and
+  /// script is shown with the phone's own fonts. Returns the file path.
+  static Future<String> buildPdf(Map<String, Object?> doc) async {
+    return (await _channel.invokeMethod<String>('buildPdf', doc))!;
+  }
+
+  static Future<void> shareFile(String path, String mime, String title) async {
+    await _channel.invokeMethod<void>(
+      'shareFile',
+      <String, Object?>{'path': path, 'mime': mime, 'title': title},
+    );
+  }
+
+  /// Asks Android to add the Quick Settings tile. False when Android cannot ask.
+  static Future<bool> requestAddTile() async {
+    return (await _channel.invokeMethod<bool>('requestAddTile')) ?? false;
+  }
+
+  /// Asks Android to pin the widget to the home screen. False when it cannot.
+  static Future<bool> requestAddWidget() async {
+    return (await _channel.invokeMethod<bool>('requestAddWidget')) ?? false;
   }
 }

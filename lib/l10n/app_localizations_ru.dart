@@ -994,4 +994,57 @@ class AppLocalizationsRu extends AppLocalizations {
   String trendSame(int days) {
     return 'Без изменений (дней отслеживания: $days)';
   }
+
+  @override
+  String get settingsQuick => 'Быстрый доступ';
+
+  @override
+  String get quickWidget => 'Виджет на главном экране';
+
+  @override
+  String get quickWidgetBody =>
+      'Показывать оценку приватности на главном экране';
+
+  @override
+  String get quickTile => 'Плитка быстрых настроек';
+
+  @override
+  String get quickTileBody => 'Оценка в панели быстрых настроек';
+
+  @override
+  String get quickManual =>
+      'Телефон не смог добавить это автоматически. Добавьте вручную: долгое нажатие на главном экране (виджет) или изменение панели быстрых настроек (плитка).';
+
+  @override
+  String get settingsExport => 'Экспорт отчёта';
+
+  @override
+  String get settingsExportBody =>
+      'Сохраните отчёт как PDF или JSON и поделитесь им';
+
+  @override
+  String get exportFailed => 'Не удалось создать отчёт.';
+
+  @override
+  String get settingsTrackerList => 'Список трекеров';
+
+  @override
+  String settingsTrackerListBody(int count) {
+    return 'Нажмите, чтобы обновить. Известно трекеров: $count. Только по вашему нажатию.';
+  }
+
+  @override
+  String get trackerListUpdating => 'Обновление списка трекеров…';
+
+  @override
+  String trackerListUpdated(int count) {
+    return 'Список трекеров обновлён. Известно трекеров: $count.';
+  }
+
+  @override
+  String get trackerListCurrent => 'Список трекеров уже актуален.';
+
+  @override
+  String get trackerListFailed =>
+      'Не удалось обновить список трекеров. Проверьте подключение.';
 }

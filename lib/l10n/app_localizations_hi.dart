@@ -986,4 +986,56 @@ class AppLocalizationsHi extends AppLocalizations {
   String trendSame(int days) {
     return 'कोई बदलाव नहीं (ट्रैक किए गए दिन: $days)';
   }
+
+  @override
+  String get settingsQuick => 'त्वरित पहुँच';
+
+  @override
+  String get quickWidget => 'होम स्क्रीन विजेट';
+
+  @override
+  String get quickWidgetBody => 'होम स्क्रीन पर अपना प्राइवेसी स्कोर दिखाएँ';
+
+  @override
+  String get quickTile => 'क्विक सेटिंग्स टाइल';
+
+  @override
+  String get quickTileBody => 'क्विक सेटिंग्स पैनल में अपना स्कोर देखें';
+
+  @override
+  String get quickManual =>
+      'आपका फ़ोन इसे अपने आप नहीं जोड़ पाया। हाथ से जोड़ें: होम स्क्रीन को देर तक दबाएँ (विजेट) या क्विक सेटिंग्स पैनल एडिट करें (टाइल)।';
+
+  @override
+  String get settingsExport => 'रिपोर्ट एक्सपोर्ट करें';
+
+  @override
+  String get settingsExportBody =>
+      'रिपोर्ट को PDF या JSON फ़ाइल में सहेजें और शेयर करें';
+
+  @override
+  String get exportFailed => 'रिपोर्ट नहीं बन सकी।';
+
+  @override
+  String get settingsTrackerList => 'ट्रैकर सूची';
+
+  @override
+  String settingsTrackerListBody(int count) {
+    return 'अपडेट करने के लिए टैप करें। $count ट्रैकर ज्ञात हैं। केवल आपके टैप करने पर।';
+  }
+
+  @override
+  String get trackerListUpdating => 'ट्रैकर सूची अपडेट हो रही है…';
+
+  @override
+  String trackerListUpdated(int count) {
+    return 'ट्रैकर सूची अपडेट हो गई। $count ट्रैकर ज्ञात हैं।';
+  }
+
+  @override
+  String get trackerListCurrent => 'ट्रैकर सूची पहले से नई है।';
+
+  @override
+  String get trackerListFailed =>
+      'ट्रैकर सूची अपडेट नहीं हो सकी। अपना कनेक्शन जाँचें।';
 }

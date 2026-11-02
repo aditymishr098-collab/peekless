@@ -277,5 +277,20 @@
   "trendTitle": "Wynik w czasie",
   "trendUp": "Wzrost o {diff} (śledzone dni: {days})",
   "trendDown": "Spadek o {diff} (śledzone dni: {days})",
-  "trendSame": "Bez zmian (śledzone dni: {days})"
+  "trendSame": "Bez zmian (śledzone dni: {days})",
+  "settingsQuick": "Szybki dostęp",
+  "quickWidget": "Widżet ekranu głównego",
+  "quickWidgetBody": "Pokaż wynik prywatności na ekranie głównym",
+  "quickTile": "Kafelek szybkich ustawień",
+  "quickTileBody": "Zobacz wynik w panelu szybkich ustawień",
+  "quickManual": "Telefon nie mógł dodać tego automatycznie. Dodaj ręcznie: przytrzymaj ekran główny (widżet) lub edytuj panel szybkich ustawień (kafelek).",
+  "settingsExport": "Eksportuj raport",
+  "settingsExportBody": "Zapisz raport jako plik PDF lub JSON i udostępnij",
+  "exportFailed": "Nie udało się utworzyć raportu.",
+  "settingsTrackerList": "Lista trackerów",
+  "settingsTrackerListBody": "Dotknij, aby zaktualizować. Znanych trackerów: {count}. Tylko po dotknięciu.",
+  "trackerListUpdating": "Aktualizowanie listy trackerów…",
+  "trackerListUpdated": "Lista trackerów zaktualizowana. Znanych trackerów: {count}.",
+  "trackerListCurrent": "Lista trackerów jest już aktualna.",
+  "trackerListFailed": "Nie udało się zaktualizować listy trackerów. Sprawdź połączenie."
 }

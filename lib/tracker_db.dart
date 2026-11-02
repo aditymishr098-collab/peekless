@@ -1,7 +1,8 @@
-/// Known tracker SDKs. Each entry maps a display name to class-name prefixes.
+/// Known tracker SDKs that ship with the app. The list can be extended from
+/// Settings, see tracker_store.dart. Each entry maps a display name to class-name prefixes.
 /// The Android side checks these against the activities, services, receivers
 /// and providers declared in every app's manifest.
-const Map<String, List<String>> trackerSignatures = {
+const Map<String, List<String>> builtInTrackers = {
   'Google Ads': ['com.google.android.gms.ads'],
   'Google Tag Manager': ['com.google.android.gms.tagmanager'],
   'Firebase Analytics': [

@@ -958,4 +958,54 @@ class AppLocalizationsKo extends AppLocalizations {
   String trendSame(int days) {
     return '변화 없음 (추적 일수: $days일)';
   }
+
+  @override
+  String get settingsQuick => '빠른 접근';
+
+  @override
+  String get quickWidget => '홈 화면 위젯';
+
+  @override
+  String get quickWidgetBody => '개인정보 점수를 홈 화면에 표시합니다';
+
+  @override
+  String get quickTile => '빠른 설정 타일';
+
+  @override
+  String get quickTileBody => '빠른 설정 패널에서 점수를 확인하세요';
+
+  @override
+  String get quickManual =>
+      '휴대폰에서 자동으로 추가하지 못했습니다. 직접 추가하세요: 홈 화면을 길게 누르거나(위젯) 빠른 설정 패널을 편집하세요(타일).';
+
+  @override
+  String get settingsExport => '보고서 내보내기';
+
+  @override
+  String get settingsExportBody => '보고서를 PDF 또는 JSON 파일로 저장하고 공유합니다';
+
+  @override
+  String get exportFailed => '보고서를 만들 수 없습니다.';
+
+  @override
+  String get settingsTrackerList => '추적기 목록';
+
+  @override
+  String settingsTrackerListBody(int count) {
+    return '탭하여 업데이트합니다. 알려진 추적기 $count개. 탭할 때만 업데이트합니다.';
+  }
+
+  @override
+  String get trackerListUpdating => '추적기 목록 업데이트 중…';
+
+  @override
+  String trackerListUpdated(int count) {
+    return '추적기 목록을 업데이트했습니다. 알려진 추적기 $count개.';
+  }
+
+  @override
+  String get trackerListCurrent => '추적기 목록이 이미 최신입니다.';
+
+  @override
+  String get trackerListFailed => '추적기 목록을 업데이트할 수 없습니다. 연결을 확인하세요.';
 }

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -9,6 +11,8 @@ import 'models.dart';
 import 'native_bridge.dart';
 import 'score_history.dart';
 import 'scoring.dart';
+import 'texts.dart';
+import 'tracker_store.dart';
 
 class AppController extends ChangeNotifier {
   ThemeMode themeMode = ThemeMode.system;
@@ -98,6 +102,26 @@ class AppController extends ChangeNotifier {
     trusted = (prefs.getStringList('trusted_apps') ?? const <String>[]).toSet();
     history = await HistoryStore.loadEvents();
     trend = await ScoreHistory.load();
+    await TrackerStore.ensureLoaded();
+  }
+
+  /// Gives the home screen widget and the Quick Settings tile the newest
+  /// score, in the language the app uses.
+  void _publishGlance() {
+    if (_all.isEmpty) return;
+    final level = overallLevel;
+    unawaited(
+      NativeBridge.updateGlance(overallScore, level.name, overallLabel(l10n, level))
+          .catchError((Object _) {}),
+    );
+  }
+
+  /// Downloads the newest tracker list and scans again with it.
+  Future<TrackerUpdate> updateTrackerList() async {
+    final result = await TrackerStore.update();
+    notifyListeners();
+    if (result == TrackerUpdate.updated) await scan();
+    return result;
   }
 
   Future<void> setThemeMode(ThemeMode mode) async {
@@ -113,6 +137,7 @@ class AppController extends ChangeNotifier {
     notifyListeners();
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('language', value == null ? 'system' : codeFromLocale(value));
+    _publishGlance();
   }
 
   /// The translations for the current language. Works without a BuildContext.
@@ -123,6 +148,7 @@ class AppController extends ChangeNotifier {
     notifyListeners();
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('include_system', value);
+    _publishGlance();
   }
 
   Future<void> setTrusted(String packageName, bool value) async {
@@ -136,6 +162,7 @@ class AppController extends ChangeNotifier {
     notifyListeners();
     final prefs = await SharedPreferences.getInstance();
     await prefs.setStringList('trusted_apps', trusted.toList());
+    _publishGlance();
   }
 
   /// Turns App alerts on or off. Returns a message when it could not be done.
@@ -233,6 +260,7 @@ class AppController extends ChangeNotifier {
     }
     loading = false;
     notifyListeners();
+    _publishGlance();
   }
 
   Future<void> openAppSettings(String packageName) =>

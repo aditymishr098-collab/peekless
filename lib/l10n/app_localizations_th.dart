@@ -981,4 +981,56 @@ class AppLocalizationsTh extends AppLocalizations {
   String trendSame(int days) {
     return 'ไม่เปลี่ยนแปลง (จำนวนวันที่ติดตาม: $days)';
   }
+
+  @override
+  String get settingsQuick => 'เข้าถึงด่วน';
+
+  @override
+  String get quickWidget => 'วิดเจ็ตหน้าจอหลัก';
+
+  @override
+  String get quickWidgetBody => 'แสดงคะแนนความเป็นส่วนตัวของคุณบนหน้าจอหลัก';
+
+  @override
+  String get quickTile => 'ไทล์การตั้งค่าด่วน';
+
+  @override
+  String get quickTileBody => 'ดูคะแนนของคุณในแผงการตั้งค่าด่วน';
+
+  @override
+  String get quickManual =>
+      'โทรศัพท์เพิ่มให้อัตโนมัติไม่ได้ โปรดเพิ่มเอง: กดหน้าจอหลักค้างไว้ (วิดเจ็ต) หรือแก้ไขแผงการตั้งค่าด่วน (ไทล์)';
+
+  @override
+  String get settingsExport => 'ส่งออกรายงาน';
+
+  @override
+  String get settingsExportBody =>
+      'บันทึกรายงานเป็นไฟล์ PDF หรือ JSON แล้วแชร์';
+
+  @override
+  String get exportFailed => 'สร้างรายงานไม่ได้';
+
+  @override
+  String get settingsTrackerList => 'รายการตัวติดตาม';
+
+  @override
+  String settingsTrackerListBody(int count) {
+    return 'แตะเพื่ออัปเดต รู้จักตัวติดตาม $count ราย อัปเดตเฉพาะเมื่อคุณแตะ';
+  }
+
+  @override
+  String get trackerListUpdating => 'กำลังอัปเดตรายการตัวติดตาม…';
+
+  @override
+  String trackerListUpdated(int count) {
+    return 'อัปเดตรายการตัวติดตามแล้ว รู้จักตัวติดตาม $count ราย';
+  }
+
+  @override
+  String get trackerListCurrent => 'รายการตัวติดตามเป็นปัจจุบันแล้ว';
+
+  @override
+  String get trackerListFailed =>
+      'อัปเดตรายการตัวติดตามไม่ได้ โปรดตรวจสอบการเชื่อมต่อ';
 }

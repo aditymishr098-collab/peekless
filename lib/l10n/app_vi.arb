@@ -277,5 +277,20 @@
   "trendTitle": "Điểm theo thời gian",
   "trendUp": "Tăng {diff} (số ngày theo dõi: {days})",
   "trendDown": "Giảm {diff} (số ngày theo dõi: {days})",
-  "trendSame": "Không thay đổi (số ngày theo dõi: {days})"
+  "trendSame": "Không thay đổi (số ngày theo dõi: {days})",
+  "settingsQuick": "Truy cập nhanh",
+  "quickWidget": "Widget màn hình chính",
+  "quickWidgetBody": "Hiện điểm quyền riêng tư của bạn trên màn hình chính",
+  "quickTile": "Ô Cài đặt nhanh",
+  "quickTileBody": "Xem điểm của bạn trong bảng cài đặt nhanh",
+  "quickManual": "Điện thoại không thể tự thêm. Hãy thêm thủ công: nhấn giữ màn hình chính (widget) hoặc chỉnh sửa bảng cài đặt nhanh (ô).",
+  "settingsExport": "Xuất báo cáo",
+  "settingsExportBody": "Lưu báo cáo dạng tệp PDF hoặc JSON và chia sẻ",
+  "exportFailed": "Không thể tạo báo cáo.",
+  "settingsTrackerList": "Danh sách trình theo dõi",
+  "settingsTrackerListBody": "Nhấn để cập nhật. Đã biết {count} trình theo dõi. Chỉ khi bạn nhấn.",
+  "trackerListUpdating": "Đang cập nhật danh sách trình theo dõi…",
+  "trackerListUpdated": "Đã cập nhật danh sách trình theo dõi. Đã biết {count} trình theo dõi.",
+  "trackerListCurrent": "Danh sách trình theo dõi đã mới nhất.",
+  "trackerListFailed": "Không thể cập nhật danh sách trình theo dõi. Hãy kiểm tra kết nối."
 }

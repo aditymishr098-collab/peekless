@@ -996,4 +996,58 @@ class AppLocalizationsFr extends AppLocalizations {
   String trendSame(int days) {
     return 'Aucun changement (jours suivis : $days)';
   }
+
+  @override
+  String get settingsQuick => 'Accès rapide';
+
+  @override
+  String get quickWidget => 'Widget d’écran d’accueil';
+
+  @override
+  String get quickWidgetBody =>
+      'Affichez votre score de confidentialité sur l’écran d’accueil';
+
+  @override
+  String get quickTile => 'Tuile des réglages rapides';
+
+  @override
+  String get quickTileBody =>
+      'Voyez votre score dans le panneau des réglages rapides';
+
+  @override
+  String get quickManual =>
+      'Votre téléphone n’a pas pu l’ajouter automatiquement. Ajoutez-le à la main : appui long sur l’écran d’accueil (widget) ou modifiez le panneau des réglages rapides (tuile).';
+
+  @override
+  String get settingsExport => 'Exporter le rapport';
+
+  @override
+  String get settingsExportBody =>
+      'Enregistrez le rapport en PDF ou JSON et partagez-le';
+
+  @override
+  String get exportFailed => 'Impossible de créer le rapport.';
+
+  @override
+  String get settingsTrackerList => 'Liste des traqueurs';
+
+  @override
+  String settingsTrackerListBody(int count) {
+    return 'Touchez pour mettre à jour. $count traqueurs connus. Uniquement quand vous touchez.';
+  }
+
+  @override
+  String get trackerListUpdating => 'Mise à jour de la liste des traqueurs…';
+
+  @override
+  String trackerListUpdated(int count) {
+    return 'Liste des traqueurs mise à jour. $count traqueurs connus.';
+  }
+
+  @override
+  String get trackerListCurrent => 'La liste des traqueurs est déjà à jour.';
+
+  @override
+  String get trackerListFailed =>
+      'Impossible de mettre à jour la liste des traqueurs. Vérifiez votre connexion.';
 }

@@ -983,4 +983,56 @@ class AppLocalizationsUr extends AppLocalizations {
   String trendSame(int days) {
     return 'کوئی تبدیلی نہیں (ٹریک شدہ دن: $days)';
   }
+
+  @override
+  String get settingsQuick => 'فوری رسائی';
+
+  @override
+  String get quickWidget => 'ہوم اسکرین ویجیٹ';
+
+  @override
+  String get quickWidgetBody => 'اپنا پرائیویسی اسکور ہوم اسکرین پر دکھائیں';
+
+  @override
+  String get quickTile => 'کوئیک سیٹنگز ٹائل';
+
+  @override
+  String get quickTileBody => 'کوئیک سیٹنگز پینل میں اپنا اسکور دیکھیں';
+
+  @override
+  String get quickManual =>
+      'آپ کا فون اسے خود بخود شامل نہیں کر سکا۔ ہاتھ سے شامل کریں: ہوم اسکرین کو دیر تک دبائیں (ویجیٹ) یا کوئیک سیٹنگز پینل میں ترمیم کریں (ٹائل)۔';
+
+  @override
+  String get settingsExport => 'رپورٹ ایکسپورٹ کریں';
+
+  @override
+  String get settingsExportBody =>
+      'رپورٹ کو PDF یا JSON فائل کے طور پر محفوظ کریں اور شیئر کریں';
+
+  @override
+  String get exportFailed => 'رپورٹ نہیں بن سکی۔';
+
+  @override
+  String get settingsTrackerList => 'ٹریکر فہرست';
+
+  @override
+  String settingsTrackerListBody(int count) {
+    return 'اپ ڈیٹ کے لیے ٹیپ کریں۔ $count ٹریکر معلوم ہیں۔ صرف آپ کے ٹیپ کرنے پر۔';
+  }
+
+  @override
+  String get trackerListUpdating => 'ٹریکر فہرست اپ ڈیٹ ہو رہی ہے…';
+
+  @override
+  String trackerListUpdated(int count) {
+    return 'ٹریکر فہرست اپ ڈیٹ ہو گئی۔ $count ٹریکر معلوم ہیں۔';
+  }
+
+  @override
+  String get trackerListCurrent => 'ٹریکر فہرست پہلے سے تازہ ہے۔';
+
+  @override
+  String get trackerListFailed =>
+      'ٹریکر فہرست اپ ڈیٹ نہیں ہو سکی۔ اپنا کنکشن چیک کریں۔';
 }

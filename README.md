@@ -27,7 +27,7 @@ No account. No ads. No analytics. Nothing leaves your phone.
 - **Privacy score for the whole phone** from 0 to 100, with the number of Risky, Medium and Safe apps.
 - **Score for every app**, sorted with the riskiest first. Search and filter included.
 - **Permissions view.** See which apps can use your microphone, camera, location, contacts, SMS, call log and more.
-- **Tracker detection.** Finds known ad and analytics SDKs (Google Ads, Firebase Analytics, Facebook SDK, AppsFlyer and about 45 others).
+- **Tracker detection.** Finds known ad and analytics SDKs (Google Ads, Firebase Analytics, Facebook SDK, AppsFlyer and about 60 others).
 - **Plain-language explanations**, for example "Can record audio and track your location all the time."
 - **Unusual permissions.** A flashlight or calculator that wants your microphone loses extra points.
 - **Score explained.** Every score comes with a full breakdown, so you can see exactly why.
@@ -45,6 +45,10 @@ No account. No ads. No analytics. Nothing leaves your phone.
 - **Trusted apps.** Mark an app you trust and it leaves the Risky count and the alerts.
 - **One tap to fix.** "Open app settings" takes you straight to the app's Android settings to remove a permission.
 - **Share a report** as plain text.
+- **Export as PDF or JSON.** Save the full report as a PDF to read or print, or as a JSON file to keep or process. The PDF is drawn on your phone with its own fonts, so every language looks right.
+- **Home screen widget.** Your privacy score at a glance, colored by risk. Tap it to open Peekless.
+- **Quick Settings tile.** See your score in the quick settings panel (Android 7 or newer).
+- **Tracker list updates.** Tap "Tracker list" in Settings to get newly known trackers without waiting for an app update.
 - **25 languages.** English, Hindi, Armenian, Russian, Spanish, French, German, Italian, Portuguese, Turkish, Arabic, Persian, Hebrew, Urdu, Chinese (Simplified and Traditional), Japanese, Korean, Indonesian, Vietnamese, Thai, Polish, Ukrainian, Dutch and Bengali. Peekless follows your phone language, or you can pick one in Settings.
 - **Light and dark theme**, Material 3.
 - **Updates from inside the app.** Download and install a new version without leaving Peekless.
@@ -76,14 +80,16 @@ Peekless is built to protect your privacy, so it holds itself to the same rules.
 - It works fully offline. Everything is read from Android on your phone and stays there.
 - No ads, no analytics, no crash reporting, no accounts, no servers.
 - Your history, trusted apps and settings are stored only on your phone.
-- The only network use is the update check, and it happens **only when you tap "Check for updates"**. It contacts GitHub, nothing else.
+- The only network use is the app update check and the tracker list update. Each one happens **only when you tap it** in Settings, and contacts GitHub, nothing else. No information about you or your apps is sent.
+- A downloaded tracker list can only add trackers. It is checked before use, and a broken or unsafe file is ignored.
+- PDF and JSON reports are created on your phone and shared only when you choose an app to send them to.
 
 ### Permissions Peekless asks for
 
 | Permission | Why |
 | --- | --- |
 | `QUERY_ALL_PACKAGES` | To list and check every installed app. |
-| `INTERNET` | Only for the update check and download, when you tap it. |
+| `INTERNET` | Only for the update check, the update download and the tracker list update, when you tap them. |
 | `REQUEST_INSTALL_PACKAGES` | To open the installer for an update you downloaded. |
 | `POST_NOTIFICATIONS` | For App alerts and the Weekly summary, if you turn them on. |
 | `RECEIVE_BOOT_COMPLETED` | So App alerts and the Weekly summary keep running after the phone restarts. |
@@ -133,12 +139,12 @@ Without a signing key, the release build is signed with the debug key. That is f
 Releases are built by GitHub Actions (`.github/workflows/release.yml`).
 
 - Every push to `main` builds a signed APK and keeps it as a build artifact.
-- Pushing a tag that starts with `v` (for example `v1.3.0`) also publishes the APK as a GitHub Release.
+- Pushing a tag that starts with `v` (for example `v1.5.0`) also publishes the APK as a GitHub Release.
 - The APK is signed with a key stored in the repository secrets: `KEYSTORE_BASE64`, `KEYSTORE_PASSWORD`, `KEY_ALIAS` and `KEY_PASSWORD`.
 
 ```bash
-git tag v1.3.0
-git push origin v1.3.0
+git tag v1.5.0
+git push origin v1.5.0
 ```
 
 Because every release is signed with the same key, an update installs over the old version and keeps your data.
@@ -150,7 +156,9 @@ lib/
   main.dart            App start and the background entry point
   controller.dart      App state: scan results, settings, trusted apps
   scoring.dart         Permission rules, tracker points and the score
-  tracker_db.dart      Known tracker SDKs
+  tracker_db.dart      Built-in tracker SDKs
+  tracker_store.dart   Downloaded tracker list: checks it and adds it to the built-in one
+  export.dart          Builds the PDF and JSON report
   history.dart         Snapshot and change detection
   security_checks.dart The security checks
   fix_queue.dart       Which apps the Fix wizard shows and why
@@ -171,6 +179,13 @@ android/app/src/main/kotlin/com/lumioapps/peekless/
   UsageAccess.kt       Optional: when each app was last opened
   AlertJobService.kt   Runs the background check
   Notifier.kt          Shows notifications
+  Glance.kt            Keeps the newest score for the widget and the tile
+  ScoreWidget.kt       Home screen widget
+  ScoreTileService.kt  Quick Settings tile
+  PdfExport.kt         Draws the PDF report
+  ExportFileProvider.kt Shares exported files safely
+data/
+  trackers.json        The tracker list that the app downloads when you tap "Tracker list"
 test/                  Tests for scoring, checks, filters, wizard, weekly summary, changes, report and updater
 ```
 
@@ -180,7 +195,7 @@ All texts are in `lib/l10n/app_<code>.arb` files. `app_en.arb` is the template. 
 
 ## Contributing
 
-Ideas, bug reports and pull requests are welcome. To add a tracker, add its name and class prefix to `lib/tracker_db.dart`. To change how a permission is scored, edit its rule in `lib/scoring.dart`. Please run `flutter analyze` and `flutter test` before you open a pull request.
+Ideas, bug reports and pull requests are welcome. To add a tracker, add its name and class prefix to `lib/tracker_db.dart` (built in) and to `data/trackers.json` (raise its `version` by one, and every app can get it with one tap). To change how a permission is scored, edit its rule in `lib/scoring.dart`. Please run `flutter analyze` and `flutter test` before you open a pull request.
 
 ## License
 

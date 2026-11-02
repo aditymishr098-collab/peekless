@@ -995,4 +995,58 @@ class AppLocalizationsHy extends AppLocalizations {
   String trendSame(int days) {
     return 'Փոփոխություն չկա (հետևված օրեր՝ $days)';
   }
+
+  @override
+  String get settingsQuick => 'Արագ հասանելիություն';
+
+  @override
+  String get quickWidget => 'Գլխավոր էկրանի վիջեթ';
+
+  @override
+  String get quickWidgetBody =>
+      'Ցույց տալ գաղտնիության միավորը գլխավոր էկրանին';
+
+  @override
+  String get quickTile => 'Արագ կարգավորումների սալիկ';
+
+  @override
+  String get quickTileBody =>
+      'Տեսեք ձեր միավորը արագ կարգավորումների վահանակում';
+
+  @override
+  String get quickManual =>
+      'Ձեր հեռախոսը չկարողացավ դա ավտոմատ ավելացնել։ Ավելացրեք ձեռքով՝ երկար սեղմեք գլխավոր էկրանին (վիջեթ) կամ խմբագրեք արագ կարգավորումների վահանակը (սալիկ)։';
+
+  @override
+  String get settingsExport => 'Արտահանել հաշվետվությունը';
+
+  @override
+  String get settingsExportBody =>
+      'Պահեք հաշվետվությունը PDF կամ JSON ֆայլով և կիսվեք';
+
+  @override
+  String get exportFailed => 'Հաշվետվությունը չհաջողվեց ստեղծել։';
+
+  @override
+  String get settingsTrackerList => 'Հետագծողների ցանկ';
+
+  @override
+  String settingsTrackerListBody(int count) {
+    return 'Սեղմեք թարմացնելու համար։ Հայտնի է $count հետագծող։ Միայն ձեր սեղմելիս։';
+  }
+
+  @override
+  String get trackerListUpdating => 'Հետագծողների ցանկը թարմացվում է…';
+
+  @override
+  String trackerListUpdated(int count) {
+    return 'Հետագծողների ցանկը թարմացվեց։ Հայտնի է $count հետագծող։';
+  }
+
+  @override
+  String get trackerListCurrent => 'Հետագծողների ցանկն արդեն թարմ է։';
+
+  @override
+  String get trackerListFailed =>
+      'Չհաջողվեց թարմացնել հետագծողների ցանկը։ Ստուգեք կապը։';
 }

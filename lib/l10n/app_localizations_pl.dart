@@ -992,4 +992,56 @@ class AppLocalizationsPl extends AppLocalizations {
   String trendSame(int days) {
     return 'Bez zmian (śledzone dni: $days)';
   }
+
+  @override
+  String get settingsQuick => 'Szybki dostęp';
+
+  @override
+  String get quickWidget => 'Widżet ekranu głównego';
+
+  @override
+  String get quickWidgetBody => 'Pokaż wynik prywatności na ekranie głównym';
+
+  @override
+  String get quickTile => 'Kafelek szybkich ustawień';
+
+  @override
+  String get quickTileBody => 'Zobacz wynik w panelu szybkich ustawień';
+
+  @override
+  String get quickManual =>
+      'Telefon nie mógł dodać tego automatycznie. Dodaj ręcznie: przytrzymaj ekran główny (widżet) lub edytuj panel szybkich ustawień (kafelek).';
+
+  @override
+  String get settingsExport => 'Eksportuj raport';
+
+  @override
+  String get settingsExportBody =>
+      'Zapisz raport jako plik PDF lub JSON i udostępnij';
+
+  @override
+  String get exportFailed => 'Nie udało się utworzyć raportu.';
+
+  @override
+  String get settingsTrackerList => 'Lista trackerów';
+
+  @override
+  String settingsTrackerListBody(int count) {
+    return 'Dotknij, aby zaktualizować. Znanych trackerów: $count. Tylko po dotknięciu.';
+  }
+
+  @override
+  String get trackerListUpdating => 'Aktualizowanie listy trackerów…';
+
+  @override
+  String trackerListUpdated(int count) {
+    return 'Lista trackerów zaktualizowana. Znanych trackerów: $count.';
+  }
+
+  @override
+  String get trackerListCurrent => 'Lista trackerów jest już aktualna.';
+
+  @override
+  String get trackerListFailed =>
+      'Nie udało się zaktualizować listy trackerów. Sprawdź połączenie.';
 }

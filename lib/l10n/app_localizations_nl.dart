@@ -990,4 +990,56 @@ class AppLocalizationsNl extends AppLocalizations {
   String trendSame(int days) {
     return 'Geen verandering (gevolgde dagen: $days)';
   }
+
+  @override
+  String get settingsQuick => 'Snelle toegang';
+
+  @override
+  String get quickWidget => 'Widget voor het startscherm';
+
+  @override
+  String get quickWidgetBody => 'Toon je privacyscore op het startscherm';
+
+  @override
+  String get quickTile => 'Tegel voor Snelle instellingen';
+
+  @override
+  String get quickTileBody => 'Zie je score in het paneel Snelle instellingen';
+
+  @override
+  String get quickManual =>
+      'Je telefoon kon dit niet automatisch toevoegen. Voeg het zelf toe: houd het startscherm ingedrukt (widget) of bewerk het paneel Snelle instellingen (tegel).';
+
+  @override
+  String get settingsExport => 'Rapport exporteren';
+
+  @override
+  String get settingsExportBody =>
+      'Sla het rapport op als PDF- of JSON-bestand en deel het';
+
+  @override
+  String get exportFailed => 'Het rapport kon niet worden gemaakt.';
+
+  @override
+  String get settingsTrackerList => 'Trackerlijst';
+
+  @override
+  String settingsTrackerListBody(int count) {
+    return 'Tik om bij te werken. $count trackers bekend. Alleen als je tikt.';
+  }
+
+  @override
+  String get trackerListUpdating => 'Trackerlijst wordt bijgewerkt…';
+
+  @override
+  String trackerListUpdated(int count) {
+    return 'Trackerlijst bijgewerkt. $count trackers bekend.';
+  }
+
+  @override
+  String get trackerListCurrent => 'De trackerlijst is al up-to-date.';
+
+  @override
+  String get trackerListFailed =>
+      'De trackerlijst kon niet worden bijgewerkt. Controleer je verbinding.';
 }

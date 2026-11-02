@@ -955,6 +955,55 @@ class AppLocalizationsZh extends AppLocalizations {
   String trendSame(int days) {
     return '没有变化（已追踪天数：$days）';
   }
+
+  @override
+  String get settingsQuick => '快捷访问';
+
+  @override
+  String get quickWidget => '主屏幕小组件';
+
+  @override
+  String get quickWidgetBody => '在主屏幕上显示你的隐私评分';
+
+  @override
+  String get quickTile => '快速设置图块';
+
+  @override
+  String get quickTileBody => '在快速设置面板中查看你的评分';
+
+  @override
+  String get quickManual => '你的手机无法自动添加。请手动添加：长按主屏幕（小组件）或编辑快速设置面板（图块）。';
+
+  @override
+  String get settingsExport => '导出报告';
+
+  @override
+  String get settingsExportBody => '将报告保存为 PDF 或 JSON 文件并分享';
+
+  @override
+  String get exportFailed => '无法创建报告。';
+
+  @override
+  String get settingsTrackerList => '追踪器列表';
+
+  @override
+  String settingsTrackerListBody(int count) {
+    return '点按以更新。已知 $count 个追踪器。仅在你点按时更新。';
+  }
+
+  @override
+  String get trackerListUpdating => '正在更新追踪器列表…';
+
+  @override
+  String trackerListUpdated(int count) {
+    return '追踪器列表已更新。已知 $count 个追踪器。';
+  }
+
+  @override
+  String get trackerListCurrent => '追踪器列表已是最新。';
+
+  @override
+  String get trackerListFailed => '无法更新追踪器列表。请检查网络连接。';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -1908,4 +1957,53 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   String trendSame(int days) {
     return '沒有變化（已追蹤天數：$days）';
   }
+
+  @override
+  String get settingsQuick => '快速存取';
+
+  @override
+  String get quickWidget => '主畫面小工具';
+
+  @override
+  String get quickWidgetBody => '在主畫面顯示你的隱私評分';
+
+  @override
+  String get quickTile => '快速設定圖塊';
+
+  @override
+  String get quickTileBody => '在快速設定面板中查看你的評分';
+
+  @override
+  String get quickManual => '你的手機無法自動新增。請手動新增：長按主畫面（小工具）或編輯快速設定面板（圖塊）。';
+
+  @override
+  String get settingsExport => '匯出報告';
+
+  @override
+  String get settingsExportBody => '將報告儲存為 PDF 或 JSON 檔案並分享';
+
+  @override
+  String get exportFailed => '無法建立報告。';
+
+  @override
+  String get settingsTrackerList => '追蹤器清單';
+
+  @override
+  String settingsTrackerListBody(int count) {
+    return '點按即可更新。已知 $count 個追蹤器。僅在你點按時更新。';
+  }
+
+  @override
+  String get trackerListUpdating => '正在更新追蹤器清單…';
+
+  @override
+  String trackerListUpdated(int count) {
+    return '追蹤器清單已更新。已知 $count 個追蹤器。';
+  }
+
+  @override
+  String get trackerListCurrent => '追蹤器清單已是最新。';
+
+  @override
+  String get trackerListFailed => '無法更新追蹤器清單。請檢查網路連線。';
 }
