@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'history.dart';
 import 'models.dart';
+import 'native_bridge.dart';
 import 'scoring.dart';
-import 'tracker_db.dart';
 
 class AppController extends ChangeNotifier {
-  static const MethodChannel _channel = MethodChannel('app.peekless/scan');
-
   ThemeMode themeMode = ThemeMode.system;
   bool includeSystem = false;
+  bool alertsEnabled = false;
+  Set<String> trusted = <String>{};
+  List<ChangeEvent> history = const <ChangeEvent>[];
   bool loading = true;
   String? error;
   List<AppReport> _all = const [];
@@ -19,8 +21,13 @@ class AppController extends ChangeNotifier {
   List<AppReport> get reports =>
       includeSystem ? _all : _all.where((r) => !r.app.isSystem).toList();
 
+  /// Apps that count for the score and the Risky/Medium/Safe numbers.
+  /// Trusted apps are left out.
+  List<AppReport> get scored =>
+      reports.where((r) => !trusted.contains(r.app.packageName)).toList();
+
   int get overallScore {
-    final list = reports;
+    final list = scored;
     if (list.isEmpty) return 100;
     final sum = list.fold<int>(0, (total, r) => total + r.score);
     return (sum / list.length).round();
@@ -28,7 +35,9 @@ class AppController extends ChangeNotifier {
 
   RiskLevel get overallLevel => levelForScore(overallScore);
 
-  int countOf(RiskLevel level) => reports.where((r) => r.level == level).length;
+  int countOf(RiskLevel level) => scored.where((r) => r.level == level).length;
+
+  bool isTrusted(String packageName) => trusted.contains(packageName);
 
   /// Permission group -> apps that can use it, largest group first.
   Map<String, List<AppReport>> appsByPermissionGroup() {
@@ -54,6 +63,9 @@ class AppController extends ChangeNotifier {
       _ => ThemeMode.system,
     };
     includeSystem = prefs.getBool('include_system') ?? false;
+    alertsEnabled = prefs.getBool('alerts_enabled') ?? false;
+    trusted = (prefs.getStringList('trusted_apps') ?? const <String>[]).toSet();
+    history = await HistoryStore.loadEvents();
   }
 
   Future<void> setThemeMode(ThemeMode mode) async {
@@ -70,25 +82,71 @@ class AppController extends ChangeNotifier {
     await prefs.setBool('include_system', value);
   }
 
+  Future<void> setTrusted(String packageName, bool value) async {
+    final next = Set<String>.of(trusted);
+    if (value) {
+      next.add(packageName);
+    } else {
+      next.remove(packageName);
+    }
+    trusted = next;
+    notifyListeners();
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setStringList('trusted_apps', trusted.toList());
+  }
+
+  /// Turns App alerts on or off. Returns a message when it could not be done.
+  Future<String?> setAlertsEnabled(bool value) async {
+    try {
+      if (value) {
+        final allowed = await NativeBridge.requestNotifications();
+        if (!allowed) {
+          return 'Allow notifications for Peekless to turn on alerts.';
+        }
+        await NativeBridge.setAlerts(true);
+      } else {
+        await NativeBridge.setAlerts(false);
+      }
+    } on PlatformException catch (e) {
+      return e.message ?? 'Could not change alerts.';
+    }
+    alertsEnabled = value;
+    notifyListeners();
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('alerts_enabled', value);
+    return null;
+  }
+
+  /// Makes sure the background check is scheduled when alerts are on.
+  Future<void> restoreAlerts() async {
+    if (!alertsEnabled) return;
+    try {
+      await NativeBridge.setAlerts(true);
+    } on PlatformException {
+      // Alerts stay on in settings; the next start tries again.
+    }
+  }
+
+  Future<void> clearHistory() async {
+    await HistoryStore.clearEvents();
+    history = const <ChangeEvent>[];
+    notifyListeners();
+  }
+
   Future<void> scan() async {
     loading = true;
     error = null;
     notifyListeners();
     try {
-      final raw = await _channel.invokeListMethod<Map<Object?, Object?>>(
-        'scanApps',
-        <String, Object?>{'trackers': trackerSignatures},
-      );
-      final reports = (raw ?? const <Map<Object?, Object?>>[])
-          .map(AppInfo.fromMap)
-          .map(buildReport)
-          .toList()
-        ..sort((a, b) {
-          final byScore = a.score.compareTo(b.score);
-          if (byScore != 0) return byScore;
-          return a.app.name.toLowerCase().compareTo(b.app.name.toLowerCase());
-        });
+      final reports = await NativeBridge.scan();
+      reports.sort((a, b) {
+        final byScore = a.score.compareTo(b.score);
+        if (byScore != 0) return byScore;
+        return a.app.name.toLowerCase().compareTo(b.app.name.toLowerCase());
+      });
       _all = reports;
+      await HistoryStore.record(reports, trusted: trusted);
+      history = await HistoryStore.loadEvents();
     } on PlatformException catch (e) {
       error = e.message ?? 'Scan failed';
     } catch (_) {
@@ -98,12 +156,8 @@ class AppController extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> openAppSettings(String packageName) async {
-    await _channel.invokeMethod<bool>(
-      'openAppSettings',
-      <String, Object?>{'package': packageName},
-    );
-  }
+  Future<void> openAppSettings(String packageName) =>
+      NativeBridge.openAppSettings(packageName);
 }
 
 final AppController controller = AppController();

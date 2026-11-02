@@ -1,5 +1,8 @@
+import 'dart:ui' show DartPluginRegistrant;
+
 import 'package:flutter/material.dart';
 
+import 'background.dart';
 import 'controller.dart';
 import 'screens/shell.dart';
 import 'theme.dart';
@@ -8,7 +11,17 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await controller.loadPrefs();
   runApp(const PeeklessApp());
+  controller.restoreAlerts();
   controller.scan();
+}
+
+/// Entry point of the background check. Android starts it in a separate
+/// Flutter engine, so it must stay a top-level function with this pragma.
+@pragma('vm:entry-point')
+Future<void> backgroundMain() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  DartPluginRegistrant.ensureInitialized();
+  await runBackgroundCheck();
 }
 
 class PeeklessApp extends StatelessWidget {

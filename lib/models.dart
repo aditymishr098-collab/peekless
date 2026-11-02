@@ -15,6 +15,7 @@ class AppInfo {
     required this.versionName,
     required this.permissions,
     required this.trackers,
+    this.category = -1,
   });
 
   factory AppInfo.fromMap(Map<Object?, Object?> map) {
@@ -34,6 +35,7 @@ class AppInfo {
       versionName: (map['version'] as String?) ?? '',
       permissions: perms,
       trackers: rawTrackers.map((e) => e! as String).toList(),
+      category: (map['category'] as int?) ?? -1,
     );
   }
 
@@ -43,6 +45,9 @@ class AppInfo {
   final String versionName;
   final List<PermissionEntry> permissions;
   final List<String> trackers;
+
+  /// Android app category (ApplicationInfo.category), or -1 when unknown.
+  final int category;
 
   String get initial =>
       name.isEmpty ? '?' : String.fromCharCode(name.runes.first).toUpperCase();

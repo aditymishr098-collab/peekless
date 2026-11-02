@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../controller.dart';
 import '../models.dart';
+import '../native_bridge.dart';
+import '../report_text.dart';
 import '../widgets/app_tile.dart';
 import '../widgets/risk.dart';
 import '../widgets/score_ring.dart';
@@ -11,6 +13,23 @@ class HomeScreen extends StatelessWidget {
 
   final VoidCallback onSeeAll;
 
+  Future<void> _share(BuildContext context) async {
+    final messenger = ScaffoldMessenger.of(context);
+    try {
+      await NativeBridge.shareText(
+        buildReportText(
+          controller.scored,
+          controller.overallScore,
+          controller.overallLevel,
+        ),
+      );
+    } catch (_) {
+      messenger.showSnackBar(
+        const SnackBar(content: Text('Could not share the report.')),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListenableBuilder(
@@ -19,10 +38,8 @@ class HomeScreen extends StatelessWidget {
         final scheme = Theme.of(context).colorScheme;
         final text = Theme.of(context).textTheme;
         final level = controller.overallLevel;
-        final attention = controller.reports
-            .where((r) => r.level != RiskLevel.safe)
-            .take(3)
-            .toList();
+        final scored = controller.scored;
+        final attention = scored.where((r) => r.level != RiskLevel.safe).take(3).toList();
         final hasData = controller.reports.isNotEmpty;
 
         return ListView(
@@ -46,6 +63,12 @@ class HomeScreen extends StatelessWidget {
                     style: text.titleLarge?.copyWith(fontWeight: FontWeight.w500),
                   ),
                   const Spacer(),
+                  if (hasData)
+                    IconButton(
+                      tooltip: 'Share report',
+                      onPressed: () => _share(context),
+                      icon: const Icon(Icons.ios_share),
+                    ),
                   IconButton(
                     tooltip: 'Rescan apps',
                     onPressed: controller.scan,
@@ -85,7 +108,9 @@ class HomeScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      '${controller.reports.length} apps checked on this phone',
+                      controller.trusted.isEmpty
+                          ? '${controller.reports.length} apps checked on this phone'
+                          : '${scored.length} apps counted, ${controller.reports.length - scored.length} trusted',
                       style: text.bodyMedium?.copyWith(color: scheme.onSurfaceVariant),
                     ),
                   ],

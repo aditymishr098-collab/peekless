@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'apps.dart';
+import 'changes.dart';
 import 'home.dart';
 import 'permissions.dart';
 import 'settings.dart';
@@ -25,6 +26,7 @@ class _AppShellState extends State<AppShell> {
             HomeScreen(onSeeAll: () => setState(() => _index = 1)),
             const AppsScreen(),
             const PermissionsScreen(),
+            const ChangesScreen(),
             const SettingsScreen(),
           ],
         ),
@@ -47,6 +49,11 @@ class _AppShellState extends State<AppShell> {
             icon: Icon(Icons.lock_outline),
             selectedIcon: Icon(Icons.lock),
             label: 'Permissions',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.history),
+            selectedIcon: Icon(Icons.history),
+            label: 'Changes',
           ),
           NavigationDestination(
             icon: Icon(Icons.tune_outlined),

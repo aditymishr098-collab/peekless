@@ -64,6 +64,15 @@ final Map<String, PermissionRule> ruleById = {
 /// A permission weight at or above this value is shown as "sensitive".
 const int sensitiveWeight = 10;
 
+/// Extra points removed for each permission group that does not fit the kind
+/// of app, and the most groups that are counted.
+const int unusualPenalty = 20;
+const int unusualMaxGroups = 2;
+
+/// Most points the trackers can remove, and points per tracker.
+const int trackerPoints = 6;
+const int trackerMaxPoints = 30;
+
 class Finding {
   const Finding(this.rule, this.status);
 
@@ -74,6 +83,58 @@ class Finding {
   bool get sensitive => active && rule.weight >= sensitiveWeight;
 }
 
+/// What kind of app this seems to be. It decides which permissions look unusual.
+enum AppKind { tool, game, media, other }
+
+const List<String> _toolWords = [
+  'calculator',
+  'flashlight',
+  'torch',
+  'compass',
+  'wallpaper',
+  'notepad',
+  'ringtone',
+  'stopwatch',
+];
+
+/// Permission groups an app of this kind does not normally need.
+const Map<AppKind, Set<String>> unexpectedGroups = {
+  AppKind.tool: {'Microphone', 'Location', 'Contacts', 'SMS', 'Call log'},
+  AppKind.game: {'Contacts', 'SMS', 'Call log'},
+  AppKind.media: {'Contacts', 'SMS', 'Call log'},
+};
+
+AppKind kindFor(AppInfo app) {
+  // Android categories: 0 game, 1 audio, 2 video, 3 image.
+  switch (app.category) {
+    case 0:
+      return AppKind.game;
+    case 1:
+    case 2:
+    case 3:
+      return AppKind.media;
+  }
+  final text = '${app.name} ${app.packageName}'.toLowerCase();
+  if (_toolWords.any(text.contains)) return AppKind.tool;
+  return AppKind.other;
+}
+
+String kindLabel(AppKind kind) => switch (kind) {
+      AppKind.tool => 'simple tool',
+      AppKind.game => 'game',
+      AppKind.media => 'media app',
+      AppKind.other => 'app',
+    };
+
+/// One line of the score breakdown, for example "Microphone: -12".
+class ScoreLine {
+  const ScoreLine(this.label, this.points, [this.note = '']);
+
+  final String label;
+  final int points;
+  final String note;
+}
+
 class AppReport {
   const AppReport({
     required this.app,
@@ -81,6 +142,8 @@ class AppReport {
     required this.level,
     required this.findings,
     required this.summary,
+    required this.kind,
+    required this.breakdown,
   });
 
   final AppInfo app;
@@ -88,6 +151,8 @@ class AppReport {
   final RiskLevel level;
   final List<Finding> findings;
   final String summary;
+  final AppKind kind;
+  final List<ScoreLine> breakdown;
 
   /// Short line for list rows, for example "Microphone · Location · 4 trackers".
   String get meta {
@@ -99,6 +164,12 @@ class AppReport {
     return bits.isEmpty ? 'No sensitive permissions' : bits.join(' · ');
   }
 }
+
+String levelName(RiskLevel level) => switch (level) {
+      RiskLevel.risky => 'Risky',
+      RiskLevel.medium => 'Medium',
+      RiskLevel.safe => 'Safe',
+    };
 
 RiskLevel levelForScore(int score) {
   if (score >= 70) return RiskLevel.safe;
@@ -121,6 +192,7 @@ AppReport buildReport(AppInfo app) {
   // Only the heaviest permission of each group counts, so that precise and
   // approximate location are not double-penalised.
   final perGroup = <String, double>{};
+  final groupFinding = <String, Finding>{};
   for (final f in findings) {
     final factor = switch (f.status) {
       PermStatus.allowed => 1.0,
@@ -130,10 +202,58 @@ AppReport buildReport(AppInfo app) {
     final penalty = f.rule.weight * factor;
     if (penalty > (perGroup[f.rule.group] ?? 0)) {
       perGroup[f.rule.group] = penalty;
+      groupFinding[f.rule.group] = f;
     }
   }
-  var total = perGroup.values.fold<double>(0, (sum, value) => sum + value);
-  total += (app.trackers.length * 6).clamp(0, 30).toInt();
+
+  final lines = <ScoreLine>[];
+  var total = 0.0;
+  perGroup.forEach((group, penalty) {
+    total += penalty;
+    final f = groupFinding[group]!;
+    lines.add(
+      ScoreLine(
+        f.rule.label,
+        penalty.round(),
+        f.status == PermStatus.requested ? 'requested, counts half' : 'allowed',
+      ),
+    );
+  });
+
+  final trackerPenalty =
+      (app.trackers.length * trackerPoints).clamp(0, trackerMaxPoints).toInt();
+  if (trackerPenalty > 0) {
+    total += trackerPenalty;
+    lines.add(
+      ScoreLine(
+        'Known trackers (${app.trackers.length})',
+        trackerPenalty,
+        '$trackerPoints points each, up to $trackerMaxPoints',
+      ),
+    );
+  }
+
+  final kind = kindFor(app);
+  final unusual = <String>[];
+  final unexpected = unexpectedGroups[kind];
+  if (unexpected != null) {
+    for (final group in perGroup.keys) {
+      if (unexpected.contains(group) && unusual.length < unusualMaxGroups) {
+        unusual.add(group);
+      }
+    }
+  }
+  for (final group in unusual) {
+    total += unusualPenalty;
+    lines.add(
+      ScoreLine(
+        'Unusual for a ${kindLabel(kind)}: $group',
+        unusualPenalty,
+        'extra penalty',
+      ),
+    );
+  }
+  lines.sort((a, b) => b.points.compareTo(a.points));
 
   final score = (100 - total).round().clamp(0, 100).toInt();
 
@@ -149,6 +269,10 @@ AppReport buildReport(AppInfo app) {
           : 'Contains ${app.trackers.length} known trackers.',
     );
   }
+  if (unusual.isNotEmpty) {
+    final names = unusual.map((g) => g.toLowerCase()).join(' or ');
+    sentences.add("A ${kindLabel(kind)} doesn't normally need $names access.");
+  }
   if (sentences.isEmpty) {
     sentences.add('No sensitive permissions and no known trackers.');
   }
@@ -159,5 +283,7 @@ AppReport buildReport(AppInfo app) {
     level: levelForScore(score),
     findings: findings,
     summary: sentences.join(' '),
+    kind: kind,
+    breakdown: lines,
   );
 }

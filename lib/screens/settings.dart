@@ -36,6 +36,16 @@ class SettingsScreen extends StatelessWidget {
     }
   }
 
+  Future<void> _toggleAlerts(BuildContext context, bool value) async {
+    final messenger = ScaffoldMessenger.of(context);
+    final error = await controller.setAlertsEnabled(value);
+    if (error != null) {
+      messenger
+        ..hideCurrentSnackBar()
+        ..showSnackBar(SnackBar(content: Text(error)));
+    }
+  }
+
   Future<void> _openGithub() async {
     await launchUrl(
       Uri.parse('https://github.com/lumio-apps/peekless'),
@@ -86,6 +96,15 @@ class SettingsScreen extends StatelessWidget {
             const _SectionLabel('Scanning'),
             _Group(
               children: [
+                SwitchListTile(
+                  secondary: Icon(Icons.notifications_outlined, color: iconColor),
+                  title: const Text('App alerts'),
+                  subtitle: const Text(
+                    'Notify about new apps and new permissions. Checks about every 6 hours.',
+                  ),
+                  value: controller.alertsEnabled,
+                  onChanged: (value) => _toggleAlerts(context, value),
+                ),
                 SwitchListTile(
                   secondary: Icon(Icons.phone_android, color: iconColor),
                   title: const Text('Include system apps'),

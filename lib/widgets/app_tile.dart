@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../controller.dart';
 import '../scoring.dart';
 import '../screens/app_detail.dart';
 import 'risk.dart';
@@ -13,6 +14,7 @@ class AppTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final text = Theme.of(context).textTheme;
+    final trusted = controller.isTrusted(report.app.packageName);
     return Material(
       color: scheme.surfaceContainer,
       borderRadius: BorderRadius.circular(16),
@@ -61,6 +63,16 @@ class AppTile extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 8),
+                if (trusted)
+                  Padding(
+                    padding: const EdgeInsets.only(right: 6),
+                    child: Icon(
+                      Icons.verified_outlined,
+                      size: 20,
+                      color: scheme.primary,
+                      semanticLabel: 'Trusted',
+                    ),
+                  ),
                 RiskChip(level: report.level, score: report.score),
               ],
             ),

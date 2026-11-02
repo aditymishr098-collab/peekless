@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../controller.dart';
 import '../scoring.dart';
 import '../widgets/risk.dart';
+import 'score_explain.dart';
 
 class AppDetailScreen extends StatelessWidget {
   const AppDetailScreen({super.key, required this.report});
@@ -26,125 +27,169 @@ class AppDetailScreen extends StatelessWidget {
     final text = Theme.of(context).textTheme;
     final app = report.app;
 
-    return Scaffold(
-      appBar: AppBar(),
-      body: ListView(
-        padding: const EdgeInsets.fromLTRB(20, 0, 20, 16),
-        children: [
-          Row(
+    return ListenableBuilder(
+      listenable: controller,
+      builder: (context, _) {
+        final trusted = controller.isTrusted(app.packageName);
+        return Scaffold(
+          appBar: AppBar(),
+          body: ListView(
+            padding: const EdgeInsets.fromLTRB(20, 0, 20, 16),
             children: [
-              CircleAvatar(
-                radius: 30,
-                backgroundColor: scheme.secondaryContainer,
-                foregroundColor: scheme.onSecondaryContainer,
-                child: Text(
-                  app.initial,
-                  style: const TextStyle(fontSize: 26, fontWeight: FontWeight.w500),
-                ),
+              Row(
+                children: [
+                  CircleAvatar(
+                    radius: 30,
+                    backgroundColor: scheme.secondaryContainer,
+                    foregroundColor: scheme.onSecondaryContainer,
+                    child: Text(
+                      app.initial,
+                      style: const TextStyle(fontSize: 26, fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                  const SizedBox(width: 14),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(app.name, style: text.headlineSmall),
+                        Text(
+                          app.packageName,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: text.bodyMedium?.copyWith(color: scheme.onSurfaceVariant),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(width: 14),
-              Expanded(
+              const SizedBox(height: 16),
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: scheme.surfaceContainer,
+                  borderRadius: BorderRadius.circular(24),
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(app.name, style: text.headlineSmall),
-                    Text(
-                      app.packageName,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: text.bodyMedium?.copyWith(color: scheme.onSurfaceVariant),
+                    Row(
+                      children: [
+                        Column(
+                          children: [
+                            Text(
+                              '${report.score}',
+                              style: TextStyle(
+                                fontSize: 44,
+                                fontWeight: FontWeight.w500,
+                                height: 1,
+                                color: report.level.accent(scheme),
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            RiskChip(level: report.level),
+                          ],
+                        ),
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: Text(
+                            report.summary,
+                            style: text.bodyMedium?.copyWith(color: scheme.onSurfaceVariant),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 4),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: TextButton.icon(
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute<void>(
+                              builder: (_) => ScoreExplainScreen(report: report),
+                            ),
+                          );
+                        },
+                        icon: const Icon(Icons.help_outline),
+                        label: const Text('How is this score calculated?'),
+                      ),
                     ),
                   ],
                 ),
+              ),
+              const SizedBox(height: 8),
+              Container(
+                decoration: BoxDecoration(
+                  color: scheme.surfaceContainer,
+                  borderRadius: BorderRadius.circular(24),
+                ),
+                clipBehavior: Clip.antiAlias,
+                child: SwitchListTile(
+                  secondary: Icon(Icons.verified_outlined, color: scheme.onSurfaceVariant),
+                  title: const Text('I trust this app'),
+                  subtitle: const Text('Leave it out of the Risky count and alerts'),
+                  value: trusted,
+                  onChanged: (value) => controller.setTrusted(app.packageName, value),
+                ),
+              ),
+              const SizedBox(height: 20),
+              Text(
+                'Permissions',
+                style: text.titleMedium?.copyWith(fontWeight: FontWeight.w500),
+              ),
+              const SizedBox(height: 8),
+              if (report.findings.isEmpty)
+                Text(
+                  'This app does not ask for any sensitive permissions.',
+                  style: text.bodyMedium?.copyWith(color: scheme.onSurfaceVariant),
+                )
+              else
+                for (final finding in report.findings)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 8),
+                    child: _PermissionRow(finding: finding),
+                  ),
+              const SizedBox(height: 12),
+              Text(
+                'Trackers found (${app.trackers.length})',
+                style: text.titleMedium?.copyWith(fontWeight: FontWeight.w500),
+              ),
+              const SizedBox(height: 8),
+              if (app.trackers.isEmpty)
+                Text(
+                  'No known trackers found.',
+                  style: text.bodyMedium?.copyWith(color: scheme.onSurfaceVariant),
+                )
+              else
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: [
+                    for (final tracker in app.trackers) Chip(label: Text(tracker)),
+                  ],
+                ),
+              const SizedBox(height: 12),
+              Text(
+                'Peekless shows what an app is able to do, not what it is doing right now. '
+                'Trackers are found from the app manifest, so some may be missed.',
+                style: text.bodySmall?.copyWith(color: scheme.onSurfaceVariant),
               ),
             ],
           ),
-          const SizedBox(height: 16),
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: scheme.surfaceContainer,
-              borderRadius: BorderRadius.circular(24),
-            ),
-            child: Row(
-              children: [
-                Column(
-                  children: [
-                    Text(
-                      '${report.score}',
-                      style: TextStyle(
-                        fontSize: 44,
-                        fontWeight: FontWeight.w500,
-                        height: 1,
-                        color: report.level.accent(scheme),
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    RiskChip(level: report.level),
-                  ],
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: Text(
-                    report.summary,
-                    style: text.bodyMedium?.copyWith(color: scheme.onSurfaceVariant),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 20),
-          Text('Permissions', style: text.titleMedium?.copyWith(fontWeight: FontWeight.w500)),
-          const SizedBox(height: 8),
-          if (report.findings.isEmpty)
-            Text(
-              'This app does not ask for any sensitive permissions.',
-              style: text.bodyMedium?.copyWith(color: scheme.onSurfaceVariant),
-            )
-          else
-            for (final finding in report.findings)
-              Padding(
-                padding: const EdgeInsets.only(bottom: 8),
-                child: _PermissionRow(finding: finding),
+          bottomNavigationBar: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(20, 8, 20, 16),
+              child: FilledButton.icon(
+                onPressed: () => _openSettings(context),
+                icon: const Icon(Icons.open_in_new),
+                label: const Text('Open app settings'),
+                style: FilledButton.styleFrom(minimumSize: const Size.fromHeight(52)),
               ),
-          const SizedBox(height: 12),
-          Text(
-            'Trackers found (${app.trackers.length})',
-            style: text.titleMedium?.copyWith(fontWeight: FontWeight.w500),
-          ),
-          const SizedBox(height: 8),
-          if (app.trackers.isEmpty)
-            Text(
-              'No known trackers found.',
-              style: text.bodyMedium?.copyWith(color: scheme.onSurfaceVariant),
-            )
-          else
-            Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              children: [
-                for (final tracker in app.trackers) Chip(label: Text(tracker)),
-              ],
             ),
-          const SizedBox(height: 12),
-          Text(
-            'Peekless shows what an app is able to do, not what it is doing right now. '
-            'Trackers are found from the app manifest, so some may be missed.',
-            style: text.bodySmall?.copyWith(color: scheme.onSurfaceVariant),
           ),
-        ],
-      ),
-      bottomNavigationBar: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(20, 8, 20, 16),
-          child: FilledButton.icon(
-            onPressed: () => _openSettings(context),
-            icon: const Icon(Icons.open_in_new),
-            label: const Text('Open app settings'),
-            style: FilledButton.styleFrom(minimumSize: const Size.fromHeight(52)),
-          ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
