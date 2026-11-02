@@ -1,0 +1,82 @@
+name: Build and Release
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Get packages
+        run: flutter pub get
+
+      - name: Create icons
+        run: dart run flutter_launcher_icons
+
+      # Signs the release build with the key from the repo secrets.
+      # This works through a Gradle init script, so no project file needs to change.
+      - name: Set up signing
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+        run: |
+          echo "$KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/keystore.jks"
+          mkdir -p "$HOME/.gradle/init.d"
+          cat > "$HOME/.gradle/init.d/signing.gradle" <<'EOF'
+          allprojects {
+              afterEvaluate { p ->
+                  if (p.plugins.hasPlugin('com.android.application')) {
+                      def cfg = p.android.signingConfigs.maybeCreate('release')
+                      cfg.storeFile = new File(System.getenv('SIGN_STORE_FILE'))
+                      cfg.storePassword = System.getenv('SIGN_STORE_PASSWORD')
+                      cfg.keyAlias = System.getenv('SIGN_KEY_ALIAS')
+                      cfg.keyPassword = System.getenv('SIGN_KEY_PASSWORD')
+                      p.android.buildTypes.release.signingConfig = cfg
+                  }
+              }
+          }
+          EOF
+
+      - name: Build APK
+        env:
+          SIGN_STORE_FILE: ${{ runner.temp }}/keystore.jks
+          SIGN_STORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          SIGN_KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          SIGN_KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        run: flutter build apk --release
+
+      - name: Name the APK
+        run: |
+          VERSION=$(grep '^version:' pubspec.yaml | sed 's/version: *//; s/+.*//')
+          cp build/app/outputs/flutter-apk/app-release.apk "peekless-$VERSION.apk"
+          echo "APK_FILE=peekless-$VERSION.apk" >> "$GITHUB_ENV"
+
+      - name: Upload APK as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: peekless-apk
+          path: ${{ env.APK_FILE }}
+
+      - name: Create GitHub release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ env.APK_FILE }}
+          generate_release_notes: true
