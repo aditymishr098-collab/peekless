@@ -1,5 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:peekless/app_filter.dart';
 import 'package:peekless/checks.dart';
+import 'package:peekless/fix_wizard.dart';
 import 'package:peekless/history.dart';
 import 'package:peekless/install_source.dart';
 import 'package:peekless/models.dart';
@@ -7,6 +9,7 @@ import 'package:peekless/report_text.dart';
 import 'package:peekless/score_history.dart';
 import 'package:peekless/scoring.dart';
 import 'package:peekless/updater.dart';
+import 'package:peekless/weekly.dart';
 
 AppInfo _app(
   List<PermissionEntry> permissions, {
@@ -19,6 +22,8 @@ AppInfo _app(
   List<String> special = const [],
   bool debuggable = false,
   int targetSdk = 34,
+  int? lastUsed,
+  int installedAt = 0,
 }) {
   return AppInfo(
     packageName: packageName,
@@ -32,6 +37,8 @@ AppInfo _app(
     special: special,
     debuggable: debuggable,
     targetSdk: targetSdk,
+    lastUsed: lastUsed,
+    installedAt: installedAt,
   );
 }
 
@@ -394,6 +401,165 @@ void main() {
         list = mergeScore(list, 50 + i, i * day, max: 3);
       }
       expect(list.map((p) => p.score), [52, 53, 54]);
+    });
+  });
+
+  group('unused apps', () {
+    const day = 86400000;
+    const now = 1000 * day;
+    const mic = PermissionEntry('android.permission.RECORD_AUDIO', true);
+    final unusedCheck = securityChecks.firstWhere((c) => c.id == 'unused');
+
+    test('days unused counts from the last use', () {
+      final app = _app(const [], lastUsed: now - 90 * day, installedAt: now - 200 * day);
+      expect(app.daysUnused(now), 90);
+    });
+
+    test('an app never opened counts from its install date', () {
+      final app = _app(const [], lastUsed: 0, installedAt: now - 70 * day);
+      expect(app.daysUnused(now), 70);
+    });
+
+    test('days unused is unknown without Usage access', () {
+      expect(_app(const [], installedAt: now - 70 * day).daysUnused(now), isNull);
+    });
+
+    test('an unused app with a sensitive permission is flagged', () {
+      final report = buildReport(
+        _app(const [mic], lastUsed: now - 90 * day, installedAt: now - 200 * day),
+      );
+      expect(appsFor(unusedCheck, [report], now: now), hasLength(1));
+    });
+
+    test('an unused app without sensitive access is not flagged', () {
+      final report = buildReport(
+        _app(const [], lastUsed: now - 90 * day, installedAt: now - 200 * day),
+      );
+      expect(appsFor(unusedCheck, [report], now: now), isEmpty);
+    });
+
+    test('a recently used app is not flagged', () {
+      final report = buildReport(
+        _app(const [mic], lastUsed: now - 3 * day, installedAt: now - 200 * day),
+      );
+      expect(appsFor(unusedCheck, [report], now: now), isEmpty);
+    });
+
+    test('without Usage access nothing is flagged', () {
+      final report = buildReport(_app(const [mic], installedAt: now - 200 * day));
+      expect(appsFor(unusedCheck, [report], now: now), isEmpty);
+    });
+  });
+
+  group('fix wizard', () {
+    test('the queue holds apps with sensitive access only', () {
+      final risky = buildReport(
+        _app(const [_micAllowed], name: 'Voice Notes', packageName: 'com.a'),
+      );
+      final quiet = buildReport(_app(const [], name: 'Quiet', packageName: 'com.b'));
+      final special = buildReport(
+        _app(const [], name: 'Helper', packageName: 'com.c', special: const [accessibilityAccess]),
+      );
+      final system = buildReport(
+        _app(const [_micAllowed], name: 'Sys', packageName: 'com.d', isSystem: true),
+      );
+      final queue = wizardQueue([risky, quiet, special, system]);
+      expect(queue.map((r) => r.app.packageName), ['com.a', 'com.c']);
+    });
+
+    test('issues explain what the app can do', () {
+      final report = buildReport(
+        _app(const [_micAllowed], special: const [notificationAccess]),
+      );
+      final issues = issuesFor(report, now: 1000);
+      expect(issues.any((l) => l.startsWith('Notification access')), isTrue);
+      expect(issues.any((l) => l.contains('record audio')), isTrue);
+    });
+  });
+
+  group('app filters', () {
+    final withTrackers = buildReport(
+      _app(const [], trackers: const ['Google Ads'], packageName: 'com.t'),
+    );
+    final sideloaded = buildReport(_app(const [], installer: null, packageName: 'com.s'));
+    final risky = buildReport(
+      _app(
+        const [
+          PermissionEntry('android.permission.RECORD_AUDIO', true),
+          PermissionEntry('android.permission.ACCESS_BACKGROUND_LOCATION', true),
+          PermissionEntry('android.permission.READ_SMS', true),
+        ],
+        trackers: const ['a', 'b', 'c', 'd'],
+        packageName: 'com.r',
+      ),
+    );
+
+    test('risk filters follow the level', () {
+      expect(filterMatches(AppFilter.risky, risky, const {}), isTrue);
+      expect(filterMatches(AppFilter.safe, risky, const {}), isFalse);
+      expect(filterMatches(AppFilter.safe, sideloaded, const {}), isTrue);
+    });
+
+    test('tracker, store and trusted filters', () {
+      expect(filterMatches(AppFilter.trackers, withTrackers, const {}), isTrue);
+      expect(filterMatches(AppFilter.trackers, sideloaded, const {}), isFalse);
+      expect(filterMatches(AppFilter.sideloaded, sideloaded, const {}), isTrue);
+      expect(filterMatches(AppFilter.sideloaded, withTrackers, const {}), isFalse);
+      expect(filterMatches(AppFilter.trusted, withTrackers, const {'com.t'}), isTrue);
+      expect(filterMatches(AppFilter.trusted, withTrackers, const {}), isFalse);
+    });
+
+    test('all matches everything', () {
+      expect(filterMatches(AppFilter.all, risky, const {}), isTrue);
+    });
+  });
+
+  group('weekly summary', () {
+    const day = 86400000;
+    const now = 100 * day;
+
+    ChangeEvent event(String type, int daysAgo) => ChangeEvent(
+          time: now - daysAgo * day,
+          type: type,
+          packageName: 'com.x',
+          appName: 'X',
+          text: '',
+        );
+
+    test('is due after seven days', () {
+      expect(weeklyDue(now - 7 * day, now), isTrue);
+      expect(weeklyDue(now - 6 * day, now), isFalse);
+    });
+
+    test('shows the score change and the changes of the week', () {
+      final summary = buildWeeklySummary(
+        score: 82,
+        trend: const [ScorePoint(92, 79), ScorePoint(100, 82)],
+        events: [event('installed', 1), event('installed', 2), event('tracker', 3), event('allowed', 30)],
+        nowMillis: now,
+        risky: 2,
+      );
+      expect(summary.text, contains('Score 82/100, up 3 since last week.'));
+      expect(summary.text, contains('2 new apps, 1 new tracker.'));
+      expect(summary.text, contains('2 apps are Risky.'));
+    });
+
+    test('says so when nothing changed', () {
+      final summary = buildWeeklySummary(
+        score: 90,
+        trend: const [],
+        events: const [],
+        nowMillis: now,
+        risky: 0,
+      );
+      expect(summary.text, 'Score 90/100. No changes this week.');
+    });
+
+    test('phoneScore averages the apps and is 100 for none', () {
+      expect(phoneScore(const []), 100);
+      final a = buildReport(_app(const []));
+      final b = buildReport(_app(const [_micAllowed]));
+      expect(phoneScore([a, b]), 94);
     });
   });
 

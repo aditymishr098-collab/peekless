@@ -12,6 +12,10 @@ class AppController extends ChangeNotifier {
   ThemeMode themeMode = ThemeMode.system;
   bool includeSystem = false;
   bool alertsEnabled = false;
+  bool weeklyEnabled = false;
+
+  /// True when the user has turned on Usage access (optional).
+  bool usageAccess = false;
   Set<String> trusted = <String>{};
   List<ChangeEvent> history = const <ChangeEvent>[];
 
@@ -30,12 +34,7 @@ class AppController extends ChangeNotifier {
   List<AppReport> get scored =>
       reports.where((r) => !trusted.contains(r.app.packageName)).toList();
 
-  int get overallScore {
-    final list = scored;
-    if (list.isEmpty) return 100;
-    final sum = list.fold<int>(0, (total, r) => total + r.score);
-    return (sum / list.length).round();
-  }
+  int get overallScore => phoneScore(scored);
 
   RiskLevel get overallLevel => levelForScore(overallScore);
 
@@ -89,6 +88,7 @@ class AppController extends ChangeNotifier {
     };
     includeSystem = prefs.getBool('include_system') ?? false;
     alertsEnabled = prefs.getBool('alerts_enabled') ?? false;
+    weeklyEnabled = prefs.getBool('weekly_summary') ?? false;
     trusted = (prefs.getStringList('trusted_apps') ?? const <String>[]).toSet();
     history = await HistoryStore.loadEvents();
     trend = await ScoreHistory.load();
@@ -122,36 +122,68 @@ class AppController extends ChangeNotifier {
   }
 
   /// Turns App alerts on or off. Returns a message when it could not be done.
-  Future<String?> setAlertsEnabled(bool value) async {
+  Future<String?> setAlertsEnabled(bool value) => _setBackground(alerts: value);
+
+  /// Turns the Weekly summary on or off. Returns a message when it failed.
+  Future<String?> setWeeklyEnabled(bool value) => _setBackground(weekly: value);
+
+  /// The background check runs when App alerts or the Weekly summary is on.
+  Future<String?> _setBackground({bool? alerts, bool? weekly}) async {
+    final nextAlerts = alerts ?? alertsEnabled;
+    final nextWeekly = weekly ?? weeklyEnabled;
     try {
-      if (value) {
+      if (alerts == true || weekly == true) {
         final allowed = await NativeBridge.requestNotifications();
         if (!allowed) {
-          return 'Allow notifications for Peekless to turn on alerts.';
+          return 'Allow notifications for Peekless to turn this on.';
         }
-        await NativeBridge.setAlerts(true);
-      } else {
-        await NativeBridge.setAlerts(false);
       }
+      await NativeBridge.setAlerts(nextAlerts || nextWeekly);
     } on PlatformException catch (e) {
-      return e.message ?? 'Could not change alerts.';
+      return e.message ?? 'Could not change this setting.';
     }
-    alertsEnabled = value;
+    alertsEnabled = nextAlerts;
+    weeklyEnabled = nextWeekly;
     notifyListeners();
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('alerts_enabled', value);
+    await prefs.setBool('alerts_enabled', nextAlerts);
+    await prefs.setBool('weekly_summary', nextWeekly);
+    if (weekly == true) {
+      // The first summary comes a week from now.
+      await prefs.setInt('last_weekly_v1', DateTime.now().millisecondsSinceEpoch);
+    }
     return null;
   }
 
-  /// Makes sure the background check is scheduled when alerts are on.
+  /// Makes sure the background check is scheduled when it is needed.
   Future<void> restoreAlerts() async {
-    if (!alertsEnabled) return;
+    if (!alertsEnabled && !weeklyEnabled) return;
     try {
       await NativeBridge.setAlerts(true);
     } on PlatformException {
-      // Alerts stay on in settings; the next start tries again.
+      // The settings stay on; the next start tries again.
     }
   }
+
+  Future<void> _refreshUsageAccess() async {
+    try {
+      usageAccess = await NativeBridge.usageAccessGranted();
+    } catch (_) {
+      usageAccess = false;
+    }
+  }
+
+  /// Called when the app comes back to the front, for example from Android
+  /// settings after the user turned Usage access on or off.
+  Future<void> onResume() async {
+    final before = usageAccess;
+    await _refreshUsageAccess();
+    if (usageAccess != before) {
+      await scan();
+    }
+  }
+
+  Future<void> openUsageAccess() => NativeBridge.openUsageAccess();
 
   Future<void> clearHistory() async {
     await HistoryStore.clearEvents();
@@ -164,6 +196,7 @@ class AppController extends ChangeNotifier {
     error = null;
     notifyListeners();
     try {
+      await _refreshUsageAccess();
       final reports = await NativeBridge.scan();
       reports.sort((a, b) {
         final byScore = a.score.compareTo(b.score);

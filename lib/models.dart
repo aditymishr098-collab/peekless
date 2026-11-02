@@ -26,6 +26,8 @@ class AppInfo {
     this.special = const <String>[],
     this.debuggable = false,
     this.targetSdk = -1,
+    this.lastUsed,
+    this.installedAt = 0,
   });
 
   factory AppInfo.fromMap(Map<Object?, Object?> map) {
@@ -51,6 +53,8 @@ class AppInfo {
       special: rawSpecial.map((e) => e! as String).toList(),
       debuggable: (map['debuggable'] as bool?) ?? false,
       targetSdk: (map['targetSdk'] as int?) ?? -1,
+      lastUsed: map['lastUsed'] as int?,
+      installedAt: (map['installedAt'] as int?) ?? 0,
     );
   }
 
@@ -73,6 +77,24 @@ class AppInfo {
 
   /// The Android version (API level) the app was built for, or -1 when unknown.
   final int targetSdk;
+
+  /// When the app was last opened (milliseconds), 0 when it was not opened in
+  /// the last 180 days, or null when Usage access is off.
+  final int? lastUsed;
+
+  /// When the app was installed (milliseconds), 0 when unknown.
+  final int installedAt;
+
+  /// Days since the app was last opened, counted from the install date when
+  /// it was never opened. Null when Usage access is off or nothing is known.
+  int? daysUnused(int nowMillis) {
+    final last = lastUsed;
+    if (last == null) return null;
+    final since = last > installedAt ? last : installedAt;
+    if (since <= 0) return null;
+    final days = (nowMillis - since) ~/ 86400000;
+    return days < 0 ? 0 : days;
+  }
 
   /// An app without the internet permission can never send data online by itself.
   bool get canUseInternet =>

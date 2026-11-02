@@ -31,7 +31,10 @@ class ChecksScreen extends StatelessWidget {
                 ),
               ),
               for (final check in securityChecks)
-                _CheckTile(check: check, apps: appsFor(check, reports)),
+                if (check.needsUsage && !controller.usageAccess)
+                  const _UsagePrompt()
+                else
+                  _CheckTile(check: check, apps: appsFor(check, reports)),
             ],
           ),
         );
@@ -104,6 +107,56 @@ class _CheckTile extends StatelessWidget {
                   ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Shown instead of the "unused apps" check while Usage access is off.
+class _UsagePrompt extends StatelessWidget {
+  const _UsagePrompt();
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    final text = Theme.of(context).textTheme;
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: scheme.surfaceContainer,
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Icon(Icons.timer_outlined, color: scheme.onSurfaceVariant),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Text('Unused apps with sensitive access', style: text.bodyLarge),
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'Optional. Turn on Usage access to find apps you have not opened for a '
+              'long time but that can still use your microphone, location or contacts. '
+              'The data never leaves your phone.',
+              style: text.bodySmall?.copyWith(color: scheme.onSurfaceVariant),
+            ),
+            const SizedBox(height: 8),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: FilledButton.tonal(
+                onPressed: controller.openUsageAccess,
+                child: const Text('Turn on Usage access'),
+              ),
+            ),
+          ],
         ),
       ),
     );

@@ -53,6 +53,15 @@ class NativeBridge {
     await _channel.invokeMethod<void>('jobDone');
   }
 
+  /// True when the user has turned on Usage access for Peekless.
+  static Future<bool> usageAccessGranted() async {
+    return (await _channel.invokeMethod<bool>('usageAccessGranted')) ?? false;
+  }
+
+  static Future<void> openUsageAccess() async {
+    await _channel.invokeMethod<bool>('openUsageAccess');
+  }
+
   static Future<void> shareText(String text) async {
     await _channel.invokeMethod<void>('shareText', <String, Object?>{'text': text});
   }

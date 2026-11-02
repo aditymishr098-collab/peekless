@@ -36,6 +36,10 @@ No account. No ads. No analytics. Nothing leaves your phone.
 - **Offline apps.** Apps without the internet permission are marked Offline, because they cannot send data online.
 - **Trackers view.** Switch the Permissions tab to Trackers to see which tracker sits in which apps.
 - **Score over time.** A small chart on Home shows how your phone score changes day by day.
+- **Unused apps (optional).** If you turn on Usage access, Peekless finds apps you have not opened for 60 days that can still use sensitive permissions.
+- **Fix wizard.** Walks you through the apps with sensitive access one by one: open the app's settings, trust it, or skip it.
+- **Filters.** On the Apps tab: Risky, Medium, Safe, Has trackers, Special access, Not from a store, Offline and Trusted.
+- **Weekly summary (optional).** One notification a week with your score, how it moved and what changed.
 - **Changes.** A list of new apps, removed apps, newly allowed permissions and new trackers.
 - **App alerts (optional).** A notification when a new app is installed or an app gets a sensitive permission. The check runs on your phone about every 6 hours.
 - **Trusted apps.** Mark an app you trust and it leaves the Risky count and the alerts.
@@ -80,8 +84,9 @@ Peekless is built to protect your privacy, so it holds itself to the same rules.
 | `QUERY_ALL_PACKAGES` | To list and check every installed app. |
 | `INTERNET` | Only for the update check and download, when you tap it. |
 | `REQUEST_INSTALL_PACKAGES` | To open the installer for an update you downloaded. |
-| `POST_NOTIFICATIONS` | For App alerts, if you turn them on. |
-| `RECEIVE_BOOT_COMPLETED` | So App alerts keep running after the phone restarts. |
+| `POST_NOTIFICATIONS` | For App alerts and the Weekly summary, if you turn them on. |
+| `RECEIVE_BOOT_COMPLETED` | So App alerts and the Weekly summary keep running after the phone restarts. |
+| `PACKAGE_USAGE_STATS` | Optional. Only if you turn on Usage access, to see when an app was last opened. You can switch it off any time in Android settings. |
 
 ## What Peekless can and cannot tell you
 
@@ -127,12 +132,12 @@ Without a signing key, the release build is signed with the debug key. That is f
 Releases are built by GitHub Actions (`.github/workflows/release.yml`).
 
 - Every push to `main` builds a signed APK and keeps it as a build artifact.
-- Pushing a tag that starts with `v` (for example `v1.2.0`) also publishes the APK as a GitHub Release.
+- Pushing a tag that starts with `v` (for example `v1.3.0`) also publishes the APK as a GitHub Release.
 - The APK is signed with a key stored in the repository secrets: `KEYSTORE_BASE64`, `KEYSTORE_PASSWORD`, `KEY_ALIAS` and `KEY_PASSWORD`.
 
 ```bash
-git tag v1.2.0
-git push origin v1.2.0
+git tag v1.3.0
+git push origin v1.3.0
 ```
 
 Because every release is signed with the same key, an update installs over the old version and keeps your data.
@@ -147,6 +152,9 @@ lib/
   tracker_db.dart      Known tracker SDKs
   history.dart         Snapshot and change detection
   checks.dart          The security checks
+  fix_wizard.dart      Which apps the Fix wizard shows and why
+  app_filter.dart      Filters on the Apps tab
+  weekly.dart          Text of the Weekly summary
   install_source.dart  Store names and sideload detection
   score_history.dart   Daily score for the trend chart
   background.dart      The background check for App alerts
@@ -156,9 +164,10 @@ lib/
   widgets/             Score ring, app tile, risk chip, security card, trend chart, update dialog
 android/app/src/main/kotlin/com/lumioapps/peekless/
   Scanner.kt           Reads installed apps, permissions, trackers, install source and special access
+  UsageAccess.kt       Optional: when each app was last opened
   AlertJobService.kt   Runs the background check
   Notifier.kt          Shows notifications
-test/                  Tests for scoring, checks, changes, report and updater
+test/                  Tests for scoring, checks, filters, wizard, weekly summary, changes, report and updater
 ```
 
 ## Contributing

@@ -46,6 +46,27 @@ class SettingsScreen extends StatelessWidget {
     }
   }
 
+  Future<void> _toggleWeekly(BuildContext context, bool value) async {
+    final messenger = ScaffoldMessenger.of(context);
+    final error = await controller.setWeeklyEnabled(value);
+    if (error != null) {
+      messenger
+        ..hideCurrentSnackBar()
+        ..showSnackBar(SnackBar(content: Text(error)));
+    }
+  }
+
+  Future<void> _openUsage(BuildContext context) async {
+    final messenger = ScaffoldMessenger.of(context);
+    try {
+      await controller.openUsageAccess();
+    } catch (_) {
+      messenger.showSnackBar(
+        const SnackBar(content: Text('Could not open Usage access settings.')),
+      );
+    }
+  }
+
   Future<void> _openGithub() async {
     await launchUrl(
       Uri.parse('https://github.com/lumio-apps/peekless'),
@@ -104,6 +125,27 @@ class SettingsScreen extends StatelessWidget {
                   ),
                   value: controller.alertsEnabled,
                   onChanged: (value) => _toggleAlerts(context, value),
+                ),
+                SwitchListTile(
+                  secondary: Icon(Icons.event_note_outlined, color: iconColor),
+                  title: const Text('Weekly summary'),
+                  subtitle: const Text(
+                    'One notification a week: your score and what changed',
+                  ),
+                  value: controller.weeklyEnabled,
+                  onChanged: (value) => _toggleWeekly(context, value),
+                ),
+                ListTile(
+                  leading: Icon(Icons.timer_outlined, color: iconColor),
+                  title: const Text('Usage access'),
+                  subtitle: Text(
+                    controller.usageAccess
+                        ? 'On. Peekless can see when apps were last opened.'
+                        : 'Off. Optional. Lets Peekless find apps you no longer use. '
+                            'It stays on your phone.',
+                  ),
+                  trailing: Icon(Icons.chevron_right, color: iconColor),
+                  onTap: () => _openUsage(context),
                 ),
                 SwitchListTile(
                   secondary: Icon(Icons.phone_android, color: iconColor),

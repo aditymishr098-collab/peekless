@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
 import '../controller.dart';
+import '../fix_wizard.dart';
 import '../models.dart';
 import '../native_bridge.dart';
 import '../report_text.dart';
+import 'fix_wizard.dart';
 import '../widgets/app_tile.dart';
 import '../widgets/risk.dart';
 import '../widgets/score_ring.dart';
@@ -151,6 +153,10 @@ class HomeScreen extends StatelessWidget {
               ),
               const SizedBox(height: 12),
               const SecurityCard(),
+              if (wizardQueue(scored).isNotEmpty) ...[
+                const SizedBox(height: 8),
+                _WizardCard(count: wizardQueue(scored).length),
+              ],
               const SizedBox(height: 8),
               Row(
                 children: [
@@ -189,6 +195,60 @@ class HomeScreen extends StatelessWidget {
           ],
         );
       },
+    );
+  }
+}
+
+class _WizardCard extends StatelessWidget {
+  const _WizardCard({required this.count});
+
+  final int count;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    final text = Theme.of(context).textTheme;
+    return Material(
+      color: scheme.secondaryContainer,
+      borderRadius: BorderRadius.circular(24),
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute<void>(builder: (_) => const FixWizardScreen()),
+          );
+        },
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(16, 14, 8, 14),
+          child: Row(
+            children: [
+              Icon(Icons.auto_fix_high, color: scheme.onSecondaryContainer),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Fix wizard',
+                      style: text.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w500,
+                        color: scheme.onSecondaryContainer,
+                      ),
+                    ),
+                    Text(
+                      count == 1
+                          ? 'Review 1 app with sensitive access'
+                          : 'Review $count apps with sensitive access, one by one',
+                      style: text.bodyMedium?.copyWith(color: scheme.onSecondaryContainer),
+                    ),
+                  ],
+                ),
+              ),
+              Icon(Icons.chevron_right, color: scheme.onSecondaryContainer),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

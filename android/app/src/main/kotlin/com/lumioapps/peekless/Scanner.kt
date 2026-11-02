@@ -29,6 +29,8 @@ object Scanner {
         val accessibilityApps = accessibilityPackages(context)
         val adminApps = deviceAdminPackages(context)
         val listenerApps = notificationListenerPackages(context)
+        // Null when Usage access is off. Then the "last used" time is unknown.
+        val lastUsed = UsageAccess.lastUsed(context)
 
         // Package details are read one app at a time. Reading everything in a
         // single call can fail with TransactionTooLargeException.
@@ -86,6 +88,8 @@ object Scanner {
                     "special" to special,
                     "debuggable" to ((appInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE) != 0),
                     "targetSdk" to appInfo.targetSdkVersion,
+                    "installedAt" to pkg.firstInstallTime,
+                    "lastUsed" to (if (lastUsed == null) null else (lastUsed[name] ?: 0L)),
                 ),
             )
         }

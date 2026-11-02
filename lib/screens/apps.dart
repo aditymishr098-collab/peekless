@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../app_filter.dart';
 import '../controller.dart';
 import '../widgets/app_tile.dart';
 
@@ -15,6 +16,7 @@ class AppsScreen extends StatefulWidget {
 class _AppsScreenState extends State<AppsScreen> {
   String _query = '';
   _Filter _filter = _Filter.all;
+  AppFilter _appFilter = AppFilter.all;
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +32,11 @@ class _AppsScreenState extends State<AppsScreen> {
           items = items.where((r) => !r.app.isSystem).toList();
         } else if (filter == _Filter.system) {
           items = items.where((r) => r.app.isSystem).toList();
+        }
+        if (_appFilter != AppFilter.all) {
+          items = items
+              .where((r) => filterMatches(_appFilter, r, controller.trusted))
+              .toList();
         }
         final query = _query.trim().toLowerCase();
         if (query.isNotEmpty) {
@@ -52,7 +59,9 @@ class _AppsScreenState extends State<AppsScreen> {
                 children: [
                   Text('Apps', style: text.headlineMedium),
                   Text(
-                    '${controller.reports.length} apps, riskiest first',
+                    _appFilter == AppFilter.all
+                        ? '${controller.reports.length} apps, riskiest first'
+                        : '${items.length} of ${controller.reports.length} apps',
                     style: text.bodyMedium?.copyWith(color: scheme.onSurfaceVariant),
                   ),
                 ],
@@ -66,6 +75,24 @@ class _AppsScreenState extends State<AppsScreen> {
                 elevation: const WidgetStatePropertyAll<double>(0),
                 backgroundColor: WidgetStatePropertyAll<Color>(scheme.surfaceContainer),
                 onChanged: (value) => setState(() => _query = value),
+              ),
+            ),
+            SizedBox(
+              height: 56,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                padding: const EdgeInsets.fromLTRB(16, 12, 16, 4),
+                children: [
+                  for (final f in AppFilter.values)
+                    Padding(
+                      padding: const EdgeInsets.only(right: 8),
+                      child: ChoiceChip(
+                        label: Text(filterLabel(f)),
+                        selected: _appFilter == f,
+                        onSelected: (_) => setState(() => _appFilter = f),
+                      ),
+                    ),
+                ],
               ),
             ),
             if (controller.includeSystem)

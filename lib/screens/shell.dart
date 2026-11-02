@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../controller.dart';
 import 'apps.dart';
 import 'changes.dart';
 import 'home.dart';
@@ -13,8 +14,27 @@ class AppShell extends StatefulWidget {
   State<AppShell> createState() => _AppShellState();
 }
 
-class _AppShellState extends State<AppShell> {
+class _AppShellState extends State<AppShell> with WidgetsBindingObserver {
   int _index = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      controller.onResume();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -60,6 +60,8 @@ class PeeklessChannel(
                 main.post { onJobDone?.invoke() }
             }
             "shareText" -> shareText(call, result)
+            "usageAccessGranted" -> result.success(UsageAccess.granted(context))
+            "openUsageAccess" -> openUsageAccess(result)
             else -> result.notImplemented()
         }
     }
@@ -99,6 +101,17 @@ class PeeklessChannel(
             val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:$pkg"))
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             context.startActivity(intent)
+            result.success(true)
+        } catch (e: Exception) {
+            result.error("open_failed", e.message ?: "Could not open settings", null)
+        }
+    }
+
+    private fun openUsageAccess(result: MethodChannel.Result) {
+        try {
+            val intent = Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS)
+            if (activity == null) intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            (activity ?: context).startActivity(intent)
             result.success(true)
         } catch (e: Exception) {
             result.error("open_failed", e.message ?: "Could not open settings", null)

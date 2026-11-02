@@ -214,6 +214,14 @@ String levelName(RiskLevel level) => switch (level) {
       RiskLevel.safe => 'Safe',
     };
 
+/// The score of the whole phone: the average of the given apps, or 100 when
+/// there are none. Pass only the apps that should count (not trusted ones).
+int phoneScore(Iterable<AppReport> scored) {
+  if (scored.isEmpty) return 100;
+  final sum = scored.fold<int>(0, (total, r) => total + r.score);
+  return (sum / scored.length).round();
+}
+
 RiskLevel levelForScore(int score) {
   if (score >= 70) return RiskLevel.safe;
   if (score >= 40) return RiskLevel.medium;

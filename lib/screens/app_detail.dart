@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../checks.dart';
 import '../controller.dart';
 import '../install_source.dart';
 import '../models.dart';
@@ -235,6 +236,19 @@ List<Widget> _securityRows(AppInfo app) {
           subtitle: specialWhy(id),
           warn: true,
         ),
+    if (app.daysUnused(DateTime.now().millisecondsSinceEpoch) case final days?)
+      InfoRow(
+        icon: Icons.timer_outlined,
+        title: 'Last opened',
+        subtitle: days == 0
+            ? 'Today'
+            : days == 1
+                ? 'Yesterday'
+                : days >= unusedDays
+                    ? 'Not opened for $days days'
+                    : '$days days ago',
+        warn: days >= unusedDays && !app.isSystem,
+      ),
     if (app.debuggable)
       const InfoRow(
         icon: Icons.bug_report_outlined,
