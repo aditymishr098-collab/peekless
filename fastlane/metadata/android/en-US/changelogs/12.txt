@@ -1,0 +1,1 @@
+New Trackers tab. Changes opens from the clock icon on Home. The Network monitor now handles DNS over TCP. New dark green design.

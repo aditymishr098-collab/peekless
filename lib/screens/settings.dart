@@ -10,6 +10,7 @@ import '../l10n_resolve.dart';
 import '../language_names.dart';
 import '../native_bridge.dart';
 import '../tracker_store.dart';
+import '../build_flavor.dart';
 import '../updater.dart';
 import 'net_monitor.dart';
 import '../widgets/update_dialog.dart';
@@ -365,9 +366,10 @@ class SettingsScreen extends StatelessWidget {
                   trailing: Icon(Icons.chevron_right, color: iconColor),
                   onTap: () => _updateTrackers(context),
                 ),
+                // F-Droid updates the app itself, so the in-app updater is hidden there.
                 ListTile(
-                  leading: Icon(Icons.download, color: iconColor),
-                  title: Text(l.settingsCheckUpdates),
+                  leading: Icon(kFDroid ? Icons.info_outline : Icons.download, color: iconColor),
+                  title: Text(kFDroid ? 'Peekless' : l.settingsCheckUpdates),
                   subtitle: FutureBuilder<String>(
                     future: Updater.currentVersion(),
                     builder: (context, snapshot) {
@@ -375,8 +377,8 @@ class SettingsScreen extends StatelessWidget {
                       return Text(l.settingsVersion(version));
                     },
                   ),
-                  trailing: Icon(Icons.chevron_right, color: iconColor),
-                  onTap: () => _checkForUpdates(context),
+                  trailing: kFDroid ? null : Icon(Icons.chevron_right, color: iconColor),
+                  onTap: kFDroid ? null : () => _checkForUpdates(context),
                 ),
               ],
             ),

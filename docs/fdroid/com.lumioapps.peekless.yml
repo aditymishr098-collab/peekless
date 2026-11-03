@@ -1,0 +1,42 @@
+# Draft for fdroiddata (gitlab.com/fdroid/fdroiddata), file: metadata/com.lumioapps.peekless.yml
+# Open a merge request with this file. The F-Droid team may ask for small changes.
+Categories:
+  - Security
+  - System
+License: GPL-3.0-only
+AuthorName: Lumio Apps
+WebSite: https://lumio-apps.online
+SourceCode: https://github.com/lumio-apps/peekless
+IssueTracker: https://github.com/lumio-apps/peekless/issues
+Changelog: https://github.com/lumio-apps/peekless/releases
+
+AutoName: Peekless
+
+RepoType: git
+Repo: https://github.com/lumio-apps/peekless.git
+
+Builds:
+  - versionName: 2.2.1
+    versionCode: 12
+    commit: v2.2.1
+    output: build/app/outputs/flutter-apk/app-release.apk
+    srclibs:
+      - flutter@stable
+    prebuild:
+      # F-Droid delivers updates itself: no permission to install packages.
+      - sed -i '/REQUEST_INSTALL_PACKAGES/d' android/app/src/main/AndroidManifest.xml
+      - export PUB_CACHE=$(pwd)/.pub-cache
+      - $$flutter$$/bin/flutter config --no-analytics
+      - $$flutter$$/bin/flutter pub get
+      - $$flutter$$/bin/dart run flutter_launcher_icons
+    scandelete:
+      - .pub-cache
+    build:
+      - export PUB_CACHE=$(pwd)/.pub-cache
+      - $$flutter$$/bin/flutter build apk --release --dart-define=FDROID=true
+
+AutoUpdateMode: Version
+UpdateCheckMode: Tags ^v[0-9.]+$
+UpdateCheckData: pubspec.yaml|version:\s.*\+(\d+)|.|version:\s(.*)\+
+CurrentVersion: 2.2.1
+CurrentVersionCode: 12

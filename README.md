@@ -129,7 +129,7 @@ Please read this part. Peekless is honest about its limits.
 2. Open the file. If Android asks, allow your browser or file manager to install apps.
 3. After that, update from inside Peekless: **Settings → Check for updates**.
 
-Peekless is distributed on GitHub only.
+Peekless is also prepared for [F-Droid](https://f-droid.org). F-Droid builds the app from source and signs it with its own key, so an F-Droid install and a GitHub install cannot update each other. Pick one source and stay with it.
 
 ## Build from source
 
@@ -153,17 +153,27 @@ flutter build apk --release
 
 Without a signing key, the release build is signed with the debug key. That is fine for testing, but it cannot update a Peekless installed from a GitHub release.
 
+## F-Droid build
+
+F-Droid updates apps itself, so its build must not contain the in-app updater:
+
+```bash
+flutter build apk --release --dart-define=FDROID=true
+```
+
+This hides "Check for updates" in Settings. The `REQUEST_INSTALL_PACKAGES` permission is removed from the manifest in the F-Droid recipe (`docs/fdroid/com.lumioapps.peekless.yml`). Store texts, icon and screenshots are in `fastlane/metadata/android/en-US/`. Each release needs a changelog named after its version code, for example `changelogs/12.txt`.
+
 ## Releasing
 
 Releases are built by GitHub Actions (`.github/workflows/release.yml`).
 
 - Every push to `main` builds a signed APK and keeps it as a build artifact.
-- Pushing a tag that starts with `v` (for example `v2.2.0`) also publishes the APK as a GitHub Release.
+- Pushing a tag that starts with `v` (for example `v2.2.1`) also publishes the APK as a GitHub Release.
 - The APK is signed with a key stored in the repository secrets: `KEYSTORE_BASE64`, `KEYSTORE_PASSWORD`, `KEY_ALIAS` and `KEY_PASSWORD`.
 
 ```bash
-git tag v2.2.0
-git push origin v2.2.0
+git tag v2.2.1
+git push origin v2.2.1
 ```
 
 Because every release is signed with the same key, an update installs over the old version and keeps your data.
@@ -194,6 +204,7 @@ lib/
   background.dart      The background check for App alerts
   native_bridge.dart   Calls to the Android side
   updater.dart         In-app update from GitHub Releases
+  build_flavor.dart    F-Droid switch (hides the updater)
   screens/             Home, Apps, Permissions, Trackers, Changes, Settings, details
   widgets/             Score ring, app tile, risk chip, security card, trend chart, update dialog
 android/app/src/main/kotlin/com/lumioapps/peekless/

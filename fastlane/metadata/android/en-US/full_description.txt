@@ -1,0 +1,22 @@
+Peekless checks the permissions and trackers of every app on your phone, gives each app a privacy score from 0 to 100, and tells you in plain English what it can do. Everything happens on your phone. There is no account, no ads, no analytics and no server.
+
+<b>What you get</b>
+• A privacy score for your whole phone and for every app, with a full breakdown
+• Permissions view: which apps can use microphone, camera, location, contacts, SMS and more
+• Trackers tab: known ad and analytics SDKs and the apps that contain them
+• Security checks: accessibility access, device admin, notification access, apps from outside a store, debuggable builds
+• Changes: new apps, newly allowed permissions and new trackers
+• Fix wizard, filters, trusted apps, share a report, export as PDF or JSON
+• Home screen widget and Quick Settings tile
+• 25 languages, light and dark theme
+
+<b>Optional features (off until you turn them on)</b>
+• Deep scan: also finds trackers inside the app code
+• Network monitor: shows which domain names each app asks for. It is a local VPN that takes only DNS lookups, so your speed does not change. It sees names only, never content.
+• Unused apps: finds apps you have not opened for 60 days that still have sensitive access
+• App alerts and a weekly summary
+
+<b>Honest limits</b>
+Peekless shows what an app is able to do, not what it is doing right now. A low score does not prove an app is bad. It is a guide, not a verdict.
+
+Free software under GPL-3.0. Part of Lumio Apps: privacy-focused apps with no ads, no tracking and no data collection.
