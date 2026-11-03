@@ -15,12 +15,24 @@ No account. No ads. No analytics. Nothing leaves your phone.
 </div>
 
 <p align="center">
-  <img src="docs/screenshots/home.png" alt="Home screen with the privacy score" width="30%">
+  <img src="docs/screenshots/home.png" alt="Home: privacy score and overview" width="23%">
   &nbsp;
-  <img src="docs/screenshots/apps.png" alt="Apps list, riskiest first" width="30%">
+  <img src="docs/screenshots/apps.png" alt="Apps, riskiest first" width="23%">
   &nbsp;
-  <img src="docs/screenshots/permissions.png" alt="Permissions grouped by who can use them" width="30%">
+  <img src="docs/screenshots/security.png" alt="Security checks" width="23%">
+  &nbsp;
+  <img src="docs/screenshots/network.png" alt="Network monitor" width="23%">
 </p>
+
+## At a glance
+
+| | |
+| --- | --- |
+| **Score** | 0 to 100 for your phone and for every app, with a full breakdown. |
+| **Looks at** | Permissions, special access, trackers, install source, and (optional) code and DNS lookups. |
+| **Works** | Fully offline. No account, no ads, no analytics, no servers. |
+| **Tabs** | Home, Apps, Permissions, Trackers, Settings. Changes opens from the clock icon on Home. |
+| **Platform** | Android. 25 languages. Free software (GPL-3.0). |
 
 ## What it does
 
