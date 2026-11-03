@@ -64,6 +64,33 @@ class NetMonitorService : VpnService() {
     private var upstream: InetAddress? = null
     private var upstreamAt = 0L
 
+    @Volatile
+    private var tunOut: FileOutputStream? = null
+
+    // DNS over TCP. Used when an answer is too big for UDP.
+    private val tcp = DnsTcp(object : DnsHost {
+        override fun protectSocket(socket: java.net.Socket): Boolean = protect(socket)
+
+        override fun upstream(): InetAddress? = upstreamServer()
+
+        override fun record(query: ByteArray, source: ByteArray, sourcePort: Int, destination: ByteArray) {
+            this@NetMonitorService.record(query, source, sourcePort, destination, true)
+        }
+
+        override fun submit(task: Runnable) {
+            executor?.execute(task)
+        }
+
+        override fun write(packet: ByteArray) {
+            val out = tunOut ?: return
+            try {
+                synchronized(out) { out.write(packet) }
+            } catch (e: Exception) {
+                // The tunnel was closed.
+            }
+        }
+    })
+
     override fun onCreate() {
         super.onCreate()
         instance = this
@@ -108,6 +135,8 @@ class NetMonitorService : VpnService() {
         executor = null
         worker?.interrupt()
         worker = null
+        tcp.closeAll()
+        tunOut = null
         NetStats.flush(applicationContext)
         stopSelf()
     }
@@ -128,6 +157,8 @@ class NetMonitorService : VpnService() {
         }
         tunnel = null
         executor?.shutdownNow()
+        tcp.closeAll()
+        tunOut = null
         NetStats.flush(applicationContext)
         super.onDestroy()
     }
@@ -136,6 +167,7 @@ class NetMonitorService : VpnService() {
         val input = FileInputStream(pfd.fileDescriptor)
         val output = FileOutputStream(pfd.fileDescriptor)
         val buffer = ByteArray(32767)
+        tunOut = output
         try {
             while (running) {
                 val length = input.read(buffer)
@@ -151,13 +183,22 @@ class NetMonitorService : VpnService() {
     private fun u16(b: ByteArray, at: Int): Int =
         ((b[at].toInt() and 0xFF) shl 8) or (b[at + 1].toInt() and 0xFF)
 
-    /** Takes a DNS question out of an IPv4 UDP packet and answers it in the background. */
+    /** Takes a DNS question out of an IPv4 UDP or TCP packet and answers it. */
     private fun handle(packet: ByteArray, output: FileOutputStream) {
         if (packet.size < 28) return
         if (((packet[0].toInt() shr 4) and 0x0F) != 4) return
         val headerLength = (packet[0].toInt() and 0x0F) * 4
         if (headerLength < 20 || packet.size < headerLength + 8) return
-        if (packet[9].toInt() != 17) return // Only UDP.
+        val protocol = packet[9].toInt()
+        if (protocol == 6) {
+            try {
+                tcp.onPacket(packet, headerLength)
+            } catch (e: Exception) {
+                // A bad packet. Ignore it.
+            }
+            return
+        }
+        if (protocol != 17) return // Only UDP and TCP.
         val sourcePort = u16(packet, headerLength)
         val destinationPort = u16(packet, headerLength + 2)
         if (destinationPort != 53) return
@@ -202,21 +243,27 @@ class NetMonitorService : VpnService() {
         }
     }
 
-    private fun record(query: ByteArray, source: ByteArray, sourcePort: Int, destination: ByteArray) {
+    private fun record(
+        query: ByteArray,
+        source: ByteArray,
+        sourcePort: Int,
+        destination: ByteArray,
+        viaTcp: Boolean = false,
+    ) {
         val question = DnsQuery.parse(query) ?: return
         // 1 is IPv4, 28 is IPv6, 65 is HTTPS. These are real lookups.
         if (question.second != 1 && question.second != 28 && question.second != 65) return
-        NetStats.add(applicationContext, owner(source, sourcePort, destination), question.first)
+        NetStats.add(applicationContext, owner(source, sourcePort, destination, viaTcp), question.first)
     }
 
     /** The package of the app that sent the question, or "unknown". */
     @TargetApi(29)
-    private fun owner(source: ByteArray, sourcePort: Int, destination: ByteArray): String {
+    private fun owner(source: ByteArray, sourcePort: Int, destination: ByteArray, viaTcp: Boolean = false): String {
         if (Build.VERSION.SDK_INT < 29) return "unknown"
         return try {
             val manager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
             val uid = manager.getConnectionOwnerUid(
-                OsConstants.IPPROTO_UDP,
+                if (viaTcp) OsConstants.IPPROTO_TCP else OsConstants.IPPROTO_UDP,
                 InetSocketAddress(InetAddress.getByAddress(source), sourcePort),
                 InetSocketAddress(InetAddress.getByAddress(destination), 53),
             )

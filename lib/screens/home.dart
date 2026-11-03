@@ -10,6 +10,7 @@ import '../models.dart';
 import '../native_bridge.dart';
 import '../report_text.dart';
 import '../texts.dart';
+import 'changes.dart';
 import 'fix_wizard.dart';
 import '../widgets/app_tile.dart';
 import '../widgets/risk.dart';
@@ -92,6 +93,13 @@ class HomeScreen extends StatelessWidget {
                         ),
                       ],
                     ),
+                  ),
+                  IconButton(
+                    tooltip: l.navChanges,
+                    onPressed: () => Navigator.of(context).push(
+                      MaterialPageRoute<void>(builder: (_) => const ChangesPage()),
+                    ),
+                    icon: const Icon(Icons.history),
                   ),
                   if (hasData)
                     IconButton.filledTonal(

@@ -10,6 +10,19 @@ String _formatTime(BuildContext context, int millis) {
   return '${material.formatShortDate(t)}, ${material.formatTimeOfDay(TimeOfDay.fromDateTime(t))}';
 }
 
+/// Full-page wrapper so the history can be opened from the Home header.
+class ChangesPage extends StatelessWidget {
+  const ChangesPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text(AppLocalizations.of(context).navChanges)),
+      body: const SafeArea(child: ChangesScreen()),
+    );
+  }
+}
+
 class ChangesScreen extends StatelessWidget {
   const ChangesScreen({super.key});
 

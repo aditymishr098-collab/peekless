@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import '../controller.dart';
 import '../l10n/app_localizations.dart';
 import 'apps.dart';
-import 'changes.dart';
 import 'home.dart';
 import 'permissions.dart';
 import 'settings.dart';
+import 'trackers.dart';
 
 class AppShell extends StatefulWidget {
   const AppShell({super.key});
@@ -48,7 +48,7 @@ class _AppShellState extends State<AppShell> with WidgetsBindingObserver {
             HomeScreen(onSeeAll: () => setState(() => _index = 1)),
             const AppsScreen(),
             const PermissionsScreen(),
-            const ChangesScreen(),
+            const TrackersScreen(),
             const SettingsScreen(),
           ],
         ),
@@ -73,9 +73,9 @@ class _AppShellState extends State<AppShell> with WidgetsBindingObserver {
             label: l.navPermissions,
           ),
           NavigationDestination(
-            icon: const Icon(Icons.history),
-            selectedIcon: const Icon(Icons.history),
-            label: l.navChanges,
+            icon: const Icon(Icons.track_changes_outlined),
+            selectedIcon: const Icon(Icons.track_changes),
+            label: l.segTrackers,
           ),
           NavigationDestination(
             icon: const Icon(Icons.tune_outlined),
