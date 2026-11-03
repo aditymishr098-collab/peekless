@@ -292,5 +292,7 @@
   "trackerListUpdating": "추적기 목록 업데이트 중…",
   "trackerListUpdated": "추적기 목록을 업데이트했습니다. 알려진 추적기 {count}개.",
   "trackerListCurrent": "추적기 목록이 이미 최신입니다.",
-  "trackerListFailed": "추적기 목록을 업데이트할 수 없습니다. 연결을 확인하세요."
+  "trackerListFailed": "추적기 목록을 업데이트할 수 없습니다. 연결을 확인하세요.",
+  "homeTagline": "누가 나를 엿보는지 확인하세요.",
+  "homeOverviewBody": "각 항목을 사용할 수 있는 앱의 비율"
 }

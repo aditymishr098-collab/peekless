@@ -1050,4 +1050,11 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get trackerListFailed =>
       'Die Tracker-Liste konnte nicht aktualisiert werden. Prüfe deine Verbindung.';
+
+  @override
+  String get homeTagline => 'Sieh, wer dir nachspioniert.';
+
+  @override
+  String get homeOverviewBody =>
+      'Anteil deiner Apps, die jeweils darauf zugreifen können';
 }

@@ -59,7 +59,13 @@ class _AppsScreenState extends State<AppsScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(l.navApps, style: text.headlineMedium),
+                  Text(
+                    l.navApps,
+                    style: text.headlineMedium?.copyWith(
+                      fontWeight: FontWeight.w800,
+                      letterSpacing: -0.5,
+                    ),
+                  ),
                   Text(
                     _appFilter == AppFilter.all
                         ? l.appsSubtitleAll(controller.reports.length)
@@ -76,6 +82,12 @@ class _AppsScreenState extends State<AppsScreen> {
                 leading: const Icon(Icons.search),
                 elevation: const WidgetStatePropertyAll<double>(0),
                 backgroundColor: WidgetStatePropertyAll<Color>(scheme.surfaceContainer),
+                shape: WidgetStatePropertyAll<OutlinedBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    side: BorderSide(color: scheme.outlineVariant),
+                  ),
+                ),
                 onChanged: (value) => setState(() => _query = value),
               ),
             ),
@@ -135,7 +147,7 @@ class _AppsScreenState extends State<AppsScreen> {
                       : ListView.separated(
                           padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
                           itemCount: items.length,
-                          separatorBuilder: (_, __) => const SizedBox(height: 4),
+                          separatorBuilder: (_, __) => const SizedBox(height: 8),
                           itemBuilder: (context, index) => AppTile(report: items[index]),
                         ),
             ),

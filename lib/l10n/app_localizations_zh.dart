@@ -1004,6 +1004,12 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get trackerListFailed => '无法更新追踪器列表。请检查网络连接。';
+
+  @override
+  String get homeTagline => '看看谁在窥探你。';
+
+  @override
+  String get homeOverviewBody => '可使用各项权限的应用所占比例';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -2006,4 +2012,10 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get trackerListFailed => '無法更新追蹤器清單。請檢查網路連線。';
+
+  @override
+  String get homeTagline => '看看誰在窺探你。';
+
+  @override
+  String get homeOverviewBody => '可使用各項權限的應用程式所佔比例';
 }

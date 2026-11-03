@@ -292,5 +292,7 @@
   "trackerListUpdating": "Tracker-Liste wird aktualisiert…",
   "trackerListUpdated": "Tracker-Liste aktualisiert. {count} Tracker bekannt.",
   "trackerListCurrent": "Die Tracker-Liste ist bereits aktuell.",
-  "trackerListFailed": "Die Tracker-Liste konnte nicht aktualisiert werden. Prüfe deine Verbindung."
+  "trackerListFailed": "Die Tracker-Liste konnte nicht aktualisiert werden. Prüfe deine Verbindung.",
+  "homeTagline": "Sieh, wer dir nachspioniert.",
+  "homeOverviewBody": "Anteil deiner Apps, die jeweils darauf zugreifen können"
 }

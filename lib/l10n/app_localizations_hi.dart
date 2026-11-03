@@ -1038,4 +1038,10 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get trackerListFailed =>
       'ट्रैकर सूची अपडेट नहीं हो सकी। अपना कनेक्शन जाँचें।';
+
+  @override
+  String get homeTagline => 'देखिए, कौन आप पर नज़र रख रहा है।';
+
+  @override
+  String get homeOverviewBody => 'आपके कितने प्रतिशत ऐप इनका उपयोग कर सकते हैं';
 }

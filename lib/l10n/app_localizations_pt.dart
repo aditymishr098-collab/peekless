@@ -1050,4 +1050,10 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get trackerListFailed =>
       'Não foi possível atualizar a lista de rastreadores. Verifique sua conexão.';
+
+  @override
+  String get homeTagline => 'Veja quem está espiando você.';
+
+  @override
+  String get homeOverviewBody => 'Parcela dos seus apps que podem usar cada um';
 }

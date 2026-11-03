@@ -1043,4 +1043,10 @@ class AppLocalizationsVi extends AppLocalizations {
   @override
   String get trackerListFailed =>
       'Không thể cập nhật danh sách trình theo dõi. Hãy kiểm tra kết nối.';
+
+  @override
+  String get homeTagline => 'Xem ai đang nhòm ngó bạn.';
+
+  @override
+  String get homeOverviewBody => 'Tỷ lệ ứng dụng của bạn có thể dùng từng mục';
 }

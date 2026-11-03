@@ -33,7 +33,8 @@ class InfoRow extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       decoration: BoxDecoration(
         color: scheme.surfaceContainer,
-        borderRadius: BorderRadius.circular(14),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: scheme.outlineVariant),
       ),
       child: Row(
         children: [
@@ -43,7 +44,7 @@ class InfoRow extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, style: text.bodyLarge),
+                Text(title, style: text.bodyLarge?.copyWith(fontWeight: FontWeight.w700)),
                 Text(
                   subtitle,
                   style: text.bodySmall?.copyWith(

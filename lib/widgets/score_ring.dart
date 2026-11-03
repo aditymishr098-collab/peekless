@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../l10n/app_localizations.dart';
 
+/// The privacy score as an open ring (three quarters of a circle).
 class ScoreRing extends StatelessWidget {
   const ScoreRing({
     super.key,
@@ -28,17 +29,17 @@ class ScoreRing extends StatelessWidget {
           alignment: Alignment.center,
           children: [
             TweenAnimationBuilder<double>(
-              tween: Tween<double>(begin: 0, end: score / 100),
-              duration: const Duration(milliseconds: 700),
+              tween: Tween<double>(begin: 0, end: score.clamp(0, 100) / 100),
+              duration: const Duration(milliseconds: 800),
               curve: Curves.easeOutCubic,
               builder: (context, value, _) {
                 return CustomPaint(
                   size: Size.square(size),
                   painter: _RingPainter(
                     fraction: value,
-                    track: scheme.outlineVariant,
+                    track: scheme.secondaryContainer,
                     progress: color,
-                    stroke: size * 0.08,
+                    stroke: size * 0.065,
                   ),
                 );
               },
@@ -49,15 +50,20 @@ class ScoreRing extends StatelessWidget {
                 Text(
                   '$score',
                   style: TextStyle(
-                    fontSize: size * 0.34,
-                    fontWeight: FontWeight.w500,
+                    fontSize: size * 0.3,
+                    fontWeight: FontWeight.w800,
+                    letterSpacing: -1,
                     color: scheme.onSurface,
-                    height: 1.1,
+                    height: 1.05,
                   ),
                 ),
                 Text(
                   AppLocalizations.of(context).scoreOf100,
-                  style: TextStyle(fontSize: 14, color: scheme.onSurfaceVariant),
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    color: scheme.onSurfaceVariant,
+                  ),
                 ),
               ],
             ),
@@ -67,6 +73,9 @@ class ScoreRing extends StatelessWidget {
     );
   }
 }
+
+const double _start = 3 * math.pi / 4;
+const double _sweep = 3 * math.pi / 2;
 
 class _RingPainter extends CustomPainter {
   _RingPainter({
@@ -88,14 +97,22 @@ class _RingPainter extends CustomPainter {
     final base = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = stroke
+      ..strokeCap = StrokeCap.round
       ..color = track;
-    canvas.drawArc(rect, 0, 2 * math.pi, false, base);
+    canvas.drawArc(rect, _start, _sweep, false, base);
+    if (fraction <= 0) return;
+    final light = Color.lerp(progress, Colors.white, 0.35)!;
     final arc = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = stroke
       ..strokeCap = StrokeCap.round
-      ..color = progress;
-    canvas.drawArc(rect, -math.pi / 2, 2 * math.pi * fraction, false, arc);
+      ..shader = SweepGradient(
+        startAngle: 0,
+        endAngle: _sweep,
+        colors: [progress, light],
+        transform: const GradientRotation(_start),
+      ).createShader(rect);
+    canvas.drawArc(rect, _start, _sweep * fraction, false, arc);
   }
 
   @override

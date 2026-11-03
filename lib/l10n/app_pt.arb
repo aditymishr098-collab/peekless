@@ -292,5 +292,7 @@
   "trackerListUpdating": "Atualizando a lista de rastreadores…",
   "trackerListUpdated": "Lista de rastreadores atualizada. {count} rastreadores conhecidos.",
   "trackerListCurrent": "A lista de rastreadores já está atualizada.",
-  "trackerListFailed": "Não foi possível atualizar a lista de rastreadores. Verifique sua conexão."
+  "trackerListFailed": "Não foi possível atualizar a lista de rastreadores. Verifique sua conexão.",
+  "homeTagline": "Veja quem está espiando você.",
+  "homeOverviewBody": "Parcela dos seus apps que podem usar cada um"
 }

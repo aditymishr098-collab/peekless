@@ -292,5 +292,7 @@
   "trackerListUpdating": "Memperbarui daftar pelacak…",
   "trackerListUpdated": "Daftar pelacak diperbarui. {count} pelacak dikenal.",
   "trackerListCurrent": "Daftar pelacak sudah yang terbaru.",
-  "trackerListFailed": "Tidak dapat memperbarui daftar pelacak. Periksa koneksi Anda."
+  "trackerListFailed": "Tidak dapat memperbarui daftar pelacak. Periksa koneksi Anda.",
+  "homeTagline": "Lihat siapa yang mengintip Anda.",
+  "homeOverviewBody": "Persentase aplikasi Anda yang dapat menggunakan masing-masing"
 }

@@ -292,5 +292,7 @@
   "trackerListUpdating": "Mise à jour de la liste des traqueurs…",
   "trackerListUpdated": "Liste des traqueurs mise à jour. {count} traqueurs connus.",
   "trackerListCurrent": "La liste des traqueurs est déjà à jour.",
-  "trackerListFailed": "Impossible de mettre à jour la liste des traqueurs. Vérifiez votre connexion."
+  "trackerListFailed": "Impossible de mettre à jour la liste des traqueurs. Vérifiez votre connexion.",
+  "homeTagline": "Voyez qui vous espionne.",
+  "homeOverviewBody": "Part de vos applis qui peuvent utiliser chacun"
 }

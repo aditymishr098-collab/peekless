@@ -50,7 +50,7 @@ No account. No ads. No analytics. Nothing leaves your phone.
 - **Quick Settings tile.** See your score in the quick settings panel (Android 7 or newer).
 - **Tracker list updates.** Tap "Tracker list" in Settings to get newly known trackers without waiting for an app update.
 - **25 languages.** English, Hindi, Armenian, Russian, Spanish, French, German, Italian, Portuguese, Turkish, Arabic, Persian, Hebrew, Urdu, Chinese (Simplified and Traditional), Japanese, Korean, Indonesian, Vietnamese, Thai, Polish, Ukrainian, Dutch and Bengali. Peekless follows your phone language, or you can pick one in Settings.
-- **Light and dark theme**, Material 3.
+- **New look.** A dark green design with a gauge for your score, a Privacy overview (what share of your apps can use camera, microphone, location and trackers) and one big Scan button. Light and dark themes, Material 3.
 - **Updates from inside the app.** Download and install a new version without leaving Peekless.
 
 ## How the score works
@@ -139,12 +139,12 @@ Without a signing key, the release build is signed with the debug key. That is f
 Releases are built by GitHub Actions (`.github/workflows/release.yml`).
 
 - Every push to `main` builds a signed APK and keeps it as a build artifact.
-- Pushing a tag that starts with `v` (for example `v1.5.0`) also publishes the APK as a GitHub Release.
+- Pushing a tag that starts with `v` (for example `v1.6.0`) also publishes the APK as a GitHub Release.
 - The APK is signed with a key stored in the repository secrets: `KEYSTORE_BASE64`, `KEYSTORE_PASSWORD`, `KEY_ALIAS` and `KEY_PASSWORD`.
 
 ```bash
-git tag v1.5.0
-git push origin v1.5.0
+git tag v1.6.0
+git push origin v1.6.0
 ```
 
 Because every release is signed with the same key, an update installs over the old version and keeps your data.
@@ -157,6 +157,7 @@ lib/
   controller.dart      App state: scan results, settings, trusted apps
   scoring.dart         Permission rules, tracker points and the score
   tracker_db.dart      Built-in tracker SDKs
+  access_share.dart    How many apps can use camera, microphone, location and trackers
   tracker_store.dart   Downloaded tracker list: checks it and adds it to the built-in one
   export.dart          Builds the PDF and JSON report
   history.dart         Snapshot and change detection

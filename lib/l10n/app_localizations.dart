@@ -1900,6 +1900,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Could not update the tracker list. Check your connection.'**
   String get trackerListFailed;
+
+  /// No description provided for @homeTagline.
+  ///
+  /// In en, this message translates to:
+  /// **'See who’s peeking at you.'**
+  String get homeTagline;
+
+  /// No description provided for @homeOverviewBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Share of your apps that can use each one'**
+  String get homeOverviewBody;
 }
 
 class _AppLocalizationsDelegate

@@ -1036,4 +1036,11 @@ class AppLocalizationsFa extends AppLocalizations {
   @override
   String get trackerListFailed =>
       'به‌روزرسانی فهرست ردیاب‌ها ممکن نشد. اتصال خود را بررسی کنید.';
+
+  @override
+  String get homeTagline => 'ببینید چه کسی به شما چشم دوخته است.';
+
+  @override
+  String get homeOverviewBody =>
+      'سهم برنامه‌هایتان که می‌توانند از هر کدام استفاده کنند';
 }

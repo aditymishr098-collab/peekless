@@ -1041,4 +1041,11 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get trackerListFailed =>
       'Tidak dapat memperbarui daftar pelacak. Periksa koneksi Anda.';
+
+  @override
+  String get homeTagline => 'Lihat siapa yang mengintip Anda.';
+
+  @override
+  String get homeOverviewBody =>
+      'Persentase aplikasi Anda yang dapat menggunakan masing-masing';
 }

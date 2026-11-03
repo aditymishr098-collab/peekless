@@ -1027,4 +1027,10 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get trackerListFailed =>
       'تعذّر تحديث قائمة المتتبعات. تحقق من اتصالك.';
+
+  @override
+  String get homeTagline => 'اعرف من يتلصص عليك.';
+
+  @override
+  String get homeOverviewBody => 'نسبة تطبيقاتك التي يمكنها استخدام كل منها';
 }

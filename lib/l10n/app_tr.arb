@@ -292,5 +292,7 @@
   "trackerListUpdating": "İzleyici listesi güncelleniyor…",
   "trackerListUpdated": "İzleyici listesi güncellendi. {count} izleyici biliniyor.",
   "trackerListCurrent": "İzleyici listesi zaten güncel.",
-  "trackerListFailed": "İzleyici listesi güncellenemedi. Bağlantınızı kontrol edin."
+  "trackerListFailed": "İzleyici listesi güncellenemedi. Bağlantınızı kontrol edin.",
+  "homeTagline": "Sizi kimin gözetlediğini görün.",
+  "homeOverviewBody": "Uygulamalarınızın her birini kullanabilen kısmı"
 }

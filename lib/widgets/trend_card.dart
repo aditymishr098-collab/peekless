@@ -31,14 +31,15 @@ class TrendCard extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(16, 14, 16, 14),
       decoration: BoxDecoration(
         color: scheme.surfaceContainer,
-        borderRadius: BorderRadius.circular(24),
+        borderRadius: BorderRadius.circular(22),
+        border: Border.all(color: scheme.outlineVariant),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             l.trendTitle,
-            style: text.titleMedium?.copyWith(fontWeight: FontWeight.w500),
+            style: text.titleMedium?.copyWith(fontWeight: FontWeight.w800),
           ),
           Text(
             caption,

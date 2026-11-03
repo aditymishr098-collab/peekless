@@ -1038,4 +1038,10 @@ class AppLocalizationsBn extends AppLocalizations {
   @override
   String get trackerListFailed =>
       'ট্র্যাকার তালিকা আপডেট করা যায়নি। আপনার সংযোগ পরীক্ষা করুন।';
+
+  @override
+  String get homeTagline => 'দেখুন কে আপনার ওপর নজর রাখছে।';
+
+  @override
+  String get homeOverviewBody => 'আপনার কত শতাংশ অ্যাপ এগুলো ব্যবহার করতে পারে';
 }

@@ -44,66 +44,119 @@ class AppDetailScreen extends StatelessWidget {
           body: ListView(
             padding: const EdgeInsets.fromLTRB(20, 0, 20, 16),
             children: [
-              Row(
-                children: [
-                  CircleAvatar(
-                    radius: 30,
-                    backgroundColor: scheme.secondaryContainer,
-                    foregroundColor: scheme.onSecondaryContainer,
-                    child: Text(
-                      app.initial,
-                      style: const TextStyle(fontSize: 26, fontWeight: FontWeight.w500),
-                    ),
-                  ),
-                  const SizedBox(width: 14),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(app.name, style: text.headlineSmall),
-                        Text(
-                          app.packageName,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: text.bodyMedium?.copyWith(color: scheme.onSurfaceVariant),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 16),
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
                   color: scheme.surfaceContainer,
                   borderRadius: BorderRadius.circular(24),
+                  border: Border.all(color: scheme.outlineVariant),
+                ),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 56,
+                      height: 56,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: report.level.container(scheme),
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: Text(
+                        app.initial,
+                        style: TextStyle(
+                          fontSize: 26,
+                          fontWeight: FontWeight.w800,
+                          color: report.level.onContainer(scheme),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 14),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            app.name,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: text.titleLarge?.copyWith(fontWeight: FontWeight.w800),
+                          ),
+                          Text(
+                            app.packageName,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: text.bodySmall?.copyWith(color: scheme.onSurfaceVariant),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                      decoration: BoxDecoration(
+                        color: report.level.container(scheme),
+                        borderRadius: BorderRadius.circular(14),
+                        border: Border.all(color: report.level.accent(scheme).withAlpha(110)),
+                      ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            '${report.score}',
+                            style: TextStyle(
+                              fontSize: 26,
+                              fontWeight: FontWeight.w800,
+                              height: 1.05,
+                              color: report.level.onContainer(scheme),
+                            ),
+                          ),
+                          Text(
+                            l.scoreOf100,
+                            style: TextStyle(
+                              fontSize: 11,
+                              color: report.level.onContainer(scheme),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 10),
+              Container(
+                padding: const EdgeInsets.fromLTRB(16, 14, 16, 6),
+                decoration: BoxDecoration(
+                  color: report.level.container(scheme),
+                  borderRadius: BorderRadius.circular(22),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Column(
-                          children: [
-                            Text(
-                              '${report.score}',
-                              style: TextStyle(
-                                fontSize: 44,
-                                fontWeight: FontWeight.w500,
-                                height: 1,
-                                color: report.level.accent(scheme),
-                              ),
-                            ),
-                            const SizedBox(height: 8),
-                            RiskChip(level: report.level),
-                          ],
-                        ),
-                        const SizedBox(width: 16),
+                        Icon(report.level.icon, size: 32, color: report.level.onContainer(scheme)),
+                        const SizedBox(width: 12),
                         Expanded(
-                          child: Text(
-                            summaryFor(l, report),
-                            style: text.bodyMedium?.copyWith(color: scheme.onSurfaceVariant),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                overallLabel(l, report.level),
+                                style: text.titleMedium?.copyWith(
+                                  fontWeight: FontWeight.w800,
+                                  color: report.level.onContainer(scheme),
+                                ),
+                              ),
+                              const SizedBox(height: 2),
+                              Text(
+                                summaryFor(l, report),
+                                style: text.bodyMedium?.copyWith(
+                                  color: report.level.onContainer(scheme),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],
@@ -119,6 +172,9 @@ class AppDetailScreen extends StatelessWidget {
                             ),
                           );
                         },
+                        style: TextButton.styleFrom(
+                          foregroundColor: report.level.onContainer(scheme),
+                        ),
                         icon: const Icon(Icons.help_outline),
                         label: Text(l.howScore),
                       ),
@@ -130,7 +186,8 @@ class AppDetailScreen extends StatelessWidget {
               Container(
                 decoration: BoxDecoration(
                   color: scheme.surfaceContainer,
-                  borderRadius: BorderRadius.circular(24),
+                  borderRadius: BorderRadius.circular(22),
+                  border: Border.all(color: scheme.outlineVariant),
                 ),
                 clipBehavior: Clip.antiAlias,
                 child: SwitchListTile(
@@ -144,14 +201,14 @@ class AppDetailScreen extends StatelessWidget {
               const SizedBox(height: 20),
               Text(
                 l.detailSecurity,
-                style: text.titleMedium?.copyWith(fontWeight: FontWeight.w500),
+                style: text.titleMedium?.copyWith(fontWeight: FontWeight.w800),
               ),
               const SizedBox(height: 8),
               ..._securityRows(l, app),
               const SizedBox(height: 12),
               Text(
                 l.navPermissions,
-                style: text.titleMedium?.copyWith(fontWeight: FontWeight.w500),
+                style: text.titleMedium?.copyWith(fontWeight: FontWeight.w800),
               ),
               const SizedBox(height: 8),
               if (report.findings.isEmpty)
@@ -168,7 +225,7 @@ class AppDetailScreen extends StatelessWidget {
               const SizedBox(height: 12),
               Text(
                 l.detailTrackers(app.trackers.length),
-                style: text.titleMedium?.copyWith(fontWeight: FontWeight.w500),
+                style: text.titleMedium?.copyWith(fontWeight: FontWeight.w800),
               ),
               const SizedBox(height: 8),
               if (app.trackers.isEmpty)
@@ -181,7 +238,7 @@ class AppDetailScreen extends StatelessWidget {
                   spacing: 8,
                   runSpacing: 8,
                   children: [
-                    for (final tracker in app.trackers) Chip(label: Text(tracker)),
+                    for (final tracker in app.trackers) _TrackerPill(name: tracker),
                   ],
                 ),
               const SizedBox(height: 12),
@@ -194,11 +251,15 @@ class AppDetailScreen extends StatelessWidget {
           bottomNavigationBar: SafeArea(
             child: Padding(
               padding: const EdgeInsets.fromLTRB(20, 8, 20, 16),
-              child: FilledButton.icon(
+              child: OutlinedButton.icon(
                 onPressed: () => _openSettings(context),
-                icon: const Icon(Icons.open_in_new),
+                icon: const Icon(Icons.shield_outlined),
                 label: Text(l.openAppSettings),
-                style: FilledButton.styleFrom(minimumSize: const Size.fromHeight(52)),
+                style: OutlinedButton.styleFrom(
+                  minimumSize: const Size.fromHeight(54),
+                  foregroundColor: scheme.primary,
+                  side: BorderSide(color: scheme.primary, width: 1.5),
+                ),
               ),
             ),
           ),
@@ -319,7 +380,8 @@ class _PermissionRow extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
         color: scheme.surfaceContainer,
-        borderRadius: BorderRadius.circular(14),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: scheme.outlineVariant),
       ),
       child: Row(
         children: [
@@ -327,7 +389,10 @@ class _PermissionRow extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(ruleLabel(l, finding.rule), style: text.bodyLarge),
+                Text(
+                  ruleLabel(l, finding.rule),
+                  style: text.bodyLarge?.copyWith(fontWeight: FontWeight.w700),
+                ),
                 Text(note, style: text.bodySmall?.copyWith(color: noteColor)),
               ],
             ),
@@ -337,17 +402,62 @@ class _PermissionRow extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
             decoration: BoxDecoration(
               color: chipBackground,
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(999),
             ),
             child: Text(
               chipText,
               style: TextStyle(
                 fontSize: 12,
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.w700,
                 color: chipForeground,
               ),
             ),
           ),
+        ],
+      ),
+    );
+  }
+}
+
+class _TrackerPill extends StatelessWidget {
+  const _TrackerPill({required this.name});
+
+  final String name;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    final text = Theme.of(context).textTheme;
+    final initial = name.isEmpty ? '?' : String.fromCharCode(name.runes.first).toUpperCase();
+    return Container(
+      padding: const EdgeInsetsDirectional.fromSTEB(6, 6, 14, 6),
+      decoration: BoxDecoration(
+        color: scheme.surfaceContainer,
+        borderRadius: BorderRadius.circular(999),
+        border: Border.all(color: scheme.outlineVariant),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            width: 28,
+            height: 28,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: scheme.errorContainer,
+              shape: BoxShape.circle,
+            ),
+            child: Text(
+              initial,
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w800,
+                color: scheme.onErrorContainer,
+              ),
+            ),
+          ),
+          const SizedBox(width: 8),
+          Text(name, style: text.bodyMedium?.copyWith(fontWeight: FontWeight.w600)),
         ],
       ),
     );

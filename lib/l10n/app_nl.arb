@@ -292,5 +292,7 @@
   "trackerListUpdating": "Trackerlijst wordt bijgewerkt…",
   "trackerListUpdated": "Trackerlijst bijgewerkt. {count} trackers bekend.",
   "trackerListCurrent": "De trackerlijst is al up-to-date.",
-  "trackerListFailed": "De trackerlijst kon niet worden bijgewerkt. Controleer je verbinding."
+  "trackerListFailed": "De trackerlijst kon niet worden bijgewerkt. Controleer je verbinding.",
+  "homeTagline": "Zie wie er naar je loert.",
+  "homeOverviewBody": "Aandeel van je apps dat elk onderdeel kan gebruiken"
 }

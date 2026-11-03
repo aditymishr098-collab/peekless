@@ -6,6 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:peekless/access_share.dart';
 import 'package:peekless/app_filter.dart';
 import 'package:peekless/security_checks.dart';
 import 'package:peekless/export.dart';
@@ -828,6 +829,35 @@ void main() {
       expect(first['name'], 'Flashlight Pro');
       expect((first['lines']! as List<Object?>).join(' '), contains('Google Ads'));
       expect((apps.last! as Map<String, Object?>)['lines'], isNotEmpty);
+    });
+  });
+
+  group('access share', () {
+    test('counts the apps that can use camera, microphone, location and trackers', () {
+      final reports = [
+        buildReport(_app(const [_micAllowed], trackers: const ['AppsFlyer'], packageName: 'a')),
+        buildReport(_app(const [_micDenied], packageName: 'b')),
+        buildReport(
+          _app(
+            const [PermissionEntry('android.permission.ACCESS_FINE_LOCATION', true)],
+            packageName: 'c',
+          ),
+        ),
+        buildReport(_app(const [], packageName: 'd')),
+      ];
+      final share = accessShare(reports);
+      expect(share.total, 4);
+      expect(share.microphone, 1);
+      expect(share.location, 1);
+      expect(share.camera, 0);
+      expect(share.trackers, 1);
+      expect(share.fraction(share.microphone), 0.25);
+    });
+
+    test('is empty and safe with no apps', () {
+      final share = accessShare(const []);
+      expect(share.total, 0);
+      expect(share.fraction(share.camera), 0);
     });
   });
 

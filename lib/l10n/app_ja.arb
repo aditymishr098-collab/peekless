@@ -292,5 +292,7 @@
   "trackerListUpdating": "トラッカーリストを更新中…",
   "trackerListUpdated": "トラッカーリストを更新しました。既知のトラッカー：{count}件。",
   "trackerListCurrent": "トラッカーリストはすでに最新です。",
-  "trackerListFailed": "トラッカーリストを更新できませんでした。接続を確認してください。"
+  "trackerListFailed": "トラッカーリストを更新できませんでした。接続を確認してください。",
+  "homeTagline": "だれがあなたをのぞいているか確認しましょう。",
+  "homeOverviewBody": "それぞれを使えるアプリの割合"
 }

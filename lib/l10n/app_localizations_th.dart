@@ -1033,4 +1033,10 @@ class AppLocalizationsTh extends AppLocalizations {
   @override
   String get trackerListFailed =>
       'อัปเดตรายการตัวติดตามไม่ได้ โปรดตรวจสอบการเชื่อมต่อ';
+
+  @override
+  String get homeTagline => 'ดูว่าใครแอบมองคุณอยู่';
+
+  @override
+  String get homeOverviewBody => 'สัดส่วนแอปของคุณที่ใช้แต่ละรายการได้';
 }

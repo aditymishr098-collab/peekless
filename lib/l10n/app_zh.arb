@@ -292,5 +292,7 @@
   "trackerListUpdating": "正在更新追踪器列表…",
   "trackerListUpdated": "追踪器列表已更新。已知 {count} 个追踪器。",
   "trackerListCurrent": "追踪器列表已是最新。",
-  "trackerListFailed": "无法更新追踪器列表。请检查网络连接。"
+  "trackerListFailed": "无法更新追踪器列表。请检查网络连接。",
+  "homeTagline": "看看谁在窥探你。",
+  "homeOverviewBody": "可使用各项权限的应用所占比例"
 }

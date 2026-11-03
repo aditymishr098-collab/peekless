@@ -292,5 +292,7 @@
   "trackerListUpdating": "正在更新追蹤器清單…",
   "trackerListUpdated": "追蹤器清單已更新。已知 {count} 個追蹤器。",
   "trackerListCurrent": "追蹤器清單已是最新。",
-  "trackerListFailed": "無法更新追蹤器清單。請檢查網路連線。"
+  "trackerListFailed": "無法更新追蹤器清單。請檢查網路連線。",
+  "homeTagline": "看看誰在窺探你。",
+  "homeOverviewBody": "可使用各項權限的應用程式所佔比例"
 }

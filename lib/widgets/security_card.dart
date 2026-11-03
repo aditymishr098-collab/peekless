@@ -32,7 +32,10 @@ class SecurityCard extends StatelessWidget {
 
     return Material(
       color: scheme.surfaceContainer,
-      borderRadius: BorderRadius.circular(24),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(22),
+        side: BorderSide(color: scheme.outlineVariant),
+      ),
       clipBehavior: Clip.antiAlias,
       child: InkWell(
         onTap: () {
@@ -52,7 +55,7 @@ class SecurityCard extends StatelessWidget {
                   Expanded(
                     child: Text(
                       l.checksTitle,
-                      style: text.titleMedium?.copyWith(fontWeight: FontWeight.w500),
+                      style: text.titleMedium?.copyWith(fontWeight: FontWeight.w800),
                     ),
                   ),
                   Icon(Icons.chevron_right, color: scheme.onSurfaceVariant),

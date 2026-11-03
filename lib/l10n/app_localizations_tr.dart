@@ -1037,4 +1037,11 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get trackerListFailed =>
       'İzleyici listesi güncellenemedi. Bağlantınızı kontrol edin.';
+
+  @override
+  String get homeTagline => 'Sizi kimin gözetlediğini görün.';
+
+  @override
+  String get homeOverviewBody =>
+      'Uygulamalarınızın her birini kullanabilen kısmı';
 }

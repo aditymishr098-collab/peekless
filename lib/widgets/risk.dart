@@ -22,6 +22,25 @@ extension RiskStyle on RiskLevel {
         RiskLevel.medium => scheme.tertiary,
         RiskLevel.safe => scheme.primary,
       };
+
+  /// A text colour that is readable on the page background.
+  Color text(ColorScheme scheme) => switch (this) {
+        RiskLevel.risky => scheme.brightness == Brightness.dark
+            ? scheme.onErrorContainer
+            : scheme.error,
+        RiskLevel.medium => scheme.brightness == Brightness.dark
+            ? scheme.tertiary
+            : scheme.onTertiaryContainer,
+        RiskLevel.safe => scheme.brightness == Brightness.dark
+            ? scheme.onPrimaryContainer
+            : scheme.primary,
+      };
+
+  IconData get icon => switch (this) {
+        RiskLevel.risky => Icons.gpp_bad_outlined,
+        RiskLevel.medium => Icons.warning_amber_rounded,
+        RiskLevel.safe => Icons.verified_user_outlined,
+      };
 }
 
 class RiskChip extends StatelessWidget {
@@ -35,16 +54,16 @@ class RiskChip extends StatelessWidget {
     final scheme = Theme.of(context).colorScheme;
     final name = levelName(AppLocalizations.of(context), level);
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
       decoration: BoxDecoration(
         color: level.container(scheme),
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(999),
       ),
       child: Text(
         score == null ? name : '$score · $name',
         style: TextStyle(
           fontSize: 12,
-          fontWeight: FontWeight.w500,
+          fontWeight: FontWeight.w700,
           color: level.onContainer(scheme),
         ),
       ),

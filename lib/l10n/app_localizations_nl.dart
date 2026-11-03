@@ -1042,4 +1042,11 @@ class AppLocalizationsNl extends AppLocalizations {
   @override
   String get trackerListFailed =>
       'De trackerlijst kon niet worden bijgewerkt. Controleer je verbinding.';
+
+  @override
+  String get homeTagline => 'Zie wie er naar je loert.';
+
+  @override
+  String get homeOverviewBody =>
+      'Aandeel van je apps dat elk onderdeel kan gebruiken';
 }

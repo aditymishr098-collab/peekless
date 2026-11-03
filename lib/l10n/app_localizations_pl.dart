@@ -1044,4 +1044,11 @@ class AppLocalizationsPl extends AppLocalizations {
   @override
   String get trackerListFailed =>
       'Nie udało się zaktualizować listy trackerów. Sprawdź połączenie.';
+
+  @override
+  String get homeTagline => 'Zobacz, kto cię podgląda.';
+
+  @override
+  String get homeOverviewBody =>
+      'Odsetek twoich aplikacji, które mogą z nich korzystać';
 }

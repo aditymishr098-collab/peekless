@@ -292,5 +292,7 @@
   "trackerListUpdating": "מעדכן את רשימת העוקבים…",
   "trackerListUpdated": "רשימת העוקבים עודכנה. {count} עוקבים ידועים.",
   "trackerListCurrent": "רשימת העוקבים כבר מעודכנת.",
-  "trackerListFailed": "לא ניתן היה לעדכן את רשימת העוקבים. בדקו את החיבור."
+  "trackerListFailed": "לא ניתן היה לעדכן את רשימת העוקבים. בדקו את החיבור.",
+  "homeTagline": "גלו מי מציץ בכם.",
+  "homeOverviewBody": "חלק מהאפליקציות שלכם שיכול להשתמש בכל אחד מהם"
 }

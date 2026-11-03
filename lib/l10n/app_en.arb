@@ -761,5 +761,7 @@
     }
   },
   "trackerListCurrent": "Tracker list is already up to date.",
-  "trackerListFailed": "Could not update the tracker list. Check your connection."
+  "trackerListFailed": "Could not update the tracker list. Check your connection.",
+  "homeTagline": "See who’s peeking at you.",
+  "homeOverviewBody": "Share of your apps that can use each one"
 }

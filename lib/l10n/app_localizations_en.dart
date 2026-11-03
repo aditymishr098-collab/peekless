@@ -1038,4 +1038,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get trackerListFailed =>
       'Could not update the tracker list. Check your connection.';
+
+  @override
+  String get homeTagline => 'See who’s peeking at you.';
+
+  @override
+  String get homeOverviewBody => 'Share of your apps that can use each one';
 }

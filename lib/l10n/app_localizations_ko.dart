@@ -1008,4 +1008,10 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get trackerListFailed => '추적기 목록을 업데이트할 수 없습니다. 연결을 확인하세요.';
+
+  @override
+  String get homeTagline => '누가 나를 엿보는지 확인하세요.';
+
+  @override
+  String get homeOverviewBody => '각 항목을 사용할 수 있는 앱의 비율';
 }

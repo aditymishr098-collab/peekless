@@ -1027,4 +1027,11 @@ class AppLocalizationsHe extends AppLocalizations {
   @override
   String get trackerListFailed =>
       'לא ניתן היה לעדכן את רשימת העוקבים. בדקו את החיבור.';
+
+  @override
+  String get homeTagline => 'גלו מי מציץ בכם.';
+
+  @override
+  String get homeOverviewBody =>
+      'חלק מהאפליקציות שלכם שיכול להשתמש בכל אחד מהם';
 }

@@ -1045,4 +1045,11 @@ class AppLocalizationsUk extends AppLocalizations {
   @override
   String get trackerListFailed =>
       'Не вдалося оновити список трекерів. Перевірте підключення.';
+
+  @override
+  String get homeTagline => 'Дізнайтеся, хто за вами підглядає.';
+
+  @override
+  String get homeOverviewBody =>
+      'Частка ваших застосунків, які можуть цим користуватися';
 }

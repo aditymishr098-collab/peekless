@@ -292,5 +292,7 @@
   "trackerListUpdating": "Đang cập nhật danh sách trình theo dõi…",
   "trackerListUpdated": "Đã cập nhật danh sách trình theo dõi. Đã biết {count} trình theo dõi.",
   "trackerListCurrent": "Danh sách trình theo dõi đã mới nhất.",
-  "trackerListFailed": "Không thể cập nhật danh sách trình theo dõi. Hãy kiểm tra kết nối."
+  "trackerListFailed": "Không thể cập nhật danh sách trình theo dõi. Hãy kiểm tra kết nối.",
+  "homeTagline": "Xem ai đang nhòm ngó bạn.",
+  "homeOverviewBody": "Tỷ lệ ứng dụng của bạn có thể dùng từng mục"
 }

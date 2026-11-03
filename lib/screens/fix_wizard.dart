@@ -95,7 +95,8 @@ class _FixWizardScreenState extends State<FixWizardScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               decoration: BoxDecoration(
                 color: scheme.surfaceContainer,
-                borderRadius: BorderRadius.circular(14),
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: scheme.outlineVariant),
               ),
               child: Text(line, style: text.bodyMedium),
             ),

@@ -1047,4 +1047,11 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get trackerListFailed =>
       'Не удалось обновить список трекеров. Проверьте подключение.';
+
+  @override
+  String get homeTagline => 'Узнайте, кто за вами подглядывает.';
+
+  @override
+  String get homeOverviewBody =>
+      'Доля ваших приложений, которые могут этим пользоваться';
 }

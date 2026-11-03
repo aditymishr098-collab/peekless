@@ -292,5 +292,7 @@
   "trackerListUpdating": "Aktualizowanie listy trackerów…",
   "trackerListUpdated": "Lista trackerów zaktualizowana. Znanych trackerów: {count}.",
   "trackerListCurrent": "Lista trackerów jest już aktualna.",
-  "trackerListFailed": "Nie udało się zaktualizować listy trackerów. Sprawdź połączenie."
+  "trackerListFailed": "Nie udało się zaktualizować listy trackerów. Sprawdź połączenie.",
+  "homeTagline": "Zobacz, kto cię podgląda.",
+  "homeOverviewBody": "Odsetek twoich aplikacji, które mogą z nich korzystać"
 }

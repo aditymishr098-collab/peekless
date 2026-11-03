@@ -1008,4 +1008,10 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get trackerListFailed => 'トラッカーリストを更新できませんでした。接続を確認してください。';
+
+  @override
+  String get homeTagline => 'だれがあなたをのぞいているか確認しましょう。';
+
+  @override
+  String get homeOverviewBody => 'それぞれを使えるアプリの割合';
 }

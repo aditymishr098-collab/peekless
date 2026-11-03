@@ -1035,4 +1035,11 @@ class AppLocalizationsUr extends AppLocalizations {
   @override
   String get trackerListFailed =>
       'ٹریکر فہرست اپ ڈیٹ نہیں ہو سکی۔ اپنا کنکشن چیک کریں۔';
+
+  @override
+  String get homeTagline => 'دیکھیں کون آپ پر نظر رکھ رہا ہے۔';
+
+  @override
+  String get homeOverviewBody =>
+      'آپ کی کتنی فیصد ایپس ہر ایک کو استعمال کر سکتی ہیں';
 }

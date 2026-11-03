@@ -1049,4 +1049,11 @@ class AppLocalizationsHy extends AppLocalizations {
   @override
   String get trackerListFailed =>
       'Չհաջողվեց թարմացնել հետագծողների ցանկը։ Ստուգեք կապը։';
+
+  @override
+  String get homeTagline => 'Տեսեք՝ ով է ձեզ հետևում։';
+
+  @override
+  String get homeOverviewBody =>
+      'Ձեր հավելվածների ո՞ր մասը կարող է օգտագործել յուրաքանչյուրը';
 }
