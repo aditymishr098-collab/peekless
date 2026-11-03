@@ -297,5 +297,22 @@
   "homeOverviewBody": "Parcela dos seus apps que podem usar cada um",
   "settingsDeep": "Verificação profunda",
   "settingsDeepBody": "Procura rastreadores escondidos também dentro do código de cada app. A primeira verificação é mais lenta. Apps que vieram com o telefone são ignorados. Tudo fica no seu telefone.",
-  "trackersFromCode": "Encontrados dentro do código do app (marcados com um ícone de código): {count}"
+  "trackersFromCode": "Encontrados dentro do código do app (marcados com um ícone de código): {count}",
+  "settingsNet": "Monitor de rede",
+  "settingsNetBody": "Veja quais apps consultam quais endereços da internet e quais são rastreadores",
+  "netTitle": "Monitor de rede",
+  "netIntro": "O Peekless mostra quais nomes de domínio seus apps pedem. Ele usa uma VPN local que recebe só essas consultas, então a velocidade da internet não muda. Não vê o que você envia ou lê, só os nomes. Nada sai do seu telefone.",
+  "netLimits": "Pode não ver apps que usam seu próprio DNS criptografado, ou quando o DNS privado está fixo em um provedor. É preciso Android 10 ou mais novo para mostrar qual app pediu.",
+  "netSwitch": "Monitorar consultas",
+  "netOn": "Ativado. Use alguns apps e volte para ver os resultados.",
+  "netOff": "Desativado",
+  "netEmpty": "Nada visto ainda. Use alguns apps e olhe de novo.",
+  "netLookups": "{count} consultas",
+  "netTrackerCount": "{count} domínios de rastreadores",
+  "netClear": "Limpar dados",
+  "netCleared": "Dados de rede apagados.",
+  "netConsentDenied": "O Android não permitiu iniciar o monitor.",
+  "netFailed": "Não foi possível alterar o monitor de rede.",
+  "netUnknownApp": "App desconhecido",
+  "netTrackerTag": "Rastreador: {name}"
 }

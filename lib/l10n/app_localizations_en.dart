@@ -1056,4 +1056,64 @@ class AppLocalizationsEn extends AppLocalizations {
   String trackersFromCode(int count) {
     return 'Found inside the app’s code (marked with a code icon): $count';
   }
+
+  @override
+  String get settingsNet => 'Network monitor';
+
+  @override
+  String get settingsNetBody =>
+      'See which apps look up which internet addresses, and which are trackers';
+
+  @override
+  String get netTitle => 'Network monitor';
+
+  @override
+  String get netIntro =>
+      'Peekless shows which domain names your apps ask for. It uses a local VPN that takes only these lookups, so your internet speed does not change. It cannot see what you send or read, only the names. Nothing leaves your phone.';
+
+  @override
+  String get netLimits =>
+      'It can miss apps that use their own encrypted DNS, or when Private DNS is set to a fixed provider. Android 10 or newer is needed to show which app asked.';
+
+  @override
+  String get netSwitch => 'Monitor lookups';
+
+  @override
+  String get netOn => 'On. Use some apps, then come back to see the results.';
+
+  @override
+  String get netOff => 'Off';
+
+  @override
+  String get netEmpty => 'Nothing seen yet. Use some apps and look again.';
+
+  @override
+  String netLookups(int count) {
+    return '$count lookups';
+  }
+
+  @override
+  String netTrackerCount(int count) {
+    return '$count tracker domains';
+  }
+
+  @override
+  String get netClear => 'Clear data';
+
+  @override
+  String get netCleared => 'Network data cleared.';
+
+  @override
+  String get netConsentDenied => 'Android did not allow the monitor to start.';
+
+  @override
+  String get netFailed => 'Could not change the network monitor.';
+
+  @override
+  String get netUnknownApp => 'Unknown app';
+
+  @override
+  String netTrackerTag(String name) {
+    return 'Tracker: $name';
+  }
 }

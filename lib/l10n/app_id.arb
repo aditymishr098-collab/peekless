@@ -297,5 +297,22 @@
   "homeOverviewBody": "Persentase aplikasi Anda yang dapat menggunakan masing-masing",
   "settingsDeep": "Pemindaian mendalam",
   "settingsDeepBody": "Cari juga pelacak tersembunyi di dalam kode setiap aplikasi. Pemindaian pertama lebih lambat. Aplikasi bawaan ponsel dilewati. Semuanya tetap di ponsel Anda.",
-  "trackersFromCode": "Ditemukan di dalam kode aplikasi (ditandai ikon kode): {count}"
+  "trackersFromCode": "Ditemukan di dalam kode aplikasi (ditandai ikon kode): {count}",
+  "settingsNet": "Monitor jaringan",
+  "settingsNetBody": "Lihat aplikasi mana yang mencari alamat internet mana, dan mana yang pelacak",
+  "netTitle": "Monitor jaringan",
+  "netIntro": "Peekless menunjukkan nama domain apa yang diminta aplikasi Anda. Ia memakai VPN lokal yang hanya menerima pencarian ini, jadi kecepatan internet tidak berubah. Ia tidak bisa melihat apa yang Anda kirim atau baca, hanya namanya. Tidak ada yang keluar dari ponsel Anda.",
+  "netLimits": "Bisa melewatkan aplikasi yang memakai DNS terenkripsi sendiri, atau saat DNS Pribadi diatur ke penyedia tertentu. Diperlukan Android 10 atau lebih baru untuk menampilkan aplikasi yang meminta.",
+  "netSwitch": "Pantau pencarian",
+  "netOn": "Aktif. Gunakan beberapa aplikasi, lalu kembali untuk melihat hasilnya.",
+  "netOff": "Nonaktif",
+  "netEmpty": "Belum ada yang terlihat. Gunakan beberapa aplikasi lalu lihat lagi.",
+  "netLookups": "{count} pencarian",
+  "netTrackerCount": "{count} domain pelacak",
+  "netClear": "Hapus data",
+  "netCleared": "Data jaringan dihapus.",
+  "netConsentDenied": "Android tidak mengizinkan monitor dimulai.",
+  "netFailed": "Tidak dapat mengubah monitor jaringan.",
+  "netUnknownApp": "Aplikasi tidak dikenal",
+  "netTrackerTag": "Pelacak: {name}"
 }

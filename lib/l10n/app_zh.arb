@@ -297,5 +297,22 @@
   "homeOverviewBody": "可使用各项权限的应用所占比例",
   "settingsDeep": "深度扫描",
   "settingsDeepBody": "同时在每个应用的代码内部查找隐藏的追踪器。首次扫描较慢。手机自带的应用会被跳过。所有内容都留在你的手机上。",
-  "trackersFromCode": "在应用代码内发现（以代码图标标记）：{count}"
+  "trackersFromCode": "在应用代码内发现（以代码图标标记）：{count}",
+  "settingsNet": "网络监视器",
+  "settingsNetBody": "查看哪些应用在查询哪些网络地址，以及哪些是追踪器",
+  "netTitle": "网络监视器",
+  "netIntro": "Peekless 会显示你的应用请求了哪些域名。它使用只接收这些查询的本地 VPN，所以网速不会改变。它看不到你发送或阅读的内容，只能看到名称。任何内容都不会离开你的手机。",
+  "netLimits": "对于使用自带加密 DNS 的应用，或私人 DNS 固定为某个提供商时，可能会漏掉。需要 Android 10 或更高版本才能显示是哪个应用发起的请求。",
+  "netSwitch": "监视查询",
+  "netOn": "已开启。请使用一些应用，然后回来查看结果。",
+  "netOff": "已关闭",
+  "netEmpty": "暂时还没有看到任何内容。请使用一些应用后再查看。",
+  "netLookups": "{count} 次查询",
+  "netTrackerCount": "{count} 个追踪器域名",
+  "netClear": "清除数据",
+  "netCleared": "网络数据已清除。",
+  "netConsentDenied": "Android 未允许启动监视器。",
+  "netFailed": "无法更改网络监视器。",
+  "netUnknownApp": "未知应用",
+  "netTrackerTag": "追踪器：{name}"
 }

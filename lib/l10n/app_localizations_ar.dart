@@ -1045,4 +1045,64 @@ class AppLocalizationsAr extends AppLocalizations {
   String trackersFromCode(int count) {
     return 'وُجدت داخل شيفرة التطبيق (مُعلَّمة برمز الشيفرة): $count';
   }
+
+  @override
+  String get settingsNet => 'مراقب الشبكة';
+
+  @override
+  String get settingsNetBody =>
+      'اعرف أي التطبيقات تبحث عن أي عناوين إنترنت، وأيها متتبعات';
+
+  @override
+  String get netTitle => 'مراقب الشبكة';
+
+  @override
+  String get netIntro =>
+      'يعرض Peekless أسماء النطاقات التي تطلبها تطبيقاتك. يستخدم VPN محليًا يلتقط هذه الطلبات فقط، فلا تتغير سرعة الإنترنت. لا يرى ما ترسله أو تقرؤه، بل الأسماء فقط. لا شيء يغادر هاتفك.';
+
+  @override
+  String get netLimits =>
+      'قد يفوته تطبيقات تستخدم DNS مشفّرًا خاصًا بها، أو عندما يكون DNS الخاص مضبوطًا على مزوّد محدد. يلزم Android 10 أو أحدث لعرض التطبيق الذي طلب.';
+
+  @override
+  String get netSwitch => 'مراقبة الطلبات';
+
+  @override
+  String get netOn => 'مفعّل. استخدم بعض التطبيقات ثم عد لرؤية النتائج.';
+
+  @override
+  String get netOff => 'متوقف';
+
+  @override
+  String get netEmpty => 'لم يُرصد شيء بعد. استخدم بعض التطبيقات وانظر مجددًا.';
+
+  @override
+  String netLookups(int count) {
+    return '$count طلبات';
+  }
+
+  @override
+  String netTrackerCount(int count) {
+    return '$count نطاقات متتبعات';
+  }
+
+  @override
+  String get netClear => 'مسح البيانات';
+
+  @override
+  String get netCleared => 'تم مسح بيانات الشبكة.';
+
+  @override
+  String get netConsentDenied => 'لم يسمح Android ببدء المراقب.';
+
+  @override
+  String get netFailed => 'تعذّر تغيير مراقب الشبكة.';
+
+  @override
+  String get netUnknownApp => 'تطبيق غير معروف';
+
+  @override
+  String netTrackerTag(String name) {
+    return 'متتبع: $name';
+  }
 }

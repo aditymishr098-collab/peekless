@@ -1064,4 +1064,66 @@ class AppLocalizationsUk extends AppLocalizations {
   String trackersFromCode(int count) {
     return 'Знайдено всередині коду застосунку (позначені значком коду): $count';
   }
+
+  @override
+  String get settingsNet => 'Мережевий монітор';
+
+  @override
+  String get settingsNetBody =>
+      'Які застосунки запитують які інтернет-адреси і які з них трекери';
+
+  @override
+  String get netTitle => 'Мережевий монітор';
+
+  @override
+  String get netIntro =>
+      'Peekless показує, які доменні імена запитують ваші застосунки. Для цього використовується локальний VPN, який приймає лише такі запити, тож швидкість інтернету не змінюється. Він не бачить, що ви надсилаєте чи читаєте, лише імена. Нічого не залишає ваш телефон.';
+
+  @override
+  String get netLimits =>
+      'Може пропустити застосунки зі своїм зашифрованим DNS або якщо Private DNS заданий на конкретного провайдера. Щоб бачити, який застосунок запитав, потрібен Android 10 або новіший.';
+
+  @override
+  String get netSwitch => 'Стежити за запитами';
+
+  @override
+  String get netOn =>
+      'Увімкнено. Скористайтеся кількома застосунками й поверніться подивитися результат.';
+
+  @override
+  String get netOff => 'Вимкнено';
+
+  @override
+  String get netEmpty =>
+      'Поки нічого немає. Скористайтеся застосунками й загляньте знову.';
+
+  @override
+  String netLookups(int count) {
+    return 'Запитів: $count';
+  }
+
+  @override
+  String netTrackerCount(int count) {
+    return 'Доменів трекерів: $count';
+  }
+
+  @override
+  String get netClear => 'Очистити дані';
+
+  @override
+  String get netCleared => 'Мережеві дані очищено.';
+
+  @override
+  String get netConsentDenied => 'Android не дозволив запустити монітор.';
+
+  @override
+  String get netFailed => 'Не вдалося змінити мережевий монітор.';
+
+  @override
+  String get netUnknownApp => 'Невідомий застосунок';
+
+  @override
+  String netTrackerTag(String name) {
+    return 'Трекер: $name';
+  }
 }

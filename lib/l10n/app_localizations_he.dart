@@ -1046,4 +1046,64 @@ class AppLocalizationsHe extends AppLocalizations {
   String trackersFromCode(int count) {
     return 'נמצאו בתוך קוד האפליקציה (מסומנים בסמל קוד): $count';
   }
+
+  @override
+  String get settingsNet => 'מוניטור רשת';
+
+  @override
+  String get settingsNetBody =>
+      'ראו אילו אפליקציות מחפשות אילו כתובות אינטרנט ואילו מהן עוקבים';
+
+  @override
+  String get netTitle => 'מוניטור רשת';
+
+  @override
+  String get netIntro =>
+      'Peekless מראה אילו שמות דומיין האפליקציות שלכם מבקשות. הוא משתמש ב-VPN מקומי שמקבל רק את הבקשות האלה, ולכן מהירות האינטרנט לא משתנה. הוא לא רואה מה אתם שולחים או קוראים, רק את השמות. שום דבר לא עוזב את הטלפון.';
+
+  @override
+  String get netLimits =>
+      'ייתכן שיחמיץ אפליקציות עם DNS מוצפן משלהן, או כש-DNS פרטי מוגדר לספק קבוע. נדרש Android 10 ומעלה כדי להציג איזו אפליקציה ביקשה.';
+
+  @override
+  String get netSwitch => 'מעקב אחר בקשות';
+
+  @override
+  String get netOn => 'פועל. השתמשו בכמה אפליקציות וחזרו לראות את התוצאות.';
+
+  @override
+  String get netOff => 'כבוי';
+
+  @override
+  String get netEmpty => 'עדיין לא נראה דבר. השתמשו בכמה אפליקציות ובדקו שוב.';
+
+  @override
+  String netLookups(int count) {
+    return '$count בקשות';
+  }
+
+  @override
+  String netTrackerCount(int count) {
+    return '$count דומיינים של עוקבים';
+  }
+
+  @override
+  String get netClear => 'ניקוי נתונים';
+
+  @override
+  String get netCleared => 'נתוני הרשת נוקו.';
+
+  @override
+  String get netConsentDenied => 'Android לא אפשר להפעיל את המוניטור.';
+
+  @override
+  String get netFailed => 'לא ניתן לשנות את מוניטור הרשת.';
+
+  @override
+  String get netUnknownApp => 'אפליקציה לא מוכרת';
+
+  @override
+  String netTrackerTag(String name) {
+    return 'עוקב: $name';
+  }
 }

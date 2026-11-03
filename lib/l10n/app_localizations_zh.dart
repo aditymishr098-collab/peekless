@@ -1022,6 +1022,65 @@ class AppLocalizationsZh extends AppLocalizations {
   String trackersFromCode(int count) {
     return '在应用代码内发现（以代码图标标记）：$count';
   }
+
+  @override
+  String get settingsNet => '网络监视器';
+
+  @override
+  String get settingsNetBody => '查看哪些应用在查询哪些网络地址，以及哪些是追踪器';
+
+  @override
+  String get netTitle => '网络监视器';
+
+  @override
+  String get netIntro =>
+      'Peekless 会显示你的应用请求了哪些域名。它使用只接收这些查询的本地 VPN，所以网速不会改变。它看不到你发送或阅读的内容，只能看到名称。任何内容都不会离开你的手机。';
+
+  @override
+  String get netLimits =>
+      '对于使用自带加密 DNS 的应用，或私人 DNS 固定为某个提供商时，可能会漏掉。需要 Android 10 或更高版本才能显示是哪个应用发起的请求。';
+
+  @override
+  String get netSwitch => '监视查询';
+
+  @override
+  String get netOn => '已开启。请使用一些应用，然后回来查看结果。';
+
+  @override
+  String get netOff => '已关闭';
+
+  @override
+  String get netEmpty => '暂时还没有看到任何内容。请使用一些应用后再查看。';
+
+  @override
+  String netLookups(int count) {
+    return '$count 次查询';
+  }
+
+  @override
+  String netTrackerCount(int count) {
+    return '$count 个追踪器域名';
+  }
+
+  @override
+  String get netClear => '清除数据';
+
+  @override
+  String get netCleared => '网络数据已清除。';
+
+  @override
+  String get netConsentDenied => 'Android 未允许启动监视器。';
+
+  @override
+  String get netFailed => '无法更改网络监视器。';
+
+  @override
+  String get netUnknownApp => '未知应用';
+
+  @override
+  String netTrackerTag(String name) {
+    return '追踪器：$name';
+  }
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -2041,5 +2100,64 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   @override
   String trackersFromCode(int count) {
     return '在應用程式程式碼內發現（以程式碼圖示標記）：$count';
+  }
+
+  @override
+  String get settingsNet => '網路監視器';
+
+  @override
+  String get settingsNetBody => '查看哪些應用程式在查詢哪些網路位址，以及哪些是追蹤器';
+
+  @override
+  String get netTitle => '網路監視器';
+
+  @override
+  String get netIntro =>
+      'Peekless 會顯示你的應用程式請求了哪些網域名稱。它使用只接收這些查詢的本機 VPN，所以網速不會改變。它看不到你傳送或閱讀的內容，只能看到名稱。任何內容都不會離開你的手機。';
+
+  @override
+  String get netLimits =>
+      '對於使用自帶加密 DNS 的應用程式，或私人 DNS 固定為某個提供者時，可能會漏掉。需要 Android 10 或更新版本才能顯示是哪個應用程式發出的請求。';
+
+  @override
+  String get netSwitch => '監視查詢';
+
+  @override
+  String get netOn => '已開啟。請使用一些應用程式，然後回來查看結果。';
+
+  @override
+  String get netOff => '已關閉';
+
+  @override
+  String get netEmpty => '目前還沒有看到任何內容。請使用一些應用程式後再查看。';
+
+  @override
+  String netLookups(int count) {
+    return '$count 次查詢';
+  }
+
+  @override
+  String netTrackerCount(int count) {
+    return '$count 個追蹤器網域';
+  }
+
+  @override
+  String get netClear => '清除資料';
+
+  @override
+  String get netCleared => '網路資料已清除。';
+
+  @override
+  String get netConsentDenied => 'Android 未允許啟動監視器。';
+
+  @override
+  String get netFailed => '無法變更網路監視器。';
+
+  @override
+  String get netUnknownApp => '未知應用程式';
+
+  @override
+  String netTrackerTag(String name) {
+    return '追蹤器：$name';
   }
 }

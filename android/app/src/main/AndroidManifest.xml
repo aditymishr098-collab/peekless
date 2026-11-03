@@ -7,6 +7,8 @@
     <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"/>
     <!-- App alerts: notifications, and a background check that survives a restart. -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <!-- Network monitor: to find the phone's own DNS server. -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <!-- Optional. Only used to see when an app was last opened, if you turn on Usage access. -->
     <uses-permission
@@ -40,6 +42,15 @@
             android:name=".AlertJobService"
             android:permission="android.permission.BIND_JOB_SERVICE"
             android:exported="false"/>
+        <!-- Network monitor: a local VPN that only takes DNS questions. -->
+        <service
+            android:name=".NetMonitorService"
+            android:exported="true"
+            android:permission="android.permission.BIND_VPN_SERVICE">
+            <intent-filter>
+                <action android:name="android.net.VpnService"/>
+            </intent-filter>
+        </service>
         <!-- Home screen widget with the privacy score. -->
         <receiver
             android:name=".ScoreWidget"

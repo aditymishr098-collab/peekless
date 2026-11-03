@@ -1069,4 +1069,64 @@ class AppLocalizationsIt extends AppLocalizations {
   String trackersFromCode(int count) {
     return 'Trovati nel codice dell’app (contrassegnati da un’icona di codice): $count';
   }
+
+  @override
+  String get settingsNet => 'Monitor di rete';
+
+  @override
+  String get settingsNetBody =>
+      'Vedi quali app cercano quali indirizzi internet e quali sono tracker';
+
+  @override
+  String get netTitle => 'Monitor di rete';
+
+  @override
+  String get netIntro =>
+      'Peekless mostra quali nomi di dominio chiedono le tue app. Usa una VPN locale che prende solo queste richieste, quindi la velocità di internet non cambia. Non vede cosa invii o leggi, solo i nomi. Nulla lascia il tuo telefono.';
+
+  @override
+  String get netLimits =>
+      'Può non vedere le app che usano un proprio DNS cifrato, o quando il DNS privato è fisso su un provider. Serve Android 10 o successivo per mostrare quale app ha chiesto.';
+
+  @override
+  String get netSwitch => 'Monitora le richieste';
+
+  @override
+  String get netOn => 'Attivo. Usa alcune app, poi torna a vedere i risultati.';
+
+  @override
+  String get netOff => 'Disattivato';
+
+  @override
+  String get netEmpty => 'Ancora nulla. Usa alcune app e controlla di nuovo.';
+
+  @override
+  String netLookups(int count) {
+    return '$count richieste';
+  }
+
+  @override
+  String netTrackerCount(int count) {
+    return '$count domini di tracker';
+  }
+
+  @override
+  String get netClear => 'Cancella dati';
+
+  @override
+  String get netCleared => 'Dati di rete cancellati.';
+
+  @override
+  String get netConsentDenied => 'Android non ha permesso l’avvio del monitor.';
+
+  @override
+  String get netFailed => 'Impossibile modificare il monitor di rete.';
+
+  @override
+  String get netUnknownApp => 'App sconosciuta';
+
+  @override
+  String netTrackerTag(String name) {
+    return 'Tracker: $name';
+  }
 }

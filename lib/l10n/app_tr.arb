@@ -297,5 +297,22 @@
   "homeOverviewBody": "Uygulamalarınızın her birini kullanabilen kısmı",
   "settingsDeep": "Derin tarama",
   "settingsDeepBody": "Gizli izleyicileri her uygulamanın kodunun içinde de arar. İlk tarama daha yavaştır. Telefonla gelen uygulamalar atlanır. Her şey telefonunuzda kalır.",
-  "trackersFromCode": "Uygulamanın kodunda bulundu (kod simgesiyle işaretli): {count}"
+  "trackersFromCode": "Uygulamanın kodunda bulundu (kod simgesiyle işaretli): {count}",
+  "settingsNet": "Ağ monitörü",
+  "settingsNetBody": "Hangi uygulamaların hangi internet adreslerini sorguladığını ve hangilerinin izleyici olduğunu görün",
+  "netTitle": "Ağ monitörü",
+  "netIntro": "Peekless, uygulamalarınızın hangi alan adlarını istediğini gösterir. Yalnızca bu sorguları alan yerel bir VPN kullanır, bu yüzden internet hızınız değişmez. Gönderdiklerinizi veya okuduklarınızı göremez, yalnızca adları görür. Hiçbir şey telefonunuzdan çıkmaz.",
+  "netLimits": "Kendi şifreli DNS’ini kullanan uygulamaları veya Özel DNS sabit bir sağlayıcıya ayarlıyken bazılarını kaçırabilir. Hangi uygulamanın sorduğunu göstermek için Android 10 veya üzeri gerekir.",
+  "netSwitch": "Sorguları izle",
+  "netOn": "Açık. Birkaç uygulama kullanın, sonra sonuçlara bakmaya dönün.",
+  "netOff": "Kapalı",
+  "netEmpty": "Henüz bir şey görülmedi. Birkaç uygulama kullanın ve tekrar bakın.",
+  "netLookups": "{count} sorgu",
+  "netTrackerCount": "{count} izleyici alan adı",
+  "netClear": "Verileri temizle",
+  "netCleared": "Ağ verileri temizlendi.",
+  "netConsentDenied": "Android monitörün başlamasına izin vermedi.",
+  "netFailed": "Ağ monitörü değiştirilemedi.",
+  "netUnknownApp": "Bilinmeyen uygulama",
+  "netTrackerTag": "İzleyici: {name}"
 }

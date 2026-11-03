@@ -1026,4 +1026,63 @@ class AppLocalizationsJa extends AppLocalizations {
   String trackersFromCode(int count) {
     return 'アプリのコード内で発見（コードアイコン付き）：$count';
   }
+
+  @override
+  String get settingsNet => 'ネットワークモニター';
+
+  @override
+  String get settingsNetBody => 'どのアプリがどのインターネットアドレスを調べているか、どれがトラッカーかを確認します';
+
+  @override
+  String get netTitle => 'ネットワークモニター';
+
+  @override
+  String get netIntro =>
+      'Peekless は、アプリが問い合わせるドメイン名を表示します。この問い合わせだけを受け取るローカル VPN を使うので、通信速度は変わりません。送信内容や閲覧内容は見えず、名前だけが分かります。何も端末の外には出ません。';
+
+  @override
+  String get netLimits =>
+      '独自の暗号化 DNS を使うアプリや、プライベート DNS が特定のプロバイダーに固定されている場合は検出できないことがあります。問い合わせたアプリを表示するには Android 10 以降が必要です。';
+
+  @override
+  String get netSwitch => '問い合わせを監視';
+
+  @override
+  String get netOn => 'オン。いくつかアプリを使ってから、結果を見に戻ってきてください。';
+
+  @override
+  String get netOff => 'オフ';
+
+  @override
+  String get netEmpty => 'まだ何も見つかっていません。アプリを使ってからもう一度確認してください。';
+
+  @override
+  String netLookups(int count) {
+    return '問い合わせ $count 件';
+  }
+
+  @override
+  String netTrackerCount(int count) {
+    return 'トラッカーのドメイン $count 件';
+  }
+
+  @override
+  String get netClear => 'データを消去';
+
+  @override
+  String get netCleared => 'ネットワークデータを消去しました。';
+
+  @override
+  String get netConsentDenied => 'Android がモニターの開始を許可しませんでした。';
+
+  @override
+  String get netFailed => 'ネットワークモニターを変更できませんでした。';
+
+  @override
+  String get netUnknownApp => '不明なアプリ';
+
+  @override
+  String netTrackerTag(String name) {
+    return 'トラッカー：$name';
+  }
 }

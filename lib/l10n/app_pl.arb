@@ -297,5 +297,22 @@
   "homeOverviewBody": "Odsetek twoich aplikacji, które mogą z nich korzystać",
   "settingsDeep": "Głębokie skanowanie",
   "settingsDeepBody": "Szuka ukrytych trackerów także w kodzie każdej aplikacji. Pierwsze skanowanie trwa dłużej. Aplikacje fabryczne są pomijane. Wszystko zostaje na twoim telefonie.",
-  "trackersFromCode": "Znalezione w kodzie aplikacji (oznaczone ikoną kodu): {count}"
+  "trackersFromCode": "Znalezione w kodzie aplikacji (oznaczone ikoną kodu): {count}",
+  "settingsNet": "Monitor sieci",
+  "settingsNetBody": "Zobacz, które aplikacje wyszukują jakie adresy internetowe i które z nich to trackery",
+  "netTitle": "Monitor sieci",
+  "netIntro": "Peekless pokazuje, o jakie nazwy domen pytają twoje aplikacje. Używa lokalnego VPN, który przyjmuje tylko te zapytania, więc prędkość internetu się nie zmienia. Nie widzi, co wysyłasz ani czytasz, tylko nazwy. Nic nie opuszcza twojego telefonu.",
+  "netLimits": "Może pominąć aplikacje z własnym szyfrowanym DNS lub gdy prywatny DNS jest ustawiony na stałego dostawcę. Aby pokazać, która aplikacja zapytała, potrzebny jest Android 10 lub nowszy.",
+  "netSwitch": "Monitoruj zapytania",
+  "netOn": "Włączone. Użyj kilku aplikacji, potem wróć zobaczyć wyniki.",
+  "netOff": "Wyłączone",
+  "netEmpty": "Na razie nic nie widać. Użyj kilku aplikacji i sprawdź ponownie.",
+  "netLookups": "Zapytań: {count}",
+  "netTrackerCount": "Domen trackerów: {count}",
+  "netClear": "Wyczyść dane",
+  "netCleared": "Dane sieciowe wyczyszczone.",
+  "netConsentDenied": "Android nie pozwolił uruchomić monitora.",
+  "netFailed": "Nie udało się zmienić monitora sieci.",
+  "netUnknownApp": "Nieznana aplikacja",
+  "netTrackerTag": "Tracker: {name}"
 }

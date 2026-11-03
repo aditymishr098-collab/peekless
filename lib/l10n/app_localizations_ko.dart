@@ -1026,4 +1026,63 @@ class AppLocalizationsKo extends AppLocalizations {
   String trackersFromCode(int count) {
     return '앱 코드 안에서 발견됨(코드 아이콘으로 표시): $count';
   }
+
+  @override
+  String get settingsNet => '네트워크 모니터';
+
+  @override
+  String get settingsNetBody => '어떤 앱이 어떤 인터넷 주소를 조회하는지, 어떤 것이 추적기인지 확인하세요';
+
+  @override
+  String get netTitle => '네트워크 모니터';
+
+  @override
+  String get netIntro =>
+      'Peekless는 앱이 요청하는 도메인 이름을 보여 줍니다. 이 조회만 받는 로컬 VPN을 사용하므로 인터넷 속도는 변하지 않습니다. 보내거나 읽는 내용은 볼 수 없고 이름만 봅니다. 아무것도 휴대폰 밖으로 나가지 않습니다.';
+
+  @override
+  String get netLimits =>
+      '자체 암호화 DNS를 쓰는 앱이나 프라이빗 DNS가 특정 제공업체로 고정된 경우에는 놓칠 수 있습니다. 어떤 앱이 요청했는지 보려면 Android 10 이상이 필요합니다.';
+
+  @override
+  String get netSwitch => '조회 모니터링';
+
+  @override
+  String get netOn => '켜짐. 앱을 몇 개 사용한 뒤 결과를 보러 오세요.';
+
+  @override
+  String get netOff => '꺼짐';
+
+  @override
+  String get netEmpty => '아직 아무것도 보이지 않습니다. 앱을 사용한 뒤 다시 확인하세요.';
+
+  @override
+  String netLookups(int count) {
+    return '조회 $count건';
+  }
+
+  @override
+  String netTrackerCount(int count) {
+    return '추적기 도메인 $count개';
+  }
+
+  @override
+  String get netClear => '데이터 지우기';
+
+  @override
+  String get netCleared => '네트워크 데이터를 지웠습니다.';
+
+  @override
+  String get netConsentDenied => 'Android가 모니터 시작을 허용하지 않았습니다.';
+
+  @override
+  String get netFailed => '네트워크 모니터를 변경할 수 없습니다.';
+
+  @override
+  String get netUnknownApp => '알 수 없는 앱';
+
+  @override
+  String netTrackerTag(String name) {
+    return '추적기: $name';
+  }
 }

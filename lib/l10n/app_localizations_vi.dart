@@ -1061,4 +1061,65 @@ class AppLocalizationsVi extends AppLocalizations {
   String trackersFromCode(int count) {
     return 'Tìm thấy trong mã ứng dụng (đánh dấu bằng biểu tượng mã): $count';
   }
+
+  @override
+  String get settingsNet => 'Giám sát mạng';
+
+  @override
+  String get settingsNetBody =>
+      'Xem ứng dụng nào tra cứu địa chỉ internet nào, và đâu là trình theo dõi';
+
+  @override
+  String get netTitle => 'Giám sát mạng';
+
+  @override
+  String get netIntro =>
+      'Peekless cho biết các ứng dụng của bạn hỏi những tên miền nào. Nó dùng một VPN cục bộ chỉ nhận các lượt tra cứu này nên tốc độ internet không đổi. Nó không thấy bạn gửi hay đọc gì, chỉ thấy tên. Không có gì rời khỏi điện thoại của bạn.';
+
+  @override
+  String get netLimits =>
+      'Có thể bỏ sót ứng dụng dùng DNS mã hóa riêng, hoặc khi DNS riêng được đặt cố định cho một nhà cung cấp. Cần Android 10 trở lên để hiển thị ứng dụng nào đã hỏi.';
+
+  @override
+  String get netSwitch => 'Giám sát tra cứu';
+
+  @override
+  String get netOn =>
+      'Đang bật. Hãy dùng vài ứng dụng rồi quay lại xem kết quả.';
+
+  @override
+  String get netOff => 'Tắt';
+
+  @override
+  String get netEmpty => 'Chưa thấy gì. Hãy dùng vài ứng dụng rồi xem lại.';
+
+  @override
+  String netLookups(int count) {
+    return '$count lượt tra cứu';
+  }
+
+  @override
+  String netTrackerCount(int count) {
+    return '$count tên miền theo dõi';
+  }
+
+  @override
+  String get netClear => 'Xóa dữ liệu';
+
+  @override
+  String get netCleared => 'Đã xóa dữ liệu mạng.';
+
+  @override
+  String get netConsentDenied => 'Android không cho phép bắt đầu giám sát.';
+
+  @override
+  String get netFailed => 'Không thể thay đổi giám sát mạng.';
+
+  @override
+  String get netUnknownApp => 'Ứng dụng không rõ';
+
+  @override
+  String netTrackerTag(String name) {
+    return 'Trình theo dõi: $name';
+  }
 }

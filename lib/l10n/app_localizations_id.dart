@@ -1060,4 +1060,66 @@ class AppLocalizationsId extends AppLocalizations {
   String trackersFromCode(int count) {
     return 'Ditemukan di dalam kode aplikasi (ditandai ikon kode): $count';
   }
+
+  @override
+  String get settingsNet => 'Monitor jaringan';
+
+  @override
+  String get settingsNetBody =>
+      'Lihat aplikasi mana yang mencari alamat internet mana, dan mana yang pelacak';
+
+  @override
+  String get netTitle => 'Monitor jaringan';
+
+  @override
+  String get netIntro =>
+      'Peekless menunjukkan nama domain apa yang diminta aplikasi Anda. Ia memakai VPN lokal yang hanya menerima pencarian ini, jadi kecepatan internet tidak berubah. Ia tidak bisa melihat apa yang Anda kirim atau baca, hanya namanya. Tidak ada yang keluar dari ponsel Anda.';
+
+  @override
+  String get netLimits =>
+      'Bisa melewatkan aplikasi yang memakai DNS terenkripsi sendiri, atau saat DNS Pribadi diatur ke penyedia tertentu. Diperlukan Android 10 atau lebih baru untuk menampilkan aplikasi yang meminta.';
+
+  @override
+  String get netSwitch => 'Pantau pencarian';
+
+  @override
+  String get netOn =>
+      'Aktif. Gunakan beberapa aplikasi, lalu kembali untuk melihat hasilnya.';
+
+  @override
+  String get netOff => 'Nonaktif';
+
+  @override
+  String get netEmpty =>
+      'Belum ada yang terlihat. Gunakan beberapa aplikasi lalu lihat lagi.';
+
+  @override
+  String netLookups(int count) {
+    return '$count pencarian';
+  }
+
+  @override
+  String netTrackerCount(int count) {
+    return '$count domain pelacak';
+  }
+
+  @override
+  String get netClear => 'Hapus data';
+
+  @override
+  String get netCleared => 'Data jaringan dihapus.';
+
+  @override
+  String get netConsentDenied => 'Android tidak mengizinkan monitor dimulai.';
+
+  @override
+  String get netFailed => 'Tidak dapat mengubah monitor jaringan.';
+
+  @override
+  String get netUnknownApp => 'Aplikasi tidak dikenal';
+
+  @override
+  String netTrackerTag(String name) {
+    return 'Pelacak: $name';
+  }
 }

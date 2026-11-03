@@ -1056,4 +1056,66 @@ class AppLocalizationsTr extends AppLocalizations {
   String trackersFromCode(int count) {
     return 'Uygulamanın kodunda bulundu (kod simgesiyle işaretli): $count';
   }
+
+  @override
+  String get settingsNet => 'Ağ monitörü';
+
+  @override
+  String get settingsNetBody =>
+      'Hangi uygulamaların hangi internet adreslerini sorguladığını ve hangilerinin izleyici olduğunu görün';
+
+  @override
+  String get netTitle => 'Ağ monitörü';
+
+  @override
+  String get netIntro =>
+      'Peekless, uygulamalarınızın hangi alan adlarını istediğini gösterir. Yalnızca bu sorguları alan yerel bir VPN kullanır, bu yüzden internet hızınız değişmez. Gönderdiklerinizi veya okuduklarınızı göremez, yalnızca adları görür. Hiçbir şey telefonunuzdan çıkmaz.';
+
+  @override
+  String get netLimits =>
+      'Kendi şifreli DNS’ini kullanan uygulamaları veya Özel DNS sabit bir sağlayıcıya ayarlıyken bazılarını kaçırabilir. Hangi uygulamanın sorduğunu göstermek için Android 10 veya üzeri gerekir.';
+
+  @override
+  String get netSwitch => 'Sorguları izle';
+
+  @override
+  String get netOn =>
+      'Açık. Birkaç uygulama kullanın, sonra sonuçlara bakmaya dönün.';
+
+  @override
+  String get netOff => 'Kapalı';
+
+  @override
+  String get netEmpty =>
+      'Henüz bir şey görülmedi. Birkaç uygulama kullanın ve tekrar bakın.';
+
+  @override
+  String netLookups(int count) {
+    return '$count sorgu';
+  }
+
+  @override
+  String netTrackerCount(int count) {
+    return '$count izleyici alan adı';
+  }
+
+  @override
+  String get netClear => 'Verileri temizle';
+
+  @override
+  String get netCleared => 'Ağ verileri temizlendi.';
+
+  @override
+  String get netConsentDenied => 'Android monitörün başlamasına izin vermedi.';
+
+  @override
+  String get netFailed => 'Ağ monitörü değiştirilemedi.';
+
+  @override
+  String get netUnknownApp => 'Bilinmeyen uygulama';
+
+  @override
+  String netTrackerTag(String name) {
+    return 'İzleyici: $name';
+  }
 }

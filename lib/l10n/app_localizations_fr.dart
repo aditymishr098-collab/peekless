@@ -1069,4 +1069,67 @@ class AppLocalizationsFr extends AppLocalizations {
   String trackersFromCode(int count) {
     return 'Trouvés dans le code de l’appli (marqués d’une icône de code) : $count';
   }
+
+  @override
+  String get settingsNet => 'Moniteur réseau';
+
+  @override
+  String get settingsNetBody =>
+      'Voyez quelles applis interrogent quelles adresses internet, et lesquelles sont des traqueurs';
+
+  @override
+  String get netTitle => 'Moniteur réseau';
+
+  @override
+  String get netIntro =>
+      'Peekless montre quels noms de domaine vos applis demandent. Il utilise un VPN local qui ne prend que ces requêtes, donc la vitesse d’internet ne change pas. Il ne voit pas ce que vous envoyez ou lisez, seulement les noms. Rien ne quitte votre téléphone.';
+
+  @override
+  String get netLimits =>
+      'Il peut manquer les applis qui utilisent leur propre DNS chiffré, ou quand le DNS privé est fixé sur un fournisseur. Android 10 ou plus récent est nécessaire pour voir quelle appli a demandé.';
+
+  @override
+  String get netSwitch => 'Surveiller les requêtes';
+
+  @override
+  String get netOn =>
+      'Activé. Utilisez quelques applis, puis revenez voir les résultats.';
+
+  @override
+  String get netOff => 'Désactivé';
+
+  @override
+  String get netEmpty =>
+      'Rien vu pour l’instant. Utilisez quelques applis et regardez à nouveau.';
+
+  @override
+  String netLookups(int count) {
+    return '$count requêtes';
+  }
+
+  @override
+  String netTrackerCount(int count) {
+    return '$count domaines de traqueurs';
+  }
+
+  @override
+  String get netClear => 'Effacer les données';
+
+  @override
+  String get netCleared => 'Données réseau effacées.';
+
+  @override
+  String get netConsentDenied =>
+      'Android n’a pas autorisé le démarrage du moniteur.';
+
+  @override
+  String get netFailed => 'Impossible de modifier le moniteur réseau.';
+
+  @override
+  String get netUnknownApp => 'Appli inconnue';
+
+  @override
+  String netTrackerTag(String name) {
+    return 'Traqueur : $name';
+  }
 }

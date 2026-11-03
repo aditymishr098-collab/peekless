@@ -110,4 +110,28 @@ class NativeBridge {
   static Future<bool> requestAddWidget() async {
     return (await _channel.invokeMethod<bool>('requestAddWidget')) ?? false;
   }
+
+  /// True while the network monitor (local VPN) is running.
+  static Future<bool> netRunning() async {
+    return (await _channel.invokeMethod<bool>('netRunning')) ?? false;
+  }
+
+  /// Starts the network monitor. Android shows its own VPN dialog the first
+  /// time. False when the user said no or it could not start.
+  static Future<bool> netStart() async {
+    return (await _channel.invokeMethod<bool>('netStart')) ?? false;
+  }
+
+  static Future<void> netStop() async {
+    await _channel.invokeMethod<void>('netStop');
+  }
+
+  /// What the monitor has seen, as JSON text. See [NetReport.parse].
+  static Future<String> netReport() async {
+    return (await _channel.invokeMethod<String>('netReport')) ?? '';
+  }
+
+  static Future<void> netClear() async {
+    await _channel.invokeMethod<void>('netClear');
+  }
 }

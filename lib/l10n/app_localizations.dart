@@ -1930,6 +1930,108 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Found inside the app’s code (marked with a code icon): {count}'**
   String trackersFromCode(int count);
+
+  /// No description provided for @settingsNet.
+  ///
+  /// In en, this message translates to:
+  /// **'Network monitor'**
+  String get settingsNet;
+
+  /// No description provided for @settingsNetBody.
+  ///
+  /// In en, this message translates to:
+  /// **'See which apps look up which internet addresses, and which are trackers'**
+  String get settingsNetBody;
+
+  /// No description provided for @netTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Network monitor'**
+  String get netTitle;
+
+  /// No description provided for @netIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Peekless shows which domain names your apps ask for. It uses a local VPN that takes only these lookups, so your internet speed does not change. It cannot see what you send or read, only the names. Nothing leaves your phone.'**
+  String get netIntro;
+
+  /// No description provided for @netLimits.
+  ///
+  /// In en, this message translates to:
+  /// **'It can miss apps that use their own encrypted DNS, or when Private DNS is set to a fixed provider. Android 10 or newer is needed to show which app asked.'**
+  String get netLimits;
+
+  /// No description provided for @netSwitch.
+  ///
+  /// In en, this message translates to:
+  /// **'Monitor lookups'**
+  String get netSwitch;
+
+  /// No description provided for @netOn.
+  ///
+  /// In en, this message translates to:
+  /// **'On. Use some apps, then come back to see the results.'**
+  String get netOn;
+
+  /// No description provided for @netOff.
+  ///
+  /// In en, this message translates to:
+  /// **'Off'**
+  String get netOff;
+
+  /// No description provided for @netEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing seen yet. Use some apps and look again.'**
+  String get netEmpty;
+
+  /// No description provided for @netLookups.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} lookups'**
+  String netLookups(int count);
+
+  /// No description provided for @netTrackerCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} tracker domains'**
+  String netTrackerCount(int count);
+
+  /// No description provided for @netClear.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear data'**
+  String get netClear;
+
+  /// No description provided for @netCleared.
+  ///
+  /// In en, this message translates to:
+  /// **'Network data cleared.'**
+  String get netCleared;
+
+  /// No description provided for @netConsentDenied.
+  ///
+  /// In en, this message translates to:
+  /// **'Android did not allow the monitor to start.'**
+  String get netConsentDenied;
+
+  /// No description provided for @netFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not change the network monitor.'**
+  String get netFailed;
+
+  /// No description provided for @netUnknownApp.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown app'**
+  String get netUnknownApp;
+
+  /// No description provided for @netTrackerTag.
+  ///
+  /// In en, this message translates to:
+  /// **'Tracker: {name}'**
+  String netTrackerTag(String name);
 }
 
 class _AppLocalizationsDelegate

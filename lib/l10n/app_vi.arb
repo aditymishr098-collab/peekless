@@ -297,5 +297,22 @@
   "homeOverviewBody": "Tỷ lệ ứng dụng của bạn có thể dùng từng mục",
   "settingsDeep": "Quét sâu",
   "settingsDeepBody": "Tìm cả trình theo dõi ẩn bên trong mã của từng ứng dụng. Lần quét đầu tiên chậm hơn. Ứng dụng có sẵn trên điện thoại sẽ bị bỏ qua. Mọi thứ vẫn ở trên điện thoại của bạn.",
-  "trackersFromCode": "Tìm thấy trong mã ứng dụng (đánh dấu bằng biểu tượng mã): {count}"
+  "trackersFromCode": "Tìm thấy trong mã ứng dụng (đánh dấu bằng biểu tượng mã): {count}",
+  "settingsNet": "Giám sát mạng",
+  "settingsNetBody": "Xem ứng dụng nào tra cứu địa chỉ internet nào, và đâu là trình theo dõi",
+  "netTitle": "Giám sát mạng",
+  "netIntro": "Peekless cho biết các ứng dụng của bạn hỏi những tên miền nào. Nó dùng một VPN cục bộ chỉ nhận các lượt tra cứu này nên tốc độ internet không đổi. Nó không thấy bạn gửi hay đọc gì, chỉ thấy tên. Không có gì rời khỏi điện thoại của bạn.",
+  "netLimits": "Có thể bỏ sót ứng dụng dùng DNS mã hóa riêng, hoặc khi DNS riêng được đặt cố định cho một nhà cung cấp. Cần Android 10 trở lên để hiển thị ứng dụng nào đã hỏi.",
+  "netSwitch": "Giám sát tra cứu",
+  "netOn": "Đang bật. Hãy dùng vài ứng dụng rồi quay lại xem kết quả.",
+  "netOff": "Tắt",
+  "netEmpty": "Chưa thấy gì. Hãy dùng vài ứng dụng rồi xem lại.",
+  "netLookups": "{count} lượt tra cứu",
+  "netTrackerCount": "{count} tên miền theo dõi",
+  "netClear": "Xóa dữ liệu",
+  "netCleared": "Đã xóa dữ liệu mạng.",
+  "netConsentDenied": "Android không cho phép bắt đầu giám sát.",
+  "netFailed": "Không thể thay đổi giám sát mạng.",
+  "netUnknownApp": "Ứng dụng không rõ",
+  "netTrackerTag": "Trình theo dõi: {name}"
 }

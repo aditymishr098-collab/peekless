@@ -773,5 +773,43 @@
         "type": "int"
       }
     }
+  },
+  "settingsNet": "Network monitor",
+  "settingsNetBody": "See which apps look up which internet addresses, and which are trackers",
+  "netTitle": "Network monitor",
+  "netIntro": "Peekless shows which domain names your apps ask for. It uses a local VPN that takes only these lookups, so your internet speed does not change. It cannot see what you send or read, only the names. Nothing leaves your phone.",
+  "netLimits": "It can miss apps that use their own encrypted DNS, or when Private DNS is set to a fixed provider. Android 10 or newer is needed to show which app asked.",
+  "netSwitch": "Monitor lookups",
+  "netOn": "On. Use some apps, then come back to see the results.",
+  "netOff": "Off",
+  "netEmpty": "Nothing seen yet. Use some apps and look again.",
+  "netLookups": "{count} lookups",
+  "@netLookups": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "netTrackerCount": "{count} tracker domains",
+  "@netTrackerCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "netClear": "Clear data",
+  "netCleared": "Network data cleared.",
+  "netConsentDenied": "Android did not allow the monitor to start.",
+  "netFailed": "Could not change the network monitor.",
+  "netUnknownApp": "Unknown app",
+  "netTrackerTag": "Tracker: {name}",
+  "@netTrackerTag": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
   }
 }

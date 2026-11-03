@@ -1068,4 +1068,66 @@ class AppLocalizationsHy extends AppLocalizations {
   String trackersFromCode(int count) {
     return 'Գտնվել է հավելվածի կոդի ներսում (նշված կոդի պատկերակով)՝ $count';
   }
+
+  @override
+  String get settingsNet => 'Ցանցի մոնիտոր';
+
+  @override
+  String get settingsNetBody =>
+      'Տեսեք՝ որ հավելվածներն են որ ինտերնետ հասցեներն որոնում և որոնք են հետագծողները';
+
+  @override
+  String get netTitle => 'Ցանցի մոնիտոր';
+
+  @override
+  String get netIntro =>
+      'Peekless-ը ցույց է տալիս, թե ձեր հավելվածները որ դոմենային անուններն են հարցնում։ Այն օգտագործում է տեղային VPN, որը վերցնում է միայն այս հարցումները, ուստի ինտերնետի արագությունը չի փոխվում։ Այն չի տեսնում, թե ինչ եք ուղարկում կամ կարդում, միայն անունները։ Ոչինչ չի դուրս գալիս ձեր հեռախոսից։';
+
+  @override
+  String get netLimits =>
+      'Կարող է բաց թողնել հավելվածներ, որոնք օգտագործում են սեփական գաղտնագրված DNS, կամ երբ Private DNS-ը դրված է որոշակի մատակարարի վրա։ Հավելվածը ցույց տալու համար պետք է Android 10 կամ ավելի նոր։';
+
+  @override
+  String get netSwitch => 'Վերահսկել հարցումները';
+
+  @override
+  String get netOn =>
+      'Միացված է։ Օգտագործեք մի քանի հավելված, ապա վերադարձեք արդյունքները տեսնելու։';
+
+  @override
+  String get netOff => 'Անջատված է';
+
+  @override
+  String get netEmpty =>
+      'Դեռ ոչինչ չի երևացել։ Օգտագործեք մի քանի հավելված և նորից նայեք։';
+
+  @override
+  String netLookups(int count) {
+    return '$count հարցում';
+  }
+
+  @override
+  String netTrackerCount(int count) {
+    return '$count հետագծող դոմեն';
+  }
+
+  @override
+  String get netClear => 'Մաքրել տվյալները';
+
+  @override
+  String get netCleared => 'Ցանցի տվյալները մաքրվեցին։';
+
+  @override
+  String get netConsentDenied => 'Android-ը թույլ չտվեց մոնիտորը միացնել։';
+
+  @override
+  String get netFailed => 'Չհաջողվեց փոխել ցանցի մոնիտորը։';
+
+  @override
+  String get netUnknownApp => 'Անհայտ հավելված';
+
+  @override
+  String netTrackerTag(String name) {
+    return 'Հետագծող՝ $name';
+  }
 }

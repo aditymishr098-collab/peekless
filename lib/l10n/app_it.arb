@@ -297,5 +297,22 @@
   "homeOverviewBody": "Quota delle tue app che possono usare ciascuno",
   "settingsDeep": "Scansione approfondita",
   "settingsDeepBody": "Cerca tracker nascosti anche dentro il codice di ogni app. La prima scansione è più lenta. Le app preinstallate sul telefono vengono saltate. Tutto resta sul tuo telefono.",
-  "trackersFromCode": "Trovati nel codice dell’app (contrassegnati da un’icona di codice): {count}"
+  "trackersFromCode": "Trovati nel codice dell’app (contrassegnati da un’icona di codice): {count}",
+  "settingsNet": "Monitor di rete",
+  "settingsNetBody": "Vedi quali app cercano quali indirizzi internet e quali sono tracker",
+  "netTitle": "Monitor di rete",
+  "netIntro": "Peekless mostra quali nomi di dominio chiedono le tue app. Usa una VPN locale che prende solo queste richieste, quindi la velocità di internet non cambia. Non vede cosa invii o leggi, solo i nomi. Nulla lascia il tuo telefono.",
+  "netLimits": "Può non vedere le app che usano un proprio DNS cifrato, o quando il DNS privato è fisso su un provider. Serve Android 10 o successivo per mostrare quale app ha chiesto.",
+  "netSwitch": "Monitora le richieste",
+  "netOn": "Attivo. Usa alcune app, poi torna a vedere i risultati.",
+  "netOff": "Disattivato",
+  "netEmpty": "Ancora nulla. Usa alcune app e controlla di nuovo.",
+  "netLookups": "{count} richieste",
+  "netTrackerCount": "{count} domini di tracker",
+  "netClear": "Cancella dati",
+  "netCleared": "Dati di rete cancellati.",
+  "netConsentDenied": "Android non ha permesso l’avvio del monitor.",
+  "netFailed": "Impossibile modificare il monitor di rete.",
+  "netUnknownApp": "App sconosciuta",
+  "netTrackerTag": "Tracker: {name}"
 }

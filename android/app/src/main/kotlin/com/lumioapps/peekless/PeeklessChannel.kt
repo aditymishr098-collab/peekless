@@ -20,6 +20,7 @@ class PeeklessChannel(
     messenger: BinaryMessenger,
     private val activity: Activity? = null,
     private val requestNotifications: ((MethodChannel.Result) -> Unit)? = null,
+    private val requestVpn: ((MethodChannel.Result) -> Unit)? = null,
     private val onJobDone: (() -> Unit)? = null,
 ) : MethodChannel.MethodCallHandler {
     private val channel = MethodChannel(messenger, "app.peekless/scan")
@@ -82,6 +83,20 @@ class PeeklessChannel(
             "shareFile" -> shareFile(call, result)
             "requestAddTile" -> requestAddTile(result)
             "requestAddWidget" -> result.success(Glance.requestPinWidget(context))
+            "netRunning" -> result.success(NetMonitorService.running)
+            "netStart" -> {
+                val request = requestVpn
+                if (request != null) request(result) else result.success(false)
+            }
+            "netStop" -> {
+                NetMonitorService.stop(context)
+                result.success(null)
+            }
+            "netReport" -> result.success(NetStats.report(context))
+            "netClear" -> {
+                NetStats.clear(context)
+                result.success(null)
+            }
             else -> result.notImplemented()
         }
     }

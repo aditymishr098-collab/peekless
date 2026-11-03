@@ -1061,4 +1061,67 @@ class AppLocalizationsNl extends AppLocalizations {
   String trackersFromCode(int count) {
     return 'Gevonden in de code van de app (gemarkeerd met een codepictogram): $count';
   }
+
+  @override
+  String get settingsNet => 'Netwerkmonitor';
+
+  @override
+  String get settingsNetBody =>
+      'Zie welke apps welke internetadressen opvragen en welke trackers zijn';
+
+  @override
+  String get netTitle => 'Netwerkmonitor';
+
+  @override
+  String get netIntro =>
+      'Peekless laat zien welke domeinnamen je apps opvragen. Het gebruikt een lokaal VPN dat alleen deze opvragingen aanneemt, dus je internetsnelheid verandert niet. Het ziet niet wat je verstuurt of leest, alleen de namen. Er verlaat niets je telefoon.';
+
+  @override
+  String get netLimits =>
+      'Kan apps missen die hun eigen versleutelde DNS gebruiken, of als Privé-DNS op een vaste provider staat. Android 10 of nieuwer is nodig om te tonen welke app vroeg.';
+
+  @override
+  String get netSwitch => 'Opvragingen volgen';
+
+  @override
+  String get netOn =>
+      'Aan. Gebruik een paar apps en kom terug om de resultaten te zien.';
+
+  @override
+  String get netOff => 'Uit';
+
+  @override
+  String get netEmpty =>
+      'Nog niets gezien. Gebruik een paar apps en kijk opnieuw.';
+
+  @override
+  String netLookups(int count) {
+    return '$count opvragingen';
+  }
+
+  @override
+  String netTrackerCount(int count) {
+    return '$count trackerdomeinen';
+  }
+
+  @override
+  String get netClear => 'Gegevens wissen';
+
+  @override
+  String get netCleared => 'Netwerkgegevens gewist.';
+
+  @override
+  String get netConsentDenied =>
+      'Android heeft het starten van de monitor niet toegestaan.';
+
+  @override
+  String get netFailed => 'De netwerkmonitor kon niet worden gewijzigd.';
+
+  @override
+  String get netUnknownApp => 'Onbekende app';
+
+  @override
+  String netTrackerTag(String name) {
+    return 'Tracker: $name';
+  }
 }

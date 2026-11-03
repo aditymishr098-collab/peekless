@@ -29,6 +29,7 @@ No account. No ads. No analytics. Nothing leaves your phone.
 - **Permissions view.** See which apps can use your microphone, camera, location, contacts, SMS, call log and more.
 - **Tracker detection.** Finds known ad and analytics SDKs (Google Ads, Firebase Analytics, Facebook SDK, AppsFlyer and about 60 others).
 - **Deep scan (optional).** Turn it on in Settings to also read the class names inside each app's code and find trackers that the manifest does not show. It works offline, skips apps that came with your phone, and is slower only the first time because results are remembered.
+- **Network monitor (optional).** Shows which domain names each app asks for, and marks the ones that belong to known ad and analytics services. It uses a local VPN that takes **only DNS lookups** (one made-up DNS address is the only route), so your internet speed does not change. It sees names, never pages, messages or any content, and nothing leaves your phone.
 - **Plain-language explanations**, for example "Can record audio and track your location all the time."
 - **Unusual permissions.** A flashlight or calculator that wants your microphone loses extra points.
 - **Score explained.** Every score comes with a full breakdown, so you can see exactly why.
@@ -82,6 +83,7 @@ Peekless is built to protect your privacy, so it holds itself to the same rules.
 - No ads, no analytics, no crash reporting, no accounts, no servers.
 - Your history, trusted apps and settings are stored only on your phone.
 - The Deep scan only reads class names from the APK files on your phone. It never reads app data, and nothing is sent anywhere.
+- The Network monitor is off until you switch it on. Android then asks you to allow a VPN connection. It reads only the domain names that apps look up, keeps counts on your phone, and you can clear them at any time. You can switch it off in Peekless or in Android settings.
 - The only network use is the app update check and the tracker list update. Each one happens **only when you tap it** in Settings, and contacts GitHub, nothing else. No information about you or your apps is sent.
 - A downloaded tracker list can only add trackers. It is checked before use, and a broken or unsafe file is ignored.
 - PDF and JSON reports are created on your phone and shared only when you choose an app to send them to.
@@ -95,6 +97,8 @@ Peekless is built to protect your privacy, so it holds itself to the same rules.
 | `REQUEST_INSTALL_PACKAGES` | To open the installer for an update you downloaded. |
 | `POST_NOTIFICATIONS` | For App alerts and the Weekly summary, if you turn them on. |
 | `RECEIVE_BOOT_COMPLETED` | So App alerts and the Weekly summary keep running after the phone restarts. |
+| `BIND_VPN_SERVICE` (service) | Only for the Network monitor. Android asks you before it starts. |
+| `ACCESS_NETWORK_STATE` | Network monitor: to find your phone's own DNS server, so lookups are passed on unchanged. |
 | `PACKAGE_USAGE_STATS` | Optional. Only if you turn on Usage access, to see when an app was last opened. You can switch it off any time in Android settings. |
 
 ## What Peekless can and cannot tell you
@@ -103,6 +107,7 @@ Please read this part. Peekless is honest about its limits.
 
 - It shows what an app **is able to do**, not what it is doing right now. Android does not let one app see what another app really does with its permissions.
 - Trackers are found from the app's manifest, using a list of known SDKs. With the optional Deep scan they are also searched for in the app's code. Some trackers will still be missed, especially in heavily obfuscated apps, because their class names are scrambled.
+- The Network monitor sees DNS lookups only. It can miss apps that use their own encrypted DNS (DNS over HTTPS), and it does not work when Android's Private DNS is set to a fixed provider. To show which app asked, it needs Android 10 or newer. A domain that matches a tracker list shows that the app contacted that service, not what it sent.
 - A low score does not prove an app is bad, and a high score does not prove it is safe. It is a guide, not a verdict.
 - System apps such as Google Play services legitimately need many permissions. They are hidden by default. You can include them in Settings.
 
@@ -141,12 +146,12 @@ Without a signing key, the release build is signed with the debug key. That is f
 Releases are built by GitHub Actions (`.github/workflows/release.yml`).
 
 - Every push to `main` builds a signed APK and keeps it as a build artifact.
-- Pushing a tag that starts with `v` (for example `v2.0.0`) also publishes the APK as a GitHub Release.
+- Pushing a tag that starts with `v` (for example `v2.1.0`) also publishes the APK as a GitHub Release.
 - The APK is signed with a key stored in the repository secrets: `KEYSTORE_BASE64`, `KEYSTORE_PASSWORD`, `KEY_ALIAS` and `KEY_PASSWORD`.
 
 ```bash
-git tag v2.0.0
-git push origin v2.0.0
+git tag v2.1.0
+git push origin v2.1.0
 ```
 
 Because every release is signed with the same key, an update installs over the old version and keeps your data.
@@ -160,6 +165,8 @@ lib/
   scoring.dart         Permission rules, tracker points and the score
   tracker_db.dart      Built-in tracker SDKs
   access_share.dart    How many apps can use camera, microphone, location and trackers
+  tracker_domains.dart Domain names of known ad and analytics services
+  net_report.dart      Reads the network monitor report
   tracker_store.dart   Downloaded tracker list: checks it and adds it to the built-in one
   export.dart          Builds the PDF and JSON report
   history.dart         Snapshot and change detection
@@ -179,6 +186,8 @@ lib/
   widgets/             Score ring, app tile, risk chip, security card, trend chart, update dialog
 android/app/src/main/kotlin/com/lumioapps/peekless/
   Scanner.kt           Reads installed apps, permissions, trackers, install source and special access
+  NetMonitorService.kt Network monitor: the DNS-only local VPN
+  NetStats.kt          Keeps the domain counts for each app
   DexScanner.kt        Deep scan: reads class names from the app's .dex files
   UsageAccess.kt       Optional: when each app was last opened
   AlertJobService.kt   Runs the background check

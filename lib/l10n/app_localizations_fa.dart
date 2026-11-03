@@ -1055,4 +1055,66 @@ class AppLocalizationsFa extends AppLocalizations {
   String trackersFromCode(int count) {
     return 'یافت‌شده در کد برنامه (با نماد کد مشخص شده): $count';
   }
+
+  @override
+  String get settingsNet => 'پایشگر شبکه';
+
+  @override
+  String get settingsNetBody =>
+      'ببینید کدام برنامه‌ها کدام نشانی‌های اینترنتی را جست‌وجو می‌کنند و کدام ردیاب هستند';
+
+  @override
+  String get netTitle => 'پایشگر شبکه';
+
+  @override
+  String get netIntro =>
+      'Peekless نشان می‌دهد برنامه‌های شما کدام نام‌های دامنه را درخواست می‌کنند. از یک VPN محلی استفاده می‌کند که فقط همین درخواست‌ها را می‌گیرد، پس سرعت اینترنت تغییر نمی‌کند. آنچه می‌فرستید یا می‌خوانید را نمی‌بیند، فقط نام‌ها را. هیچ چیز از گوشی شما خارج نمی‌شود.';
+
+  @override
+  String get netLimits =>
+      'ممکن است برنامه‌هایی را که DNS رمزگذاری‌شده خودشان را دارند، یا وقتی DNS خصوصی روی یک ارائه‌دهنده ثابت است، از دست بدهد. برای نمایش برنامه درخواست‌کننده، Android 10 یا جدیدتر لازم است.';
+
+  @override
+  String get netSwitch => 'پایش درخواست‌ها';
+
+  @override
+  String get netOn =>
+      'روشن. چند برنامه استفاده کنید، سپس برای دیدن نتیجه برگردید.';
+
+  @override
+  String get netOff => 'خاموش';
+
+  @override
+  String get netEmpty =>
+      'هنوز چیزی دیده نشده. چند برنامه استفاده کنید و دوباره نگاه کنید.';
+
+  @override
+  String netLookups(int count) {
+    return '$count درخواست';
+  }
+
+  @override
+  String netTrackerCount(int count) {
+    return '$count دامنه ردیاب';
+  }
+
+  @override
+  String get netClear => 'پاک کردن داده‌ها';
+
+  @override
+  String get netCleared => 'داده‌های شبکه پاک شد.';
+
+  @override
+  String get netConsentDenied => 'Android اجازه شروع پایشگر را نداد.';
+
+  @override
+  String get netFailed => 'تغییر پایشگر شبکه ممکن نشد.';
+
+  @override
+  String get netUnknownApp => 'برنامه ناشناس';
+
+  @override
+  String netTrackerTag(String name) {
+    return 'ردیاب: $name';
+  }
 }

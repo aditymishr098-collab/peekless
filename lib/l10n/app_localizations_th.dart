@@ -1051,4 +1051,64 @@ class AppLocalizationsTh extends AppLocalizations {
   String trackersFromCode(int count) {
     return 'พบในโค้ดของแอป (มีไอคอนโค้ดกำกับ): $count';
   }
+
+  @override
+  String get settingsNet => 'ตัวตรวจสอบเครือข่าย';
+
+  @override
+  String get settingsNetBody =>
+      'ดูว่าแอปใดค้นหาที่อยู่อินเทอร์เน็ตใด และรายใดเป็นตัวติดตาม';
+
+  @override
+  String get netTitle => 'ตัวตรวจสอบเครือข่าย';
+
+  @override
+  String get netIntro =>
+      'Peekless แสดงว่าแอปของคุณขอชื่อโดเมนใดบ้าง โดยใช้ VPN ในเครื่องที่รับเฉพาะคำขอเหล่านี้ ความเร็วอินเทอร์เน็ตจึงไม่เปลี่ยน ไม่เห็นว่าคุณส่งหรืออ่านอะไร เห็นเพียงชื่อ ไม่มีอะไรออกจากโทรศัพท์ของคุณ';
+
+  @override
+  String get netLimits =>
+      'อาจพลาดแอปที่ใช้ DNS เข้ารหัสของตัวเอง หรือเมื่อตั้งค่า DNS ส่วนตัวเป็นผู้ให้บริการที่กำหนด ต้องใช้ Android 10 ขึ้นไปจึงจะแสดงว่าแอปใดเป็นผู้ขอ';
+
+  @override
+  String get netSwitch => 'ตรวจสอบคำขอ';
+
+  @override
+  String get netOn => 'เปิดอยู่ ลองใช้แอปสักพัก แล้วกลับมาดูผลลัพธ์';
+
+  @override
+  String get netOff => 'ปิด';
+
+  @override
+  String get netEmpty => 'ยังไม่พบอะไร ลองใช้แอปแล้วดูอีกครั้ง';
+
+  @override
+  String netLookups(int count) {
+    return '$count คำขอ';
+  }
+
+  @override
+  String netTrackerCount(int count) {
+    return '$count โดเมนตัวติดตาม';
+  }
+
+  @override
+  String get netClear => 'ล้างข้อมูล';
+
+  @override
+  String get netCleared => 'ล้างข้อมูลเครือข่ายแล้ว';
+
+  @override
+  String get netConsentDenied => 'Android ไม่อนุญาตให้เริ่มตัวตรวจสอบ';
+
+  @override
+  String get netFailed => 'เปลี่ยนตัวตรวจสอบเครือข่ายไม่ได้';
+
+  @override
+  String get netUnknownApp => 'แอปที่ไม่รู้จัก';
+
+  @override
+  String netTrackerTag(String name) {
+    return 'ตัวติดตาม: $name';
+  }
 }

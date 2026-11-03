@@ -1066,4 +1066,66 @@ class AppLocalizationsRu extends AppLocalizations {
   String trackersFromCode(int count) {
     return 'Найдено внутри кода приложения (отмечены значком кода): $count';
   }
+
+  @override
+  String get settingsNet => 'Сетевой монитор';
+
+  @override
+  String get settingsNetBody =>
+      'Какие приложения запрашивают какие интернет-адреса и какие из них трекеры';
+
+  @override
+  String get netTitle => 'Сетевой монитор';
+
+  @override
+  String get netIntro =>
+      'Peekless показывает, какие доменные имена запрашивают ваши приложения. Для этого используется локальный VPN, который принимает только такие запросы, поэтому скорость интернета не меняется. Он не видит, что вы отправляете или читаете, только имена. Ничего не покидает ваш телефон.';
+
+  @override
+  String get netLimits =>
+      'Может пропустить приложения со своим зашифрованным DNS или если Private DNS задан на конкретного провайдера. Чтобы видеть, какое приложение спросило, нужен Android 10 или новее.';
+
+  @override
+  String get netSwitch => 'Следить за запросами';
+
+  @override
+  String get netOn =>
+      'Включено. Попользуйтесь приложениями и вернитесь посмотреть результат.';
+
+  @override
+  String get netOff => 'Выключено';
+
+  @override
+  String get netEmpty =>
+      'Пока ничего нет. Попользуйтесь приложениями и загляните снова.';
+
+  @override
+  String netLookups(int count) {
+    return 'Запросов: $count';
+  }
+
+  @override
+  String netTrackerCount(int count) {
+    return 'Доменов трекеров: $count';
+  }
+
+  @override
+  String get netClear => 'Очистить данные';
+
+  @override
+  String get netCleared => 'Сетевые данные очищены.';
+
+  @override
+  String get netConsentDenied => 'Android не разрешил запуск монитора.';
+
+  @override
+  String get netFailed => 'Не удалось изменить сетевой монитор.';
+
+  @override
+  String get netUnknownApp => 'Неизвестное приложение';
+
+  @override
+  String netTrackerTag(String name) {
+    return 'Трекер: $name';
+  }
 }

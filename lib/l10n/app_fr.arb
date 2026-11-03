@@ -297,5 +297,22 @@
   "homeOverviewBody": "Part de vos applis qui peuvent utiliser chacun",
   "settingsDeep": "Analyse approfondie",
   "settingsDeepBody": "Cherche aussi des traqueurs cachés dans le code de chaque appli. La première analyse est plus lente. Les applis fournies avec le téléphone sont ignorées. Tout reste sur votre téléphone.",
-  "trackersFromCode": "Trouvés dans le code de l’appli (marqués d’une icône de code) : {count}"
+  "trackersFromCode": "Trouvés dans le code de l’appli (marqués d’une icône de code) : {count}",
+  "settingsNet": "Moniteur réseau",
+  "settingsNetBody": "Voyez quelles applis interrogent quelles adresses internet, et lesquelles sont des traqueurs",
+  "netTitle": "Moniteur réseau",
+  "netIntro": "Peekless montre quels noms de domaine vos applis demandent. Il utilise un VPN local qui ne prend que ces requêtes, donc la vitesse d’internet ne change pas. Il ne voit pas ce que vous envoyez ou lisez, seulement les noms. Rien ne quitte votre téléphone.",
+  "netLimits": "Il peut manquer les applis qui utilisent leur propre DNS chiffré, ou quand le DNS privé est fixé sur un fournisseur. Android 10 ou plus récent est nécessaire pour voir quelle appli a demandé.",
+  "netSwitch": "Surveiller les requêtes",
+  "netOn": "Activé. Utilisez quelques applis, puis revenez voir les résultats.",
+  "netOff": "Désactivé",
+  "netEmpty": "Rien vu pour l’instant. Utilisez quelques applis et regardez à nouveau.",
+  "netLookups": "{count} requêtes",
+  "netTrackerCount": "{count} domaines de traqueurs",
+  "netClear": "Effacer les données",
+  "netCleared": "Données réseau effacées.",
+  "netConsentDenied": "Android n’a pas autorisé le démarrage du moniteur.",
+  "netFailed": "Impossible de modifier le moniteur réseau.",
+  "netUnknownApp": "Appli inconnue",
+  "netTrackerTag": "Traqueur : {name}"
 }

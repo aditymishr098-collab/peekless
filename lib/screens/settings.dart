@@ -11,6 +11,7 @@ import '../language_names.dart';
 import '../native_bridge.dart';
 import '../tracker_store.dart';
 import '../updater.dart';
+import 'net_monitor.dart';
 import '../widgets/update_dialog.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -300,6 +301,17 @@ class SettingsScreen extends StatelessWidget {
                   subtitle: Text(l.settingsDeepBody),
                   value: controller.deepScan,
                   onChanged: controller.setDeepScan,
+                ),
+                ListTile(
+                  leading: Icon(Icons.dns_outlined, color: iconColor),
+                  title: Text(l.settingsNet),
+                  subtitle: Text(l.settingsNetBody),
+                  trailing: Icon(Icons.chevron_right, color: iconColor),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute<void>(builder: (_) => const NetMonitorScreen()),
+                    );
+                  },
                 ),
                 SwitchListTile(
                   secondary: Icon(Icons.phone_android, color: iconColor),

@@ -297,5 +297,22 @@
   "homeOverviewBody": "可使用各項權限的應用程式所佔比例",
   "settingsDeep": "深度掃描",
   "settingsDeepBody": "同時在每個應用程式的程式碼內部尋找隱藏的追蹤器。首次掃描較慢。手機內建的應用程式會被略過。所有內容都留在你的手機上。",
-  "trackersFromCode": "在應用程式程式碼內發現（以程式碼圖示標記）：{count}"
+  "trackersFromCode": "在應用程式程式碼內發現（以程式碼圖示標記）：{count}",
+  "settingsNet": "網路監視器",
+  "settingsNetBody": "查看哪些應用程式在查詢哪些網路位址，以及哪些是追蹤器",
+  "netTitle": "網路監視器",
+  "netIntro": "Peekless 會顯示你的應用程式請求了哪些網域名稱。它使用只接收這些查詢的本機 VPN，所以網速不會改變。它看不到你傳送或閱讀的內容，只能看到名稱。任何內容都不會離開你的手機。",
+  "netLimits": "對於使用自帶加密 DNS 的應用程式，或私人 DNS 固定為某個提供者時，可能會漏掉。需要 Android 10 或更新版本才能顯示是哪個應用程式發出的請求。",
+  "netSwitch": "監視查詢",
+  "netOn": "已開啟。請使用一些應用程式，然後回來查看結果。",
+  "netOff": "已關閉",
+  "netEmpty": "目前還沒有看到任何內容。請使用一些應用程式後再查看。",
+  "netLookups": "{count} 次查詢",
+  "netTrackerCount": "{count} 個追蹤器網域",
+  "netClear": "清除資料",
+  "netCleared": "網路資料已清除。",
+  "netConsentDenied": "Android 未允許啟動監視器。",
+  "netFailed": "無法變更網路監視器。",
+  "netUnknownApp": "未知應用程式",
+  "netTrackerTag": "追蹤器：{name}"
 }

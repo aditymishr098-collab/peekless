@@ -297,5 +297,22 @@
   "homeOverviewBody": "Aandeel van je apps dat elk onderdeel kan gebruiken",
   "settingsDeep": "Diepe scan",
   "settingsDeepBody": "Zoek ook naar verborgen trackers in de code van elke app. De eerste scan is langzamer. Apps die bij je telefoon zaten, worden overgeslagen. Alles blijft op je telefoon.",
-  "trackersFromCode": "Gevonden in de code van de app (gemarkeerd met een codepictogram): {count}"
+  "trackersFromCode": "Gevonden in de code van de app (gemarkeerd met een codepictogram): {count}",
+  "settingsNet": "Netwerkmonitor",
+  "settingsNetBody": "Zie welke apps welke internetadressen opvragen en welke trackers zijn",
+  "netTitle": "Netwerkmonitor",
+  "netIntro": "Peekless laat zien welke domeinnamen je apps opvragen. Het gebruikt een lokaal VPN dat alleen deze opvragingen aanneemt, dus je internetsnelheid verandert niet. Het ziet niet wat je verstuurt of leest, alleen de namen. Er verlaat niets je telefoon.",
+  "netLimits": "Kan apps missen die hun eigen versleutelde DNS gebruiken, of als Privé-DNS op een vaste provider staat. Android 10 of nieuwer is nodig om te tonen welke app vroeg.",
+  "netSwitch": "Opvragingen volgen",
+  "netOn": "Aan. Gebruik een paar apps en kom terug om de resultaten te zien.",
+  "netOff": "Uit",
+  "netEmpty": "Nog niets gezien. Gebruik een paar apps en kijk opnieuw.",
+  "netLookups": "{count} opvragingen",
+  "netTrackerCount": "{count} trackerdomeinen",
+  "netClear": "Gegevens wissen",
+  "netCleared": "Netwerkgegevens gewist.",
+  "netConsentDenied": "Android heeft het starten van de monitor niet toegestaan.",
+  "netFailed": "De netwerkmonitor kon niet worden gewijzigd.",
+  "netUnknownApp": "Onbekende app",
+  "netTrackerTag": "Tracker: {name}"
 }

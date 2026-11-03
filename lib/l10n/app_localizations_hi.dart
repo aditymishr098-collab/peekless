@@ -1056,4 +1056,65 @@ class AppLocalizationsHi extends AppLocalizations {
   String trackersFromCode(int count) {
     return 'ऐप के कोड के अंदर मिले (कोड आइकन से चिह्नित): $count';
   }
+
+  @override
+  String get settingsNet => 'नेटवर्क मॉनिटर';
+
+  @override
+  String get settingsNetBody =>
+      'देखें कि कौन-से ऐप किन इंटरनेट पतों को खोजते हैं, और कौन-से ट्रैकर हैं';
+
+  @override
+  String get netTitle => 'नेटवर्क मॉनिटर';
+
+  @override
+  String get netIntro =>
+      'Peekless दिखाता है कि आपके ऐप किन डोमेन नामों को खोजते हैं। यह एक लोकल VPN का उपयोग करता है जो केवल ये लुकअप लेता है, इसलिए आपकी इंटरनेट स्पीड नहीं बदलती। यह आपका भेजा या पढ़ा हुआ कुछ नहीं देख सकता, केवल नाम देखता है। कुछ भी आपके फ़ोन से बाहर नहीं जाता।';
+
+  @override
+  String get netLimits =>
+      'जो ऐप अपना एन्क्रिप्टेड DNS इस्तेमाल करते हैं, या जब Private DNS किसी तय प्रदाता पर सेट हो, तब यह उन्हें चूक सकता है। किस ऐप ने पूछा, यह दिखाने के लिए Android 10 या नया चाहिए।';
+
+  @override
+  String get netSwitch => 'लुकअप मॉनिटर करें';
+
+  @override
+  String get netOn => 'चालू। कुछ ऐप इस्तेमाल करें, फिर नतीजे देखने वापस आएँ।';
+
+  @override
+  String get netOff => 'बंद';
+
+  @override
+  String get netEmpty => 'अभी कुछ नहीं दिखा। कुछ ऐप इस्तेमाल करके फिर देखें।';
+
+  @override
+  String netLookups(int count) {
+    return '$count लुकअप';
+  }
+
+  @override
+  String netTrackerCount(int count) {
+    return '$count ट्रैकर डोमेन';
+  }
+
+  @override
+  String get netClear => 'डेटा साफ़ करें';
+
+  @override
+  String get netCleared => 'नेटवर्क डेटा साफ़ हो गया।';
+
+  @override
+  String get netConsentDenied =>
+      'Android ने मॉनिटर शुरू करने की अनुमति नहीं दी।';
+
+  @override
+  String get netFailed => 'नेटवर्क मॉनिटर बदला नहीं जा सका।';
+
+  @override
+  String get netUnknownApp => 'अज्ञात ऐप';
+
+  @override
+  String netTrackerTag(String name) {
+    return 'ट्रैकर: $name';
+  }
 }

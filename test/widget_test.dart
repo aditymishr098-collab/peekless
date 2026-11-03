@@ -16,11 +16,13 @@ import 'package:peekless/install_source.dart';
 import 'package:peekless/l10n/app_localizations.dart';
 import 'package:peekless/l10n_resolve.dart';
 import 'package:peekless/models.dart';
+import 'package:peekless/net_report.dart';
 import 'package:peekless/report_text.dart';
 import 'package:peekless/score_history.dart';
 import 'package:peekless/scoring.dart';
 import 'package:peekless/texts.dart';
 import 'package:peekless/tracker_db.dart';
+import 'package:peekless/tracker_domains.dart';
 import 'package:peekless/tracker_store.dart';
 import 'package:peekless/updater.dart';
 import 'package:peekless/weekly.dart';
@@ -903,6 +905,51 @@ void main() {
       await HistoryStore.resetBaseline();
       final prefs = await SharedPreferences.getInstance();
       expect(prefs.getString('history_snapshot_v1'), isNull);
+    });
+  });
+
+  group('network monitor', () {
+    test('finds the tracker behind a domain name', () {
+      expect(trackerForDomain('doubleclick.net'), 'Google Ads');
+      expect(trackerForDomain('ad.doubleclick.net'), 'Google Ads');
+      expect(trackerForDomain('GRAPH.Facebook.com'), 'Facebook');
+      expect(trackerForDomain('notdoubleclick.net'), isNull);
+      expect(trackerForDomain('example.com'), isNull);
+    });
+
+    test('reads a report and puts apps with trackers first', () {
+      final report = NetReport.parse(jsonEncode({
+        'since': 1,
+        'apps': {
+          'com.quiet': {'example.com': 5},
+          'com.noisy': {'ad.doubleclick.net': 2, 'api.noisy.com': 9, 'graph.facebook.com': 1},
+          'unknown': {'bad.example': 'x'},
+        },
+      }));
+      expect(report.apps.map((a) => a.package), ['com.noisy', 'com.quiet']);
+      final noisy = report.apps.first;
+      expect(noisy.lookups, 12);
+      expect(noisy.trackerHits.length, 2);
+      expect(noisy.trackerLookups, 3);
+      expect(noisy.sortedDomains.first.key, 'ad.doubleclick.net');
+      expect(noisy.sortedDomains.last.key, 'api.noisy.com');
+    });
+
+    test('a broken or empty report gives an empty result', () {
+      expect(NetReport.parse(null).isEmpty, isTrue);
+      expect(NetReport.parse('').isEmpty, isTrue);
+      expect(NetReport.parse('not json').isEmpty, isTrue);
+      expect(NetReport.parse('[1]').isEmpty, isTrue);
+      expect(NetReport.parse('{"apps": 3}').isEmpty, isTrue);
+    });
+
+    test('an app that Android could not name is marked unknown', () {
+      final report = NetReport.parse(jsonEncode({
+        'apps': {
+          'unknown': {'example.com': 1},
+        },
+      }));
+      expect(report.apps.single.isUnknown, isTrue);
     });
   });
 

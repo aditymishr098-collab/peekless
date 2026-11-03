@@ -1056,4 +1056,66 @@ class AppLocalizationsBn extends AppLocalizations {
   String trackersFromCode(int count) {
     return 'অ্যাপের কোডের ভেতরে পাওয়া গেছে (কোড আইকন দিয়ে চিহ্নিত): $count';
   }
+
+  @override
+  String get settingsNet => 'নেটওয়ার্ক মনিটর';
+
+  @override
+  String get settingsNetBody =>
+      'দেখুন কোন অ্যাপ কোন ইন্টারনেট ঠিকানা খোঁজে, আর কোনগুলো ট্র্যাকার';
+
+  @override
+  String get netTitle => 'নেটওয়ার্ক মনিটর';
+
+  @override
+  String get netIntro =>
+      'Peekless দেখায় আপনার অ্যাপগুলো কোন ডোমেইন নাম চাইছে। এটি একটি লোকাল VPN ব্যবহার করে যা শুধু এই লুকআপগুলো নেয়, তাই ইন্টারনেটের গতি বদলায় না। আপনি কী পাঠান বা পড়েন তা এটি দেখতে পায় না, শুধু নামগুলো দেখে। কিছুই আপনার ফোনের বাইরে যায় না।';
+
+  @override
+  String get netLimits =>
+      'যেসব অ্যাপ নিজস্ব এনক্রিপ্টেড DNS ব্যবহার করে, বা Private DNS কোনো নির্দিষ্ট প্রদানকারীতে সেট থাকলে এটি সেগুলো মিস করতে পারে। কোন অ্যাপ জিজ্ঞেস করেছে তা দেখাতে Android 10 বা নতুন লাগবে।';
+
+  @override
+  String get netSwitch => 'লুকআপ মনিটর করুন';
+
+  @override
+  String get netOn =>
+      'চালু। কয়েকটি অ্যাপ ব্যবহার করুন, তারপর ফলাফল দেখতে ফিরে আসুন।';
+
+  @override
+  String get netOff => 'বন্ধ';
+
+  @override
+  String get netEmpty =>
+      'এখনো কিছু দেখা যায়নি। কয়েকটি অ্যাপ ব্যবহার করে আবার দেখুন।';
+
+  @override
+  String netLookups(int count) {
+    return '$countটি লুকআপ';
+  }
+
+  @override
+  String netTrackerCount(int count) {
+    return '$countটি ট্র্যাকার ডোমেইন';
+  }
+
+  @override
+  String get netClear => 'ডেটা মুছুন';
+
+  @override
+  String get netCleared => 'নেটওয়ার্ক ডেটা মুছে ফেলা হয়েছে।';
+
+  @override
+  String get netConsentDenied => 'Android মনিটর চালু করতে দেয়নি।';
+
+  @override
+  String get netFailed => 'নেটওয়ার্ক মনিটর বদলানো যায়নি।';
+
+  @override
+  String get netUnknownApp => 'অজানা অ্যাপ';
+
+  @override
+  String netTrackerTag(String name) {
+    return 'ট্র্যাকার: $name';
+  }
 }

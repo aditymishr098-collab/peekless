@@ -1054,4 +1054,66 @@ class AppLocalizationsUr extends AppLocalizations {
   String trackersFromCode(int count) {
     return 'ایپ کے کوڈ کے اندر ملے (کوڈ آئیکن سے نشان زد): $count';
   }
+
+  @override
+  String get settingsNet => 'نیٹ ورک مانیٹر';
+
+  @override
+  String get settingsNetBody =>
+      'دیکھیں کون سی ایپس کن انٹرنیٹ پتوں کو تلاش کرتی ہیں اور کون سے ٹریکر ہیں';
+
+  @override
+  String get netTitle => 'نیٹ ورک مانیٹر';
+
+  @override
+  String get netIntro =>
+      'Peekless دکھاتا ہے کہ آپ کی ایپس کن ڈومین ناموں کو مانگتی ہیں۔ یہ ایک مقامی VPN استعمال کرتا ہے جو صرف یہی لُک اپ لیتا ہے، اس لیے انٹرنیٹ کی رفتار نہیں بدلتی۔ یہ آپ کا بھیجا یا پڑھا ہوا کچھ نہیں دیکھ سکتا، صرف نام دیکھتا ہے۔ کچھ بھی آپ کے فون سے باہر نہیں جاتا۔';
+
+  @override
+  String get netLimits =>
+      'جو ایپس اپنا انکرپٹڈ DNS استعمال کرتی ہیں، یا جب Private DNS کسی مقررہ فراہم کنندہ پر ہو، تو یہ انہیں چُوک سکتا ہے۔ کس ایپ نے پوچھا، یہ دکھانے کے لیے Android 10 یا نیا چاہیے۔';
+
+  @override
+  String get netSwitch => 'لُک اپ مانیٹر کریں';
+
+  @override
+  String get netOn => 'آن۔ کچھ ایپس استعمال کریں، پھر نتائج دیکھنے واپس آئیں۔';
+
+  @override
+  String get netOff => 'آف';
+
+  @override
+  String get netEmpty =>
+      'ابھی کچھ نظر نہیں آیا۔ کچھ ایپس استعمال کریں اور دوبارہ دیکھیں۔';
+
+  @override
+  String netLookups(int count) {
+    return '$count لُک اپ';
+  }
+
+  @override
+  String netTrackerCount(int count) {
+    return '$count ٹریکر ڈومین';
+  }
+
+  @override
+  String get netClear => 'ڈیٹا صاف کریں';
+
+  @override
+  String get netCleared => 'نیٹ ورک ڈیٹا صاف ہو گیا۔';
+
+  @override
+  String get netConsentDenied =>
+      'Android نے مانیٹر شروع کرنے کی اجازت نہیں دی۔';
+
+  @override
+  String get netFailed => 'نیٹ ورک مانیٹر تبدیل نہیں ہو سکا۔';
+
+  @override
+  String get netUnknownApp => 'نامعلوم ایپ';
+
+  @override
+  String netTrackerTag(String name) {
+    return 'ٹریکر: $name';
+  }
 }
