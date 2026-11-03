@@ -1042,4 +1042,16 @@ class AppLocalizationsUr extends AppLocalizations {
   @override
   String get homeOverviewBody =>
       'آپ کی کتنی فیصد ایپس ہر ایک کو استعمال کر سکتی ہیں';
+
+  @override
+  String get settingsDeep => 'گہرا اسکین';
+
+  @override
+  String get settingsDeepBody =>
+      'ہر ایپ کے کوڈ کے اندر بھی چھپے ٹریکر تلاش کریں۔ پہلا اسکین سست ہوتا ہے۔ فون کے ساتھ آنے والی ایپس چھوڑ دی جاتی ہیں۔ سب کچھ آپ کے فون پر رہتا ہے۔';
+
+  @override
+  String trackersFromCode(int count) {
+    return 'ایپ کے کوڈ کے اندر ملے (کوڈ آئیکن سے نشان زد): $count';
+  }
 }

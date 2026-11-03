@@ -1044,4 +1044,16 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get homeOverviewBody => 'आपके कितने प्रतिशत ऐप इनका उपयोग कर सकते हैं';
+
+  @override
+  String get settingsDeep => 'डीप स्कैन';
+
+  @override
+  String get settingsDeepBody =>
+      'हर ऐप के कोड के अंदर भी छिपे ट्रैकर खोजें। पहला स्कैन धीमा होता है। फ़ोन के साथ आए ऐप छोड़ दिए जाते हैं। सब कुछ आपके फ़ोन पर ही रहता है।';
+
+  @override
+  String trackersFromCode(int count) {
+    return 'ऐप के कोड के अंदर मिले (कोड आइकन से चिह्नित): $count';
+  }
 }

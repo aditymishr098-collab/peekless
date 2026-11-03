@@ -1912,6 +1912,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Share of your apps that can use each one'**
   String get homeOverviewBody;
+
+  /// No description provided for @settingsDeep.
+  ///
+  /// In en, this message translates to:
+  /// **'Deep scan'**
+  String get settingsDeep;
+
+  /// No description provided for @settingsDeepBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Also look inside each app’s code for hidden trackers. The first scan is slower. Apps that came with your phone are skipped. It stays on your phone.'**
+  String get settingsDeepBody;
+
+  /// No description provided for @trackersFromCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Found inside the app’s code (marked with a code icon): {count}'**
+  String trackersFromCode(int count);
 }
 
 class _AppLocalizationsDelegate

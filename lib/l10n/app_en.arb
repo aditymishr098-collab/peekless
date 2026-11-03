@@ -763,5 +763,15 @@
   "trackerListCurrent": "Tracker list is already up to date.",
   "trackerListFailed": "Could not update the tracker list. Check your connection.",
   "homeTagline": "See who’s peeking at you.",
-  "homeOverviewBody": "Share of your apps that can use each one"
+  "homeOverviewBody": "Share of your apps that can use each one",
+  "settingsDeep": "Deep scan",
+  "settingsDeepBody": "Also look inside each app’s code for hidden trackers. The first scan is slower. Apps that came with your phone are skipped. It stays on your phone.",
+  "trackersFromCode": "Found inside the app’s code (marked with a code icon): {count}",
+  "@trackersFromCode": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
 }

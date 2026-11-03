@@ -1057,4 +1057,16 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get homeOverviewBody =>
       'Part de vos applis qui peuvent utiliser chacun';
+
+  @override
+  String get settingsDeep => 'Analyse approfondie';
+
+  @override
+  String get settingsDeepBody =>
+      'Cherche aussi des traqueurs cachés dans le code de chaque appli. La première analyse est plus lente. Les applis fournies avec le téléphone sont ignorées. Tout reste sur votre téléphone.';
+
+  @override
+  String trackersFromCode(int count) {
+    return 'Trouvés dans le code de l’appli (marqués d’une icône de code) : $count';
+  }
 }

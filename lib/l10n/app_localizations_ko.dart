@@ -1014,4 +1014,16 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get homeOverviewBody => '각 항목을 사용할 수 있는 앱의 비율';
+
+  @override
+  String get settingsDeep => '심층 스캔';
+
+  @override
+  String get settingsDeepBody =>
+      '각 앱의 코드 안에서도 숨은 추적기를 찾습니다. 첫 스캔은 더 오래 걸립니다. 휴대폰에 기본 설치된 앱은 건너뜁니다. 모든 것이 휴대폰 안에만 남습니다.';
+
+  @override
+  String trackersFromCode(int count) {
+    return '앱 코드 안에서 발견됨(코드 아이콘으로 표시): $count';
+  }
 }

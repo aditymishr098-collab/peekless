@@ -1049,4 +1049,16 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get homeOverviewBody => 'Tỷ lệ ứng dụng của bạn có thể dùng từng mục';
+
+  @override
+  String get settingsDeep => 'Quét sâu';
+
+  @override
+  String get settingsDeepBody =>
+      'Tìm cả trình theo dõi ẩn bên trong mã của từng ứng dụng. Lần quét đầu tiên chậm hơn. Ứng dụng có sẵn trên điện thoại sẽ bị bỏ qua. Mọi thứ vẫn ở trên điện thoại của bạn.';
+
+  @override
+  String trackersFromCode(int count) {
+    return 'Tìm thấy trong mã ứng dụng (đánh dấu bằng biểu tượng mã): $count';
+  }
 }

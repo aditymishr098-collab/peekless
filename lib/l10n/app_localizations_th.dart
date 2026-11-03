@@ -1039,4 +1039,16 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get homeOverviewBody => 'สัดส่วนแอปของคุณที่ใช้แต่ละรายการได้';
+
+  @override
+  String get settingsDeep => 'สแกนเชิงลึก';
+
+  @override
+  String get settingsDeepBody =>
+      'ค้นหาตัวติดตามที่ซ่อนอยู่ในโค้ดของแต่ละแอปด้วย การสแกนครั้งแรกจะช้ากว่า แอปที่มากับเครื่องจะถูกข้าม ทุกอย่างอยู่ในโทรศัพท์ของคุณ';
+
+  @override
+  String trackersFromCode(int count) {
+    return 'พบในโค้ดของแอป (มีไอคอนโค้ดกำกับ): $count';
+  }
 }

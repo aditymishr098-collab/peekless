@@ -294,5 +294,8 @@
   "trackerListCurrent": "Lista trackerów jest już aktualna.",
   "trackerListFailed": "Nie udało się zaktualizować listy trackerów. Sprawdź połączenie.",
   "homeTagline": "Zobacz, kto cię podgląda.",
-  "homeOverviewBody": "Odsetek twoich aplikacji, które mogą z nich korzystać"
+  "homeOverviewBody": "Odsetek twoich aplikacji, które mogą z nich korzystać",
+  "settingsDeep": "Głębokie skanowanie",
+  "settingsDeepBody": "Szuka ukrytych trackerów także w kodzie każdej aplikacji. Pierwsze skanowanie trwa dłużej. Aplikacje fabryczne są pomijane. Wszystko zostaje na twoim telefonie.",
+  "trackersFromCode": "Znalezione w kodzie aplikacji (oznaczone ikoną kodu): {count}"
 }

@@ -294,5 +294,8 @@
   "trackerListCurrent": "A lista de rastreadores já está atualizada.",
   "trackerListFailed": "Não foi possível atualizar a lista de rastreadores. Verifique sua conexão.",
   "homeTagline": "Veja quem está espiando você.",
-  "homeOverviewBody": "Parcela dos seus apps que podem usar cada um"
+  "homeOverviewBody": "Parcela dos seus apps que podem usar cada um",
+  "settingsDeep": "Verificação profunda",
+  "settingsDeepBody": "Procura rastreadores escondidos também dentro do código de cada app. A primeira verificação é mais lenta. Apps que vieram com o telefone são ignorados. Tudo fica no seu telefone.",
+  "trackersFromCode": "Encontrados dentro do código do app (marcados com um ícone de código): {count}"
 }

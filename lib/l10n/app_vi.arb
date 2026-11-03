@@ -294,5 +294,8 @@
   "trackerListCurrent": "Danh sách trình theo dõi đã mới nhất.",
   "trackerListFailed": "Không thể cập nhật danh sách trình theo dõi. Hãy kiểm tra kết nối.",
   "homeTagline": "Xem ai đang nhòm ngó bạn.",
-  "homeOverviewBody": "Tỷ lệ ứng dụng của bạn có thể dùng từng mục"
+  "homeOverviewBody": "Tỷ lệ ứng dụng của bạn có thể dùng từng mục",
+  "settingsDeep": "Quét sâu",
+  "settingsDeepBody": "Tìm cả trình theo dõi ẩn bên trong mã của từng ứng dụng. Lần quét đầu tiên chậm hơn. Ứng dụng có sẵn trên điện thoại sẽ bị bỏ qua. Mọi thứ vẫn ở trên điện thoại của bạn.",
+  "trackersFromCode": "Tìm thấy trong mã ứng dụng (đánh dấu bằng biểu tượng mã): {count}"
 }

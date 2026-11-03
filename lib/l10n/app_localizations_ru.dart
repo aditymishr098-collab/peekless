@@ -1054,4 +1054,16 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get homeOverviewBody =>
       'Доля ваших приложений, которые могут этим пользоваться';
+
+  @override
+  String get settingsDeep => 'Глубокое сканирование';
+
+  @override
+  String get settingsDeepBody =>
+      'Искать скрытые трекеры также внутри кода каждого приложения. Первое сканирование медленнее. Приложения, которые были на телефоне изначально, пропускаются. Всё остаётся на вашем телефоне.';
+
+  @override
+  String trackersFromCode(int count) {
+    return 'Найдено внутри кода приложения (отмечены значком кода): $count';
+  }
 }

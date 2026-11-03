@@ -294,5 +294,8 @@
   "trackerListCurrent": "İzleyici listesi zaten güncel.",
   "trackerListFailed": "İzleyici listesi güncellenemedi. Bağlantınızı kontrol edin.",
   "homeTagline": "Sizi kimin gözetlediğini görün.",
-  "homeOverviewBody": "Uygulamalarınızın her birini kullanabilen kısmı"
+  "homeOverviewBody": "Uygulamalarınızın her birini kullanabilen kısmı",
+  "settingsDeep": "Derin tarama",
+  "settingsDeepBody": "Gizli izleyicileri her uygulamanın kodunun içinde de arar. İlk tarama daha yavaştır. Telefonla gelen uygulamalar atlanır. Her şey telefonunuzda kalır.",
+  "trackersFromCode": "Uygulamanın kodunda bulundu (kod simgesiyle işaretli): {count}"
 }

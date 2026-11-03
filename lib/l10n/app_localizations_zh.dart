@@ -1010,6 +1010,18 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get homeOverviewBody => '可使用各项权限的应用所占比例';
+
+  @override
+  String get settingsDeep => '深度扫描';
+
+  @override
+  String get settingsDeepBody =>
+      '同时在每个应用的代码内部查找隐藏的追踪器。首次扫描较慢。手机自带的应用会被跳过。所有内容都留在你的手机上。';
+
+  @override
+  String trackersFromCode(int count) {
+    return '在应用代码内发现（以代码图标标记）：$count';
+  }
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -2018,4 +2030,16 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get homeOverviewBody => '可使用各項權限的應用程式所佔比例';
+
+  @override
+  String get settingsDeep => '深度掃描';
+
+  @override
+  String get settingsDeepBody =>
+      '同時在每個應用程式的程式碼內部尋找隱藏的追蹤器。首次掃描較慢。手機內建的應用程式會被略過。所有內容都留在你的手機上。';
+
+  @override
+  String trackersFromCode(int count) {
+    return '在應用程式程式碼內發現（以程式碼圖示標記）：$count';
+  }
 }

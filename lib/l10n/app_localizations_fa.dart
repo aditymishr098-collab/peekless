@@ -1043,4 +1043,16 @@ class AppLocalizationsFa extends AppLocalizations {
   @override
   String get homeOverviewBody =>
       'سهم برنامه‌هایتان که می‌توانند از هر کدام استفاده کنند';
+
+  @override
+  String get settingsDeep => 'اسکن عمیق';
+
+  @override
+  String get settingsDeepBody =>
+      'ردیاب‌های پنهان را در کد هر برنامه نیز جست‌وجو کنید. اسکن اول کندتر است. برنامه‌های همراه گوشی نادیده گرفته می‌شوند. همه‌چیز روی گوشی شما می‌ماند.';
+
+  @override
+  String trackersFromCode(int count) {
+    return 'یافت‌شده در کد برنامه (با نماد کد مشخص شده): $count';
+  }
 }

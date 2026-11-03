@@ -28,6 +28,7 @@ No account. No ads. No analytics. Nothing leaves your phone.
 - **Score for every app**, sorted with the riskiest first. Search and filter included.
 - **Permissions view.** See which apps can use your microphone, camera, location, contacts, SMS, call log and more.
 - **Tracker detection.** Finds known ad and analytics SDKs (Google Ads, Firebase Analytics, Facebook SDK, AppsFlyer and about 60 others).
+- **Deep scan (optional).** Turn it on in Settings to also read the class names inside each app's code and find trackers that the manifest does not show. It works offline, skips apps that came with your phone, and is slower only the first time because results are remembered.
 - **Plain-language explanations**, for example "Can record audio and track your location all the time."
 - **Unusual permissions.** A flashlight or calculator that wants your microphone loses extra points.
 - **Score explained.** Every score comes with a full breakdown, so you can see exactly why.
@@ -80,6 +81,7 @@ Peekless is built to protect your privacy, so it holds itself to the same rules.
 - It works fully offline. Everything is read from Android on your phone and stays there.
 - No ads, no analytics, no crash reporting, no accounts, no servers.
 - Your history, trusted apps and settings are stored only on your phone.
+- The Deep scan only reads class names from the APK files on your phone. It never reads app data, and nothing is sent anywhere.
 - The only network use is the app update check and the tracker list update. Each one happens **only when you tap it** in Settings, and contacts GitHub, nothing else. No information about you or your apps is sent.
 - A downloaded tracker list can only add trackers. It is checked before use, and a broken or unsafe file is ignored.
 - PDF and JSON reports are created on your phone and shared only when you choose an app to send them to.
@@ -100,7 +102,7 @@ Peekless is built to protect your privacy, so it holds itself to the same rules.
 Please read this part. Peekless is honest about its limits.
 
 - It shows what an app **is able to do**, not what it is doing right now. Android does not let one app see what another app really does with its permissions.
-- Trackers are found from the app's manifest, using a list of known SDKs. Some trackers will be missed, especially in heavily obfuscated apps.
+- Trackers are found from the app's manifest, using a list of known SDKs. With the optional Deep scan they are also searched for in the app's code. Some trackers will still be missed, especially in heavily obfuscated apps, because their class names are scrambled.
 - A low score does not prove an app is bad, and a high score does not prove it is safe. It is a guide, not a verdict.
 - System apps such as Google Play services legitimately need many permissions. They are hidden by default. You can include them in Settings.
 
@@ -139,12 +141,12 @@ Without a signing key, the release build is signed with the debug key. That is f
 Releases are built by GitHub Actions (`.github/workflows/release.yml`).
 
 - Every push to `main` builds a signed APK and keeps it as a build artifact.
-- Pushing a tag that starts with `v` (for example `v1.6.0`) also publishes the APK as a GitHub Release.
+- Pushing a tag that starts with `v` (for example `v2.0.0`) also publishes the APK as a GitHub Release.
 - The APK is signed with a key stored in the repository secrets: `KEYSTORE_BASE64`, `KEYSTORE_PASSWORD`, `KEY_ALIAS` and `KEY_PASSWORD`.
 
 ```bash
-git tag v1.6.0
-git push origin v1.6.0
+git tag v2.0.0
+git push origin v2.0.0
 ```
 
 Because every release is signed with the same key, an update installs over the old version and keeps your data.
@@ -177,6 +179,7 @@ lib/
   widgets/             Score ring, app tile, risk chip, security card, trend chart, update dialog
 android/app/src/main/kotlin/com/lumioapps/peekless/
   Scanner.kt           Reads installed apps, permissions, trackers, install source and special access
+  DexScanner.kt        Deep scan: reads class names from the app's .dex files
   UsageAccess.kt       Optional: when each app was last opened
   AlertJobService.kt   Runs the background check
   Notifier.kt          Shows notifications

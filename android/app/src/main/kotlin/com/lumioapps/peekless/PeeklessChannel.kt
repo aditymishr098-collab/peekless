@@ -91,9 +91,10 @@ class PeeklessChannel(
         val signatures: Map<String, List<String>> = raw.mapValues { entry ->
             (entry.value as List<*>).map { it.toString() }
         }
+        val deep = call.argument<Boolean>("deep") ?: false
         Thread {
             try {
-                val apps = Scanner.collect(context, signatures)
+                val apps = Scanner.collect(context, signatures, deep)
                 main.post { result.success(apps) }
             } catch (e: Exception) {
                 main.post { result.error("scan_failed", e.message ?: "Scan failed", null) }

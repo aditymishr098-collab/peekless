@@ -294,5 +294,8 @@
   "trackerListCurrent": "La liste des traqueurs est déjà à jour.",
   "trackerListFailed": "Impossible de mettre à jour la liste des traqueurs. Vérifiez votre connexion.",
   "homeTagline": "Voyez qui vous espionne.",
-  "homeOverviewBody": "Part de vos applis qui peuvent utiliser chacun"
+  "homeOverviewBody": "Part de vos applis qui peuvent utiliser chacun",
+  "settingsDeep": "Analyse approfondie",
+  "settingsDeepBody": "Cherche aussi des traqueurs cachés dans le code de chaque appli. La première analyse est plus lente. Les applis fournies avec le téléphone sont ignorées. Tout reste sur votre téléphone.",
+  "trackersFromCode": "Trouvés dans le code de l’appli (marqués d’une icône de code) : {count}"
 }

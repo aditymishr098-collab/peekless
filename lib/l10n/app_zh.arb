@@ -294,5 +294,8 @@
   "trackerListCurrent": "追踪器列表已是最新。",
   "trackerListFailed": "无法更新追踪器列表。请检查网络连接。",
   "homeTagline": "看看谁在窥探你。",
-  "homeOverviewBody": "可使用各项权限的应用所占比例"
+  "homeOverviewBody": "可使用各项权限的应用所占比例",
+  "settingsDeep": "深度扫描",
+  "settingsDeepBody": "同时在每个应用的代码内部查找隐藏的追踪器。首次扫描较慢。手机自带的应用会被跳过。所有内容都留在你的手机上。",
+  "trackersFromCode": "在应用代码内发现（以代码图标标记）：{count}"
 }

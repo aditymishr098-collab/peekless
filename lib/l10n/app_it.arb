@@ -294,5 +294,8 @@
   "trackerListCurrent": "L’elenco dei tracker è già aggiornato.",
   "trackerListFailed": "Impossibile aggiornare l’elenco dei tracker. Controlla la connessione.",
   "homeTagline": "Scopri chi ti sta spiando.",
-  "homeOverviewBody": "Quota delle tue app che possono usare ciascuno"
+  "homeOverviewBody": "Quota delle tue app che possono usare ciascuno",
+  "settingsDeep": "Scansione approfondita",
+  "settingsDeepBody": "Cerca tracker nascosti anche dentro il codice di ogni app. La prima scansione è più lenta. Le app preinstallate sul telefono vengono saltate. Tutto resta sul tuo telefono.",
+  "trackersFromCode": "Trovati nel codice dell’app (contrassegnati da un’icona di codice): {count}"
 }

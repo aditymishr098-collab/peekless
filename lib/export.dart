@@ -65,6 +65,7 @@ String buildReportJson({
           ],
           'specialAccess': r.app.special,
           'trackers': r.app.trackers,
+          'trackersFoundInCode': r.app.deepTrackers,
         },
     ],
   };

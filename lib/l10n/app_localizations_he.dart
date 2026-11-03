@@ -1034,4 +1034,16 @@ class AppLocalizationsHe extends AppLocalizations {
   @override
   String get homeOverviewBody =>
       'חלק מהאפליקציות שלכם שיכול להשתמש בכל אחד מהם';
+
+  @override
+  String get settingsDeep => 'סריקה עמוקה';
+
+  @override
+  String get settingsDeepBody =>
+      'מחפשת עוקבים נסתרים גם בתוך הקוד של כל אפליקציה. הסריקה הראשונה איטית יותר. אפליקציות שהגיעו עם הטלפון מדולגות. הכול נשאר בטלפון שלכם.';
+
+  @override
+  String trackersFromCode(int count) {
+    return 'נמצאו בתוך קוד האפליקציה (מסומנים בסמל קוד): $count';
+  }
 }

@@ -1044,4 +1044,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get homeOverviewBody => 'Share of your apps that can use each one';
+
+  @override
+  String get settingsDeep => 'Deep scan';
+
+  @override
+  String get settingsDeepBody =>
+      'Also look inside each app’s code for hidden trackers. The first scan is slower. Apps that came with your phone are skipped. It stays on your phone.';
+
+  @override
+  String trackersFromCode(int count) {
+    return 'Found inside the app’s code (marked with a code icon): $count';
+  }
 }

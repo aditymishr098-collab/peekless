@@ -1033,4 +1033,16 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get homeOverviewBody => 'نسبة تطبيقاتك التي يمكنها استخدام كل منها';
+
+  @override
+  String get settingsDeep => 'فحص عميق';
+
+  @override
+  String get settingsDeepBody =>
+      'ابحث أيضًا عن المتتبعات المخفية داخل شيفرة كل تطبيق. الفحص الأول أبطأ. تُتخطى التطبيقات المثبتة مع الهاتف. كل شيء يبقى على هاتفك.';
+
+  @override
+  String trackersFromCode(int count) {
+    return 'وُجدت داخل شيفرة التطبيق (مُعلَّمة برمز الشيفرة): $count';
+  }
 }

@@ -1048,4 +1048,16 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get homeOverviewBody =>
       'Persentase aplikasi Anda yang dapat menggunakan masing-masing';
+
+  @override
+  String get settingsDeep => 'Pemindaian mendalam';
+
+  @override
+  String get settingsDeepBody =>
+      'Cari juga pelacak tersembunyi di dalam kode setiap aplikasi. Pemindaian pertama lebih lambat. Aplikasi bawaan ponsel dilewati. Semuanya tetap di ponsel Anda.';
+
+  @override
+  String trackersFromCode(int count) {
+    return 'Ditemukan di dalam kode aplikasi (ditandai ikon kode): $count';
+  }
 }

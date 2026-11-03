@@ -294,5 +294,8 @@
   "trackerListCurrent": "La lista de rastreadores ya está al día.",
   "trackerListFailed": "No se pudo actualizar la lista de rastreadores. Revisa tu conexión.",
   "homeTagline": "Mira quién te está espiando.",
-  "homeOverviewBody": "Porcentaje de tus apps que pueden usar cada uno"
+  "homeOverviewBody": "Porcentaje de tus apps que pueden usar cada uno",
+  "settingsDeep": "Escaneo profundo",
+  "settingsDeepBody": "Busca también rastreadores ocultos dentro del código de cada app. El primer escaneo es más lento. Se omiten las apps que vienen con el teléfono. Todo se queda en tu teléfono.",
+  "trackersFromCode": "Encontrados dentro del código de la app (marcados con un icono de código): {count}"
 }

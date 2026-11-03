@@ -21,6 +21,7 @@ class AppInfo {
     required this.versionName,
     required this.permissions,
     required this.trackers,
+    this.deepTrackers = const <String>[],
     this.category = -1,
     this.installer,
     this.special = const <String>[],
@@ -40,6 +41,7 @@ class AppInfo {
       );
     }).toList();
     final rawTrackers = (map['trackers'] as List<Object?>?) ?? const <Object?>[];
+    final rawDeep = (map['deepOnly'] as List<Object?>?) ?? const <Object?>[];
     final rawSpecial = (map['special'] as List<Object?>?) ?? const <Object?>[];
     return AppInfo(
       packageName: map['package']! as String,
@@ -48,6 +50,7 @@ class AppInfo {
       versionName: (map['version'] as String?) ?? '',
       permissions: perms,
       trackers: rawTrackers.map((e) => e! as String).toList(),
+      deepTrackers: rawDeep.map((e) => e! as String).toList(),
       category: (map['category'] as int?) ?? -1,
       installer: map['installer'] as String?,
       special: rawSpecial.map((e) => e! as String).toList(),
@@ -64,6 +67,10 @@ class AppInfo {
   final String versionName;
   final List<PermissionEntry> permissions;
   final List<String> trackers;
+
+  /// Trackers (also in [trackers]) that were found only by the deep scan, by
+  /// looking at the class names inside the app code.
+  final List<String> deepTrackers;
 
   /// Android app category (ApplicationInfo.category), or -1 when unknown.
   final int category;

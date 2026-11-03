@@ -294,5 +294,8 @@
   "trackerListCurrent": "Die Tracker-Liste ist bereits aktuell.",
   "trackerListFailed": "Die Tracker-Liste konnte nicht aktualisiert werden. Prüfe deine Verbindung.",
   "homeTagline": "Sieh, wer dir nachspioniert.",
-  "homeOverviewBody": "Anteil deiner Apps, die jeweils darauf zugreifen können"
+  "homeOverviewBody": "Anteil deiner Apps, die jeweils darauf zugreifen können",
+  "settingsDeep": "Tiefenscan",
+  "settingsDeepBody": "Sucht auch im Code jeder App nach versteckten Trackern. Der erste Scan ist langsamer. Apps, die mit dem Handy kamen, werden übersprungen. Alles bleibt auf deinem Handy.",
+  "trackersFromCode": "Im Code der App gefunden (mit Code-Symbol markiert): {count}"
 }

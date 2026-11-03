@@ -1057,4 +1057,16 @@ class AppLocalizationsIt extends AppLocalizations {
   @override
   String get homeOverviewBody =>
       'Quota delle tue app che possono usare ciascuno';
+
+  @override
+  String get settingsDeep => 'Scansione approfondita';
+
+  @override
+  String get settingsDeepBody =>
+      'Cerca tracker nascosti anche dentro il codice di ogni app. La prima scansione è più lenta. Le app preinstallate sul telefono vengono saltate. Tutto resta sul tuo telefono.';
+
+  @override
+  String trackersFromCode(int count) {
+    return 'Trovati nel codice dell’app (contrassegnati da un’icona di codice): $count';
+  }
 }

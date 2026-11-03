@@ -1044,4 +1044,16 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get homeOverviewBody =>
       'Uygulamalarınızın her birini kullanabilen kısmı';
+
+  @override
+  String get settingsDeep => 'Derin tarama';
+
+  @override
+  String get settingsDeepBody =>
+      'Gizli izleyicileri her uygulamanın kodunun içinde de arar. İlk tarama daha yavaştır. Telefonla gelen uygulamalar atlanır. Her şey telefonunuzda kalır.';
+
+  @override
+  String trackersFromCode(int count) {
+    return 'Uygulamanın kodunda bulundu (kod simgesiyle işaretli): $count';
+  }
 }

@@ -294,5 +294,8 @@
   "trackerListCurrent": "De trackerlijst is al up-to-date.",
   "trackerListFailed": "De trackerlijst kon niet worden bijgewerkt. Controleer je verbinding.",
   "homeTagline": "Zie wie er naar je loert.",
-  "homeOverviewBody": "Aandeel van je apps dat elk onderdeel kan gebruiken"
+  "homeOverviewBody": "Aandeel van je apps dat elk onderdeel kan gebruiken",
+  "settingsDeep": "Diepe scan",
+  "settingsDeepBody": "Zoek ook naar verborgen trackers in de code van elke app. De eerste scan is langzamer. Apps die bij je telefoon zaten, worden overgeslagen. Alles blijft op je telefoon.",
+  "trackersFromCode": "Gevonden in de code van de app (gemarkeerd met een codepictogram): {count}"
 }

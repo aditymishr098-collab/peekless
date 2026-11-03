@@ -294,5 +294,8 @@
   "trackerListCurrent": "トラッカーリストはすでに最新です。",
   "trackerListFailed": "トラッカーリストを更新できませんでした。接続を確認してください。",
   "homeTagline": "だれがあなたをのぞいているか確認しましょう。",
-  "homeOverviewBody": "それぞれを使えるアプリの割合"
+  "homeOverviewBody": "それぞれを使えるアプリの割合",
+  "settingsDeep": "ディープスキャン",
+  "settingsDeepBody": "各アプリのコードの中も調べて、隠れたトラッカーを探します。最初のスキャンは時間がかかります。端末に最初から入っているアプリは対象外です。すべて端末内にとどまります。",
+  "trackersFromCode": "アプリのコード内で発見（コードアイコン付き）：{count}"
 }

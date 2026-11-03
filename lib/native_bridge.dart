@@ -1,4 +1,5 @@
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'models.dart';
 import 'scoring.dart';
@@ -11,9 +12,13 @@ class NativeBridge {
 
   static Future<List<AppReport>> scan() async {
     await TrackerStore.ensureLoaded();
+    // The deep scan setting is read here, so the background check always
+    // scans the same way as the app. Otherwise trackers would seem to come and go.
+    final prefs = await SharedPreferences.getInstance();
+    final deep = prefs.getBool('deep_scan') ?? false;
     final raw = await _channel.invokeListMethod<Map<Object?, Object?>>(
       'scanApps',
-      <String, Object?>{'trackers': TrackerStore.current},
+      <String, Object?>{'trackers': TrackerStore.current, 'deep': deep},
     );
     return (raw ?? const <Map<Object?, Object?>>[])
         .map(AppInfo.fromMap)

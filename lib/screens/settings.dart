@@ -295,6 +295,13 @@ class SettingsScreen extends StatelessWidget {
                   onTap: () => _openUsage(context),
                 ),
                 SwitchListTile(
+                  secondary: Icon(Icons.manage_search, color: iconColor),
+                  title: Text(l.settingsDeep),
+                  subtitle: Text(l.settingsDeepBody),
+                  value: controller.deepScan,
+                  onChanged: controller.setDeepScan,
+                ),
+                SwitchListTile(
                   secondary: Icon(Icons.phone_android, color: iconColor),
                   title: Text(l.settingsSystemApps),
                   subtitle: Text(l.settingsSystemAppsBody),

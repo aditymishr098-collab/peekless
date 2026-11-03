@@ -1044,4 +1044,16 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get homeOverviewBody => 'আপনার কত শতাংশ অ্যাপ এগুলো ব্যবহার করতে পারে';
+
+  @override
+  String get settingsDeep => 'ডিপ স্ক্যান';
+
+  @override
+  String get settingsDeepBody =>
+      'প্রতিটি অ্যাপের কোডের ভেতরেও লুকানো ট্র্যাকার খুঁজুন। প্রথম স্ক্যান ধীর হয়। ফোনের সঙ্গে আসা অ্যাপ বাদ দেওয়া হয়। সবকিছু আপনার ফোনেই থাকে।';
+
+  @override
+  String trackersFromCode(int count) {
+    return 'অ্যাপের কোডের ভেতরে পাওয়া গেছে (কোড আইকন দিয়ে চিহ্নিত): $count';
+  }
 }

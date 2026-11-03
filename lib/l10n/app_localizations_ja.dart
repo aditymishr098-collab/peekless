@@ -1014,4 +1014,16 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get homeOverviewBody => 'それぞれを使えるアプリの割合';
+
+  @override
+  String get settingsDeep => 'ディープスキャン';
+
+  @override
+  String get settingsDeepBody =>
+      '各アプリのコードの中も調べて、隠れたトラッカーを探します。最初のスキャンは時間がかかります。端末に最初から入っているアプリは対象外です。すべて端末内にとどまります。';
+
+  @override
+  String trackersFromCode(int count) {
+    return 'アプリのコード内で発見（コードアイコン付き）：$count';
+  }
 }

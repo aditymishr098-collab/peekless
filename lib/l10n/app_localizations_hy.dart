@@ -1056,4 +1056,16 @@ class AppLocalizationsHy extends AppLocalizations {
   @override
   String get homeOverviewBody =>
       'Ձեր հավելվածների ո՞ր մասը կարող է օգտագործել յուրաքանչյուրը';
+
+  @override
+  String get settingsDeep => 'Խորը սկանավորում';
+
+  @override
+  String get settingsDeepBody =>
+      'Նաև փնտրել թաքնված հետագծողներ յուրաքանչյուր հավելվածի կոդի ներսում։ Առաջին սկանավորումը ավելի դանդաղ է։ Հեռախոսի հետ եկած հավելվածները բաց են թողնվում։ Ամեն ինչ մնում է ձեր հեռախոսում։';
+
+  @override
+  String trackersFromCode(int count) {
+    return 'Գտնվել է հավելվածի կոդի ներսում (նշված կոդի պատկերակով)՝ $count';
+  }
 }

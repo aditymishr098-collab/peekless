@@ -861,6 +861,51 @@ void main() {
     });
   });
 
+  group('deep scan', () {
+    test('trackers found only in the code are marked', () {
+      final app = AppInfo.fromMap(<Object?, Object?>{
+        'package': 'com.example.deep',
+        'name': 'Deep',
+        'trackers': <Object?>['Google Ads', 'AppsFlyer'],
+        'deepOnly': <Object?>['AppsFlyer'],
+      });
+      expect(app.trackers, ['Google Ads', 'AppsFlyer']);
+      expect(app.deepTrackers, ['AppsFlyer']);
+    });
+
+    test('an app from an older scan has no deep trackers', () {
+      final app = AppInfo.fromMap(<Object?, Object?>{
+        'package': 'com.example.old',
+        'name': 'Old',
+      });
+      expect(app.deepTrackers, isEmpty);
+    });
+
+    test('the JSON report lists trackers found in code', () {
+      final report = buildReport(
+        _app(const [], trackers: const ['AppsFlyer'], packageName: 'com.example.deep'),
+      );
+      final text = buildReportJson(
+        reports: [report],
+        score: 94,
+        level: RiskLevel.safe,
+        version: '2.0.0',
+        now: DateTime(2026, 11, 3),
+      );
+      final first = (jsonDecode(text) as Map<String, dynamic>)['apps'] as List<dynamic>;
+      expect((first.single as Map<String, dynamic>).containsKey('trackersFoundInCode'), isTrue);
+    });
+
+    test('switching the deep scan starts a new change baseline', () async {
+      SharedPreferences.setMockInitialValues(<String, Object>{
+        'history_snapshot_v1': '{}',
+      });
+      await HistoryStore.resetBaseline();
+      final prefs = await SharedPreferences.getInstance();
+      expect(prefs.getString('history_snapshot_v1'), isNull);
+    });
+  });
+
   group('updater', () {
     test('compares versions', () {
       expect(Updater.isNewer('1.0.1', '1.0.0'), isTrue);

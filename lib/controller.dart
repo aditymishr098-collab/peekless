@@ -20,6 +20,7 @@ class AppController extends ChangeNotifier {
   /// The language chosen in Settings, or null to follow the phone.
   Locale? locale;
   bool includeSystem = false;
+  bool deepScan = false;
   bool alertsEnabled = false;
   bool weeklyEnabled = false;
 
@@ -96,6 +97,7 @@ class AppController extends ChangeNotifier {
       _ => ThemeMode.system,
     };
     includeSystem = prefs.getBool('include_system') ?? false;
+    deepScan = prefs.getBool('deep_scan') ?? false;
     locale = localeFromCode(prefs.getString('language'));
     alertsEnabled = prefs.getBool('alerts_enabled') ?? false;
     weeklyEnabled = prefs.getBool('weekly_summary') ?? false;
@@ -149,6 +151,18 @@ class AppController extends ChangeNotifier {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('include_system', value);
     _publishGlance();
+  }
+
+  /// Turns the deep scan (look inside the app code) on or off and scans again.
+  Future<void> setDeepScan(bool value) async {
+    deepScan = value;
+    notifyListeners();
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('deep_scan', value);
+    // The deep scan finds more trackers. Start a new baseline, so that is not
+    // reported as "new trackers" in Changes and in alerts.
+    await HistoryStore.resetBaseline();
+    unawaited(scan());
   }
 
   Future<void> setTrusted(String packageName, bool value) async {

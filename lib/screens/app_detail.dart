@@ -238,9 +238,20 @@ class AppDetailScreen extends StatelessWidget {
                   spacing: 8,
                   runSpacing: 8,
                   children: [
-                    for (final tracker in app.trackers) _TrackerPill(name: tracker),
+                    for (final tracker in app.trackers)
+                      _TrackerPill(
+                        name: tracker,
+                        fromCode: app.deepTrackers.contains(tracker),
+                      ),
                   ],
                 ),
+              if (app.deepTrackers.isNotEmpty) ...[
+                const SizedBox(height: 8),
+                Text(
+                  l.trackersFromCode(app.deepTrackers.length),
+                  style: text.bodySmall?.copyWith(color: scheme.onSurfaceVariant),
+                ),
+              ],
               const SizedBox(height: 12),
               Text(
                 l.detailDisclaimer,
@@ -420,9 +431,12 @@ class _PermissionRow extends StatelessWidget {
 }
 
 class _TrackerPill extends StatelessWidget {
-  const _TrackerPill({required this.name});
+  const _TrackerPill({required this.name, this.fromCode = false});
 
   final String name;
+
+  /// True when only the deep scan found this tracker.
+  final bool fromCode;
 
   @override
   Widget build(BuildContext context) {
@@ -458,6 +472,10 @@ class _TrackerPill extends StatelessWidget {
           ),
           const SizedBox(width: 8),
           Text(name, style: text.bodyMedium?.copyWith(fontWeight: FontWeight.w600)),
+          if (fromCode) ...[
+            const SizedBox(width: 6),
+            Icon(Icons.code, size: 16, color: scheme.onSurfaceVariant),
+          ],
         ],
       ),
     );

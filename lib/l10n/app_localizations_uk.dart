@@ -1052,4 +1052,16 @@ class AppLocalizationsUk extends AppLocalizations {
   @override
   String get homeOverviewBody =>
       'Частка ваших застосунків, які можуть цим користуватися';
+
+  @override
+  String get settingsDeep => 'Глибоке сканування';
+
+  @override
+  String get settingsDeepBody =>
+      'Шукати приховані трекери також усередині коду кожного застосунку. Перше сканування повільніше. Застосунки, що були на телефоні від початку, пропускаються. Усе залишається на вашому телефоні.';
+
+  @override
+  String trackersFromCode(int count) {
+    return 'Знайдено всередині коду застосунку (позначені значком коду): $count';
+  }
 }

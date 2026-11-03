@@ -309,6 +309,13 @@ class HistoryStore {
   static const String _eventsKey = 'history_events_v1';
   static const int maxEvents = 200;
 
+  /// Forgets the saved snapshot, so the next scan only sets a new baseline and
+  /// creates no events. The change list itself is kept.
+  static Future<void> resetBaseline() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove(_snapshotKey);
+  }
+
   /// Compares a fresh scan with the saved snapshot, stores new events and the
   /// new snapshot, and returns what changed. The first scan only sets the
   /// baseline, so it creates no events.

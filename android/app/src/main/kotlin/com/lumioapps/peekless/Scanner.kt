@@ -17,7 +17,11 @@ import android.view.accessibility.AccessibilityManager
  * and build flags.
  */
 object Scanner {
-    fun collect(context: Context, signatures: Map<String, List<String>>): List<Map<String, Any?>> {
+    fun collect(
+        context: Context,
+        signatures: Map<String, List<String>>,
+        deep: Boolean = false,
+    ): List<Map<String, Any?>> {
         val pm = context.packageManager
         val flags = PackageManager.GET_PERMISSIONS or
             PackageManager.GET_ACTIVITIES or
@@ -25,6 +29,8 @@ object Scanner {
             PackageManager.GET_RECEIVERS or
             PackageManager.GET_PROVIDERS
         val out = ArrayList<Map<String, Any?>>()
+        // Changes when the tracker list changes, so saved deep results are redone.
+        val fingerprint = signatures.hashCode()
 
         val accessibilityApps = accessibilityPackages(context)
         val adminApps = deviceAdminPackages(context)
@@ -68,6 +74,29 @@ object Scanner {
                 }
             }
 
+            // Deep scan: also look at the class names inside the app code. Apps
+            // that came with the phone are skipped, they are large and slow.
+            val deepOnly = ArrayList<String>()
+            if (deep && !isSystem) {
+                val dirs = ArrayList<String>()
+                appInfo.sourceDir?.let { dirs.add(it) }
+                appInfo.splitSourceDirs?.let { dirs.addAll(it) }
+                val found = DexScanner.scan(
+                    context,
+                    name,
+                    dirs,
+                    signatures,
+                    fingerprint,
+                    pkg.lastUpdateTime,
+                )
+                for (tracker in found) {
+                    if (tracker !in trackers) {
+                        trackers.add(tracker)
+                        deepOnly.add(tracker)
+                    }
+                }
+            }
+
             val category = if (Build.VERSION.SDK_INT >= 26) appInfo.category else -1
 
             val special = ArrayList<String>()
@@ -83,6 +112,7 @@ object Scanner {
                     "version" to (pkg.versionName ?: ""),
                     "permissions" to perms,
                     "trackers" to trackers,
+                    "deepOnly" to deepOnly,
                     "category" to category,
                     "installer" to installerOf(pm, name),
                     "special" to special,

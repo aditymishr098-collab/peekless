@@ -1049,4 +1049,16 @@ class AppLocalizationsNl extends AppLocalizations {
   @override
   String get homeOverviewBody =>
       'Aandeel van je apps dat elk onderdeel kan gebruiken';
+
+  @override
+  String get settingsDeep => 'Diepe scan';
+
+  @override
+  String get settingsDeepBody =>
+      'Zoek ook naar verborgen trackers in de code van elke app. De eerste scan is langzamer. Apps die bij je telefoon zaten, worden overgeslagen. Alles blijft op je telefoon.';
+
+  @override
+  String trackersFromCode(int count) {
+    return 'Gevonden in de code van de app (gemarkeerd met een codepictogram): $count';
+  }
 }
