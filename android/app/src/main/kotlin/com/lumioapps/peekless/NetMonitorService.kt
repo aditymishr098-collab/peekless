@@ -41,8 +41,19 @@ class NetMonitorService : VpnService() {
             context.startService(Intent(context, NetMonitorService::class.java))
         }
 
+        // The running service. Android keeps its own connection to a VPN service,
+        // so stopService() alone does not end it. The tunnel has to be closed.
+        @Volatile
+        private var instance: NetMonitorService? = null
+
         fun stop(context: Context) {
-            context.stopService(Intent(context, NetMonitorService::class.java))
+            val live = instance
+            if (live != null) {
+                live.stopMonitor()
+            } else {
+                running = false
+                context.stopService(Intent(context, NetMonitorService::class.java))
+            }
         }
     }
 
@@ -52,6 +63,11 @@ class NetMonitorService : VpnService() {
 
     private var upstream: InetAddress? = null
     private var upstreamAt = 0L
+
+    override fun onCreate() {
+        super.onCreate()
+        instance = this
+    }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         if (!running) startMonitor()
@@ -90,6 +106,7 @@ class NetMonitorService : VpnService() {
         tunnel = null
         executor?.shutdownNow()
         executor = null
+        worker?.interrupt()
         worker = null
         NetStats.flush(applicationContext)
         stopSelf()
@@ -102,6 +119,7 @@ class NetMonitorService : VpnService() {
     }
 
     override fun onDestroy() {
+        if (instance === this) instance = null
         running = false
         try {
             tunnel?.close()

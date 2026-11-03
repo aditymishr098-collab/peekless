@@ -146,12 +146,12 @@ Without a signing key, the release build is signed with the debug key. That is f
 Releases are built by GitHub Actions (`.github/workflows/release.yml`).
 
 - Every push to `main` builds a signed APK and keeps it as a build artifact.
-- Pushing a tag that starts with `v` (for example `v2.1.0`) also publishes the APK as a GitHub Release.
+- Pushing a tag that starts with `v` (for example `v2.1.1`) also publishes the APK as a GitHub Release.
 - The APK is signed with a key stored in the repository secrets: `KEYSTORE_BASE64`, `KEYSTORE_PASSWORD`, `KEY_ALIAS` and `KEY_PASSWORD`.
 
 ```bash
-git tag v2.1.0
-git push origin v2.1.0
+git tag v2.1.1
+git push origin v2.1.1
 ```
 
 Because every release is signed with the same key, an update installs over the old version and keeps your data.
