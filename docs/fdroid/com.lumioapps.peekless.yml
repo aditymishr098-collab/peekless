@@ -1,5 +1,3 @@
-# Draft for fdroiddata (gitlab.com/fdroid/fdroiddata), file: metadata/com.lumioapps.peekless.yml
-# Open a merge request with this file. The F-Droid team may ask for small changes.
 Categories:
   - Security
   - System
@@ -23,7 +21,6 @@ Builds:
     srclibs:
       - flutter@stable
     prebuild:
-      # F-Droid delivers updates itself: no permission to install packages.
       - sed -i '/REQUEST_INSTALL_PACKAGES/d' android/app/src/main/AndroidManifest.xml
       - export PUB_CACHE=$(pwd)/.pub-cache
       - $$flutter$$/bin/flutter config --no-analytics
