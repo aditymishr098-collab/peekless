@@ -9,7 +9,7 @@ import 'tracker_db.dart';
 /// Where the newest tracker list is published. It is only contacted when the
 /// user taps "Tracker list" in Settings.
 const String trackerListUrl =
-    'https://raw.githubusercontent.com/lumio-apps/peekless/main/data/trackers.json';
+    'https://raw.githubusercontent.com/aditymishr098-collab/peekless/main/data/trackers.json';
 
 /// Version of the list that ships inside the app.
 const int builtInTrackerVersion = 1;

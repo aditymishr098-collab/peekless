@@ -224,7 +224,7 @@ class SettingsScreen extends StatelessWidget {
 
   Future<void> _openGithub() async {
     await launchUrl(
-      Uri.parse('https://github.com/lumio-apps/peekless'),
+      Uri.parse('https://github.com/aditymishr098-collab/peekless'),
       mode: LaunchMode.externalApplication,
     );
   }

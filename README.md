@@ -10,7 +10,7 @@ An offline privacy auditor for Android. Peekless checks the permissions and trac
 
 No account. No ads. No analytics. Nothing leaves your phone.
 
-[Download](https://github.com/lumio-apps/peekless/releases/latest) · [Report a problem](https://github.com/lumio-apps/peekless/issues) · [Lumio Apps](https://lumio-apps.online)
+[Download](https://github.com/aditymishr098-collab/peekless/releases/latest) · [Report a problem](https://github.com/aditymishr098-collab/peekless/issues) · [Lumio Apps](https://lumio-apps.online)
 
 </div>
 
@@ -91,6 +91,7 @@ The full breakdown for each app is inside Peekless, under **How is this score ca
 
 Peekless is built to protect your privacy, so it holds itself to the same rules.
 
+- It does not ask for access to your photos, videos, music or files.
 - It works fully offline. Everything is read from Android on your phone and stays there.
 - No ads, no analytics, no crash reporting, no accounts, no servers.
 - Your history, trusted apps and settings are stored only on your phone.
@@ -125,7 +126,7 @@ Please read this part. Peekless is honest about its limits.
 
 ## Install
 
-1. Open the [latest release](https://github.com/lumio-apps/peekless/releases/latest) and download `peekless-x.y.z.apk`.
+1. Open the [latest release](https://github.com/aditymishr098-collab/peekless/releases/latest) and download `peekless-x.y.z.apk`.
 2. Open the file. If Android asks, allow your browser or file manager to install apps.
 3. After that, update from inside Peekless: **Settings → Check for updates**.
 
@@ -136,7 +137,7 @@ Peekless is also prepared for [F-Droid](https://f-droid.org). F-Droid builds the
 You need [Flutter](https://docs.flutter.dev/get-started/install) (stable) and an Android device or emulator.
 
 ```bash
-git clone https://github.com/lumio-apps/peekless.git
+git clone https://github.com/aditymishr098-collab/peekless.git
 cd peekless
 flutter pub get
 dart run flutter_launcher_icons
@@ -168,12 +169,12 @@ This hides "Check for updates" in Settings. The `REQUEST_INSTALL_PACKAGES` permi
 Releases are built by GitHub Actions (`.github/workflows/release.yml`).
 
 - Every push to `main` builds a signed APK and keeps it as a build artifact.
-- Pushing a tag that starts with `v` (for example `v2.2.1`) also publishes the APK as a GitHub Release.
+- Pushing a tag that starts with `v` (for example `v2.2.3`) also publishes the APK as a GitHub Release.
 - The APK is signed with a key stored in the repository secrets: `KEYSTORE_BASE64`, `KEYSTORE_PASSWORD`, `KEY_ALIAS` and `KEY_PASSWORD`.
 
 ```bash
-git tag v2.2.1
-git push origin v2.2.1
+git tag v2.2.3
+git push origin v2.2.3
 ```
 
 Because every release is signed with the same key, an update installs over the old version and keeps your data.

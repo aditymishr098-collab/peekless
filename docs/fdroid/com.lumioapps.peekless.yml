@@ -4,14 +4,14 @@ Categories:
 License: GPL-3.0-only
 AuthorName: Lumio Apps
 WebSite: https://lumio-apps.online
-SourceCode: https://github.com/lumio-apps/peekless
-IssueTracker: https://github.com/lumio-apps/peekless/issues
-Changelog: https://github.com/lumio-apps/peekless/releases
+SourceCode: https://github.com/aditymishr098-collab/peekless
+IssueTracker: https://github.com/aditymishr098-collab/peekless/issues
+Changelog: https://github.com/aditymishr098-collab/peekless/releases
 
 AutoName: Peekless
 
 RepoType: git
-Repo: https://github.com/lumio-apps/peekless.git
+Repo: https://github.com/aditymishr098-collab/peekless.git
 
 Builds:
   - versionName: 2.2.1

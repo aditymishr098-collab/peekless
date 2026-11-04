@@ -1,0 +1,1 @@
+The project now lives under the maintainer's own GitHub account. Update checks and the tracker list use the new address. No change to features.

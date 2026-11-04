@@ -17,7 +17,9 @@ import java.net.Inet4Address
 import java.net.InetAddress
 import java.net.InetSocketAddress
 import java.util.concurrent.ExecutorService
-import java.util.concurrent.Executors
+import java.util.concurrent.LinkedBlockingQueue
+import java.util.concurrent.ThreadPoolExecutor
+import java.util.concurrent.TimeUnit
 
 /**
  * The network monitor. It is a local VPN that only takes DNS questions: the
@@ -61,7 +63,7 @@ class NetMonitorService : VpnService() {
     private var worker: Thread? = null
     private var executor: ExecutorService? = null
 
-    private var upstream: InetAddress? = null
+    private var upstream: List<InetAddress> = emptyList()
     private var upstreamAt = 0L
 
     @Volatile
@@ -71,7 +73,7 @@ class NetMonitorService : VpnService() {
     private val tcp = DnsTcp(object : DnsHost {
         override fun protectSocket(socket: java.net.Socket): Boolean = protect(socket)
 
-        override fun upstream(): InetAddress? = upstreamServer()
+        override fun upstream(): InetAddress? = upstreamServers().firstOrNull()
 
         override fun record(query: ByteArray, source: ByteArray, sourcePort: Int, destination: ByteArray) {
             this@NetMonitorService.record(query, source, sourcePort, destination, true)
@@ -115,7 +117,9 @@ class NetMonitorService : VpnService() {
                 return
             }
             tunnel = pfd
-            executor = Executors.newFixedThreadPool(6)
+            // A short queue: when the phone is flooded with questions, the extra ones are
+            // refused (the app asks again) instead of piling up in memory.
+            executor = ThreadPoolExecutor(6, 6, 0L, TimeUnit.MILLISECONDS, LinkedBlockingQueue<Runnable>(200))
             running = true
             worker = Thread({ readLoop(pfd) }, "peekless-dns").also { it.start() }
         } catch (e: Exception) {
@@ -224,17 +228,26 @@ class NetMonitorService : VpnService() {
     ) {
         try {
             record(query, source, sourcePort, destination)
-            val server = upstreamServer() ?: return
+            val servers = upstreamServers().take(2)
+            if (servers.isEmpty()) return
             val socket = DatagramSocket()
             try {
                 // Keeps this socket out of the tunnel, so it reaches the real DNS server.
                 protect(socket)
-                socket.soTimeout = 4000
-                socket.send(DatagramPacket(query, query.size, server, 53))
+                socket.soTimeout = 2500
                 val buffer = ByteArray(4096)
-                val reply = DatagramPacket(buffer, buffer.size)
-                socket.receive(reply)
-                writeReply(buffer.copyOf(reply.length), source, sourcePort, destination, output)
+                // Ask the first DNS server. If it does not answer, ask the next one.
+                for (server in servers) {
+                    try {
+                        socket.send(DatagramPacket(query, query.size, server, 53))
+                        val reply = DatagramPacket(buffer, buffer.size)
+                        socket.receive(reply)
+                        writeReply(buffer.copyOf(reply.length), source, sourcePort, destination, output)
+                        return
+                    } catch (e: java.net.SocketTimeoutException) {
+                        // Try the next server.
+                    }
+                }
             } finally {
                 socket.close()
             }
@@ -275,29 +288,30 @@ class NetMonitorService : VpnService() {
         }
     }
 
-    /** The phone's real DNS server (from the normal connection, not the tunnel). */
+    /** The phone's real DNS servers (from the normal connection, not the tunnel). */
     @Suppress("DEPRECATION")
-    private fun upstreamServer(): InetAddress? {
+    private fun upstreamServers(): List<InetAddress> {
         val now = System.currentTimeMillis()
         val saved = upstream
-        if (saved != null && now - upstreamAt < 30_000) return saved
+        if (saved.isNotEmpty() && now - upstreamAt < 30_000) return saved
         try {
             val manager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-            var best: InetAddress? = null
+            var best: List<InetAddress> = emptyList()
             for (network in manager.allNetworks) {
                 val caps = manager.getNetworkCapabilities(network) ?: continue
                 if (caps.hasTransport(NetworkCapabilities.TRANSPORT_VPN)) continue
                 if (!caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)) continue
                 val servers = manager.getLinkProperties(network)?.dnsServers ?: continue
-                val pick = servers.firstOrNull { it is Inet4Address } ?: servers.firstOrNull() ?: continue
-                best = pick
+                if (servers.isEmpty()) continue
+                // IPv4 servers first: the tunnel carries IPv4 only.
+                best = servers.sortedBy { if (it is Inet4Address) 0 else 1 }
                 if (caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED)) break
             }
-            if (best != null) {
+            if (best.isNotEmpty()) {
                 upstream = best
                 upstreamAt = now
             }
-            return best
+            return best.ifEmpty { saved }
         } catch (e: Exception) {
             return saved
         }

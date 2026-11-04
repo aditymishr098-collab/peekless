@@ -1,6 +1,7 @@
 package com.lumioapps.peekless
 
 import android.content.Context
+import java.io.DataInputStream
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import java.util.zip.ZipFile
@@ -17,7 +18,7 @@ import java.util.zip.ZipFile
  */
 object DexScanner {
     private const val PREFS = "peekless_deep"
-    private const val MAX_DEX_BYTES = 48L * 1024 * 1024
+    private const val MAX_DEX_BYTES = 40L * 1024 * 1024
     private const val MAX_CLASSES = 400_000
 
     private val dexName = Regex("classes\\d*\\.dex")
@@ -71,12 +72,17 @@ object DexScanner {
                             complete = false
                             continue
                         }
-                        val bytes = zip.getInputStream(entry).use { it.readBytes() }
+                        // One array of exactly the right size, so memory use stays low.
+                        val bytes = ByteArray(entry.size.toInt())
+                        zip.getInputStream(entry).use { DataInputStream(it).readFully(bytes) }
                         match(bytes, remaining, found)
                     }
                 }
             } catch (e: Exception) {
                 // An unreadable APK is skipped. Do not remember a half result.
+                complete = false
+            } catch (e: OutOfMemoryError) {
+                // A very large app on a phone with little memory. Skip it.
                 complete = false
             }
         }

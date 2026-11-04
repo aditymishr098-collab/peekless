@@ -961,5 +961,41 @@ void main() {
       expect(Updater.isNewer('1.0.0', '1.0.1'), isFalse);
       expect(Updater.isNewer('2.0', '1.9.9'), isTrue);
     });
+
+    test('only GitHub downloads are accepted', () {
+      expect(Updater.isTrustedUrl('https://github.com/aditymishr098-collab/peekless/releases/download/v1/a.apk'), isTrue);
+      expect(Updater.isTrustedUrl('https://objects.githubusercontent.com/x/a.apk'), isTrue);
+      expect(Updater.isTrustedUrl('http://github.com/a.apk'), isFalse);
+      expect(Updater.isTrustedUrl('https://evilgithub.com/a.apk'), isFalse);
+      expect(Updater.isTrustedUrl('https://example.com/a.apk'), isFalse);
+      expect(Updater.isTrustedUrl(''), isFalse);
+    });
+
+    test('picks the right APK of a release', () {
+      Map<String, dynamic> asset(String name) => {
+            'name': name,
+            'browser_download_url': 'https://github.com/aditymishr098-collab/peekless/releases/download/v2.2.3/$name',
+          };
+      expect(Updater.pickApk(<Map<String, dynamic>>[], '2.2.3'), isNull);
+      expect(Updater.pickApk([asset('notes.txt')], '2.2.3'), isNull);
+      expect(Updater.pickApk([asset('peekless-2.2.3.apk')], '2.2.3')!.endsWith('peekless-2.2.3.apk'), isTrue);
+      expect(
+        Updater.pickApk([asset('other.apk'), asset('peekless-2.2.3.apk')], '2.2.3')!.endsWith('peekless-2.2.3.apk'),
+        isTrue,
+      );
+      expect(
+        Updater.pickApk([asset('app-x86_64.apk'), asset('app-arm64-v8a.apk')], '2.2.3')!.endsWith('app-arm64-v8a.apk'),
+        isTrue,
+      );
+      expect(
+        Updater.pickApk(
+          [
+            {'name': 'a.apk', 'browser_download_url': 'https://example.com/a.apk'},
+          ],
+          '2.2.3',
+        ),
+        isNull,
+      );
+    });
   });
 }

@@ -249,7 +249,28 @@ class AppController extends ChangeNotifier {
     notifyListeners();
   }
 
+  bool _scanning = false;
+  bool _scanAgain = false;
+
+  /// Scans the apps. A scan asked for while another one runs is done right
+  /// after it, so two scans never run at the same time.
   Future<void> scan() async {
+    if (_scanning) {
+      _scanAgain = true;
+      return;
+    }
+    _scanning = true;
+    try {
+      do {
+        _scanAgain = false;
+        await _scanOnce();
+      } while (_scanAgain);
+    } finally {
+      _scanning = false;
+    }
+  }
+
+  Future<void> _scanOnce() async {
     loading = true;
     error = null;
     notifyListeners();
