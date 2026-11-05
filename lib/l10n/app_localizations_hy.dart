@@ -1130,4 +1130,19 @@ class AppLocalizationsHy extends AppLocalizations {
   String netTrackerTag(String name) {
     return 'Հետագծող՝ $name';
   }
+
+  @override
+  String get netBlockTitle => 'Արգելափակել հետևիչների դոմեյնները';
+
+  @override
+  String get netBlockBody =>
+      'Հայտնի հետևիչների անունները ստանում են դատարկ պատասխան, ուստի հավելվածները չեն կարող հասնել դրանց։ Որոշ հավելվածներ կարող են կորցնել գովազդը, վիճակագրությունը կամ այլ գործառույթներ։ Լռելյայն անջատված է։';
+
+  @override
+  String netBlockedCount(int count) {
+    return '$count արգելափակված';
+  }
+
+  @override
+  String get netExport => 'Արտահանել CSV-ով';
 }

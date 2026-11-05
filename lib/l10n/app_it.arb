@@ -314,5 +314,9 @@
   "netConsentDenied": "Android non ha permesso l’avvio del monitor.",
   "netFailed": "Impossibile modificare il monitor di rete.",
   "netUnknownApp": "App sconosciuta",
-  "netTrackerTag": "Tracker: {name}"
+  "netTrackerTag": "Tracker: {name}",
+  "netBlockTitle": "Blocca i domini dei tracker",
+  "netBlockBody": "I nomi dei tracker noti ricevono una risposta vuota, quindi le app non possono raggiungerli. Alcune app potrebbero perdere pubblicità, statistiche o altre funzioni. Disattivato per impostazione predefinita.",
+  "netBlockedCount": "{count} bloccate",
+  "netExport": "Esporta come CSV"
 }

@@ -1132,4 +1132,19 @@ class AppLocalizationsDe extends AppLocalizations {
   String netTrackerTag(String name) {
     return 'Tracker: $name';
   }
+
+  @override
+  String get netBlockTitle => 'Tracker-Domains blockieren';
+
+  @override
+  String get netBlockBody =>
+      'Bekannte Tracker-Namen erhalten eine leere Antwort, sodass diese Apps sie nicht erreichen können. Manche Apps verlieren dadurch Werbung, Statistiken oder andere Funktionen. Standardmäßig aus.';
+
+  @override
+  String netBlockedCount(int count) {
+    return '$count blockiert';
+  }
+
+  @override
+  String get netExport => 'Als CSV exportieren';
 }

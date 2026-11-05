@@ -314,5 +314,9 @@
   "netConsentDenied": "Android がモニターの開始を許可しませんでした。",
   "netFailed": "ネットワークモニターを変更できませんでした。",
   "netUnknownApp": "不明なアプリ",
-  "netTrackerTag": "トラッカー：{name}"
+  "netTrackerTag": "トラッカー：{name}",
+  "netBlockTitle": "トラッカーのドメインをブロック",
+  "netBlockBody": "既知のトラッカーのドメイン名には空の応答を返すため、アプリはそれらに接続できません。一部のアプリでは広告、統計、その他の機能が使えなくなることがあります。初期設定ではオフです。",
+  "netBlockedCount": "{count} 件ブロック",
+  "netExport": "CSV で書き出す"
 }

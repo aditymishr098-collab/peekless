@@ -1085,4 +1085,19 @@ class AppLocalizationsJa extends AppLocalizations {
   String netTrackerTag(String name) {
     return 'トラッカー：$name';
   }
+
+  @override
+  String get netBlockTitle => 'トラッカーのドメインをブロック';
+
+  @override
+  String get netBlockBody =>
+      '既知のトラッカーのドメイン名には空の応答を返すため、アプリはそれらに接続できません。一部のアプリでは広告、統計、その他の機能が使えなくなることがあります。初期設定ではオフです。';
+
+  @override
+  String netBlockedCount(int count) {
+    return '$count 件ブロック';
+  }
+
+  @override
+  String get netExport => 'CSV で書き出す';
 }

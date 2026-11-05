@@ -314,5 +314,9 @@
   "netConsentDenied": "Android 未允許啟動監視器。",
   "netFailed": "無法變更網路監視器。",
   "netUnknownApp": "未知應用程式",
-  "netTrackerTag": "追蹤器：{name}"
+  "netTrackerTag": "追蹤器：{name}",
+  "netBlockTitle": "封鎖追蹤器網域",
+  "netBlockBody": "已知追蹤器的網域會得到空白回應，因此這些應用程式無法連到它們。部分應用程式可能會失去廣告、統計或其他功能。預設為關閉。",
+  "netBlockedCount": "已封鎖 {count} 次",
+  "netExport": "匯出為 CSV"
 }

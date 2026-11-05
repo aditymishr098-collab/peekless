@@ -1122,4 +1122,19 @@ class AppLocalizationsId extends AppLocalizations {
   String netTrackerTag(String name) {
     return 'Pelacak: $name';
   }
+
+  @override
+  String get netBlockTitle => 'Blokir domain pelacak';
+
+  @override
+  String get netBlockBody =>
+      'Nama pelacak yang dikenal mendapat jawaban kosong, jadi aplikasi tidak bisa menjangkaunya. Beberapa aplikasi mungkin kehilangan iklan, statistik, atau fitur lain. Nonaktif secara default.';
+
+  @override
+  String netBlockedCount(int count) {
+    return '$count diblokir';
+  }
+
+  @override
+  String get netExport => 'Ekspor sebagai CSV';
 }

@@ -1117,4 +1117,19 @@ class AppLocalizationsHi extends AppLocalizations {
   String netTrackerTag(String name) {
     return 'ट्रैकर: $name';
   }
+
+  @override
+  String get netBlockTitle => 'ट्रैकर डोमेन ब्लॉक करें';
+
+  @override
+  String get netBlockBody =>
+      'जाने-पहचाने ट्रैकरों के नामों को खाली जवाब मिलता है, इसलिए ऐप उन तक नहीं पहुँच पाते। कुछ ऐप्स में विज्ञापन, आँकड़े या दूसरी सुविधाएँ बंद हो सकती हैं। डिफ़ॉल्ट रूप से बंद।';
+
+  @override
+  String netBlockedCount(int count) {
+    return '$count ब्लॉक किए गए';
+  }
+
+  @override
+  String get netExport => 'CSV के रूप में एक्सपोर्ट करें';
 }

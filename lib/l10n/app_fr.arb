@@ -314,5 +314,9 @@
   "netConsentDenied": "Android n’a pas autorisé le démarrage du moniteur.",
   "netFailed": "Impossible de modifier le moniteur réseau.",
   "netUnknownApp": "Appli inconnue",
-  "netTrackerTag": "Traqueur : {name}"
+  "netTrackerTag": "Traqueur : {name}",
+  "netBlockTitle": "Bloquer les domaines de traqueurs",
+  "netBlockBody": "Les noms de traqueurs connus reçoivent une réponse vide, donc ces applis ne peuvent pas les joindre. Certaines applis peuvent perdre des publicités, des statistiques ou d’autres fonctions. Désactivé par défaut.",
+  "netBlockedCount": "{count} bloquées",
+  "netExport": "Exporter en CSV"
 }

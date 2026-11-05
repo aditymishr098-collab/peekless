@@ -56,3 +56,17 @@ String? trackerForDomain(String domain) {
   }
   return null;
 }
+
+/// Trackers that are left alone when blocking is on. Blocking OneSignal would
+/// stop push notifications, and blocking Branch would break app links.
+const Set<String> _neverBlock = {'OneSignal', 'Branch'};
+
+/// The domain names the network monitor may block, all in lower case.
+List<String> blockableDomains() {
+  final out = <String>{};
+  for (final entry in trackerDomains.entries) {
+    if (_neverBlock.contains(entry.key)) continue;
+    out.addAll(entry.value.map((d) => d.toLowerCase()));
+  }
+  return out.toList()..sort();
+}

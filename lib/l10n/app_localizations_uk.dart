@@ -1126,4 +1126,19 @@ class AppLocalizationsUk extends AppLocalizations {
   String netTrackerTag(String name) {
     return 'Трекер: $name';
   }
+
+  @override
+  String get netBlockTitle => 'Блокувати домени трекерів';
+
+  @override
+  String get netBlockBody =>
+      'Відомі імена трекерів отримують порожню відповідь, тому застосунки не можуть до них дістатися. Деякі застосунки можуть втратити рекламу, статистику чи інші функції. За замовчуванням вимкнено.';
+
+  @override
+  String netBlockedCount(int count) {
+    return 'Заблоковано: $count';
+  }
+
+  @override
+  String get netExport => 'Експортувати як CSV';
 }

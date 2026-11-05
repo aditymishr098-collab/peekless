@@ -1122,4 +1122,19 @@ class AppLocalizationsVi extends AppLocalizations {
   String netTrackerTag(String name) {
     return 'Trình theo dõi: $name';
   }
+
+  @override
+  String get netBlockTitle => 'Chặn tên miền trình theo dõi';
+
+  @override
+  String get netBlockBody =>
+      'Tên của các trình theo dõi đã biết sẽ nhận phản hồi trống, nên ứng dụng không thể truy cập chúng. Một số ứng dụng có thể mất quảng cáo, thống kê hoặc tính năng khác. Mặc định tắt.';
+
+  @override
+  String netBlockedCount(int count) {
+    return 'Đã chặn $count';
+  }
+
+  @override
+  String get netExport => 'Xuất dưới dạng CSV';
 }

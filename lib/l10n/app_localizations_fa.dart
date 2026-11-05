@@ -1117,4 +1117,19 @@ class AppLocalizationsFa extends AppLocalizations {
   String netTrackerTag(String name) {
     return 'ردیاب: $name';
   }
+
+  @override
+  String get netBlockTitle => 'مسدود کردن دامنه‌های ردیاب';
+
+  @override
+  String get netBlockBody =>
+      'نام‌های ردیاب شناخته‌شده پاسخ خالی می‌گیرند، پس برنامه‌ها نمی‌توانند به آن‌ها برسند. برخی برنامه‌ها ممکن است تبلیغ، آمار یا قابلیت‌های دیگر را از دست بدهند. به‌طور پیش‌فرض خاموش است.';
+
+  @override
+  String netBlockedCount(int count) {
+    return '$count مسدود شد';
+  }
+
+  @override
+  String get netExport => 'خروجی CSV';
 }

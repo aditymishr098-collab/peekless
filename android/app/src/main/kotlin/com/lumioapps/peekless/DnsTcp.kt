@@ -16,8 +16,11 @@ interface DnsHost {
     /** The phone's real DNS server, or null. */
     fun upstream(): InetAddress?
 
-    /** Counts a question for the app that sent it. */
-    fun record(query: ByteArray, source: ByteArray, sourcePort: Int, destination: ByteArray)
+    /** Counts a question for the app that sent it. Returns that app's package, or null. */
+    fun record(query: ByteArray, source: ByteArray, sourcePort: Int, destination: ByteArray): String?
+
+    /** The "does not exist" answer when the name is a blocked tracker, otherwise null. */
+    fun refusal(query: ByteArray, owner: String?): ByteArray?
 
     /** Runs work in the background. */
     fun submit(task: Runnable)
@@ -203,7 +206,12 @@ class DnsTcp(private val host: DnsHost) {
 
     private fun forward(key: Long, conn: Conn, query: ByteArray) {
         try {
-            host.record(query, conn.source, conn.sourcePort, conn.destination)
+            val owner = host.record(query, conn.source, conn.sourcePort, conn.destination)
+            val refusal = host.refusal(query, owner)
+            if (refusal != null) {
+                sendData(conn, refusal)
+                return
+            }
             val server = host.upstream() ?: return
             val reply = synchronized(conn.upLock) { exchange(conn, server, query) }
             if (reply != null) sendData(conn, reply)

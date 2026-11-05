@@ -314,5 +314,9 @@
   "netConsentDenied": "Android 未允许启动监视器。",
   "netFailed": "无法更改网络监视器。",
   "netUnknownApp": "未知应用",
-  "netTrackerTag": "追踪器：{name}"
+  "netTrackerTag": "追踪器：{name}",
+  "netBlockTitle": "屏蔽追踪器域名",
+  "netBlockBody": "已知追踪器的域名会得到空响应，因此这些应用无法访问它们。部分应用可能会失去广告、统计或其他功能。默认关闭。",
+  "netBlockedCount": "已屏蔽 {count} 次",
+  "netExport": "导出为 CSV"
 }

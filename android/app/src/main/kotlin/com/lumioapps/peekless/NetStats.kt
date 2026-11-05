@@ -17,6 +17,9 @@ object NetStats {
     private val lock = Any()
     private var apps: LinkedHashMap<String, LinkedHashMap<String, Int>>? = null
     private var since = 0L
+
+    // App -> how many lookups were blocked (see NetBlock).
+    private var blocked = LinkedHashMap<String, Int>()
     private var dirty = false
     private var lastSave = 0L
 
@@ -31,6 +34,15 @@ object NetStats {
             if (raw != null) {
                 val root = JSONObject(raw)
                 since = root.optLong("since", 0L)
+                blocked = LinkedHashMap()
+                val blockedAll = root.optJSONObject("blocked")
+                if (blockedAll != null) {
+                    val keys = blockedAll.keys()
+                    while (keys.hasNext()) {
+                        val key = keys.next()
+                        blocked[key] = blockedAll.optInt(key, 0)
+                    }
+                }
                 val all = root.optJSONObject("apps")
                 if (all != null) {
                     val packages = all.keys()
@@ -61,7 +73,9 @@ object NetStats {
             for ((name, count) in domains) inner.put(name, count)
             all.put(pkg, inner)
         }
-        return JSONObject().put("since", since).put("apps", all)
+        val blockedJson = JSONObject()
+        for ((pkg, count) in blocked) blockedJson.put(pkg, count)
+        return JSONObject().put("since", since).put("apps", all).put("blocked", blockedJson)
     }
 
     private fun save(context: Context, data: Map<String, Map<String, Int>>) {
@@ -102,6 +116,24 @@ object NetStats {
         }
     }
 
+    /** Counts one lookup that was blocked for [pkg]. */
+    fun addBlocked(context: Context, pkg: String) {
+        synchronized(lock) {
+            val data = load(context)
+            val count = blocked[pkg]
+            if (count != null) {
+                blocked[pkg] = count + 1
+            } else if (blocked.size < MAX_APPS) {
+                blocked[pkg] = 1
+            } else {
+                return
+            }
+            dirty = true
+            val now = System.currentTimeMillis()
+            if (now - lastSave > 15_000) save(context, data)
+        }
+    }
+
     /** Writes anything that is not saved yet. */
     fun flush(context: Context) {
         synchronized(lock) {
@@ -119,6 +151,7 @@ object NetStats {
     fun clear(context: Context) {
         synchronized(lock) {
             apps = LinkedHashMap()
+            blocked = LinkedHashMap()
             since = 0L
             recent.clear()
             context.getSharedPreferences(PREFS, Context.MODE_PRIVATE).edit().remove(KEY).apply()

@@ -1085,4 +1085,19 @@ class AppLocalizationsKo extends AppLocalizations {
   String netTrackerTag(String name) {
     return '추적기: $name';
   }
+
+  @override
+  String get netBlockTitle => '추적기 도메인 차단';
+
+  @override
+  String get netBlockBody =>
+      '알려진 추적기 도메인에는 빈 응답을 보내 앱이 접속하지 못하게 합니다. 일부 앱은 광고, 통계 또는 다른 기능을 쓰지 못할 수 있습니다. 기본값은 꺼짐입니다.';
+
+  @override
+  String netBlockedCount(int count) {
+    return '$count건 차단';
+  }
+
+  @override
+  String get netExport => 'CSV로 내보내기';
 }

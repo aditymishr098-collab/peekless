@@ -1116,4 +1116,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String netTrackerTag(String name) {
     return 'Tracker: $name';
   }
+
+  @override
+  String get netBlockTitle => 'Block tracker domains';
+
+  @override
+  String get netBlockBody =>
+      'Known tracker names get an empty answer, so those apps cannot reach them. Some apps may lose ads, stats or other features. Off by default.';
+
+  @override
+  String netBlockedCount(int count) {
+    return '$count blocked';
+  }
+
+  @override
+  String get netExport => 'Export as CSV';
 }

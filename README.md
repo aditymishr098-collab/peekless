@@ -41,7 +41,7 @@ No account. No ads. No analytics. Nothing leaves your phone.
 - **Permissions view.** See which apps can use your microphone, camera, location, contacts, SMS, call log and more.
 - **Tracker detection.** Finds known ad and analytics SDKs (Google Ads, Firebase Analytics, Facebook SDK, AppsFlyer and about 60 others).
 - **Deep scan (optional).** Turn it on in Settings to also read the class names inside each app's code and find trackers that the manifest does not show. It works offline, skips apps that came with your phone, and is slower only the first time because results are remembered.
-- **Network monitor (optional).** Shows which domain names each app asks for, and marks the ones that belong to known ad and analytics services. It uses a local VPN that takes **only DNS lookups** (one made-up DNS address is the only route), so your internet speed does not change. It also handles DNS over TCP, which apps use when an answer is too big for one packet. It sees names, never pages, messages or any content, and nothing leaves your phone.
+- **Network monitor (optional).** Shows which domain names each app asks for, and marks the ones that belong to known ad and analytics services. It uses a local VPN that takes **only DNS lookups** (one made-up DNS address is the only route), so your internet speed does not change. It also handles DNS over TCP, which apps use when an answer is too big for one packet. It sees names, never pages, messages or any content, and nothing leaves your phone. You can export the list as a CSV file, and you can optionally **block known tracker domains**: those names get an empty answer, so the app cannot reach them (some apps may lose ads or stats; push and link services are never blocked).
 - **Plain-language explanations**, for example "Can record audio and track your location all the time."
 - **Unusual permissions.** A flashlight or calculator that wants your microphone loses extra points.
 - **Score explained.** Every score comes with a full breakdown, so you can see exactly why.
@@ -120,7 +120,7 @@ Please read this part. Peekless is honest about its limits.
 
 - It shows what an app **is able to do**, not what it is doing right now. Android does not let one app see what another app really does with its permissions.
 - Trackers are found from the app's manifest, using a list of known SDKs. With the optional Deep scan they are also searched for in the app's code. Some trackers will still be missed, especially in heavily obfuscated apps, because their class names are scrambled.
-- The Network monitor sees DNS lookups only. It can miss apps that use their own encrypted DNS (DNS over HTTPS), and it does not work when Android's Private DNS is set to a fixed provider. To show which app asked, it needs Android 10 or newer. A domain that matches a tracker list shows that the app contacted that service, not what it sent.
+- The Network monitor sees DNS lookups only. It can miss apps that use their own encrypted DNS (DNS over HTTPS), and it does not work when Android's Private DNS is set to a fixed provider. To show which app asked, it needs Android 10 or newer. Blocking works by DNS only, so an app that uses its own encrypted DNS or a fixed IP address is not stopped. A domain that matches a tracker list shows that the app contacted that service, not what it sent.
 - A low score does not prove an app is bad, and a high score does not prove it is safe. It is a guide, not a verdict.
 - System apps such as Google Play services legitimately need many permissions. They are hidden by default. You can include them in Settings.
 
@@ -169,12 +169,12 @@ This hides "Check for updates" in Settings. The `REQUEST_INSTALL_PACKAGES` permi
 Releases are built by GitHub Actions (`.github/workflows/release.yml`).
 
 - Every push to `main` builds a signed APK and keeps it as a build artifact.
-- Pushing a tag that starts with `v` (for example `v2.2.3`) also publishes the APK as a GitHub Release.
+- Pushing a tag that starts with `v` (for example `v2.3.0`) also publishes the APK as a GitHub Release.
 - The APK is signed with a key stored in the repository secrets: `KEYSTORE_BASE64`, `KEYSTORE_PASSWORD`, `KEY_ALIAS` and `KEY_PASSWORD`.
 
 ```bash
-git tag v2.2.3
-git push origin v2.2.3
+git tag v2.3.0
+git push origin v2.3.0
 ```
 
 Because every release is signed with the same key, an update installs over the old version and keeps your data.
@@ -212,6 +212,7 @@ android/app/src/main/kotlin/com/lumioapps/peekless/
   Scanner.kt           Reads installed apps, permissions, trackers, install source and special access
   NetMonitorService.kt Network monitor: the DNS-only local VPN
   DnsTcp.kt            Network monitor: DNS over TCP for big answers
+  NetBlock.kt          Network monitor: blocks tracker domains
   NetStats.kt          Keeps the domain counts for each app
   DexScanner.kt        Deep scan: reads class names from the app's .dex files
   UsageAccess.kt       Optional: when each app was last opened

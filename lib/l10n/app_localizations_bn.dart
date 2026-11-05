@@ -1118,4 +1118,19 @@ class AppLocalizationsBn extends AppLocalizations {
   String netTrackerTag(String name) {
     return 'ট্র্যাকার: $name';
   }
+
+  @override
+  String get netBlockTitle => 'ট্র্যাকার ডোমেইন ব্লক করুন';
+
+  @override
+  String get netBlockBody =>
+      'পরিচিত ট্র্যাকারের নামে ফাঁকা উত্তর যায়, তাই অ্যাপগুলো সেগুলোতে পৌঁছাতে পারে না। কিছু অ্যাপ বিজ্ঞাপন, পরিসংখ্যান বা অন্যান্য সুবিধা হারাতে পারে। ডিফল্টভাবে বন্ধ।';
+
+  @override
+  String netBlockedCount(int count) {
+    return '$countটি ব্লক হয়েছে';
+  }
+
+  @override
+  String get netExport => 'CSV হিসেবে এক্সপোর্ট করুন';
 }

@@ -811,5 +811,16 @@
         "type": "String"
       }
     }
-  }
+  },
+  "netBlockTitle": "Block tracker domains",
+  "netBlockBody": "Known tracker names get an empty answer, so those apps cannot reach them. Some apps may lose ads, stats or other features. Off by default.",
+  "netBlockedCount": "{count} blocked",
+  "@netBlockedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "netExport": "Export as CSV"
 }

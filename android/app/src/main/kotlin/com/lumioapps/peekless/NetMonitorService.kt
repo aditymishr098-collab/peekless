@@ -75,9 +75,10 @@ class NetMonitorService : VpnService() {
 
         override fun upstream(): InetAddress? = upstreamServers().firstOrNull()
 
-        override fun record(query: ByteArray, source: ByteArray, sourcePort: Int, destination: ByteArray) {
+        override fun record(query: ByteArray, source: ByteArray, sourcePort: Int, destination: ByteArray): String? =
             this@NetMonitorService.record(query, source, sourcePort, destination, true)
-        }
+
+        override fun refusal(query: ByteArray, owner: String?): ByteArray? = refuse(query, owner)
 
         override fun submit(task: Runnable) {
             executor?.execute(task)
@@ -105,6 +106,7 @@ class NetMonitorService : VpnService() {
 
     private fun startMonitor() {
         try {
+            NetBlock.load(applicationContext)
             val builder = Builder()
                 .setSession("Peekless")
                 .addAddress(CLIENT_ADDRESS, 32)
@@ -227,7 +229,12 @@ class NetMonitorService : VpnService() {
         output: FileOutputStream,
     ) {
         try {
-            record(query, source, sourcePort, destination)
+            val owner = record(query, source, sourcePort, destination)
+            val refusal = refuse(query, owner)
+            if (refusal != null) {
+                writeReply(refusal, source, sourcePort, destination, output)
+                return
+            }
             val servers = upstreamServers().take(2)
             if (servers.isEmpty()) return
             val socket = DatagramSocket()
@@ -256,17 +263,27 @@ class NetMonitorService : VpnService() {
         }
     }
 
+    /** Counts a lookup. Returns the package of the app that asked, or null when it was not counted. */
     private fun record(
         query: ByteArray,
         source: ByteArray,
         sourcePort: Int,
         destination: ByteArray,
         viaTcp: Boolean = false,
-    ) {
-        val question = DnsQuery.parse(query) ?: return
+    ): String? {
+        val question = DnsQuery.parse(query) ?: return null
         // 1 is IPv4, 28 is IPv6, 65 is HTTPS. These are real lookups.
-        if (question.second != 1 && question.second != 28 && question.second != 65) return
-        NetStats.add(applicationContext, owner(source, sourcePort, destination, viaTcp), question.first)
+        if (question.second != 1 && question.second != 28 && question.second != 65) return null
+        val pkg = owner(source, sourcePort, destination, viaTcp)
+        NetStats.add(applicationContext, pkg, question.first)
+        return pkg
+    }
+
+    /** The "does not exist" answer when the name is a blocked tracker, otherwise null. */
+    private fun refuse(query: ByteArray, owner: String?): ByteArray? {
+        val answer = NetBlock.refusal(query) ?: return null
+        NetStats.addBlocked(applicationContext, owner ?: "unknown")
+        return answer
     }
 
     /** The package of the app that sent the question, or "unknown". */
@@ -361,6 +378,22 @@ class NetMonitorService : VpnService() {
 
 /** Reads the name from a DNS question. */
 object DnsQuery {
+    /** The position just after the first question, or -1. */
+    fun questionEnd(query: ByteArray): Int {
+        var i = 12
+        while (true) {
+            if (i >= query.size) return -1
+            val length = query[i].toInt() and 0xFF
+            if (length == 0) {
+                i++
+                break
+            }
+            if ((length and 0xC0) != 0) return -1
+            i += 1 + length
+        }
+        return if (i + 4 <= query.size) i + 4 else -1
+    }
+
     /** The lower-case name and the type of the first question, or null. */
     fun parse(query: ByteArray): Pair<String, Int>? {
         if (query.size < 17) return null

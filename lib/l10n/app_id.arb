@@ -314,5 +314,9 @@
   "netConsentDenied": "Android tidak mengizinkan monitor dimulai.",
   "netFailed": "Tidak dapat mengubah monitor jaringan.",
   "netUnknownApp": "Aplikasi tidak dikenal",
-  "netTrackerTag": "Pelacak: {name}"
+  "netTrackerTag": "Pelacak: {name}",
+  "netBlockTitle": "Blokir domain pelacak",
+  "netBlockBody": "Nama pelacak yang dikenal mendapat jawaban kosong, jadi aplikasi tidak bisa menjangkaunya. Beberapa aplikasi mungkin kehilangan iklan, statistik, atau fitur lain. Nonaktif secara default.",
+  "netBlockedCount": "{count} diblokir",
+  "netExport": "Ekspor sebagai CSV"
 }

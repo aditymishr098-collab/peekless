@@ -2032,6 +2032,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Tracker: {name}'**
   String netTrackerTag(String name);
+
+  /// No description provided for @netBlockTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Block tracker domains'**
+  String get netBlockTitle;
+
+  /// No description provided for @netBlockBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Known tracker names get an empty answer, so those apps cannot reach them. Some apps may lose ads, stats or other features. Off by default.'**
+  String get netBlockBody;
+
+  /// No description provided for @netBlockedCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} blocked'**
+  String netBlockedCount(int count);
+
+  /// No description provided for @netExport.
+  ///
+  /// In en, this message translates to:
+  /// **'Export as CSV'**
+  String get netExport;
 }
 
 class _AppLocalizationsDelegate

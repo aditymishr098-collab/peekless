@@ -935,6 +935,45 @@ void main() {
       expect(noisy.sortedDomains.last.key, 'api.noisy.com');
     });
 
+    test('the block list leaves out push and app links, and is sorted', () {
+      final list = blockableDomains();
+      expect(list, contains('doubleclick.net'));
+      expect(list, contains('graph.facebook.com'));
+      expect(list, isNot(contains('onesignal.com')));
+      expect(list, isNot(contains('branch.io')));
+      expect(list, isNot(contains('app.link')));
+      expect(list.toSet().length, list.length);
+      expect(list, orderedEquals([...list]..sort()));
+    });
+
+    test('reads how many lookups were blocked', () {
+      final report = NetReport.parse(jsonEncode({
+        'apps': {
+          'com.noisy': {'ad.doubleclick.net': 4},
+          'com.quiet': {'example.com': 1},
+        },
+        'blocked': {'com.noisy': 4, 'com.gone': 9, 'com.quiet': 'x'},
+      }));
+      expect(report.apps.first.package, 'com.noisy');
+      expect(report.apps.first.blocked, 4);
+      expect(report.apps.last.blocked, 0);
+      expect(report.totalBlocked, 4);
+    });
+
+    test('the CSV export quotes commas and quotes', () {
+      final report = NetReport.parse(jsonEncode({
+        'apps': {
+          'com.a': {'ad.doubleclick.net': 2, 'example.com': 1},
+        },
+      }));
+      final csv = buildNetCsv(report, {'com.a': 'My "App", Pro'});
+      final lines = csv.trim().split('\n');
+      expect(lines.first, 'app,package,domain,lookups,tracker');
+      expect(lines[1], '"My ""App"", Pro",com.a,ad.doubleclick.net,2,Google Ads');
+      expect(lines[2], '"My ""App"", Pro",com.a,example.com,1,');
+      expect(buildNetCsv(NetReport.empty, {}), 'app,package,domain,lookups,tracker\n');
+    });
+
     test('a broken or empty report gives an empty result', () {
       expect(NetReport.parse(null).isEmpty, isTrue);
       expect(NetReport.parse('').isEmpty, isTrue);

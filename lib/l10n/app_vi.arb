@@ -314,5 +314,9 @@
   "netConsentDenied": "Android không cho phép bắt đầu giám sát.",
   "netFailed": "Không thể thay đổi giám sát mạng.",
   "netUnknownApp": "Ứng dụng không rõ",
-  "netTrackerTag": "Trình theo dõi: {name}"
+  "netTrackerTag": "Trình theo dõi: {name}",
+  "netBlockTitle": "Chặn tên miền trình theo dõi",
+  "netBlockBody": "Tên của các trình theo dõi đã biết sẽ nhận phản hồi trống, nên ứng dụng không thể truy cập chúng. Một số ứng dụng có thể mất quảng cáo, thống kê hoặc tính năng khác. Mặc định tắt.",
+  "netBlockedCount": "Đã chặn {count}",
+  "netExport": "Xuất dưới dạng CSV"
 }

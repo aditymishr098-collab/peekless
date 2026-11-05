@@ -314,5 +314,9 @@
   "netConsentDenied": "Android가 모니터 시작을 허용하지 않았습니다.",
   "netFailed": "네트워크 모니터를 변경할 수 없습니다.",
   "netUnknownApp": "알 수 없는 앱",
-  "netTrackerTag": "추적기: {name}"
+  "netTrackerTag": "추적기: {name}",
+  "netBlockTitle": "추적기 도메인 차단",
+  "netBlockBody": "알려진 추적기 도메인에는 빈 응답을 보내 앱이 접속하지 못하게 합니다. 일부 앱은 광고, 통계 또는 다른 기능을 쓰지 못할 수 있습니다. 기본값은 꺼짐입니다.",
+  "netBlockedCount": "{count}건 차단",
+  "netExport": "CSV로 내보내기"
 }

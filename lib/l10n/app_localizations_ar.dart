@@ -1105,4 +1105,19 @@ class AppLocalizationsAr extends AppLocalizations {
   String netTrackerTag(String name) {
     return 'متتبع: $name';
   }
+
+  @override
+  String get netBlockTitle => 'حظر نطاقات المتتبعات';
+
+  @override
+  String get netBlockBody =>
+      'تحصل أسماء المتتبعات المعروفة على رد فارغ، فلا تستطيع التطبيقات الوصول إليها. قد تفقد بعض التطبيقات الإعلانات أو الإحصاءات أو ميزات أخرى. متوقف افتراضيًا.';
+
+  @override
+  String netBlockedCount(int count) {
+    return 'تم حظر $count';
+  }
+
+  @override
+  String get netExport => 'تصدير بصيغة CSV';
 }

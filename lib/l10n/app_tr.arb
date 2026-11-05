@@ -314,5 +314,9 @@
   "netConsentDenied": "Android monitörün başlamasına izin vermedi.",
   "netFailed": "Ağ monitörü değiştirilemedi.",
   "netUnknownApp": "Bilinmeyen uygulama",
-  "netTrackerTag": "İzleyici: {name}"
+  "netTrackerTag": "İzleyici: {name}",
+  "netBlockTitle": "İzleyici alan adlarını engelle",
+  "netBlockBody": "Bilinen izleyici adlarına boş yanıt verilir, böylece uygulamalar onlara ulaşamaz. Bazı uygulamalar reklamları, istatistikleri veya diğer özellikleri kaybedebilir. Varsayılan olarak kapalı.",
+  "netBlockedCount": "{count} engellendi",
+  "netExport": "CSV olarak dışa aktar"
 }

@@ -1081,6 +1081,21 @@ class AppLocalizationsZh extends AppLocalizations {
   String netTrackerTag(String name) {
     return '追踪器：$name';
   }
+
+  @override
+  String get netBlockTitle => '屏蔽追踪器域名';
+
+  @override
+  String get netBlockBody =>
+      '已知追踪器的域名会得到空响应，因此这些应用无法访问它们。部分应用可能会失去广告、统计或其他功能。默认关闭。';
+
+  @override
+  String netBlockedCount(int count) {
+    return '已屏蔽 $count 次';
+  }
+
+  @override
+  String get netExport => '导出为 CSV';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -2160,4 +2175,19 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   String netTrackerTag(String name) {
     return '追蹤器：$name';
   }
+
+  @override
+  String get netBlockTitle => '封鎖追蹤器網域';
+
+  @override
+  String get netBlockBody =>
+      '已知追蹤器的網域會得到空白回應，因此這些應用程式無法連到它們。部分應用程式可能會失去廣告、統計或其他功能。預設為關閉。';
+
+  @override
+  String netBlockedCount(int count) {
+    return '已封鎖 $count 次';
+  }
+
+  @override
+  String get netExport => '匯出為 CSV';
 }

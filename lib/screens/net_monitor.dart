@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 
@@ -6,6 +7,7 @@ import '../controller.dart';
 import '../l10n/app_localizations.dart';
 import '../native_bridge.dart';
 import '../net_report.dart';
+import '../tracker_domains.dart';
 
 /// The network monitor: a local VPN that only reads DNS lookups, so Peekless
 /// can show which apps ask for which domain names, and which are trackers.
@@ -19,6 +21,8 @@ class NetMonitorScreen extends StatefulWidget {
 class _NetMonitorScreenState extends State<NetMonitorScreen> {
   bool _running = false;
   bool _busy = false;
+  bool _block = false;
+  bool _blockSynced = false;
   NetReport _report = NetReport.empty;
   Timer? _timer;
 
@@ -39,9 +43,16 @@ class _NetMonitorScreenState extends State<NetMonitorScreen> {
     try {
       final running = await NativeBridge.netRunning();
       final raw = await NativeBridge.netReport();
+      final block = await NativeBridge.netGetBlock();
+      if (block && !_blockSynced) {
+        // Hand over the newest list of names once per visit.
+        _blockSynced = true;
+        await NativeBridge.netSetBlock(true, blockableDomains());
+      }
       if (!mounted) return;
       setState(() {
         _running = running;
+        _block = block;
         _report = NetReport.parse(raw);
       });
     } catch (_) {
@@ -75,6 +86,40 @@ class _NetMonitorScreenState extends State<NetMonitorScreen> {
     await _load();
   }
 
+  Future<void> _setBlock(bool value) async {
+    final messenger = ScaffoldMessenger.of(context);
+    final l = AppLocalizations.of(context);
+    setState(() => _block = value);
+    try {
+      await NativeBridge.netSetBlock(value, blockableDomains());
+    } catch (_) {
+      if (!mounted) return;
+      setState(() => _block = !value);
+      messenger
+        ..hideCurrentSnackBar()
+        ..showSnackBar(SnackBar(content: Text(l.netFailed)));
+    }
+  }
+
+  Future<void> _export() async {
+    final messenger = ScaffoldMessenger.of(context);
+    final l = AppLocalizations.of(context);
+    final names = <String, String>{
+      for (final r in controller.reports) r.app.packageName: r.app.name,
+    };
+    try {
+      final dir = await NativeBridge.exportsDir();
+      final day = DateTime.now().toIso8601String().substring(0, 10);
+      final path = '$dir/peekless-network-$day.csv';
+      await File(path).writeAsString(buildNetCsv(_report, names));
+      await NativeBridge.shareFile(path, 'text/csv', l.netExport);
+    } catch (_) {
+      messenger
+        ..hideCurrentSnackBar()
+        ..showSnackBar(SnackBar(content: Text(l.exportFailed)));
+    }
+  }
+
   Future<void> _clear() async {
     final messenger = ScaffoldMessenger.of(context);
     final l = AppLocalizations.of(context);
@@ -106,6 +151,11 @@ class _NetMonitorScreenState extends State<NetMonitorScreen> {
       appBar: AppBar(
         title: Text(l.netTitle),
         actions: [
+          IconButton(
+            tooltip: l.netExport,
+            onPressed: _report.isEmpty ? null : _export,
+            icon: const Icon(Icons.ios_share),
+          ),
           IconButton(
             tooltip: l.netClear,
             onPressed: _report.isEmpty ? null : _clear,
@@ -141,6 +191,20 @@ class _NetMonitorScreenState extends State<NetMonitorScreen> {
                   subtitle: Text(_running ? l.netOn : l.netOff),
                   value: _running,
                   onChanged: _busy ? null : _toggle,
+                ),
+                SwitchListTile(
+                  contentPadding: EdgeInsets.zero,
+                  title: Text(
+                    l.netBlockTitle,
+                    style: text.titleSmall?.copyWith(fontWeight: FontWeight.w800),
+                  ),
+                  subtitle: Text(
+                    _report.totalBlocked > 0
+                        ? '${l.netBlockBody}\n${l.netBlockedCount(_report.totalBlocked)}'
+                        : l.netBlockBody,
+                  ),
+                  value: _block,
+                  onChanged: _setBlock,
                 ),
               ],
             ),
@@ -200,9 +264,11 @@ class _NetAppTile extends StatelessWidget {
             style: text.bodyLarge?.copyWith(fontWeight: FontWeight.w700),
           ),
           subtitle: Text(
-            trackers > 0
-                ? '${l.netLookups(app.lookups)} · ${l.netTrackerCount(trackers)}'
-                : l.netLookups(app.lookups),
+            [
+              l.netLookups(app.lookups),
+              if (trackers > 0) l.netTrackerCount(trackers),
+              if (app.blocked > 0) l.netBlockedCount(app.blocked),
+            ].join(' · '),
             style: text.bodySmall?.copyWith(
               color: trackers > 0 ? scheme.error : scheme.onSurfaceVariant,
             ),

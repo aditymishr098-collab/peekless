@@ -1106,4 +1106,19 @@ class AppLocalizationsHe extends AppLocalizations {
   String netTrackerTag(String name) {
     return 'עוקב: $name';
   }
+
+  @override
+  String get netBlockTitle => 'חסימת דומיינים של עוקבים';
+
+  @override
+  String get netBlockBody =>
+      'שמות של עוקבים מוכרים מקבלים תשובה ריקה, כך שהאפליקציות לא יכולות להגיע אליהם. אפליקציות מסוימות עלולות לאבד פרסומות, סטטיסטיקות או תכונות אחרות. כבוי כברירת מחדל.';
+
+  @override
+  String netBlockedCount(int count) {
+    return '$count נחסמו';
+  }
+
+  @override
+  String get netExport => 'ייצוא כ-CSV';
 }

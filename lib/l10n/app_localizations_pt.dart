@@ -1129,4 +1129,19 @@ class AppLocalizationsPt extends AppLocalizations {
   String netTrackerTag(String name) {
     return 'Rastreador: $name';
   }
+
+  @override
+  String get netBlockTitle => 'Bloquear domínios de rastreadores';
+
+  @override
+  String get netBlockBody =>
+      'Os nomes de rastreadores conhecidos recebem uma resposta vazia, então esses apps não conseguem alcançá-los. Alguns apps podem perder anúncios, estatísticas ou outros recursos. Desativado por padrão.';
+
+  @override
+  String netBlockedCount(int count) {
+    return '$count bloqueadas';
+  }
+
+  @override
+  String get netExport => 'Exportar como CSV';
 }

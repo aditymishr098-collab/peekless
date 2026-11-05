@@ -92,6 +92,12 @@ class PeeklessChannel(
                 NetMonitorService.stop(context)
                 result.success(null)
             }
+            "netSetBlock" -> {
+                val names = call.argument<List<*>>("domains")?.map { it.toString() }
+                NetBlock.set(context, call.argument<Boolean>("enabled") ?: false, names)
+                result.success(null)
+            }
+            "netGetBlock" -> result.success(NetBlock.isEnabled(context))
             "netReport" -> result.success(NetStats.report(context))
             "netClear" -> {
                 NetStats.clear(context)

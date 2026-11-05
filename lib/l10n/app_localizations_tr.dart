@@ -1118,4 +1118,19 @@ class AppLocalizationsTr extends AppLocalizations {
   String netTrackerTag(String name) {
     return 'İzleyici: $name';
   }
+
+  @override
+  String get netBlockTitle => 'İzleyici alan adlarını engelle';
+
+  @override
+  String get netBlockBody =>
+      'Bilinen izleyici adlarına boş yanıt verilir, böylece uygulamalar onlara ulaşamaz. Bazı uygulamalar reklamları, istatistikleri veya diğer özellikleri kaybedebilir. Varsayılan olarak kapalı.';
+
+  @override
+  String netBlockedCount(int count) {
+    return '$count engellendi';
+  }
+
+  @override
+  String get netExport => 'CSV olarak dışa aktar';
 }

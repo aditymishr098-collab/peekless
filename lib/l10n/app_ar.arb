@@ -314,5 +314,9 @@
   "netConsentDenied": "لم يسمح Android ببدء المراقب.",
   "netFailed": "تعذّر تغيير مراقب الشبكة.",
   "netUnknownApp": "تطبيق غير معروف",
-  "netTrackerTag": "متتبع: {name}"
+  "netTrackerTag": "متتبع: {name}",
+  "netBlockTitle": "حظر نطاقات المتتبعات",
+  "netBlockBody": "تحصل أسماء المتتبعات المعروفة على رد فارغ، فلا تستطيع التطبيقات الوصول إليها. قد تفقد بعض التطبيقات الإعلانات أو الإحصاءات أو ميزات أخرى. متوقف افتراضيًا.",
+  "netBlockedCount": "تم حظر {count}",
+  "netExport": "تصدير بصيغة CSV"
 }

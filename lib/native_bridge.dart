@@ -131,6 +131,18 @@ class NativeBridge {
     return (await _channel.invokeMethod<String>('netReport')) ?? '';
   }
 
+  /// Switches blocking of tracker domains on or off. [domains] is the list to block.
+  static Future<void> netSetBlock(bool enabled, List<String> domains) async {
+    await _channel.invokeMethod<void>(
+      'netSetBlock',
+      <String, Object?>{'enabled': enabled, 'domains': domains},
+    );
+  }
+
+  static Future<bool> netGetBlock() async {
+    return (await _channel.invokeMethod<bool>('netGetBlock')) ?? false;
+  }
+
   static Future<void> netClear() async {
     await _channel.invokeMethod<void>('netClear');
   }

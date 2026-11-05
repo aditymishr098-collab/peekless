@@ -1111,4 +1111,19 @@ class AppLocalizationsTh extends AppLocalizations {
   String netTrackerTag(String name) {
     return 'ตัวติดตาม: $name';
   }
+
+  @override
+  String get netBlockTitle => 'บล็อกโดเมนของตัวติดตาม';
+
+  @override
+  String get netBlockBody =>
+      'ชื่อของตัวติดตามที่รู้จักจะได้รับคำตอบว่างเปล่า แอปจึงเข้าถึงไม่ได้ บางแอปอาจไม่มีโฆษณา สถิติ หรือฟีเจอร์อื่น ปิดไว้เป็นค่าเริ่มต้น';
+
+  @override
+  String netBlockedCount(int count) {
+    return 'บล็อกแล้ว $count ครั้ง';
+  }
+
+  @override
+  String get netExport => 'ส่งออกเป็น CSV';
 }
