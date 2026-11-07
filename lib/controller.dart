@@ -8,6 +8,7 @@ import 'app_cert.dart';
 import 'history.dart';
 import 'l10n/app_localizations.dart';
 import 'l10n_resolve.dart';
+import 'language_names.dart';
 import 'models.dart';
 import 'native_bridge.dart';
 import 'score_history.dart';
@@ -99,7 +100,9 @@ class AppController extends ChangeNotifier {
     };
     includeSystem = prefs.getBool('include_system') ?? false;
     deepScan = prefs.getBool('deep_scan') ?? false;
-    locale = localeFromCode(prefs.getString('language'));
+    final savedLanguage = prefs.getString('language');
+    // A language that was removed in an update means: follow the phone.
+    locale = languageNames.containsKey(savedLanguage) ? localeFromCode(savedLanguage) : null;
     alertsEnabled = prefs.getBool('alerts_enabled') ?? false;
     weeklyEnabled = prefs.getBool('weekly_summary') ?? false;
     trusted = (prefs.getStringList('trusted_apps') ?? const <String>[]).toSet();

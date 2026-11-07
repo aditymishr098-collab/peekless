@@ -16,6 +16,7 @@ import 'package:peekless/history.dart';
 import 'package:peekless/install_source.dart';
 import 'package:peekless/l10n/app_localizations.dart';
 import 'package:peekless/l10n_resolve.dart';
+import 'package:peekless/language_names.dart';
 import 'package:peekless/models.dart';
 import 'package:peekless/net_report.dart';
 import 'package:peekless/report_text.dart';
@@ -606,12 +607,14 @@ void main() {
       }
     });
 
-    test('there are at least 25 languages', () {
-      expect(AppLocalizations.supportedLocales.length, greaterThanOrEqualTo(25));
+    test('there are exactly two languages, English and Hindi', () {
+      final codes = AppLocalizations.supportedLocales.map((l) => l.languageCode).toSet();
+      expect(codes, {'en', 'hi'});
+      expect(languageNames.keys.toSet(), {'en', 'hi'});
     });
 
     test('a language code becomes a locale and back', () {
-      expect(localeFromCode('de'), const Locale('de'));
+      expect(localeFromCode('hi'), const Locale('hi'));
       expect(localeFromCode('system'), isNull);
       final hant = localeFromCode('zh_Hant')!;
       expect(hant.languageCode, 'zh');
@@ -625,6 +628,15 @@ void main() {
         AppLocalizations.supportedLocales,
       );
       expect(picked.languageCode, 'en');
+      final removed = resolveLocales(
+        const [Locale('de')],
+        AppLocalizations.supportedLocales,
+      );
+      expect(removed.languageCode, 'en');
+      expect(
+        resolveLocales(const [Locale('hi')], AppLocalizations.supportedLocales).languageCode,
+        'hi',
+      );
     });
 
     test('events saved by older versions still show their English text', () {

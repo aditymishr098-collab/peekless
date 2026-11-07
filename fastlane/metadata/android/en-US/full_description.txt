@@ -8,7 +8,7 @@ Peekless checks the permissions and trackers of every app on your phone, gives e
 • Changes: new apps, newly allowed permissions and new trackers
 • Fix wizard, filters, trusted apps, share a report, export as PDF or JSON
 • Home screen widget and Quick Settings tile
-• 25 languages, light and dark theme
+• English and Hindi, light and dark theme
 
 <b>Optional features (off until you turn them on)</b>
 • Deep scan: also finds trackers inside the app code
