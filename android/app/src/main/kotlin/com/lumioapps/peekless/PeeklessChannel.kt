@@ -38,6 +38,7 @@ class PeeklessChannel(
         when (call.method) {
             "scanApps" -> scanApps(call, result)
             "openAppSettings" -> openAppSettings(call, result)
+            "appCert" -> appCert(call, result)
             "notificationsAllowed" -> result.success(Notifier.allowed(context))
             "requestNotifications" -> {
                 val request = requestNotifications
@@ -131,6 +132,18 @@ class PeeklessChannel(
         } catch (e: Exception) {
             result.error("alerts_failed", e.message ?: "Could not change alerts", null)
         }
+    }
+
+    private fun appCert(call: MethodCall, result: MethodChannel.Result) {
+        val pkg = call.argument<String>("package")
+        if (pkg == null) {
+            result.error("bad_args", "Missing package name", null)
+            return
+        }
+        Thread {
+            val info = Certs.info(context, pkg)
+            main.post { result.success(info) }
+        }.start()
     }
 
     private fun openAppSettings(call: MethodCall, result: MethodChannel.Result) {

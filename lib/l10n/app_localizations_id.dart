@@ -1137,4 +1137,66 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get netExport => 'Ekspor sebagai CSV';
+
+  @override
+  String get trackerKindAds => 'Iklan';
+
+  @override
+  String get trackerKindAdsBody =>
+      'Menampilkan iklan di aplikasi dan mengukur iklan mana yang Anda lihat dan ketuk. Sering memakai ID iklan dan detail perangkat Anda untuk memilih iklan.';
+
+  @override
+  String get trackerKindAnalytics => 'Analitik penggunaan';
+
+  @override
+  String get trackerKindAnalyticsBody =>
+      'Mencatat cara Anda memakai aplikasi: layar yang dibuka, tombol yang diketuk, dan berapa lama Anda berada di sana. Pembuat aplikasi memakainya untuk memahami penggunanya.';
+
+  @override
+  String get trackerKindAttribution => 'Atribusi pemasangan';
+
+  @override
+  String get trackerKindAttributionBody =>
+      'Mencari tahu iklan atau tautan mana yang membuat Anda memasang aplikasi, dan mengikuti apa yang Anda lakukan sesudahnya agar pengiklan melihat seberapa efektif iklannya.';
+
+  @override
+  String get trackerKindCrash => 'Laporan kerusakan';
+
+  @override
+  String get trackerKindCrashBody =>
+      'Mengirim laporan saat aplikasi mogok, berisi detail ponsel dan kesalahannya. Membantu pembuat memperbaiki bug dan biasanya jenis yang paling tidak mengganggu.';
+
+  @override
+  String get trackerKindPush => 'Pesan push';
+
+  @override
+  String get trackerKindPushBody =>
+      'Mengirim notifikasi ke ponsel dan dapat melacak apakah Anda membukanya. Diperlukan untuk notifikasi, tetapi juga dipakai untuk pesan pemasaran.';
+
+  @override
+  String get trackerKindOther => 'Pelacak';
+
+  @override
+  String get trackerKindOtherBody =>
+      'Komponen pelacak yang dikenal. Peekless tidak punya catatan rinci tentangnya, tetapi ia dapat mengumpulkan data tentang Anda atau perangkat Anda dan mengirimnya lewat internet.';
+
+  @override
+  String get trackerTapHint => 'Ketuk pelacak untuk melihat fungsinya.';
+
+  @override
+  String get certTitle => 'Sertifikat penandatanganan';
+
+  @override
+  String get certNormal =>
+      'Tidak ditandatangani dengan kunci debug. Ketuk untuk menyalin sidik jari.';
+
+  @override
+  String get certDebug =>
+      'Ditandatangani dengan kunci debug. Rilis asli memakai kunci privat, jadi berhati-hatilah dengan aplikasi ini. Ketuk untuk menyalin sidik jari.';
+
+  @override
+  String get certUnknown => 'Android tidak memberikan sertifikat aplikasi ini.';
+
+  @override
+  String get certCopied => 'SHA-256 disalin';
 }

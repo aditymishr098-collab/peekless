@@ -1147,4 +1147,67 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get netExport => 'Exporter en CSV';
+
+  @override
+  String get trackerKindAds => 'Publicité';
+
+  @override
+  String get trackerKindAdsBody =>
+      'Affiche des publicités dans l’appli et mesure lesquelles vous voyez et touchez. Utilise souvent votre identifiant publicitaire et des infos sur l’appareil pour choisir les annonces.';
+
+  @override
+  String get trackerKindAnalytics => 'Analyse d’usage';
+
+  @override
+  String get trackerKindAnalyticsBody =>
+      'Enregistre comment vous utilisez l’appli : écrans ouverts, boutons touchés et durée de présence. Son éditeur s’en sert pour comprendre ses utilisateurs.';
+
+  @override
+  String get trackerKindAttribution => 'Attribution d’installation';
+
+  @override
+  String get trackerKindAttributionBody =>
+      'Détermine quelle publicité ou quel lien vous a menés à installer l’appli et suit ce que vous faites ensuite, pour que les annonceurs voient l’efficacité de leurs publicités.';
+
+  @override
+  String get trackerKindCrash => 'Rapports de plantage';
+
+  @override
+  String get trackerKindCrashBody =>
+      'Envoie un rapport quand l’appli plante, avec des infos sur votre téléphone et l’erreur. Aide l’éditeur à corriger les bogues et c’est en général le type le moins intrusif.';
+
+  @override
+  String get trackerKindPush => 'Notifications push';
+
+  @override
+  String get trackerKindPushBody =>
+      'Envoie des notifications à votre téléphone et peut savoir si vous les ouvrez. Nécessaire pour les notifications, mais aussi utilisé pour des messages marketing.';
+
+  @override
+  String get trackerKindOther => 'Traqueur';
+
+  @override
+  String get trackerKindOtherBody =>
+      'Un composant de suivi connu. Peekless n’a pas de note détaillée, mais il peut collecter des données sur vous ou votre appareil et les envoyer en ligne.';
+
+  @override
+  String get trackerTapHint => 'Touchez un traqueur pour voir ce qu’il fait.';
+
+  @override
+  String get certTitle => 'Certificat de signature';
+
+  @override
+  String get certNormal =>
+      'Non signée avec une clé de débogage. Touchez pour copier l’empreinte.';
+
+  @override
+  String get certDebug =>
+      'Signée avec une clé de débogage. Les vraies versions utilisent une clé privée, soyez donc prudent avec cette appli. Touchez pour copier l’empreinte.';
+
+  @override
+  String get certUnknown =>
+      'Android n’a pas fourni le certificat de cette appli.';
+
+  @override
+  String get certCopied => 'SHA-256 copié';
 }

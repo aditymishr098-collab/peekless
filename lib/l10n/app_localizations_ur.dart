@@ -1131,4 +1131,66 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get netExport => 'CSV کے طور پر برآمد کریں';
+
+  @override
+  String get trackerKindAds => 'اشتہارات';
+
+  @override
+  String get trackerKindAdsBody =>
+      'ایپ میں اشتہارات دکھاتا ہے اور ناپتا ہے کہ آپ کون سے اشتہارات دیکھتے اور ٹیپ کرتے ہیں۔ آپ کے لیے اشتہار چننے کے لیے اکثر آپ کی اشتہاری ID اور ڈیوائس کی تفصیل استعمال کرتا ہے۔';
+
+  @override
+  String get trackerKindAnalytics => 'استعمال کا تجزیہ';
+
+  @override
+  String get trackerKindAnalyticsBody =>
+      'ریکارڈ کرتا ہے کہ آپ ایپ کیسے استعمال کرتے ہیں: کون سی اسکرینیں کھولتے ہیں، کون سے بٹن دباتے ہیں اور کتنی دیر رکتے ہیں۔ ایپ بنانے والا اسے اپنے صارفین کو سمجھنے کے لیے استعمال کرتا ہے۔';
+
+  @override
+  String get trackerKindAttribution => 'انسٹال کا ماخذ';
+
+  @override
+  String get trackerKindAttributionBody =>
+      'پتا لگاتا ہے کہ کس اشتہار یا لنک سے آپ نے ایپ انسٹال کی، اور بعد میں آپ کے اعمال پر نظر رکھتا ہے تاکہ اشتہار دینے والے دیکھ سکیں کہ ان کے اشتہار کتنے کارگر ہیں۔';
+
+  @override
+  String get trackerKindCrash => 'کریش رپورٹس';
+
+  @override
+  String get trackerKindCrashBody =>
+      'ایپ کریش ہونے پر آپ کے فون اور خرابی کی تفصیل کے ساتھ رپورٹ بھیجتا ہے۔ اس سے بنانے والے کو خرابیاں درست کرنے میں مدد ملتی ہے اور عموماً یہ سب سے کم مداخلت والی قسم ہے۔';
+
+  @override
+  String get trackerKindPush => 'پش پیغامات';
+
+  @override
+  String get trackerKindPushBody =>
+      'آپ کے فون پر نوٹیفکیشن بھیجتا ہے اور ممکن ہے دیکھے کہ آپ نے انہیں کھولا یا نہیں۔ نوٹیفکیشن کے لیے ضروری ہے، مگر مارکیٹنگ پیغامات کے لیے بھی استعمال ہوتا ہے۔';
+
+  @override
+  String get trackerKindOther => 'ٹریکر';
+
+  @override
+  String get trackerKindOtherBody =>
+      'ایک معروف ٹریکنگ جزو۔ Peekless میں اس کا تفصیلی نوٹ نہیں، لیکن یہ آپ یا آپ کی ڈیوائس کا ڈیٹا جمع کر کے آن لائن بھیج سکتا ہے۔';
+
+  @override
+  String get trackerTapHint => 'ٹریکر پر ٹیپ کر کے دیکھیں کہ وہ کیا کرتا ہے۔';
+
+  @override
+  String get certTitle => 'دستخط کا سرٹیفکیٹ';
+
+  @override
+  String get certNormal =>
+      'ڈیبگ کلید سے دستخط شدہ نہیں۔ فنگر پرنٹ کاپی کرنے کے لیے ٹیپ کریں۔';
+
+  @override
+  String get certDebug =>
+      'ڈیبگ کلید سے دستخط شدہ ہے۔ اصل ریلیز نجی کلید استعمال کرتے ہیں، اس لیے اس ایپ سے محتاط رہیں۔ فنگر پرنٹ کاپی کرنے کے لیے ٹیپ کریں۔';
+
+  @override
+  String get certUnknown => 'Android نے اس ایپ کا سرٹیفکیٹ فراہم نہیں کیا۔';
+
+  @override
+  String get certCopied => 'SHA-256 کاپی ہو گیا';
 }

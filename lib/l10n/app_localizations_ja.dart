@@ -1100,4 +1100,65 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get netExport => 'CSV で書き出す';
+
+  @override
+  String get trackerKindAds => '広告';
+
+  @override
+  String get trackerKindAdsBody =>
+      'アプリ内に広告を表示し、どの広告を見たりタップしたりしたかを計測します。広告を選ぶために、広告 ID や端末情報を使うことがよくあります。';
+
+  @override
+  String get trackerKindAnalytics => '利用状況の分析';
+
+  @override
+  String get trackerKindAnalyticsBody =>
+      '開いた画面、タップしたボタン、滞在時間など、アプリの使い方を記録します。アプリの作者が利用者を理解するために使います。';
+
+  @override
+  String get trackerKindAttribution => 'インストール計測';
+
+  @override
+  String get trackerKindAttributionBody =>
+      'どの広告やリンクからインストールしたかを調べ、その後の行動も追跡して、広告主が広告の効果を確認できるようにします。';
+
+  @override
+  String get trackerKindCrash => 'クラッシュレポート';
+
+  @override
+  String get trackerKindCrashBody =>
+      'アプリがクラッシュしたとき、端末とエラーの情報を付けて報告を送ります。作者の不具合修正に役立ち、通常は最も侵入的でない種類です。';
+
+  @override
+  String get trackerKindPush => 'プッシュ通知';
+
+  @override
+  String get trackerKindPushBody =>
+      '端末に通知を送り、開いたかどうかを追跡することがあります。通知に必要ですが、マーケティングのメッセージにも使われます。';
+
+  @override
+  String get trackerKindOther => 'トラッカー';
+
+  @override
+  String get trackerKindOtherBody =>
+      '既知の追跡コンポーネントです。Peekless に詳しい説明はありませんが、あなたや端末のデータを集めてオンラインに送る可能性があります。';
+
+  @override
+  String get trackerTapHint => 'トラッカーをタップすると、その役割が表示されます。';
+
+  @override
+  String get certTitle => '署名証明書';
+
+  @override
+  String get certNormal => 'デバッグキーでは署名されていません。タップでフィンガープリントをコピーします。';
+
+  @override
+  String get certDebug =>
+      'デバッグキーで署名されています。正式版は秘密鍵を使うため、このアプリには注意してください。タップでフィンガープリントをコピーします。';
+
+  @override
+  String get certUnknown => 'Android がこのアプリの証明書を返しませんでした。';
+
+  @override
+  String get certCopied => 'SHA-256 をコピーしました';
 }

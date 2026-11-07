@@ -1,6 +1,7 @@
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'app_cert.dart';
 import 'models.dart';
 import 'scoring.dart';
 import 'tracker_store.dart';
@@ -31,6 +32,15 @@ class NativeBridge {
       'openAppSettings',
       <String, Object?>{'package': packageName},
     );
+  }
+
+  /// The signing certificate of an app, or null when Android does not give it.
+  static Future<AppCert?> appCert(String packageName) async {
+    final raw = await _channel.invokeMapMethod<Object?, Object?>(
+      'appCert',
+      <String, Object?>{'package': packageName},
+    );
+    return AppCert.fromMap(raw);
   }
 
   static Future<bool> notificationsAllowed() async {

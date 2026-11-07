@@ -1100,4 +1100,65 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get netExport => 'CSV로 내보내기';
+
+  @override
+  String get trackerKindAds => '광고';
+
+  @override
+  String get trackerKindAdsBody =>
+      '앱에 광고를 표시하고 어떤 광고를 보고 탭했는지 측정합니다. 광고를 고르기 위해 광고 ID와 기기 정보를 자주 사용합니다.';
+
+  @override
+  String get trackerKindAnalytics => '사용 분석';
+
+  @override
+  String get trackerKindAnalyticsBody =>
+      '열어 본 화면, 탭한 버튼, 머문 시간 등 앱 사용 방식을 기록합니다. 앱 제작자가 사용자를 이해하는 데 씁니다.';
+
+  @override
+  String get trackerKindAttribution => '설치 출처 추적';
+
+  @override
+  String get trackerKindAttributionBody =>
+      '어떤 광고나 링크로 앱을 설치했는지 알아내고 이후 행동도 추적해 광고주가 광고 효과를 볼 수 있게 합니다.';
+
+  @override
+  String get trackerKindCrash => '충돌 보고서';
+
+  @override
+  String get trackerKindCrashBody =>
+      '앱이 충돌하면 휴대폰과 오류 정보가 담긴 보고서를 보냅니다. 제작자가 버그를 고치는 데 도움이 되며 보통 가장 덜 침해적인 유형입니다.';
+
+  @override
+  String get trackerKindPush => '푸시 메시지';
+
+  @override
+  String get trackerKindPushBody =>
+      '휴대폰에 알림을 보내고 열어 봤는지 추적할 수 있습니다. 알림에 필요하지만 마케팅 메시지에도 쓰입니다.';
+
+  @override
+  String get trackerKindOther => '추적기';
+
+  @override
+  String get trackerKindOtherBody =>
+      '알려진 추적 구성요소입니다. Peekless에 자세한 설명은 없지만 사용자나 기기의 데이터를 수집해 온라인으로 보낼 수 있습니다.';
+
+  @override
+  String get trackerTapHint => '추적기를 탭하면 하는 일을 볼 수 있습니다.';
+
+  @override
+  String get certTitle => '서명 인증서';
+
+  @override
+  String get certNormal => '디버그 키로 서명되지 않았습니다. 탭하여 지문을 복사합니다.';
+
+  @override
+  String get certDebug =>
+      '디버그 키로 서명되었습니다. 정식 릴리스는 개인 키를 사용하므로 이 앱을 주의하세요. 탭하여 지문을 복사합니다.';
+
+  @override
+  String get certUnknown => 'Android가 이 앱의 인증서를 제공하지 않았습니다.';
+
+  @override
+  String get certCopied => 'SHA-256을 복사했습니다';
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
+import '../app_cert.dart';
 import '../security_checks.dart';
 import '../controller.dart';
 import '../install_source.dart';
@@ -7,6 +9,7 @@ import '../l10n/app_localizations.dart';
 import '../models.dart';
 import '../scoring.dart';
 import '../texts.dart';
+import '../tracker_info.dart';
 import '../widgets/info_row.dart';
 import '../widgets/risk.dart';
 import 'score_explain.dart';
@@ -205,6 +208,7 @@ class AppDetailScreen extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               ..._securityRows(l, app),
+              _CertRow(packageName: app.packageName),
               const SizedBox(height: 12),
               Text(
                 l.navPermissions,
@@ -245,6 +249,13 @@ class AppDetailScreen extends StatelessWidget {
                       ),
                   ],
                 ),
+              if (app.trackers.isNotEmpty) ...[
+                const SizedBox(height: 8),
+                Text(
+                  l.trackerTapHint,
+                  style: text.bodySmall?.copyWith(color: scheme.onSurfaceVariant),
+                ),
+              ],
               if (app.deepTrackers.isNotEmpty) ...[
                 const SizedBox(height: 8),
                 Text(
@@ -443,32 +454,33 @@ class _TrackerPill extends StatelessWidget {
     final scheme = Theme.of(context).colorScheme;
     final text = Theme.of(context).textTheme;
     final initial = name.isEmpty ? '?' : String.fromCharCode(name.runes.first).toUpperCase();
-    return Container(
-      padding: const EdgeInsetsDirectional.fromSTEB(6, 6, 14, 6),
-      decoration: BoxDecoration(
-        color: scheme.surfaceContainer,
-        borderRadius: BorderRadius.circular(999),
-        border: Border.all(color: scheme.outlineVariant),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            width: 28,
-            height: 28,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: scheme.errorContainer,
-              shape: BoxShape.circle,
-            ),
-            child: Text(
-              initial,
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w800,
-                color: scheme.onErrorContainer,
-              ),
-            ),
+    return Material(
+      color: scheme.surfaceContainer,
+      shape: StadiumBorder(side: BorderSide(color: scheme.outlineVariant)),
+      child: InkWell(
+        customBorder: const StadiumBorder(),
+        onTap: () => _showTrackerSheet(context, name, fromCode),
+        child: Padding(
+          padding: const EdgeInsetsDirectional.fromSTEB(6, 6, 14, 6),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 28,
+                height: 28,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: scheme.errorContainer,
+                  shape: BoxShape.circle,
+                ),
+                child: Text(
+                  initial,
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w800,
+                    color: scheme.onErrorContainer,
+                  ),
+                ),
           ),
           const SizedBox(width: 8),
           Text(name, style: text.bodyMedium?.copyWith(fontWeight: FontWeight.w600)),
@@ -477,7 +489,103 @@ class _TrackerPill extends StatelessWidget {
             Icon(Icons.code, size: 16, color: scheme.onSurfaceVariant),
           ],
         ],
+          ),
+        ),
       ),
+    );
+  }
+}
+
+void _showTrackerSheet(BuildContext context, String name, bool fromCode) {
+  final l = AppLocalizations.of(context);
+  final kind = trackerKind(name);
+  showModalBottomSheet<void>(
+    context: context,
+    showDragHandle: true,
+    builder: (context) {
+      final scheme = Theme.of(context).colorScheme;
+      final text = Theme.of(context).textTheme;
+      return SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(24, 0, 24, 20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(name, style: text.titleLarge?.copyWith(fontWeight: FontWeight.w800)),
+              const SizedBox(height: 4),
+              Text(
+                trackerKindTitle(l, kind),
+                style: text.labelLarge?.copyWith(color: scheme.error),
+              ),
+              const SizedBox(height: 12),
+              Text(trackerKindBody(l, kind), style: text.bodyMedium),
+              if (fromCode) ...[
+                const SizedBox(height: 12),
+                Text(
+                  l.trackersFromCode(1),
+                  style: text.bodySmall?.copyWith(color: scheme.onSurfaceVariant),
+                ),
+              ],
+            ],
+          ),
+        ),
+      );
+    },
+  );
+}
+
+/// The signing certificate of the app. It is read when the screen opens.
+class _CertRow extends StatefulWidget {
+  const _CertRow({required this.packageName});
+
+  final String packageName;
+
+  @override
+  State<_CertRow> createState() => _CertRowState();
+}
+
+class _CertRowState extends State<_CertRow> {
+  late final Future<AppCert?> _cert = controller.appCert(widget.packageName);
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    return FutureBuilder<AppCert?>(
+      future: _cert,
+      builder: (context, snap) {
+        if (snap.connectionState != ConnectionState.done) {
+          return const SizedBox.shrink();
+        }
+        final cert = snap.data;
+        final Widget row;
+        if (cert == null) {
+          row = InfoRow(
+            icon: Icons.verified_user_outlined,
+            title: l.certTitle,
+            subtitle: l.certUnknown,
+          );
+        } else {
+          row = InkWell(
+            borderRadius: BorderRadius.circular(16),
+            onTap: () async {
+              final messenger = ScaffoldMessenger.of(context);
+              await Clipboard.setData(ClipboardData(text: cert.sha256));
+              messenger.showSnackBar(SnackBar(content: Text(l.certCopied)));
+            },
+            child: InfoRow(
+              icon: Icons.verified_user_outlined,
+              title: l.certTitle,
+              subtitle: cert.debug
+                  ? '${l.certDebug}\nSHA-256 ${cert.shortSha}'
+                  : '${l.certNormal}\nSHA-256 ${cert.shortSha}',
+              warn: cert.debug,
+              good: !cert.debug,
+            ),
+          );
+        }
+        return Padding(padding: const EdgeInsets.only(bottom: 8), child: row);
+      },
     );
   }
 }

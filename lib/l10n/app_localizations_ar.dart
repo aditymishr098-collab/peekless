@@ -1120,4 +1120,65 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get netExport => 'تصدير بصيغة CSV';
+
+  @override
+  String get trackerKindAds => 'الإعلانات';
+
+  @override
+  String get trackerKindAdsBody =>
+      'يعرض إعلانات في التطبيق ويقيس الإعلانات التي تراها وتنقر عليها. يستخدم غالبًا معرّف الإعلانات وبيانات جهازك لاختيار الإعلانات لك.';
+
+  @override
+  String get trackerKindAnalytics => 'تحليلات الاستخدام';
+
+  @override
+  String get trackerKindAnalyticsBody =>
+      'يسجّل كيف تستخدم التطبيق: الشاشات التي تفتحها والأزرار التي تضغطها ومدة بقائك. يستخدمه صانع التطبيق لفهم مستخدميه.';
+
+  @override
+  String get trackerKindAttribution => 'تتبّع مصدر التثبيت';
+
+  @override
+  String get trackerKindAttributionBody =>
+      'يعرف أي إعلان أو رابط قادك إلى تثبيت التطبيق ويتتبّع ما تفعله بعد ذلك ليرى المعلنون مدى نجاح إعلاناتهم.';
+
+  @override
+  String get trackerKindCrash => 'تقارير الأعطال';
+
+  @override
+  String get trackerKindCrashBody =>
+      'يرسل تقريرًا عند تعطّل التطبيق مع معلومات عن هاتفك والخطأ. يساعد الصانع على إصلاح الأخطاء وهو عادةً أقل الأنواع تدخلًا.';
+
+  @override
+  String get trackerKindPush => 'إشعارات الدفع';
+
+  @override
+  String get trackerKindPushBody =>
+      'يرسل إشعارات إلى هاتفك وقد يتتبّع ما إذا كنت تفتحها. ضروري للإشعارات لكنه يُستخدم أيضًا للرسائل التسويقية.';
+
+  @override
+  String get trackerKindOther => 'متتبّع';
+
+  @override
+  String get trackerKindOtherBody =>
+      'مكوّن تتبّع معروف. لا يملك Peekless ملاحظة مفصلة عنه، لكنه قد يجمع بيانات عنك أو عن جهازك ويرسلها عبر الإنترنت.';
+
+  @override
+  String get trackerTapHint => 'اضغط على متتبّع لترى ما يفعله.';
+
+  @override
+  String get certTitle => 'شهادة التوقيع';
+
+  @override
+  String get certNormal => 'غير موقّع بمفتاح تصحيح الأخطاء. اضغط لنسخ البصمة.';
+
+  @override
+  String get certDebug =>
+      'موقّع بمفتاح تصحيح الأخطاء. الإصدارات الحقيقية تستخدم مفتاحًا خاصًا، فكن حذرًا مع هذا التطبيق. اضغط لنسخ البصمة.';
+
+  @override
+  String get certUnknown => 'لم يوفّر Android شهادة هذا التطبيق.';
+
+  @override
+  String get certCopied => 'تم نسخ SHA-256';
 }

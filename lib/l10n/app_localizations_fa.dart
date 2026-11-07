@@ -1132,4 +1132,66 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get netExport => 'خروجی CSV';
+
+  @override
+  String get trackerKindAds => 'تبلیغات';
+
+  @override
+  String get trackerKindAdsBody =>
+      'در برنامه تبلیغ نشان می‌دهد و می‌سنجد کدام تبلیغ‌ها را می‌بینید و لمس می‌کنید. اغلب برای انتخاب تبلیغ از شناسه تبلیغاتی و اطلاعات دستگاه شما استفاده می‌کند.';
+
+  @override
+  String get trackerKindAnalytics => 'تحلیل استفاده';
+
+  @override
+  String get trackerKindAnalyticsBody =>
+      'ثبت می‌کند چگونه از برنامه استفاده می‌کنید: صفحه‌هایی که باز می‌کنید، دکمه‌هایی که می‌زنید و مدت ماندنتان. سازنده برنامه از آن برای شناخت کاربرانش استفاده می‌کند.';
+
+  @override
+  String get trackerKindAttribution => 'منشأ نصب';
+
+  @override
+  String get trackerKindAttributionBody =>
+      'می‌فهمد کدام تبلیغ یا پیوند شما را به نصب برنامه رسانده و بعد از آن کارهایتان را دنبال می‌کند تا تبلیغ‌دهندگان ببینند تبلیغاتشان چقدر اثر دارد.';
+
+  @override
+  String get trackerKindCrash => 'گزارش خرابی';
+
+  @override
+  String get trackerKindCrashBody =>
+      'هنگام خرابی برنامه گزارشی با اطلاعات گوشی و خطا می‌فرستد. به سازنده در رفع اشکال کمک می‌کند و معمولاً کم‌مزاحم‌ترین نوع است.';
+
+  @override
+  String get trackerKindPush => 'پیام‌های پوش';
+
+  @override
+  String get trackerKindPushBody =>
+      'اعلان به گوشی شما می‌فرستد و ممکن است پیگیری کند که آن‌ها را باز می‌کنید یا نه. برای اعلان‌ها لازم است، اما برای پیام‌های بازاریابی هم استفاده می‌شود.';
+
+  @override
+  String get trackerKindOther => 'ردیاب';
+
+  @override
+  String get trackerKindOtherBody =>
+      'یک مؤلفه ردیابی شناخته‌شده. Peekless یادداشت مفصلی درباره آن ندارد، اما می‌تواند داده‌هایی درباره شما یا دستگاهتان جمع کند و آنلاین بفرستد.';
+
+  @override
+  String get trackerTapHint => 'برای دیدن کار هر ردیاب روی آن بزنید.';
+
+  @override
+  String get certTitle => 'گواهی امضا';
+
+  @override
+  String get certNormal =>
+      'با کلید اشکال‌زدایی امضا نشده است. برای کپی اثر انگشت بزنید.';
+
+  @override
+  String get certDebug =>
+      'با کلید اشکال‌زدایی امضا شده است. نسخه‌های واقعی از کلید خصوصی استفاده می‌کنند، پس با این برنامه محتاط باشید. برای کپی اثر انگشت بزنید.';
+
+  @override
+  String get certUnknown => 'Android گواهی این برنامه را نداد.';
+
+  @override
+  String get certCopied => 'SHA-256 کپی شد';
 }

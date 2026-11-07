@@ -1139,4 +1139,66 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get netExport => 'Exporteren als CSV';
+
+  @override
+  String get trackerKindAds => 'Advertenties';
+
+  @override
+  String get trackerKindAdsBody =>
+      'Toont advertenties in de app en meet welke advertenties je ziet en aantikt. Gebruikt vaak je advertentie-ID en apparaatgegevens om advertenties voor je te kiezen.';
+
+  @override
+  String get trackerKindAnalytics => 'Gebruiksanalyse';
+
+  @override
+  String get trackerKindAnalyticsBody =>
+      'Legt vast hoe je de app gebruikt: geopende schermen, aangetikte knoppen en hoe lang je blijft. De maker van de app gebruikt dit om zijn gebruikers te begrijpen.';
+
+  @override
+  String get trackerKindAttribution => 'Installatietoewijzing';
+
+  @override
+  String get trackerKindAttributionBody =>
+      'Zoekt uit welke advertentie of link je tot installeren bracht en volgt daarna wat je doet, zodat adverteerders zien hoe goed hun advertenties werken.';
+
+  @override
+  String get trackerKindCrash => 'Crashrapporten';
+
+  @override
+  String get trackerKindCrashBody =>
+      'Stuurt een rapport als de app crasht, met gegevens over je telefoon en de fout. Helpt de maker bugs te verhelpen en is meestal het minst opdringerige type.';
+
+  @override
+  String get trackerKindPush => 'Pushberichten';
+
+  @override
+  String get trackerKindPushBody =>
+      'Stuurt meldingen naar je telefoon en kan bijhouden of je ze opent. Nodig voor meldingen, maar ook gebruikt voor marketingberichten.';
+
+  @override
+  String get trackerKindOther => 'Tracker';
+
+  @override
+  String get trackerKindOtherBody =>
+      'Een bekend trackingonderdeel. Peekless heeft er geen uitgebreide notitie over, maar het kan gegevens over jou of je apparaat verzamelen en online versturen.';
+
+  @override
+  String get trackerTapHint => 'Tik op een tracker om te zien wat hij doet.';
+
+  @override
+  String get certTitle => 'Ondertekeningscertificaat';
+
+  @override
+  String get certNormal =>
+      'Niet ondertekend met een debugsleutel. Tik om de vingerafdruk te kopiëren.';
+
+  @override
+  String get certDebug =>
+      'Ondertekend met een debugsleutel. Echte releases gebruiken een privésleutel, dus wees voorzichtig met deze app. Tik om de vingerafdruk te kopiëren.';
+
+  @override
+  String get certUnknown => 'Android gaf het certificaat van deze app niet.';
+
+  @override
+  String get certCopied => 'SHA-256 gekopieerd';
 }

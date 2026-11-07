@@ -1143,4 +1143,67 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get netExport => 'Exportar como CSV';
+
+  @override
+  String get trackerKindAds => 'Publicidad';
+
+  @override
+  String get trackerKindAdsBody =>
+      'Muestra anuncios en la app y mide qué anuncios ves y pulsas. A menudo usa tu ID de publicidad y datos del dispositivo para elegir anuncios para ti.';
+
+  @override
+  String get trackerKindAnalytics => 'Analítica de uso';
+
+  @override
+  String get trackerKindAnalyticsBody =>
+      'Registra cómo usas la app: las pantallas que abres, los botones que pulsas y cuánto tiempo te quedas. El creador de la app lo usa para entender a sus usuarios.';
+
+  @override
+  String get trackerKindAttribution => 'Atribución de instalación';
+
+  @override
+  String get trackerKindAttributionBody =>
+      'Averigua qué anuncio o enlace te llevó a instalar la app y sigue lo que haces después, para que los anunciantes vean qué tan bien funcionan sus anuncios.';
+
+  @override
+  String get trackerKindCrash => 'Informes de fallos';
+
+  @override
+  String get trackerKindCrashBody =>
+      'Envía un informe cuando la app falla, con datos de tu teléfono y del error. Ayuda al creador a corregir errores y suele ser el tipo menos intrusivo.';
+
+  @override
+  String get trackerKindPush => 'Mensajes push';
+
+  @override
+  String get trackerKindPushBody =>
+      'Envía notificaciones a tu teléfono y puede registrar si las abres. Es necesario para las notificaciones, pero también se usa para mensajes de marketing.';
+
+  @override
+  String get trackerKindOther => 'Rastreador';
+
+  @override
+  String get trackerKindOtherBody =>
+      'Un componente de rastreo conocido. Peekless no tiene una nota detallada, pero puede recopilar datos sobre ti o tu dispositivo y enviarlos por internet.';
+
+  @override
+  String get trackerTapHint => 'Toca un rastreador para ver qué hace.';
+
+  @override
+  String get certTitle => 'Certificado de firma';
+
+  @override
+  String get certNormal =>
+      'No está firmada con una clave de depuración. Toca para copiar la huella.';
+
+  @override
+  String get certDebug =>
+      'Firmada con una clave de depuración. Las versiones reales usan una clave privada, así que ten cuidado con esta app. Toca para copiar la huella.';
+
+  @override
+  String get certUnknown =>
+      'Android no proporcionó el certificado de esta app.';
+
+  @override
+  String get certCopied => 'SHA-256 copiado';
 }

@@ -1133,4 +1133,67 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get netExport => 'CSV olarak dışa aktar';
+
+  @override
+  String get trackerKindAds => 'Reklam';
+
+  @override
+  String get trackerKindAdsBody =>
+      'Uygulamada reklam gösterir ve hangi reklamları gördüğünüzü ve dokunduğunuzu ölçer. Size reklam seçmek için çoğunlukla reklam kimliğinizi ve cihaz bilgilerinizi kullanır.';
+
+  @override
+  String get trackerKindAnalytics => 'Kullanım analizi';
+
+  @override
+  String get trackerKindAnalyticsBody =>
+      'Uygulamayı nasıl kullandığınızı kaydeder: açtığınız ekranlar, dokunduğunuz düğmeler ve kalma süreniz. Uygulama yapımcısı kullanıcılarını anlamak için kullanır.';
+
+  @override
+  String get trackerKindAttribution => 'Yükleme kaynağı';
+
+  @override
+  String get trackerKindAttributionBody =>
+      'Uygulamayı hangi reklam veya bağlantı sayesinde yüklediğinizi bulur ve sonrasında yaptıklarınızı izler; böylece reklam verenler reklamlarının ne kadar işe yaradığını görür.';
+
+  @override
+  String get trackerKindCrash => 'Çökme raporları';
+
+  @override
+  String get trackerKindCrashBody =>
+      'Uygulama çöktüğünde telefonunuz ve hata hakkında bilgilerle rapor gönderir. Yapımcının hataları düzeltmesine yardım eder ve genellikle en az müdahaleci türdür.';
+
+  @override
+  String get trackerKindPush => 'Anlık bildirimler';
+
+  @override
+  String get trackerKindPushBody =>
+      'Telefonunuza bildirim gönderir ve bunları açıp açmadığınızı izleyebilir. Bildirimler için gereklidir, ancak pazarlama mesajları için de kullanılır.';
+
+  @override
+  String get trackerKindOther => 'İzleyici';
+
+  @override
+  String get trackerKindOtherBody =>
+      'Bilinen bir izleme bileşeni. Peekless’te ayrıntılı notu yok, ancak sizinle veya cihazınızla ilgili veri toplayıp internete gönderebilir.';
+
+  @override
+  String get trackerTapHint =>
+      'Ne yaptığını görmek için bir izleyiciye dokunun.';
+
+  @override
+  String get certTitle => 'İmza sertifikası';
+
+  @override
+  String get certNormal =>
+      'Hata ayıklama anahtarıyla imzalanmamış. Parmak izini kopyalamak için dokunun.';
+
+  @override
+  String get certDebug =>
+      'Hata ayıklama anahtarıyla imzalanmış. Gerçek sürümler özel anahtar kullanır, bu yüzden bu uygulamaya dikkat edin. Parmak izini kopyalamak için dokunun.';
+
+  @override
+  String get certUnknown => 'Android bu uygulamanın sertifikasını vermedi.';
+
+  @override
+  String get certCopied => 'SHA-256 kopyalandı';
 }

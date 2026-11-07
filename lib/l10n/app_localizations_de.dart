@@ -1147,4 +1147,68 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get netExport => 'Als CSV exportieren';
+
+  @override
+  String get trackerKindAds => 'Werbung';
+
+  @override
+  String get trackerKindAdsBody =>
+      'Zeigt Werbung in der App und misst, welche Anzeigen du siehst und antippst. Nutzt oft deine Werbe-ID und Gerätedaten, um Anzeigen für dich auszuwählen.';
+
+  @override
+  String get trackerKindAnalytics => 'Nutzungsanalyse';
+
+  @override
+  String get trackerKindAnalyticsBody =>
+      'Erfasst, wie du die App nutzt: geöffnete Bildschirme, getippte Schaltflächen und Verweildauer. Der App-Hersteller nutzt das, um seine Nutzer zu verstehen.';
+
+  @override
+  String get trackerKindAttribution => 'Installations-Zuordnung';
+
+  @override
+  String get trackerKindAttributionBody =>
+      'Findet heraus, welche Anzeige oder welcher Link dich zur Installation gebracht hat, und verfolgt danach dein Verhalten, damit Werbetreibende sehen, wie gut ihre Anzeigen wirken.';
+
+  @override
+  String get trackerKindCrash => 'Absturzberichte';
+
+  @override
+  String get trackerKindCrashBody =>
+      'Sendet bei einem Absturz einen Bericht mit Angaben zu deinem Telefon und dem Fehler. Hilft dem Hersteller, Fehler zu beheben, und ist meist die harmloseste Art.';
+
+  @override
+  String get trackerKindPush => 'Push-Nachrichten';
+
+  @override
+  String get trackerKindPushBody =>
+      'Sendet Benachrichtigungen an dein Telefon und kann erfassen, ob du sie öffnest. Nötig für Benachrichtigungen, wird aber auch für Marketing-Nachrichten genutzt.';
+
+  @override
+  String get trackerKindOther => 'Tracker';
+
+  @override
+  String get trackerKindOtherBody =>
+      'Eine bekannte Tracking-Komponente. Peekless hat keine ausführliche Notiz dazu, sie kann aber Daten über dich oder dein Gerät sammeln und online senden.';
+
+  @override
+  String get trackerTapHint =>
+      'Tippe auf einen Tracker, um zu sehen, was er tut.';
+
+  @override
+  String get certTitle => 'Signaturzertifikat';
+
+  @override
+  String get certNormal =>
+      'Nicht mit einem Debug-Schlüssel signiert. Tippen, um den Fingerabdruck zu kopieren.';
+
+  @override
+  String get certDebug =>
+      'Mit einem Debug-Schlüssel signiert. Echte Releases nutzen einen privaten Schlüssel, sei also vorsichtig mit dieser App. Tippen, um den Fingerabdruck zu kopieren.';
+
+  @override
+  String get certUnknown =>
+      'Android hat das Zertifikat dieser App nicht geliefert.';
+
+  @override
+  String get certCopied => 'SHA-256 kopiert';
 }

@@ -1145,4 +1145,66 @@ class AppLocalizationsHy extends AppLocalizations {
 
   @override
   String get netExport => 'Արտահանել CSV-ով';
+
+  @override
+  String get trackerKindAds => 'Գովազդ';
+
+  @override
+  String get trackerKindAdsBody =>
+      'Ցույց է տալիս գովազդ հավելվածում և չափում է, թե որ գովազդներն եք տեսնում և սեղմում։ Գովազդ ընտրելու համար հաճախ օգտագործում է ձեր գովազդային ID-ն և սարքի տվյալները։';
+
+  @override
+  String get trackerKindAnalytics => 'Օգտագործման վերլուծություն';
+
+  @override
+  String get trackerKindAnalyticsBody =>
+      'Գրանցում է, թե ինչպես եք օգտվում հավելվածից՝ որ էկրանները եք բացում, որ կոճակներն եք սեղմում և որքան եք մնում։ Հավելվածի ստեղծողը դրանով հասկանում է իր օգտատերերին։';
+
+  @override
+  String get trackerKindAttribution => 'Տեղադրման աղբյուր';
+
+  @override
+  String get trackerKindAttributionBody =>
+      'Պարզում է՝ որ գովազդը կամ հղումն է ձեզ հասցրել տեղադրելուն, և հետևում է հետագա գործողություններին, որպեսզի գովազդատուները տեսնեն իրենց գովազդների արդյունավետությունը։';
+
+  @override
+  String get trackerKindCrash => 'Խափանումների հաշվետվություններ';
+
+  @override
+  String get trackerKindCrashBody =>
+      'Հավելվածի խափանման դեպքում ուղարկում է հաշվետվություն ձեր հեռախոսի և սխալի մասին տվյալներով։ Օգնում է ստեղծողին շտկել սխալները և սովորաբար ամենաքիչ ներխուժող տեսակն է։';
+
+  @override
+  String get trackerKindPush => 'Push ծանուցումներ';
+
+  @override
+  String get trackerKindPushBody =>
+      'Ծանուցումներ է ուղարկում ձեր հեռախոսին և կարող է հետևել՝ բացել եք դրանք, թե ոչ։ Անհրաժեշտ է ծանուցումների համար, բայց օգտագործվում է նաև մարքեթինգային հաղորդագրությունների համար։';
+
+  @override
+  String get trackerKindOther => 'Հետևիչ';
+
+  @override
+  String get trackerKindOtherBody =>
+      'Հայտնի հետևող բաղադրիչ։ Peekless-ում դրա մասին մանրամասն նշում չկա, բայց այն կարող է հավաքել տվյալներ ձեր կամ սարքի մասին և ուղարկել առցանց։';
+
+  @override
+  String get trackerTapHint => 'Սեղմեք հետևիչի վրա՝ տեսնելու, թե ինչ է անում։';
+
+  @override
+  String get certTitle => 'Ստորագրման վկայական';
+
+  @override
+  String get certNormal =>
+      'Չի ստորագրված վրիպազերծման բանալիով։ Սեղմեք՝ մատնահետքը պատճենելու համար։';
+
+  @override
+  String get certDebug =>
+      'Ստորագրված է վրիպազերծման բանալիով։ Իրական թողարկումները օգտագործում են մասնավոր բանալի, ուստի զգույշ եղեք այս հավելվածի հետ։ Սեղմեք՝ մատնահետքը պատճենելու համար։';
+
+  @override
+  String get certUnknown => 'Android-ը չտվեց այս հավելվածի վկայականը։';
+
+  @override
+  String get certCopied => 'SHA-256-ը պատճենվեց';
 }

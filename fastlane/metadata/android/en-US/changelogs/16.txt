@@ -1,0 +1,1 @@
+Tap a tracker to see what it does in plain words. The app screen now shows the signing certificate (SHA-256) and warns when an app is signed with a debug key.

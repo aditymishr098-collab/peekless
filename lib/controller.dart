@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'app_cert.dart';
 import 'history.dart';
 import 'l10n/app_localizations.dart';
 import 'l10n_resolve.dart';
@@ -300,6 +301,15 @@ class AppController extends ChangeNotifier {
 
   Future<void> openAppSettings(String packageName) =>
       NativeBridge.openAppSettings(packageName);
+
+  /// The signing certificate of an app, or null when it cannot be read.
+  Future<AppCert?> appCert(String packageName) async {
+    try {
+      return await NativeBridge.appCert(packageName);
+    } catch (_) {
+      return null;
+    }
+  }
 }
 
 final AppController controller = AppController();

@@ -1144,4 +1144,67 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get netExport => 'Esporta come CSV';
+
+  @override
+  String get trackerKindAds => 'Pubblicità';
+
+  @override
+  String get trackerKindAdsBody =>
+      'Mostra annunci nell’app e misura quali annunci vedi e tocchi. Spesso usa il tuo ID pubblicitario e i dati del dispositivo per scegliere gli annunci.';
+
+  @override
+  String get trackerKindAnalytics => 'Analisi d’uso';
+
+  @override
+  String get trackerKindAnalyticsBody =>
+      'Registra come usi l’app: schermate aperte, pulsanti toccati e tempo di permanenza. Il creatore dell’app lo usa per capire i suoi utenti.';
+
+  @override
+  String get trackerKindAttribution => 'Attribuzione dell’installazione';
+
+  @override
+  String get trackerKindAttributionBody =>
+      'Scopre quale annuncio o link ti ha portato a installare l’app e segue ciò che fai dopo, così gli inserzionisti vedono quanto funzionano i loro annunci.';
+
+  @override
+  String get trackerKindCrash => 'Report degli arresti anomali';
+
+  @override
+  String get trackerKindCrashBody =>
+      'Invia un report quando l’app si arresta, con dati sul telefono e sull’errore. Aiuta il creatore a correggere i bug ed è di solito il tipo meno invasivo.';
+
+  @override
+  String get trackerKindPush => 'Messaggi push';
+
+  @override
+  String get trackerKindPushBody =>
+      'Invia notifiche al telefono e può rilevare se le apri. Serve per le notifiche, ma è usato anche per messaggi di marketing.';
+
+  @override
+  String get trackerKindOther => 'Tracker';
+
+  @override
+  String get trackerKindOtherBody =>
+      'Un componente di tracciamento noto. Peekless non ha una nota dettagliata, ma può raccogliere dati su di te o sul dispositivo e inviarli online.';
+
+  @override
+  String get trackerTapHint => 'Tocca un tracker per vedere cosa fa.';
+
+  @override
+  String get certTitle => 'Certificato di firma';
+
+  @override
+  String get certNormal =>
+      'Non firmata con una chiave di debug. Tocca per copiare l’impronta.';
+
+  @override
+  String get certDebug =>
+      'Firmata con una chiave di debug. Le versioni reali usano una chiave privata, quindi fai attenzione a questa app. Tocca per copiare l’impronta.';
+
+  @override
+  String get certUnknown =>
+      'Android non ha fornito il certificato di questa app.';
+
+  @override
+  String get certCopied => 'SHA-256 copiato';
 }

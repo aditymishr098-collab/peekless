@@ -1140,4 +1140,66 @@ class AppLocalizationsPl extends AppLocalizations {
 
   @override
   String get netExport => 'Eksportuj jako CSV';
+
+  @override
+  String get trackerKindAds => 'Reklamy';
+
+  @override
+  String get trackerKindAdsBody =>
+      'Pokazuje reklamy w aplikacji i mierzy, które reklamy widzisz i dotykasz. Do wyboru reklam często używa Twojego identyfikatora reklamowego i danych urządzenia.';
+
+  @override
+  String get trackerKindAnalytics => 'Analityka użycia';
+
+  @override
+  String get trackerKindAnalyticsBody =>
+      'Zapisuje, jak korzystasz z aplikacji: jakie ekrany otwierasz, jakie przyciski dotykasz i jak długo zostajesz. Twórca aplikacji używa tego, by rozumieć użytkowników.';
+
+  @override
+  String get trackerKindAttribution => 'Atrybucja instalacji';
+
+  @override
+  String get trackerKindAttributionBody =>
+      'Ustala, jaka reklama lub link doprowadziły Cię do instalacji, i śledzi, co robisz potem, aby reklamodawcy widzieli skuteczność reklam.';
+
+  @override
+  String get trackerKindCrash => 'Raporty awarii';
+
+  @override
+  String get trackerKindCrashBody =>
+      'Wysyła raport, gdy aplikacja się zawiesi, z danymi o telefonie i błędzie. Pomaga twórcy naprawiać błędy i zwykle jest najmniej inwazyjnym rodzajem.';
+
+  @override
+  String get trackerKindPush => 'Powiadomienia push';
+
+  @override
+  String get trackerKindPushBody =>
+      'Wysyła powiadomienia na telefon i może śledzić, czy je otwierasz. Jest potrzebny do powiadomień, ale służy też do wiadomości marketingowych.';
+
+  @override
+  String get trackerKindOther => 'Tracker';
+
+  @override
+  String get trackerKindOtherBody =>
+      'Znany komponent śledzący. Peekless nie ma jego szczegółowego opisu, ale może zbierać dane o Tobie lub urządzeniu i wysyłać je do sieci.';
+
+  @override
+  String get trackerTapHint => 'Dotknij trackera, aby zobaczyć, co robi.';
+
+  @override
+  String get certTitle => 'Certyfikat podpisu';
+
+  @override
+  String get certNormal =>
+      'Nie podpisano kluczem debugowania. Dotknij, aby skopiować odcisk.';
+
+  @override
+  String get certDebug =>
+      'Podpisano kluczem debugowania. Prawdziwe wydania używają klucza prywatnego, więc zachowaj ostrożność z tą aplikacją. Dotknij, aby skopiować odcisk.';
+
+  @override
+  String get certUnknown => 'Android nie podał certyfikatu tej aplikacji.';
+
+  @override
+  String get certCopied => 'Skopiowano SHA-256';
 }

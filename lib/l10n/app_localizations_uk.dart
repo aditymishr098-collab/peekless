@@ -1141,4 +1141,67 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get netExport => 'Експортувати як CSV';
+
+  @override
+  String get trackerKindAds => 'Реклама';
+
+  @override
+  String get trackerKindAdsBody =>
+      'Показує рекламу в застосунку та вимірює, яку рекламу ви бачите й торкаєтеся. Для добору реклами часто використовує ваш рекламний ID і дані пристрою.';
+
+  @override
+  String get trackerKindAnalytics => 'Аналітика використання';
+
+  @override
+  String get trackerKindAnalyticsBody =>
+      'Записує, як ви користуєтеся застосунком: які екрани відкриваєте, які кнопки натискаєте та скільки часу проводите. Розробник використовує це, щоб розуміти своїх користувачів.';
+
+  @override
+  String get trackerKindAttribution => 'Атрибуція встановлення';
+
+  @override
+  String get trackerKindAttributionBody =>
+      'З’ясовує, яка реклама чи посилання привели вас до встановлення, і стежить за вашими діями потім, щоб рекламодавці бачили ефективність реклами.';
+
+  @override
+  String get trackerKindCrash => 'Звіти про збої';
+
+  @override
+  String get trackerKindCrashBody =>
+      'Надсилає звіт, коли застосунок аварійно завершується, з даними про телефон і помилку. Допомагає розробнику виправляти помилки й зазвичай є найменш нав’язливим видом.';
+
+  @override
+  String get trackerKindPush => 'Push-сповіщення';
+
+  @override
+  String get trackerKindPushBody =>
+      'Надсилає сповіщення на телефон і може стежити, чи ви їх відкриваєте. Потрібне для сповіщень, але використовується й для маркетингових повідомлень.';
+
+  @override
+  String get trackerKindOther => 'Трекер';
+
+  @override
+  String get trackerKindOtherBody =>
+      'Відомий компонент стеження. У Peekless немає його докладного опису, але він може збирати дані про вас чи пристрій і надсилати їх в інтернет.';
+
+  @override
+  String get trackerTapHint =>
+      'Торкніться трекера, щоб побачити, що він робить.';
+
+  @override
+  String get certTitle => 'Сертифікат підпису';
+
+  @override
+  String get certNormal =>
+      'Не підписано ключем налагодження. Торкніться, щоб скопіювати відбиток.';
+
+  @override
+  String get certDebug =>
+      'Підписано ключем налагодження. Справжні релізи використовують приватний ключ, тож будьте обережні з цим застосунком. Торкніться, щоб скопіювати відбиток.';
+
+  @override
+  String get certUnknown => 'Android не надав сертифікат цього застосунку.';
+
+  @override
+  String get certCopied => 'SHA-256 скопійовано';
 }

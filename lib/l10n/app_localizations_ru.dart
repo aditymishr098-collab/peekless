@@ -1143,4 +1143,67 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get netExport => 'Экспорт в CSV';
+
+  @override
+  String get trackerKindAds => 'Реклама';
+
+  @override
+  String get trackerKindAdsBody =>
+      'Показывает рекламу в приложении и измеряет, какую рекламу вы видите и нажимаете. Для подбора рекламы часто использует ваш рекламный ID и данные об устройстве.';
+
+  @override
+  String get trackerKindAnalytics => 'Аналитика использования';
+
+  @override
+  String get trackerKindAnalyticsBody =>
+      'Записывает, как вы пользуетесь приложением: какие экраны открываете, какие кнопки нажимаете и сколько времени проводите. Разработчик использует это, чтобы понимать своих пользователей.';
+
+  @override
+  String get trackerKindAttribution => 'Атрибуция установок';
+
+  @override
+  String get trackerKindAttributionBody =>
+      'Выясняет, какая реклама или ссылка привела вас к установке, и следит за вашими действиями потом, чтобы рекламодатели видели эффективность рекламы.';
+
+  @override
+  String get trackerKindCrash => 'Отчёты о сбоях';
+
+  @override
+  String get trackerKindCrashBody =>
+      'Отправляет отчёт при сбое приложения с данными о телефоне и ошибке. Помогает разработчику исправлять ошибки и обычно является наименее навязчивым видом.';
+
+  @override
+  String get trackerKindPush => 'Push-уведомления';
+
+  @override
+  String get trackerKindPushBody =>
+      'Отправляет уведомления на телефон и может отслеживать, открываете ли вы их. Нужен для уведомлений, но используется и для рекламных сообщений.';
+
+  @override
+  String get trackerKindOther => 'Трекер';
+
+  @override
+  String get trackerKindOtherBody =>
+      'Известный компонент слежения. В Peekless нет подробного описания, но он может собирать данные о вас или устройстве и отправлять их в сеть.';
+
+  @override
+  String get trackerTapHint =>
+      'Нажмите на трекер, чтобы узнать, что он делает.';
+
+  @override
+  String get certTitle => 'Сертификат подписи';
+
+  @override
+  String get certNormal =>
+      'Не подписано отладочным ключом. Нажмите, чтобы скопировать отпечаток.';
+
+  @override
+  String get certDebug =>
+      'Подписано отладочным ключом. Настоящие релизы используют закрытый ключ, поэтому будьте осторожны с этим приложением. Нажмите, чтобы скопировать отпечаток.';
+
+  @override
+  String get certUnknown => 'Android не передал сертификат этого приложения.';
+
+  @override
+  String get certCopied => 'SHA-256 скопирован';
 }

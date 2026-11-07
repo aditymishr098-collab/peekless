@@ -1133,4 +1133,66 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get netExport => 'CSV হিসেবে এক্সপোর্ট করুন';
+
+  @override
+  String get trackerKindAds => 'বিজ্ঞাপন';
+
+  @override
+  String get trackerKindAdsBody =>
+      'অ্যাপে বিজ্ঞাপন দেখায় এবং আপনি কোন বিজ্ঞাপন দেখেন ও ট্যাপ করেন তা মাপে। আপনার জন্য বিজ্ঞাপন বাছতে প্রায়ই আপনার বিজ্ঞাপন আইডি ও ডিভাইসের তথ্য ব্যবহার করে।';
+
+  @override
+  String get trackerKindAnalytics => 'ব্যবহার বিশ্লেষণ';
+
+  @override
+  String get trackerKindAnalyticsBody =>
+      'আপনি অ্যাপ কীভাবে ব্যবহার করেন তা রেকর্ড করে: কোন স্ক্রিন খোলেন, কোন বোতাম চাপেন এবং কতক্ষণ থাকেন। অ্যাপের নির্মাতা ব্যবহারকারীদের বুঝতে এটি ব্যবহার করেন।';
+
+  @override
+  String get trackerKindAttribution => 'ইনস্টলের উৎস শনাক্তকরণ';
+
+  @override
+  String get trackerKindAttributionBody =>
+      'কোন বিজ্ঞাপন বা লিংক থেকে আপনি অ্যাপ ইনস্টল করেছেন তা খুঁজে বের করে এবং পরে আপনি কী করেন তা অনুসরণ করে, যাতে বিজ্ঞাপনদাতারা দেখতে পান তাদের বিজ্ঞাপন কতটা কাজ করছে।';
+
+  @override
+  String get trackerKindCrash => 'ক্র্যাশ রিপোর্ট';
+
+  @override
+  String get trackerKindCrashBody =>
+      'অ্যাপ ক্র্যাশ করলে আপনার ফোন ও ত্রুটির তথ্যসহ রিপোর্ট পাঠায়। নির্মাতাকে বাগ ঠিক করতে সাহায্য করে এবং সাধারণত সবচেয়ে কম হস্তক্ষেপকারী ধরন।';
+
+  @override
+  String get trackerKindPush => 'পুশ বার্তা';
+
+  @override
+  String get trackerKindPushBody =>
+      'আপনার ফোনে বিজ্ঞপ্তি পাঠায় এবং আপনি সেগুলো খুলেছেন কি না তা ট্র্যাক করতে পারে। বিজ্ঞপ্তির জন্য প্রয়োজন, কিন্তু বিপণন বার্তার জন্যও ব্যবহার হয়।';
+
+  @override
+  String get trackerKindOther => 'ট্র্যাকার';
+
+  @override
+  String get trackerKindOtherBody =>
+      'একটি পরিচিত ট্র্যাকিং উপাদান। Peekless-এ এর বিস্তারিত নোট নেই, তবে এটি আপনার বা আপনার ডিভাইসের তথ্য সংগ্রহ করে অনলাইনে পাঠাতে পারে।';
+
+  @override
+  String get trackerTapHint => 'ট্র্যাকার কী করে দেখতে সেটিতে ট্যাপ করুন।';
+
+  @override
+  String get certTitle => 'সাইনিং সার্টিফিকেট';
+
+  @override
+  String get certNormal =>
+      'ডিবাগ কী দিয়ে সাইন করা নয়। ফিঙ্গারপ্রিন্ট কপি করতে ট্যাপ করুন।';
+
+  @override
+  String get certDebug =>
+      'ডিবাগ কী দিয়ে সাইন করা। আসল রিলিজ ব্যক্তিগত কী ব্যবহার করে, তাই এই অ্যাপ নিয়ে সতর্ক থাকুন। ফিঙ্গারপ্রিন্ট কপি করতে ট্যাপ করুন।';
+
+  @override
+  String get certUnknown => 'Android এই অ্যাপের সার্টিফিকেট দেয়নি।';
+
+  @override
+  String get certCopied => 'SHA-256 কপি হয়েছে';
 }

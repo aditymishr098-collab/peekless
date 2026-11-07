@@ -1096,6 +1096,65 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get netExport => '导出为 CSV';
+
+  @override
+  String get trackerKindAds => '广告';
+
+  @override
+  String get trackerKindAdsBody =>
+      '在应用中显示广告，并统计你看到和点击了哪些广告。通常会用你的广告 ID 和设备信息来挑选广告。';
+
+  @override
+  String get trackerKindAnalytics => '使用分析';
+
+  @override
+  String get trackerKindAnalyticsBody =>
+      '记录你如何使用应用：打开了哪些页面、点了哪些按钮、停留多久。应用开发者用它来了解用户。';
+
+  @override
+  String get trackerKindAttribution => '安装归因';
+
+  @override
+  String get trackerKindAttributionBody =>
+      '查明是哪条广告或链接让你安装了应用，并跟踪你之后的行为，让广告主了解广告效果。';
+
+  @override
+  String get trackerKindCrash => '崩溃报告';
+
+  @override
+  String get trackerKindCrashBody =>
+      '应用崩溃时发送报告，包含手机和错误的信息。帮助开发者修复问题，通常是侵入性最小的一类。';
+
+  @override
+  String get trackerKindPush => '推送消息';
+
+  @override
+  String get trackerKindPushBody => '向你的手机发送通知，并可能记录你是否打开。通知需要它，但也被用于营销消息。';
+
+  @override
+  String get trackerKindOther => '追踪器';
+
+  @override
+  String get trackerKindOtherBody =>
+      '已知的追踪组件。Peekless 没有它的详细说明，但它可能收集你或你设备的数据并发送到网上。';
+
+  @override
+  String get trackerTapHint => '点按追踪器可查看它的作用。';
+
+  @override
+  String get certTitle => '签名证书';
+
+  @override
+  String get certNormal => '未使用调试密钥签名。点按可复制指纹。';
+
+  @override
+  String get certDebug => '使用调试密钥签名。正式版本使用私钥，所以请谨慎对待此应用。点按可复制指纹。';
+
+  @override
+  String get certUnknown => 'Android 没有提供此应用的证书。';
+
+  @override
+  String get certCopied => '已复制 SHA-256';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -2190,4 +2249,63 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get netExport => '匯出為 CSV';
+
+  @override
+  String get trackerKindAds => '廣告';
+
+  @override
+  String get trackerKindAdsBody =>
+      '在應用程式中顯示廣告，並統計你看到和點擊了哪些廣告。通常會用你的廣告 ID 和裝置資訊來挑選廣告。';
+
+  @override
+  String get trackerKindAnalytics => '使用分析';
+
+  @override
+  String get trackerKindAnalyticsBody =>
+      '記錄你如何使用應用程式：開啟了哪些畫面、點了哪些按鈕、停留多久。應用程式開發者用它來了解使用者。';
+
+  @override
+  String get trackerKindAttribution => '安裝歸因';
+
+  @override
+  String get trackerKindAttributionBody =>
+      '查明是哪則廣告或連結讓你安裝了應用程式，並追蹤你之後的行為，讓廣告主了解廣告成效。';
+
+  @override
+  String get trackerKindCrash => '當機報告';
+
+  @override
+  String get trackerKindCrashBody =>
+      '應用程式當機時傳送報告，內含手機和錯誤的資訊。幫助開發者修正問題，通常是侵入性最小的一類。';
+
+  @override
+  String get trackerKindPush => '推播訊息';
+
+  @override
+  String get trackerKindPushBody => '向你的手機傳送通知，並可能記錄你是否開啟。通知需要它，但也用於行銷訊息。';
+
+  @override
+  String get trackerKindOther => '追蹤器';
+
+  @override
+  String get trackerKindOtherBody =>
+      '已知的追蹤元件。Peekless 沒有它的詳細說明，但它可能蒐集你或你裝置的資料並傳送到網路上。';
+
+  @override
+  String get trackerTapHint => '點一下追蹤器可查看它的作用。';
+
+  @override
+  String get certTitle => '簽署憑證';
+
+  @override
+  String get certNormal => '未使用除錯金鑰簽署。點一下可複製指紋。';
+
+  @override
+  String get certDebug => '使用除錯金鑰簽署。正式版本使用私密金鑰，所以請謹慎對待此應用程式。點一下可複製指紋。';
+
+  @override
+  String get certUnknown => 'Android 沒有提供此應用程式的憑證。';
+
+  @override
+  String get certCopied => '已複製 SHA-256';
 }

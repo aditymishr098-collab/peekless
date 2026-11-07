@@ -1131,4 +1131,66 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get netExport => 'Export as CSV';
+
+  @override
+  String get trackerKindAds => 'Advertising';
+
+  @override
+  String get trackerKindAdsBody =>
+      'Shows ads in the app and measures which ads you see and tap. It often uses your advertising ID and device details to pick ads for you.';
+
+  @override
+  String get trackerKindAnalytics => 'Usage analytics';
+
+  @override
+  String get trackerKindAnalyticsBody =>
+      'Records how you use the app: screens you open, buttons you tap and how long you stay. The app maker uses it to understand its users.';
+
+  @override
+  String get trackerKindAttribution => 'Install attribution';
+
+  @override
+  String get trackerKindAttributionBody =>
+      'Finds out which ad or link led you to install the app, and follows what you do afterwards so advertisers can see how well their ads work.';
+
+  @override
+  String get trackerKindCrash => 'Crash reports';
+
+  @override
+  String get trackerKindCrashBody =>
+      'Sends a report when the app crashes, with details about your phone and the error. It helps the maker fix bugs and is usually the least intrusive kind.';
+
+  @override
+  String get trackerKindPush => 'Push messages';
+
+  @override
+  String get trackerKindPushBody =>
+      'Sends notifications to your phone and may track whether you open them. It is needed for notifications, but is also used for marketing messages.';
+
+  @override
+  String get trackerKindOther => 'Tracker';
+
+  @override
+  String get trackerKindOtherBody =>
+      'A known tracking component. Peekless has no detailed note on it, but it can collect data about you or your device and send it online.';
+
+  @override
+  String get trackerTapHint => 'Tap a tracker to see what it does.';
+
+  @override
+  String get certTitle => 'Signing certificate';
+
+  @override
+  String get certNormal =>
+      'Not signed with a debug key. Tap to copy the fingerprint.';
+
+  @override
+  String get certDebug =>
+      'Signed with a debug key. Real releases use a private key, so be careful with this app. Tap to copy the fingerprint.';
+
+  @override
+  String get certUnknown => 'Android did not give the certificate of this app.';
+
+  @override
+  String get certCopied => 'SHA-256 copied';
 }

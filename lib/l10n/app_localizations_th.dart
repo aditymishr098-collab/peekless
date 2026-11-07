@@ -1126,4 +1126,65 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get netExport => 'ส่งออกเป็น CSV';
+
+  @override
+  String get trackerKindAds => 'โฆษณา';
+
+  @override
+  String get trackerKindAdsBody =>
+      'แสดงโฆษณาในแอปและวัดว่าคุณเห็นและแตะโฆษณาใด มักใช้รหัสโฆษณาและข้อมูลอุปกรณ์ของคุณเพื่อเลือกโฆษณา';
+
+  @override
+  String get trackerKindAnalytics => 'วิเคราะห์การใช้งาน';
+
+  @override
+  String get trackerKindAnalyticsBody =>
+      'บันทึกวิธีที่คุณใช้แอป เช่น หน้าจอที่เปิด ปุ่มที่แตะ และระยะเวลาที่อยู่ ผู้สร้างแอปใช้เพื่อทำความเข้าใจผู้ใช้';
+
+  @override
+  String get trackerKindAttribution => 'การระบุที่มาของการติดตั้ง';
+
+  @override
+  String get trackerKindAttributionBody =>
+      'ค้นหาว่าโฆษณาหรือลิงก์ใดทำให้คุณติดตั้งแอป และติดตามสิ่งที่คุณทำต่อจากนั้น เพื่อให้ผู้โฆษณาเห็นว่าโฆษณาได้ผลเพียงใด';
+
+  @override
+  String get trackerKindCrash => 'รายงานการขัดข้อง';
+
+  @override
+  String get trackerKindCrashBody =>
+      'ส่งรายงานเมื่อแอปขัดข้อง พร้อมข้อมูลโทรศัพท์และข้อผิดพลาด ช่วยให้ผู้สร้างแก้บั๊กและมักเป็นชนิดที่รุกล้ำน้อยที่สุด';
+
+  @override
+  String get trackerKindPush => 'ข้อความพุช';
+
+  @override
+  String get trackerKindPushBody =>
+      'ส่งการแจ้งเตือนไปยังโทรศัพท์และอาจติดตามว่าคุณเปิดดูหรือไม่ จำเป็นสำหรับการแจ้งเตือน แต่ก็ใช้กับข้อความการตลาดด้วย';
+
+  @override
+  String get trackerKindOther => 'ตัวติดตาม';
+
+  @override
+  String get trackerKindOtherBody =>
+      'ส่วนประกอบติดตามที่รู้จัก Peekless ไม่มีบันทึกรายละเอียดเกี่ยวกับตัวนี้ แต่มันอาจเก็บข้อมูลเกี่ยวกับคุณหรืออุปกรณ์แล้วส่งออนไลน์';
+
+  @override
+  String get trackerTapHint => 'แตะตัวติดตามเพื่อดูว่ามันทำอะไร';
+
+  @override
+  String get certTitle => 'ใบรับรองการลงชื่อ';
+
+  @override
+  String get certNormal => 'ไม่ได้ลงชื่อด้วยคีย์ดีบัก แตะเพื่อคัดลอกลายนิ้วมือ';
+
+  @override
+  String get certDebug =>
+      'ลงชื่อด้วยคีย์ดีบัก รุ่นจริงใช้คีย์ส่วนตัว จึงควรระวังแอปนี้ แตะเพื่อคัดลอกลายนิ้วมือ';
+
+  @override
+  String get certUnknown => 'Android ไม่ได้ให้ใบรับรองของแอปนี้';
+
+  @override
+  String get certCopied => 'คัดลอก SHA-256 แล้ว';
 }

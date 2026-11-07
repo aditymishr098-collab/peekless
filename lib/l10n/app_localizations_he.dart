@@ -1121,4 +1121,66 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get netExport => 'ייצוא כ-CSV';
+
+  @override
+  String get trackerKindAds => 'פרסומות';
+
+  @override
+  String get trackerKindAdsBody =>
+      'מציג פרסומות באפליקציה ומודד אילו פרסומות אתם רואים ולוחצים. לעיתים קרובות משתמש במזהה הפרסום ובפרטי המכשיר כדי לבחור לכם פרסומות.';
+
+  @override
+  String get trackerKindAnalytics => 'ניתוח שימוש';
+
+  @override
+  String get trackerKindAnalyticsBody =>
+      'מתעד איך אתם משתמשים באפליקציה: אילו מסכים אתם פותחים, על אילו כפתורים לוחצים וכמה זמן נשארים. יוצר האפליקציה משתמש בזה כדי להבין את המשתמשים שלו.';
+
+  @override
+  String get trackerKindAttribution => 'ייחוס התקנה';
+
+  @override
+  String get trackerKindAttributionBody =>
+      'מגלה איזו פרסומת או קישור הובילו אתכם להתקין את האפליקציה, ועוקב אחרי מה שאתם עושים אחר כך כדי שמפרסמים יראו עד כמה הפרסומות שלהם יעילות.';
+
+  @override
+  String get trackerKindCrash => 'דוחות קריסה';
+
+  @override
+  String get trackerKindCrashBody =>
+      'שולח דוח כשהאפליקציה קורסת, עם פרטים על הטלפון והשגיאה. עוזר ליוצר לתקן באגים ובדרך כלל הוא הסוג הכי פחות פולשני.';
+
+  @override
+  String get trackerKindPush => 'הודעות Push';
+
+  @override
+  String get trackerKindPushBody =>
+      'שולח התראות לטלפון ועשוי לעקוב אם פתחתם אותן. נחוץ להתראות, אבל משמש גם להודעות שיווק.';
+
+  @override
+  String get trackerKindOther => 'עוקב';
+
+  @override
+  String get trackerKindOtherBody =>
+      'רכיב מעקב מוכר. ל-Peekless אין הערה מפורטת עליו, אך הוא יכול לאסוף נתונים עליכם או על המכשיר ולשלוח אותם לרשת.';
+
+  @override
+  String get trackerTapHint => 'הקישו על עוקב כדי לראות מה הוא עושה.';
+
+  @override
+  String get certTitle => 'תעודת חתימה';
+
+  @override
+  String get certNormal =>
+      'לא חתום במפתח ניפוי באגים. הקישו כדי להעתיק את טביעת האצבע.';
+
+  @override
+  String get certDebug =>
+      'חתום במפתח ניפוי באגים. גרסאות אמיתיות משתמשות במפתח פרטי, לכן היזהרו מהאפליקציה הזו. הקישו כדי להעתיק את טביעת האצבע.';
+
+  @override
+  String get certUnknown => 'Android לא סיפק את התעודה של האפליקציה הזו.';
+
+  @override
+  String get certCopied => 'SHA-256 הועתק';
 }

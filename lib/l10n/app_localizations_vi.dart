@@ -1137,4 +1137,67 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get netExport => 'Xuất dưới dạng CSV';
+
+  @override
+  String get trackerKindAds => 'Quảng cáo';
+
+  @override
+  String get trackerKindAdsBody =>
+      'Hiển thị quảng cáo trong ứng dụng và đo xem bạn thấy và chạm vào quảng cáo nào. Thường dùng ID quảng cáo và thông tin thiết bị của bạn để chọn quảng cáo.';
+
+  @override
+  String get trackerKindAnalytics => 'Phân tích sử dụng';
+
+  @override
+  String get trackerKindAnalyticsBody =>
+      'Ghi lại cách bạn dùng ứng dụng: màn hình đã mở, nút đã chạm và thời gian ở lại. Nhà phát triển dùng nó để hiểu người dùng của mình.';
+
+  @override
+  String get trackerKindAttribution => 'Ghi nhận nguồn cài đặt';
+
+  @override
+  String get trackerKindAttributionBody =>
+      'Tìm ra quảng cáo hoặc liên kết nào khiến bạn cài ứng dụng và theo dõi những gì bạn làm sau đó để nhà quảng cáo thấy quảng cáo hiệu quả đến đâu.';
+
+  @override
+  String get trackerKindCrash => 'Báo cáo sự cố';
+
+  @override
+  String get trackerKindCrashBody =>
+      'Gửi báo cáo khi ứng dụng bị lỗi, kèm thông tin về điện thoại và lỗi. Giúp nhà phát triển sửa lỗi và thường là loại ít xâm phạm nhất.';
+
+  @override
+  String get trackerKindPush => 'Thông báo đẩy';
+
+  @override
+  String get trackerKindPushBody =>
+      'Gửi thông báo đến điện thoại và có thể theo dõi việc bạn có mở chúng không. Cần cho thông báo, nhưng cũng được dùng cho tin nhắn tiếp thị.';
+
+  @override
+  String get trackerKindOther => 'Trình theo dõi';
+
+  @override
+  String get trackerKindOtherBody =>
+      'Một thành phần theo dõi đã biết. Peekless không có ghi chú chi tiết về nó, nhưng nó có thể thu thập dữ liệu về bạn hoặc thiết bị và gửi lên mạng.';
+
+  @override
+  String get trackerTapHint => 'Chạm vào một trình theo dõi để xem nó làm gì.';
+
+  @override
+  String get certTitle => 'Chứng chỉ ký';
+
+  @override
+  String get certNormal =>
+      'Không được ký bằng khóa gỡ lỗi. Chạm để sao chép dấu vân tay.';
+
+  @override
+  String get certDebug =>
+      'Được ký bằng khóa gỡ lỗi. Bản phát hành thật dùng khóa riêng, nên hãy cẩn thận với ứng dụng này. Chạm để sao chép dấu vân tay.';
+
+  @override
+  String get certUnknown =>
+      'Android không cung cấp chứng chỉ của ứng dụng này.';
+
+  @override
+  String get certCopied => 'Đã sao chép SHA-256';
 }

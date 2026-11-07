@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:peekless/access_share.dart';
+import 'package:peekless/app_cert.dart';
 import 'package:peekless/app_filter.dart';
 import 'package:peekless/security_checks.dart';
 import 'package:peekless/export.dart';
@@ -23,6 +24,7 @@ import 'package:peekless/scoring.dart';
 import 'package:peekless/texts.dart';
 import 'package:peekless/tracker_db.dart';
 import 'package:peekless/tracker_domains.dart';
+import 'package:peekless/tracker_info.dart';
 import 'package:peekless/tracker_store.dart';
 import 'package:peekless/updater.dart';
 import 'package:peekless/weekly.dart';
@@ -1035,6 +1037,31 @@ void main() {
         ),
         isNull,
       );
+    });
+  });
+
+  group('tracker explanations and certificates', () {
+    test('every built-in tracker has a kind', () {
+      for (final name in builtInTrackers.keys) {
+        expect(trackerKind(name), isNot(TrackerKind.other), reason: name);
+      }
+      expect(trackerKind('Some Unknown SDK'), TrackerKind.other);
+    });
+
+    test('certificate map is read and shortened', () {
+      final sha = List.generate(32, (i) => i.toRadixString(16).padLeft(2, '0').toUpperCase()).join(':');
+      final cert = AppCert.fromMap(<Object?, Object?>{
+        'sha256': sha,
+        'subject': 'C=US, O=Android, CN=Android Debug',
+        'debug': true,
+        'expires': 123,
+        'signers': 1,
+      });
+      expect(cert, isNotNull);
+      expect(cert!.debug, isTrue);
+      expect(cert.shortSha, '00:01:02:03:…:1C:1D:1E:1F');
+      expect(AppCert.fromMap(null), isNull);
+      expect(AppCert.fromMap(<Object?, Object?>{'sha256': ''}), isNull);
     });
   });
 }

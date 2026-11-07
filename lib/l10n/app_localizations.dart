@@ -2056,6 +2056,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Export as CSV'**
   String get netExport;
+
+  /// No description provided for @trackerKindAds.
+  ///
+  /// In en, this message translates to:
+  /// **'Advertising'**
+  String get trackerKindAds;
+
+  /// No description provided for @trackerKindAdsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Shows ads in the app and measures which ads you see and tap. It often uses your advertising ID and device details to pick ads for you.'**
+  String get trackerKindAdsBody;
+
+  /// No description provided for @trackerKindAnalytics.
+  ///
+  /// In en, this message translates to:
+  /// **'Usage analytics'**
+  String get trackerKindAnalytics;
+
+  /// No description provided for @trackerKindAnalyticsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Records how you use the app: screens you open, buttons you tap and how long you stay. The app maker uses it to understand its users.'**
+  String get trackerKindAnalyticsBody;
+
+  /// No description provided for @trackerKindAttribution.
+  ///
+  /// In en, this message translates to:
+  /// **'Install attribution'**
+  String get trackerKindAttribution;
+
+  /// No description provided for @trackerKindAttributionBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Finds out which ad or link led you to install the app, and follows what you do afterwards so advertisers can see how well their ads work.'**
+  String get trackerKindAttributionBody;
+
+  /// No description provided for @trackerKindCrash.
+  ///
+  /// In en, this message translates to:
+  /// **'Crash reports'**
+  String get trackerKindCrash;
+
+  /// No description provided for @trackerKindCrashBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Sends a report when the app crashes, with details about your phone and the error. It helps the maker fix bugs and is usually the least intrusive kind.'**
+  String get trackerKindCrashBody;
+
+  /// No description provided for @trackerKindPush.
+  ///
+  /// In en, this message translates to:
+  /// **'Push messages'**
+  String get trackerKindPush;
+
+  /// No description provided for @trackerKindPushBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Sends notifications to your phone and may track whether you open them. It is needed for notifications, but is also used for marketing messages.'**
+  String get trackerKindPushBody;
+
+  /// No description provided for @trackerKindOther.
+  ///
+  /// In en, this message translates to:
+  /// **'Tracker'**
+  String get trackerKindOther;
+
+  /// No description provided for @trackerKindOtherBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A known tracking component. Peekless has no detailed note on it, but it can collect data about you or your device and send it online.'**
+  String get trackerKindOtherBody;
+
+  /// No description provided for @trackerTapHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap a tracker to see what it does.'**
+  String get trackerTapHint;
+
+  /// No description provided for @certTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Signing certificate'**
+  String get certTitle;
+
+  /// No description provided for @certNormal.
+  ///
+  /// In en, this message translates to:
+  /// **'Not signed with a debug key. Tap to copy the fingerprint.'**
+  String get certNormal;
+
+  /// No description provided for @certDebug.
+  ///
+  /// In en, this message translates to:
+  /// **'Signed with a debug key. Real releases use a private key, so be careful with this app. Tap to copy the fingerprint.'**
+  String get certDebug;
+
+  /// No description provided for @certUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Android did not give the certificate of this app.'**
+  String get certUnknown;
+
+  /// No description provided for @certCopied.
+  ///
+  /// In en, this message translates to:
+  /// **'SHA-256 copied'**
+  String get certCopied;
 }
 
 class _AppLocalizationsDelegate
